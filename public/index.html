@@ -21,17 +21,20 @@
 
     <main class="container">
         <section class="hero">
-            <h1>Bienvenido a SPEAKSOFT</h1>
-            <p>Estructura inicial configurada con Node.js, Express y PostgreSQL. El entorno está listo para recibir tus referencias de diseño y lógica.</p>
+            <h1>SPEAKSOFT + Prisma</h1>
+            <p>Configuración migrada a Prisma ORM para facilitar el trabajo remoto y la sincronización de esquemas.</p>
             <a href="#" class="btn btn-primary">Empezar ahora</a>
 
             <div class="ref-box">
                 <span class="status-badge">Entorno Preparado</span>
+                <div id="db-status" class="db-status">
+                    Conectando a base de datos con Prisma...
+                </div>
                 <h2>Siguientes Pasos</h2>
-                <p>Por favor, sube los archivos de referencia a las siguientes carpetas:</p>
+                <p>Para trabajar remotamente:</p>
                 <ul style="text-align: left; list-style: none; margin-top: 1rem;">
-                    <li>📁 <strong>project_references/</strong> - Documentos de lógica y requisitos.</li>
-                    <li>📁 <strong>design_references/</strong> - Fotos y capturas del diseño.</li>
+                    <li>🛠️ <strong>npx prisma migrate dev</strong> - Para aplicar cambios en la base de datos local.</li>
+                    <li>🔄 <strong>git push</strong> - Para compartir el esquema y las migraciones.</li>
                 </ul>
             </div>
         </section>

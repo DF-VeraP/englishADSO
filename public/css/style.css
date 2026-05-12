@@ -158,3 +158,25 @@ header {
     font-weight: 600;
     margin-bottom: 1rem;
 }
+
+.db-status {
+    margin: 1rem 0;
+    padding: 0.75rem;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--glass-border);
+}
+
+.db-status.connected {
+    color: var(--primary);
+    border-color: var(--primary);
+    background: rgba(57, 169, 0, 0.05);
+}
+
+.db-status.error {
+    color: #ff4444;
+    border-color: #ff4444;
+    background: rgba(255, 68, 68, 0.05);
+}

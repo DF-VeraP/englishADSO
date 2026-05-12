@@ -16,9 +16,24 @@ app.use(express.static(path.join(__dirname, '../public')));
 // Routes
 const authRoutes = require('./routes/auth.routes');
 
+// Database
+const prisma = require('./config/db');
+
 // Basic Route
 app.get('/api/health', (req, res) => {
     res.json({ status: 'OK', message: 'SPEAKSOFT API is running' });
+});
+
+// DB Status Route
+app.get('/api/db-status', async (req, res) => {
+    try {
+        // Test connection using Prisma
+        await prisma.$queryRaw`SELECT 1`;
+        res.json({ status: 'connected', orm: 'Prisma' });
+    } catch (err) {
+        console.error('Prisma Connection Error:', err);
+        res.status(500).json({ status: 'error', message: err.message });
+    }
 });
 
 // API Routes
