@@ -27,7 +27,6 @@ app.get('/api/health', (req, res) => {
 // DB Status Route
 app.get('/api/db-status', async (req, res) => {
     try {
-        // Test connection using Prisma
         await prisma.$queryRaw`SELECT 1`;
         res.json({ status: 'connected', orm: 'Prisma' });
     } catch (err) {
@@ -40,7 +39,24 @@ app.get('/api/db-status', async (req, res) => {
 app.use('/api/auth', authRoutes);
 
 // Start Server
-app.listen(PORT, () => {
-    console.log(`\n🚀 SPEAKSOFT server running on: http://localhost:${PORT}`);
-    console.log(`📂 Serving static files from: ${path.join(__dirname, '../public')}\n`);
-});
+const startServer = async () => {
+    try {
+        console.log('⏳ Conectando a la base de datos...');
+        await prisma.$connect();
+        console.log('✅ Base de datos conectada exitosamente.');
+
+        app.listen(PORT, () => {
+            console.log(`\n🚀 SPEAKSOFT server running on: http://localhost:${PORT}`);
+            console.log(`📂 Serving static files from: ${path.join(__dirname, '../public')}\n`);
+        });
+
+        // Keep-alive to prevent the process from exiting if the event loop is empty
+        setInterval(() => {}, 1000 * 60 * 60); // 1 hour dummy interval
+
+    } catch (err) {
+        console.error('❌ Error fatal al iniciar el servidor:', err);
+        process.exit(1);
+    }
+};
+
+startServer();
