@@ -1,0 +1,392 @@
+/* Variables específicas para el Login (Tema Blanco/Azul) */
+:root {
+    --login-primary: #0056b3; /* Azul Médico */
+    --login-primary-light: #3378c6;
+    --login-bg: #ffffff; /* Blanco */
+    --login-text: #333333;
+    --login-text-muted: #666666;
+    --login-input-bg: #f8f9fa;
+    --login-border: #e0e0e0;
+}
+
+body:has(.login-split-container) {
+    background-color: var(--login-bg);
+    color: var(--login-text);
+}
+
+body:has(.login-split-container) .bg-glow {
+    display: none; /* Quitamos el brillo oscuro para esta pantalla */
+}
+
+/* Layout Dividido */
+.login-split-container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+/* Sección de la Imagen (Izquierda) */
+.login-image-section {
+    flex: 1;
+    background: linear-gradient(135deg, rgba(0, 86, 179, 0.1) 0%, rgba(0, 86, 179, 0.05) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-right: 1px solid var(--login-border);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Patrón sutil para la zona de imagen */
+.login-image-section::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-image: radial-gradient(var(--login-primary) 1px, transparent 1px);
+    background-size: 20px 20px;
+    opacity: 0.1;
+}
+
+.image-placeholder {
+    text-align: center;
+    color: var(--login-primary);
+    background: white;
+    padding: 3rem;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 86, 179, 0.1);
+    z-index: 1;
+}
+
+.placeholder-icon {
+    font-size: 4rem;
+    display: block;
+    margin-bottom: 1rem;
+}
+
+/* Sección del Formulario (Derecha) */
+.login-form-section {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    background-color: white;
+}
+
+/* Decoración de fondo */
+.login-bg-shape {
+    position: absolute;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, var(--primary) 0%, transparent 70%);
+    opacity: 0.15;
+    border-radius: 50%;
+    top: -200px;
+    right: -200px;
+    z-index: 0;
+    pointer-events: none;
+}
+
+.login-bg-shape-2 {
+    position: absolute;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, var(--accent) 0%, transparent 70%);
+    opacity: 0.1;
+    border-radius: 50%;
+    bottom: -100px;
+    left: -100px;
+    z-index: 0;
+    pointer-events: none;
+}
+
+/* Tarjeta de Login */
+.login-card {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    padding: 2rem;
+    width: 100%;
+    max-width: 450px;
+    z-index: 10;
+    animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.login-header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+}
+
+.login-logo {
+    color: var(--login-primary);
+    font-size: 2.5rem;
+    font-weight: 800;
+    letter-spacing: 2px;
+    margin-bottom: 0.5rem;
+    display: inline-block;
+}
+
+.login-subtitle {
+    color: var(--login-text-muted);
+    font-size: 0.95rem;
+}
+
+/* Selector de Rol */
+.role-selector {
+    display: flex;
+    background-color: var(--login-input-bg);
+    border-radius: 12px;
+    padding: 0.25rem;
+    margin-bottom: 1.5rem;
+    border: 1px solid var(--login-border);
+}
+
+.role-option {
+    flex: 1;
+    position: relative;
+    cursor: pointer;
+}
+
+.role-option input {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.role-btn {
+    display: block;
+    text-align: center;
+    padding: 0.6rem 0;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--login-text-muted);
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.role-option input:checked + .role-btn {
+    background-color: white;
+    color: var(--login-primary);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.role-option:hover .role-btn {
+    color: var(--login-primary-light);
+}
+
+/* Formulario */
+.form-group {
+    margin-bottom: 1.5rem;
+    position: relative;
+}
+
+.form-label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--login-text);
+}
+
+.form-input {
+    width: 100%;
+    padding: 1rem 1.2rem;
+    background: var(--login-input-bg);
+    border: 1px solid var(--login-border);
+    border-radius: 12px;
+    color: var(--login-text);
+    font-family: inherit;
+    font-size: 1rem;
+    transition: var(--transition);
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: var(--login-primary);
+    box-shadow: 0 0 0 4px rgba(0, 86, 179, 0.15);
+    background: #ffffff;
+}
+
+.form-input::placeholder {
+    color: #a0aab5;
+}
+
+/* Validaciones Visuales */
+.form-input.is-invalid {
+    border-color: #ef4444;
+}
+
+.error-message {
+    color: #ef4444;
+    font-size: 0.8rem;
+    margin-top: 0.5rem;
+    display: none;
+}
+
+.form-group.has-error .error-message {
+    display: block;
+}
+
+/* Utilidades de layout */
+.form-options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    font-size: 0.9rem;
+}
+
+.forgot-link {
+    color: var(--login-primary);
+    text-decoration: none;
+    transition: var(--transition);
+    font-weight: 500;
+}
+
+.forgot-link:hover {
+    color: var(--login-primary-light);
+    text-decoration: underline;
+}
+
+/* Checkbox personalizado */
+.checkbox-container {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    user-select: none;
+    color: var(--login-text-muted);
+}
+
+.checkbox-container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+.checkmark {
+    height: 18px;
+    width: 18px;
+    background-color: var(--login-input-bg);
+    border: 1px solid var(--login-border);
+    border-radius: 4px;
+    margin-right: 8px;
+    position: relative;
+    transition: var(--transition);
+}
+
+.checkbox-container:hover input ~ .checkmark {
+    background-color: #e2e8f0;
+}
+
+.checkbox-container input:checked ~ .checkmark {
+    background-color: var(--login-primary);
+    border-color: var(--login-primary);
+}
+
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+    left: 6px;
+    top: 2px;
+    width: 4px;
+    height: 9px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+.checkbox-container input:checked ~ .checkmark:after {
+    display: block;
+}
+
+/* Botón de Submit */
+.btn-submit {
+    width: 100%;
+    padding: 1.2rem;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    background-color: var(--login-primary);
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    box-shadow: 0 4px 6px rgba(0, 86, 179, 0.2);
+    transition: all 0.3s ease;
+}
+
+.btn-submit:hover {
+    background-color: var(--login-primary-light);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 86, 179, 0.3);
+}
+
+.loader {
+    width: 20px;
+    height: 20px;
+    border: 3px solid rgba(255,255,255,0.3);
+    border-radius: 50%;
+    border-top-color: white;
+    animation: spin 1s ease-in-out infinite;
+    display: none;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+.is-loading .loader {
+    display: inline-block;
+}
+.is-loading .btn-text {
+    display: none;
+}
+
+/* Alertas Globales (Toasts simples) */
+.toast-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+}
+
+.toast {
+    background: var(--dark-alt);
+    color: var(--light);
+    padding: 1rem 1.5rem;
+    border-radius: 12px;
+    border-left: 4px solid var(--primary);
+    margin-top: 10px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    opacity: 0;
+    transform: translateX(100%);
+    transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.toast.show {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.toast.error {
+    border-left-color: #ef4444;
+}
