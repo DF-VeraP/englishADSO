@@ -1,5 +1,6 @@
+require('dotenv').config();
 const bcrypt = require('bcrypt');
-const db = require('../config/db');
+const { prisma } = require('../config/db');
 
 async function seed() {
     try {
@@ -14,7 +15,7 @@ async function seed() {
         for (const u of usuarios) {
             const hash = await bcrypt.hash(u.passw_usuario, 10);
 
-            await db.user.upsert({
+            await prisma.user.upsert({
                 where: { correo_usuario: u.correo_usuario },
                 update: {
                     nombre_usuario: u.nombre_usuario,

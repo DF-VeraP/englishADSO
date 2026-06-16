@@ -1,20 +1,11 @@
-/*
-  Warnings:
-
-  - You are about to drop the `User` table. If the table is not empty, all the data it contains will be lost.
-
-*/
--- DropTable
-DROP TABLE "User";
-
 -- CreateTable
 CREATE TABLE "usuarios" (
     "id" SERIAL NOT NULL,
-    "email" TEXT NOT NULL,
-    "password" TEXT NOT NULL,
-    "nombre" TEXT,
-    "rol" TEXT NOT NULL,
-    "activo" BOOLEAN NOT NULL DEFAULT true,
+    "correo_usuario" VARCHAR(150) NOT NULL,
+    "passw_usuario" VARCHAR(255) NOT NULL,
+    "nombre_usuario" VARCHAR(100),
+    "rol_usuario" VARCHAR(20) NOT NULL,
+    "estado_usuario" BOOLEAN NOT NULL DEFAULT true,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
@@ -22,4 +13,4 @@ CREATE TABLE "usuarios" (
 );
 
 -- CreateIndex
-CREATE UNIQUE INDEX "usuarios_email_key" ON "usuarios"("email");
+CREATE UNIQUE INDEX "usuarios_correo_usuario_key" ON "usuarios"("correo_usuario");

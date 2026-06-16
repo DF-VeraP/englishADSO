@@ -9,6 +9,9 @@
     "seed": "node src/scripts/seed.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "prisma": {
+    "seed": "node src/scripts/seed.js"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
