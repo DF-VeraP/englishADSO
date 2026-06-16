@@ -1,13 +1,12 @@
 const { Pool } = require('pg');
-require('dotenv').config();
+const { PrismaPg } = require('@prisma/adapter-pg');
+const { PrismaClient } = require('../generated/client');
 
-const pool = new Pool({
-    user: process.env.DB_USER,
-    host: process.env.DB_HOST,
-    database: process.env.DB_NAME,
-    password: process.env.DB_PASSWORD,
-    port: process.env.DB_PORT,
-});
+const connectionString = process.env.DATABASE_URL;
+
+const pool = new Pool({ connectionString });
+const adapter = new PrismaPg(pool);
+const prisma = new PrismaClient({ adapter });
 
 pool.on('connect', () => {
     console.log('✅ Connected to PostgreSQL');
@@ -20,4 +19,5 @@ pool.on('error', (err) => {
 
 module.exports = {
     query: (text, params) => pool.query(text, params),
+    prisma,
 };

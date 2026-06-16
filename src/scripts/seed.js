@@ -1,28 +1,37 @@
-require('dotenv').config();
 const bcrypt = require('bcrypt');
 const db = require('../config/db');
 
 async function seed() {
     try {
-        console.log('Cifrando contraseñas y actualizando usuarios...\n');
+        console.log('Cifrando contraseñas y actualizando usuarios con Prisma...\n');
 
         const usuarios = [
-            { nombre: 'Administrador',      email: 'admin@sena.edu.co',      password: 'admin123',  rol: 'admin'      },
-            { nombre: 'Instructor Demo',    email: 'instructor@sena.edu.co', password: 'inst123',   rol: 'instructor' },
-            { nombre: 'Aprendiz Demo',      email: 'aprendiz@sena.edu.co',   password: 'aprend123', rol: 'aprendiz'   },
+            { nombre_usuario: 'Administrador',   correo_usuario: 'admin@sena.edu.co',      passw_usuario: 'admin123',  rol_usuario: 'admin'      },
+            { nombre_usuario: 'Instructor Demo', correo_usuario: 'instructor@sena.edu.co', passw_usuario: 'inst123',   rol_usuario: 'instructor' },
+            { nombre_usuario: 'Aprendiz Demo',   correo_usuario: 'aprendiz@sena.edu.co',   passw_usuario: 'aprend123', rol_usuario: 'aprendiz'   },
         ];
 
         for (const u of usuarios) {
-            const hash = await bcrypt.hash(u.password, 10);
+            const hash = await bcrypt.hash(u.passw_usuario, 10);
 
-            await db.query(
-                `INSERT INTO usuarios (nombre, email, password, rol)
-                 VALUES ($1, $2, $3, $4)
-                 ON CONFLICT (email) DO UPDATE SET password = $3, nombre = $1`,
-                [u.nombre, u.email, hash, u.rol]
-            );
+            await db.user.upsert({
+                where: { correo_usuario: u.correo_usuario },
+                update: {
+                    nombre_usuario: u.nombre_usuario,
+                    passw_usuario: hash,
+                    rol_usuario: u.rol_usuario,
+                    estado_usuario: true
+                },
+                create: {
+                    nombre_usuario: u.nombre_usuario,
+                    correo_usuario: u.correo_usuario,
+                    passw_usuario: hash,
+                    rol_usuario: u.rol_usuario,
+                    estado_usuario: true
+                }
+            });
 
-            console.log(`✅ ${u.rol.padEnd(12)} | ${u.email.padEnd(28)} | contraseña: ${u.password}`);
+            console.log(`✅ ${u.rol_usuario.padEnd(12)} | ${u.correo_usuario.padEnd(28)} | contraseña: ${u.passw_usuario}`);
         }
 
         console.log('\nBase de datos lista.\n');
