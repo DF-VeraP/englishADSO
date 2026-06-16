@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Usuarios — SPEAKSOFT</title>
+    <link rel="stylesheet" href="/css/admin.css">
+</head>
+<body>
+
+    <!-- ── Header ─────────────────────────────────────────── -->
+    <header class="admin-header">
+        <div class="header-brand">
+            <a href="/index.html" class="header-logo">SPEAKSOFT</a>
+            <span class="badge-admin">Admin</span>
+            <nav style="display:flex;gap:1rem;margin-left:1rem">
+                <a href="/index.html" class="header-nav-link">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+                    Dashboard
+                </a>
+                <a href="/admin/usuarios.html" class="header-nav-link active">Usuarios</a>
+                <a href="/admin/cursos.html" class="header-nav-link">Cursos</a>
+            </nav>
+        </div>
+        <div class="header-user">
+            <span class="header-user-name" id="user-email"></span>
+            <button class="btn-logout" id="btn-logout">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/>
+                </svg>
+                Cerrar sesión
+            </button>
+        </div>
+    </header>
+
+    <!-- ── Main ───────────────────────────────────────────── -->
+    <main class="admin-main">
+
+        <!-- Page header -->
+        <div class="page-header">
+            <div>
+                <h1 class="page-title">Gestión de Usuarios</h1>
+                <p class="page-subtitle">Administra los usuarios del sistema SPEAKSOFT</p>
+            </div>
+            <button class="btn btn-primary" id="btn-new-user">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+                </svg>
+                Nuevo Usuario
+            </button>
+        </div>
+
+        <!-- Filters -->
+        <div class="filters-bar">
+            <input type="text" id="search" class="search-input" placeholder="Buscar por nombre o correo...">
+            <select id="filter-role" class="select-filter">
+                <option value="">Todos los roles</option>
+                <option value="admin">Admin</option>
+                <option value="instructor">Instructor</option>
+                <option value="aprendiz">Aprendiz</option>
+            </select>
+            <select id="filter-status" class="select-filter">
+                <option value="">Todos los estados</option>
+                <option value="true">Activos</option>
+                <option value="false">Inactivos</option>
+            </select>
+        </div>
+
+        <!-- Table -->
+        <div class="table-card">
+            <table class="users-table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Usuario</th>
+                        <th>Rol</th>
+                        <th>Estado</th>
+                        <th>Creado</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="users-tbody"></tbody>
+            </table>
+            <div id="table-state" class="table-state">
+                <div class="spinner"></div>
+                <p>Cargando usuarios...</p>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- ── Modal crear/editar ──────────────────────────────── -->
+    <div id="modal-user" class="modal-overlay">
+        <div class="modal">
+            <div class="modal-header">
+                <h2 id="modal-title">Nuevo Usuario</h2>
+                <button class="btn-close" id="btn-close-modal" type="button">&#x2715;</button>
+            </div>
+
+            <form id="form-user" novalidate>
+                <div class="modal-body">
+
+                    <!-- Nombre -->
+                    <div class="form-group">
+                        <label class="form-label" for="input-nombre">Nombre completo</label>
+                        <input type="text" id="input-nombre" class="form-input" placeholder="Ej: María García" autocomplete="off">
+                    </div>
+
+                    <!-- Correo -->
+                    <div class="form-group">
+                        <label class="form-label" for="input-email">
+                            Correo electrónico <span class="required">*</span>
+                        </label>
+                        <input type="email" id="input-email" class="form-input" placeholder="usuario@sena.edu.co" autocomplete="off">
+                        <span class="form-error" id="error-email"></span>
+                    </div>
+
+                    <!-- Contraseña -->
+                    <div class="form-group">
+                        <label class="form-label" for="input-password">
+                            Contraseña <span class="required">*</span>
+                        </label>
+                        <div class="input-wrap">
+                            <input type="password" id="input-password" class="form-input" placeholder="••••••••" style="padding-right:2.8rem" autocomplete="new-password">
+                            <button type="button" class="toggle-pass" id="btn-toggle-pass">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>
+                                </svg>
+                            </button>
+                        </div>
+                        <span class="form-error" id="error-password"></span>
+                        <p class="form-hint" id="pass-hint">Mínimo 6 caracteres.</p>
+                    </div>
+
+                    <!-- Rol -->
+                    <div class="form-group">
+                        <label class="form-label">Rol <span class="required">*</span></label>
+                        <div class="role-group">
+                            <label class="role-radio">
+                                <input type="radio" name="rol" value="aprendiz">
+                                <span class="role-label">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c0 1.1 2.686 2 6 2s6-.9 6-2v-5"/>
+                                    </svg>
+                                    Aprendiz
+                                </span>
+                            </label>
+                            <label class="role-radio">
+                                <input type="radio" name="rol" value="instructor">
+                                <span class="role-label">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>
+                                    </svg>
+                                    Instructor
+                                </span>
+                            </label>
+                            <label class="role-radio">
+                                <input type="radio" name="rol" value="admin">
+                                <span class="role-label">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                                    </svg>
+                                    Admin
+                                </span>
+                            </label>
+                        </div>
+                        <span class="form-error" id="error-rol" style="display:none">Selecciona un rol</span>
+                    </div>
+
+                    <!-- Estado (solo edición) -->
+                    <div class="form-group" id="status-group" style="display:none">
+                        <label class="form-label">Estado</label>
+                        <label class="status-toggle">
+                            <input type="checkbox" id="input-status" checked>
+                            <div class="toggle-track"><div class="toggle-thumb"></div></div>
+                            <span class="toggle-text">Usuario activo</span>
+                        </label>
+                    </div>
+
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" id="btn-cancel-modal">Cancelar</button>
+                    <button type="submit" class="btn btn-primary" id="btn-save">Guardar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- ── Modal confirmar eliminación ─────────────────────── -->
+    <div id="modal-delete" class="modal-overlay">
+        <div class="modal modal--sm">
+            <div class="modal-header">
+                <h2>Eliminar Usuario</h2>
+                <button class="btn-close" id="btn-cancel-delete" type="button">&#x2715;</button>
+            </div>
+            <div class="modal-confirm-body">
+                <p>¿Estás seguro de que quieres eliminar a <strong id="delete-user-name"></strong>? Esta acción no se puede deshacer.</p>
+                <div class="modal-confirm-actions">
+                    <button class="btn btn-secondary" id="btn-cancel-delete" type="button">Cancelar</button>
+                    <button class="btn btn-danger" id="btn-confirm-delete" type="button">Eliminar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ── Toasts ──────────────────────────────────────────── -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <script src="/js/AuthGuard.js"></script>
+    <script src="/js/UsersService.js"></script>
+    <script src="/js/UsersController.js"></script>
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Curso — SPEAKSOFT</title>
+    <link rel="stylesheet" href="/css/course-player.css">
+</head>
+<body>
+<canvas id="confetti-canvas"></canvas>
+
+<div class="player-layout">
+
+    <!-- ── Top Bar ─────────────────────────────────────── -->
+    <header class="player-topbar">
+        <div class="topbar-left">
+            <a href="/index.html" class="topbar-logo">SPEAKSOFT</a>
+            <div class="topbar-course-title" id="topbar-title">Cargando curso...</div>
+        </div>
+        <div class="topbar-progress-wrap">
+            <div class="topbar-progress-bar">
+                <div class="topbar-progress-fill" id="topbar-progress-fill" style="width:0%"></div>
+            </div>
+            <span class="topbar-progress-pct" id="topbar-pct">0%</span>
+        </div>
+        <div class="topbar-right">
+            <a href="/index.html" class="btn-topbar-exit">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+                Salir del curso
+            </a>
+        </div>
+    </header>
+
+    <!-- ── Sidebar ─────────────────────────────────────── -->
+    <aside class="player-sidebar" id="sidebar">
+        <div class="sidebar-section-title">Contenido del curso</div>
+        <div id="sidebar-modules"></div>
+    </aside>
+
+    <!-- ── Main ────────────────────────────────────────── -->
+    <main class="player-main" id="player-main">
+        <div style="text-align:center;padding:4rem 1rem;color:var(--text-muted)">
+            <div style="font-size:2rem;margin-bottom:1rem">📚</div>
+            <p>Cargando contenido...</p>
+        </div>
+    </main>
+
+</div>
+
+<script src="/js/AuthGuard.js"></script>
+<script src="/js/components/WarmUpDrag.js"></script>
+<script src="/js/components/GrammarPill.js"></script>
+<script src="/js/components/FlashcardVocab.js"></script>
+<script src="/js/components/StorybookChat.js"></script>
+<script src="/js/components/PracticaFill.js"></script>
+<script src="/js/components/PracticaAudioForm.js"></script>
+<script src="/js/components/PracticaDropdown.js"></script>
+<script src="/js/components/DesafioAudio.js"></script>
+<script src="/js/components/QuizMultiple.js"></script>
+<script src="/js/CoursePlayer.js"></script>
+</body>
+</html>

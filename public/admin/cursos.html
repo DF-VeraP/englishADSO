@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Cursos — SPEAKSOFT</title>
+    <link rel="stylesheet" href="/css/admin.css">
+    <style>
+        .nivel-badge {
+            display: inline-block;
+            padding: .2rem .55rem;
+            border-radius: 999px;
+            font-size: .72rem;
+            font-weight: 700;
+            letter-spacing: .03em;
+            text-transform: uppercase;
+        }
+        .nivel-basico      { background: #064e3b; color: #6ee7b7; }
+        .nivel-intermedio  { background: #1e3a5f; color: #93c5fd; }
+        .nivel-avanzado    { background: #4c1d95; color: #c4b5fd; }
+
+        .nivel-select-group { display: flex; gap: .75rem; flex-wrap: wrap; }
+        .nivel-radio { display: none; }
+        .nivel-option {
+            display: flex; align-items: center; gap: .4rem;
+            padding: .45rem .85rem; border-radius: 8px;
+            border: 1.5px solid var(--border);
+            cursor: pointer; font-size: .83rem; font-weight: 500; color: var(--text-muted);
+            transition: border-color .2s, color .2s, background .2s;
+        }
+        .nivel-radio:checked + .nivel-option {
+            border-color: var(--accent);
+            background: rgba(6,182,212,.08);
+            color: var(--accent);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ── Header ─────────────────────────────────────────── -->
+    <header class="admin-header">
+        <div class="header-brand">
+            <a href="/index.html" class="header-logo">SPEAKSOFT</a>
+            <span class="badge-admin">Admin</span>
+            <nav style="display:flex;gap:1rem;margin-left:1rem">
+                <a href="/index.html" class="header-nav-link">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+                    Dashboard
+                </a>
+                <a href="/admin/usuarios.html" class="header-nav-link">Usuarios</a>
+                <a href="/admin/cursos.html" class="header-nav-link active">Cursos</a>
+            </nav>
+        </div>
+        <div class="header-user">
+            <span class="header-user-name" id="user-email"></span>
+            <button class="btn-logout" id="btn-logout">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/>
+                </svg>
+                Cerrar sesión
+            </button>
+        </div>
+    </header>
+
+    <!-- ── Main ───────────────────────────────────────────── -->
+    <main class="admin-main">
+
+        <div class="page-header">
+            <div>
+                <h1 class="page-title">Gestión de Cursos</h1>
+                <p class="page-subtitle">Administra los cursos de inglés de SPEAKSOFT</p>
+            </div>
+            <button class="btn btn-primary" id="btn-new-course">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+                </svg>
+                Nuevo Curso
+            </button>
+        </div>
+
+        <!-- Filters -->
+        <div class="filters-bar">
+            <input type="text" id="search" class="search-input" placeholder="Buscar por título o descripción...">
+            <select id="filter-nivel" class="select-filter">
+                <option value="">Todos los niveles</option>
+                <option value="basico">Básico</option>
+                <option value="intermedio">Intermedio</option>
+                <option value="avanzado">Avanzado</option>
+            </select>
+            <select id="filter-estado" class="select-filter">
+                <option value="">Todos los estados</option>
+                <option value="true">Activos</option>
+                <option value="false">Inactivos</option>
+            </select>
+        </div>
+
+        <!-- Table -->
+        <div class="table-card">
+            <table class="users-table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Curso</th>
+                        <th>Nivel</th>
+                        <th>Instructor</th>
+                        <th>Estado</th>
+                        <th>Estadísticas</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="courses-tbody"></tbody>
+            </table>
+            <div id="table-state" class="table-state">
+                <div class="spinner"></div>
+                <p>Cargando cursos...</p>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- ── Modal crear/editar ──────────────────────────────── -->
+    <div id="modal-course" class="modal-overlay">
+        <div class="modal">
+            <div class="modal-header">
+                <h2 id="modal-title">Nuevo Curso</h2>
+                <button class="btn-close" id="btn-close-modal" type="button">&#x2715;</button>
+            </div>
+
+            <form id="form-course" novalidate>
+                <div class="modal-body">
+
+                    <!-- Título -->
+                    <div class="form-group">
+                        <label class="form-label" for="input-titulo">Título <span class="required">*</span></label>
+                        <input type="text" id="input-titulo" class="form-input" placeholder="Ej: English for Beginners" autocomplete="off">
+                        <span class="form-error" id="error-titulo"></span>
+                    </div>
+
+                    <!-- Descripción -->
+                    <div class="form-group">
+                        <label class="form-label" for="input-desc">Descripción</label>
+                        <textarea id="input-desc" class="form-input" placeholder="Breve descripción del curso..." rows="3" style="resize:vertical"></textarea>
+                    </div>
+
+                    <!-- Nivel -->
+                    <div class="form-group">
+                        <label class="form-label">Nivel <span class="required">*</span></label>
+                        <div class="nivel-select-group">
+                            <label>
+                                <input type="radio" name="nivel" value="basico" class="nivel-radio" checked id="input-nivel">
+                                <span class="nivel-option">
+                                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+                                    Básico
+                                </span>
+                            </label>
+                            <label>
+                                <input type="radio" name="nivel" value="intermedio" class="nivel-radio">
+                                <span class="nivel-option">
+                                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+                                    Intermedio
+                                </span>
+                            </label>
+                            <label>
+                                <input type="radio" name="nivel" value="avanzado" class="nivel-radio">
+                                <span class="nivel-option">
+                                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+                                    Avanzado
+                                </span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Instructor (admin only) -->
+                    <div class="form-group" id="instructor-group">
+                        <label class="form-label" for="input-instructor">Instructor <span class="required">*</span></label>
+                        <select id="input-instructor" class="form-input">
+                            <option value="">Seleccionar instructor…</option>
+                        </select>
+                        <span class="form-error" id="error-instructor"></span>
+                    </div>
+
+                    <!-- Estado (solo edición) -->
+                    <div class="form-group" id="status-group" style="display:none">
+                        <label class="form-label">Estado</label>
+                        <label class="status-toggle">
+                            <input type="checkbox" id="input-status" checked>
+                            <div class="toggle-track"><div class="toggle-thumb"></div></div>
+                            <span class="toggle-text">Curso activo</span>
+                        </label>
+                    </div>
+
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" id="btn-cancel-modal">Cancelar</button>
+                    <button type="submit" class="btn btn-primary" id="btn-save">Crear Curso</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- ── Modal confirmar eliminación ─────────────────────── -->
+    <div id="modal-delete" class="modal-overlay">
+        <div class="modal modal--sm">
+            <div class="modal-header">
+                <h2>Eliminar Curso</h2>
+                <button class="btn-close" id="btn-cancel-delete" type="button">&#x2715;</button>
+            </div>
+            <div class="modal-confirm-body">
+                <p>¿Estás seguro de que quieres eliminar el curso <strong id="delete-course-name"></strong>? Se eliminarán también todos sus módulos. Esta acción no se puede deshacer.</p>
+                <div class="modal-confirm-actions">
+                    <button class="btn btn-secondary" id="btn-cancel-delete" type="button">Cancelar</button>
+                    <button class="btn btn-danger" id="btn-confirm-delete" type="button">Eliminar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ── Toasts ──────────────────────────────────────────── -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <script src="/js/AuthGuard.js"></script>
+    <script src="/js/CoursesService.js"></script>
+    <script src="/js/CoursesController.js"></script>
+</body>
+</html>

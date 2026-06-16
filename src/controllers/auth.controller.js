@@ -1,6 +1,6 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const db = require('../config/db');
+const { prisma } = require('../config/db');
 
 const login = async (req, res) => {
     try {
@@ -11,7 +11,7 @@ const login = async (req, res) => {
         }
 
         // Buscar usuario por email y rol usando los nuevos campos
-        const usuario = await db.user.findFirst({
+        const usuario = await prisma.user.findFirst({
             where: {
                 correo_usuario: email,
                 rol_usuario: role,

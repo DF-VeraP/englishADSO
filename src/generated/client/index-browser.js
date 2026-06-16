@@ -131,9 +131,134 @@ exports.Prisma.UserScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.CursoScalarFieldEnum = {
+  id: 'id',
+  titulo: 'titulo',
+  descripcion: 'descripcion',
+  nivel: 'nivel',
+  estado: 'estado',
+  instructorId: 'instructorId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.ModuloScalarFieldEnum = {
+  id: 'id',
+  titulo: 'titulo',
+  descripcion: 'descripcion',
+  contenido: 'contenido',
+  orden: 'orden',
+  estado: 'estado',
+  cursoId: 'cursoId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.MomentoScalarFieldEnum = {
+  id: 'id',
+  nombre: 'nombre',
+  tipo: 'tipo',
+  orden: 'orden',
+  moduloId: 'moduloId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.ActividadScalarFieldEnum = {
+  id: 'id',
+  tipo: 'tipo',
+  titulo: 'titulo',
+  instrucciones: 'instrucciones',
+  contenido: 'contenido',
+  orden: 'orden',
+  estado: 'estado',
+  momentoId: 'momentoId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.ProgresoActividadScalarFieldEnum = {
+  id: 'id',
+  aprendizId: 'aprendizId',
+  actividadId: 'actividadId',
+  completada: 'completada',
+  intentos: 'intentos',
+  puntaje: 'puntaje',
+  respuesta: 'respuesta',
+  completadoAt: 'completadoAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.InsigniaAprendizScalarFieldEnum = {
+  id: 'id',
+  aprendizId: 'aprendizId',
+  cursoId: 'cursoId',
+  moduloId: 'moduloId',
+  tipo: 'tipo',
+  nombre: 'nombre',
+  descripcion: 'descripcion',
+  emoji: 'emoji',
+  otorgadaAt: 'otorgadaAt'
+};
+
+exports.Prisma.TestResultadoScalarFieldEnum = {
+  id: 'id',
+  aprendizId: 'aprendizId',
+  cursoId: 'cursoId',
+  tipo: 'tipo',
+  puntaje: 'puntaje',
+  total: 'total',
+  correctas: 'correctas',
+  respuestas: 'respuestas',
+  completadoAt: 'completadoAt'
+};
+
+exports.Prisma.InscripcionScalarFieldEnum = {
+  id: 'id',
+  aprendizId: 'aprendizId',
+  cursoId: 'cursoId',
+  progreso: 'progreso',
+  estado: 'estado',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.AuditLogScalarFieldEnum = {
+  id: 'id',
+  accion: 'accion',
+  recurso: 'recurso',
+  recursoId: 'recursoId',
+  detalle: 'detalle',
+  usuarioId: 'usuarioId',
+  ip: 'ip',
+  userAgent: 'userAgent',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.NotificacionScalarFieldEnum = {
+  id: 'id',
+  tipo: 'tipo',
+  asunto: 'asunto',
+  mensaje: 'mensaje',
+  destinatarioId: 'destinatarioId',
+  leida: 'leida',
+  enviadoPorEmail: 'enviadoPorEmail',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
+};
+
+exports.Prisma.JsonNullValueInput = {
+  JsonNull: Prisma.JsonNull
+};
+
+exports.Prisma.NullableJsonNullValueInput = {
+  DbNull: Prisma.DbNull,
+  JsonNull: Prisma.JsonNull
 };
 
 exports.Prisma.QueryMode = {
@@ -146,9 +271,25 @@ exports.Prisma.NullsOrder = {
   last: 'last'
 };
 
+exports.Prisma.JsonNullValueFilter = {
+  DbNull: Prisma.DbNull,
+  JsonNull: Prisma.JsonNull,
+  AnyNull: Prisma.AnyNull
+};
+
 
 exports.Prisma.ModelName = {
-  User: 'User'
+  User: 'User',
+  Curso: 'Curso',
+  Modulo: 'Modulo',
+  Momento: 'Momento',
+  Actividad: 'Actividad',
+  ProgresoActividad: 'ProgresoActividad',
+  InsigniaAprendiz: 'InsigniaAprendiz',
+  TestResultado: 'TestResultado',
+  Inscripcion: 'Inscripcion',
+  AuditLog: 'AuditLog',
+  Notificacion: 'Notificacion'
 };
 
 /**

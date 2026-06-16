@@ -7,6 +7,7 @@ datasource db {
   provider = "postgresql"
 }
 
+// ── Usuarios ──────────────────────────────────────────────
 model User {
   id             Int      @id @default(autoincrement())
   correo_usuario String   @unique
@@ -17,5 +18,181 @@ model User {
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
 
+  cursosComoInstructor Curso[]             @relation("InstructorCursos")
+  inscripciones        Inscripcion[]       @relation("AprendizInscripciones")
+  auditLogs            AuditLog[]
+  notificaciones       Notificacion[]
+  progresoActividades  ProgresoActividad[]
+  insignias            InsigniaAprendiz[]
+  testResultados       TestResultado[]
+
   @@map("usuarios")
+}
+
+// ── Cursos ────────────────────────────────────────────────
+model Curso {
+  id            Int           @id @default(autoincrement())
+  titulo        String
+  descripcion   String?
+  nivel         String        @default("basico") // basico | intermedio | avanzado
+  estado        Boolean       @default(true)
+  instructorId  Int
+  instructor    User          @relation("InstructorCursos", fields: [instructorId], references: [id])
+  modulos       Modulo[]
+  inscripciones Inscripcion[]
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+
+  @@map("cursos")
+}
+
+// ── Módulos de un curso ───────────────────────────────────
+model Modulo {
+  id          Int       @id @default(autoincrement())
+  titulo      String
+  descripcion String?
+  contenido   String?
+  orden       Int       @default(0)
+  estado      Boolean   @default(true)
+  cursoId     Int
+  curso       Curso     @relation(fields: [cursoId], references: [id], onDelete: Cascade)
+  momentos    Momento[]
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@map("modulos")
+}
+
+// ── Momentos pedagógicos (4 por módulo) ──────────────────
+model Momento {
+  id          Int         @id @default(autoincrement())
+  nombre      String // "Preparación" | "Absorción" | "Práctica" | "Cierre"
+  tipo        String // "preparacion" | "absorcion" | "practica" | "cierre"
+  orden       Int         @default(0)
+  moduloId    Int
+  modulo      Modulo      @relation(fields: [moduloId], references: [id], onDelete: Cascade)
+  actividades Actividad[]
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+
+  @@map("momentos")
+}
+
+// ── Actividades interactivas ──────────────────────────────
+// tipos: warm_up_drag | grammar_pill | flashcard_vocab | storybook_chat |
+//        practica_fill | practica_audio_form | practica_dropdown |
+//        desafio_audio | quiz_multiple | pretest | postest
+model Actividad {
+  id            Int                 @id @default(autoincrement())
+  tipo          String
+  titulo        String
+  instrucciones String?
+  contenido     Json
+  orden         Int                 @default(0)
+  estado        Boolean             @default(true)
+  momentoId     Int
+  momento       Momento             @relation(fields: [momentoId], references: [id], onDelete: Cascade)
+  progresos     ProgresoActividad[]
+  createdAt     DateTime            @default(now())
+  updatedAt     DateTime            @updatedAt
+
+  @@map("actividades")
+}
+
+// ── Progreso del aprendiz por actividad ──────────────────
+model ProgresoActividad {
+  id           Int       @id @default(autoincrement())
+  aprendizId   Int
+  actividadId  Int
+  completada   Boolean   @default(false)
+  intentos     Int       @default(0)
+  puntaje      Float?
+  respuesta    Json?
+  completadoAt DateTime?
+  aprendiz     User      @relation(fields: [aprendizId], references: [id])
+  actividad    Actividad @relation(fields: [actividadId], references: [id])
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+
+  @@unique([aprendizId, actividadId])
+  @@map("progreso_actividades")
+}
+
+// ── Insignias ganadas por aprendiz ────────────────────────
+model InsigniaAprendiz {
+  id          Int      @id @default(autoincrement())
+  aprendizId  Int
+  cursoId     Int
+  moduloId    Int?
+  tipo        String // "rap1" | "rap2_3" | "rap4_5" | "rap6" | "completado"
+  nombre      String
+  descripcion String?
+  emoji       String?
+  otorgadaAt  DateTime @default(now())
+  aprendiz    User     @relation(fields: [aprendizId], references: [id])
+
+  @@map("insignias_aprendiz")
+}
+
+// ── Resultados PRE/POS test ───────────────────────────────
+model TestResultado {
+  id           Int      @id @default(autoincrement())
+  aprendizId   Int
+  cursoId      Int
+  tipo         String // "pretest" | "postest"
+  puntaje      Float
+  total        Int
+  correctas    Int
+  respuestas   Json
+  completadoAt DateTime @default(now())
+  aprendiz     User     @relation(fields: [aprendizId], references: [id])
+
+  @@map("test_resultados")
+}
+
+// ── Inscripciones aprendiz ↔ curso ────────────────────────
+model Inscripcion {
+  id         Int      @id @default(autoincrement())
+  aprendizId Int
+  cursoId    Int
+  progreso   Float    @default(0) // 0–100
+  estado     String   @default("activo") // activo | completado | cancelado
+  aprendiz   User     @relation("AprendizInscripciones", fields: [aprendizId], references: [id])
+  curso      Curso    @relation(fields: [cursoId], references: [id])
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@unique([aprendizId, cursoId])
+  @@map("inscripciones")
+}
+
+// ── Auditoría ─────────────────────────────────────────────
+model AuditLog {
+  id        Int      @id @default(autoincrement())
+  accion    String // CREATE | UPDATE | DELETE | LOGIN | PASSWORD_RESET
+  recurso   String // usuarios | cursos | modulos | inscripciones | auth
+  recursoId Int?
+  detalle   String?
+  usuarioId Int?
+  usuario   User?    @relation(fields: [usuarioId], references: [id], onDelete: SetNull)
+  ip        String?
+  userAgent String?
+  createdAt DateTime @default(now())
+
+  @@map("audit_logs")
+}
+
+// ── Notificaciones ────────────────────────────────────────
+model Notificacion {
+  id              Int      @id @default(autoincrement())
+  tipo            String // asignacion_curso | aviso_general | alerta
+  asunto          String
+  mensaje         String
+  destinatarioId  Int
+  destinatario    User     @relation(fields: [destinatarioId], references: [id])
+  leida           Boolean  @default(false)
+  enviadoPorEmail Boolean  @default(false)
+  createdAt       DateTime @default(now())
+
+  @@map("notificaciones")
 }

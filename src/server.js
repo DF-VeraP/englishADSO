@@ -12,7 +12,13 @@ app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, '../public')));
 
-const authRoutes = require('./routes/auth.routes');
+const authRoutes           = require('./routes/auth.routes');
+const usersRoutes          = require('./routes/users.routes');
+const coursesRoutes        = require('./routes/courses.routes');
+const inscripcionesRoutes  = require('./routes/inscripciones.routes');
+const auditRoutes          = require('./routes/audit.routes');
+const notificationsRoutes  = require('./routes/notifications.routes');
+const actividadesRoutes    = require('./routes/actividades.routes');
 const { prisma } = require('./config/db');
 
 app.get('/api/health', (req, res) => {
@@ -31,7 +37,13 @@ app.get('/api/db-status', async (req, res) => {
 });
 
 // API Routes
-app.use('/api/auth', authRoutes);
+app.use('/api/auth',           authRoutes);
+app.use('/api/users',          usersRoutes);
+app.use('/api/courses',        coursesRoutes);
+app.use('/api/inscripciones',  inscripcionesRoutes);
+app.use('/api/audit',          auditRoutes);
+app.use('/api/notifications',  notificationsRoutes);
+app.use('/api',                actividadesRoutes);
 
 // Start Server
 const startServer = async () => {
