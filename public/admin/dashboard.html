@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Admin — SPEAKSOFT</title>
+    <link rel="stylesheet" href="/css/admin.css">
+</head>
+<body data-theme-default="light">
+
+<header class="admin-header">
+    <div class="header-brand">
+        <a href="/admin/dashboard.html" class="header-logo">SPEAKSOFT</a>
+        <span class="badge-admin">Admin</span>
+        <nav style="display:flex;gap:1rem;margin-left:1rem">
+            <a href="/admin/dashboard.html" class="header-nav-link active">Dashboard</a>
+            <a href="/admin/usuarios.html"  class="header-nav-link">Usuarios</a>
+            <a href="/admin/cursos.html"    class="header-nav-link">Cursos</a>
+            <a href="/admin/fichas.html"    class="header-nav-link">Fichas · Programas</a>
+        </nav>
+    </div>
+    <div class="header-user">
+        <span class="header-user-name" id="user-email"></span>
+        <button class="btn-logout" id="btn-logout">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/>
+            </svg>
+            Cerrar sesión
+        </button>
+    </div>
+</header>
+
+<main class="admin-main">
+
+    <!-- Welcome -->
+    <div class="dash-welcome">
+        <div>
+            <h1 class="page-title" id="welcome-title">Bienvenido</h1>
+            <p class="page-subtitle">Panel de administración SPEAKSOFT · SENA</p>
+        </div>
+        <div class="dash-date" id="dash-date"></div>
+    </div>
+
+    <!-- Stats grid -->
+    <div class="dash-stats">
+        <div class="dash-stat-card">
+            <div class="dash-stat-icon dash-icon--blue">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>
+                </svg>
+            </div>
+            <div class="dash-stat-body">
+                <span class="dash-stat-num" id="s-instructores">—</span>
+                <span class="dash-stat-lbl">Instructores</span>
+            </div>
+        </div>
+        <div class="dash-stat-card">
+            <div class="dash-stat-icon dash-icon--green">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c0 1.1 2.686 2 6 2s6-.9 6-2v-5"/>
+                </svg>
+            </div>
+            <div class="dash-stat-body">
+                <span class="dash-stat-num" id="s-aprendices">—</span>
+                <span class="dash-stat-lbl">Aprendices</span>
+            </div>
+        </div>
+        <div class="dash-stat-card">
+            <div class="dash-stat-icon dash-icon--purple">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/>
+                </svg>
+            </div>
+            <div class="dash-stat-body">
+                <span class="dash-stat-num" id="s-cursos">—</span>
+                <span class="dash-stat-lbl">Cursos activos</span>
+            </div>
+        </div>
+        <div class="dash-stat-card">
+            <div class="dash-stat-icon dash-icon--indigo">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
+                </svg>
+            </div>
+            <div class="dash-stat-body">
+                <span class="dash-stat-num" id="s-fichas">—</span>
+                <span class="dash-stat-lbl">Fichas activas</span>
+            </div>
+        </div>
+        <div class="dash-stat-card">
+            <div class="dash-stat-icon dash-icon--amber">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/>
+                </svg>
+            </div>
+            <div class="dash-stat-body">
+                <span class="dash-stat-num" id="s-total">—</span>
+                <span class="dash-stat-lbl">Usuarios totales</span>
+            </div>
+        </div>
+        <div class="dash-stat-card">
+            <div class="dash-stat-icon dash-icon--teal">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>
+                </svg>
+            </div>
+            <div class="dash-stat-body">
+                <span class="dash-stat-num" id="s-programas">—</span>
+                <span class="dash-stat-lbl">Programas</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick access -->
+    <h2 class="dash-section-title">Módulos</h2>
+    <div class="dash-modules">
+
+        <a href="/admin/usuarios.html" class="dash-module-card">
+            <div class="dash-module-icon dash-icon--blue">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/>
+                </svg>
+            </div>
+            <div class="dash-module-info">
+                <div class="dash-module-title">Gestión de Usuarios</div>
+                <div class="dash-module-sub">Instructores, aprendices y administradores</div>
+            </div>
+            <svg class="dash-module-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="9 18 15 12 9 6"/>
+            </svg>
+        </a>
+
+        <a href="/admin/cursos.html" class="dash-module-card">
+            <div class="dash-module-icon dash-icon--purple">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/>
+                </svg>
+            </div>
+            <div class="dash-module-info">
+                <div class="dash-module-title">Cursos</div>
+                <div class="dash-module-sub">Gestión del catálogo de cursos de inglés</div>
+            </div>
+            <svg class="dash-module-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="9 18 15 12 9 6"/>
+            </svg>
+        </a>
+
+        <a href="/admin/fichas.html" class="dash-module-card">
+            <div class="dash-module-icon dash-icon--indigo">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
+                </svg>
+            </div>
+            <div class="dash-module-info">
+                <div class="dash-module-title">Fichas · Programas</div>
+                <div class="dash-module-sub">Grupos de formación y oferta SENA</div>
+            </div>
+            <svg class="dash-module-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="9 18 15 12 9 6"/>
+            </svg>
+        </a>
+
+    </div>
+
+</main>
+
+<div id="toast-container" class="toast-container"></div>
+
+<script src="/js/ThemeToggle.js"></script>
+<script src="/js/AuthGuard.js"></script>
+<script>
+(async () => {
+    const payload = AuthGuard.requireAuth(['admin']);
+    if (!payload) return;
+
+    document.getElementById('user-email').textContent = payload.nombre || '';
+    document.getElementById('welcome-title').textContent =
+        `Bienvenido, ${payload.nombre || 'Admin'}`;
+
+    const now = new Date();
+    document.getElementById('dash-date').textContent = now.toLocaleDateString('es-CO', {
+        weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
+    });
+
+    document.getElementById('btn-logout').addEventListener('click', () => AuthGuard.logout());
+
+    const token = AuthGuard.getToken();
+    const headers = { 'Authorization': `Bearer ${token}` };
+
+    try {
+        const [users, courses, fichas, programas] = await Promise.all([
+            fetch('/api/users',    { headers }).then(r => r.json()),
+            fetch('/api/courses',  { headers }).then(r => r.json()),
+            fetch('/api/fichas',   { headers }).then(r => r.json()),
+            fetch('/api/programas',{ headers }).then(r => r.json()),
+        ]);
+
+        document.getElementById('s-instructores').textContent =
+            users.filter(u => u.rol_usuario === 'instructor').length;
+        document.getElementById('s-aprendices').textContent =
+            users.filter(u => u.rol_usuario === 'aprendiz').length;
+        document.getElementById('s-total').textContent = users.length;
+        document.getElementById('s-cursos').textContent =
+            courses.filter(c => c.estado).length;
+        document.getElementById('s-fichas').textContent =
+            fichas.filter(f => f.estado === 'activa').length;
+        document.getElementById('s-programas').textContent = programas.length;
+    } catch (err) {
+        console.error('Error cargando stats:', err);
+    }
+})();
+</script>
+
+</body>
+</html>

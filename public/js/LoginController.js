@@ -63,9 +63,11 @@ class LoginController {
             this.authService.saveSession(response.token, response.user, remember);
             this.showToast(`Bienvenido, ${response.user.nombre || response.user.email}`, 'success');
 
-            setTimeout(() => {
-                window.location.href = '/index.html';
-            }, 1200);
+            const rol = response.user?.rol_usuario || response.user?.rol || '';
+            const dest = rol === 'admin'      ? '/admin/dashboard.html'
+                       : rol === 'instructor' ? '/instructor/dashboard.html'
+                       :                       '/index.html';
+            setTimeout(() => { window.location.href = dest; }, 1200);
         } catch (error) {
             this.showToast(error.message, 'error');
             this.passwordInput.value = '';

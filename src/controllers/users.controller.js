@@ -16,7 +16,10 @@ const list = async (req, res) => {
     try {
         const usuarios = await prisma.user.findMany({
             orderBy: { createdAt: 'desc' },
-            select: SELECT,
+            select: {
+                ...SELECT,
+                _count: { select: { fichasComoAprendiz: true, fichasComoInstructor: true, inscripciones: true } },
+            },
         });
         res.json(usuarios);
     } catch (err) {
@@ -60,9 +63,9 @@ const create = async (req, res) => {
             data: {
                 nombre_usuario: nombre_usuario || null,
                 correo_usuario,
-                passw_usuario: await bcrypt.hash(passw_usuario, 10),
+                passw_usuario:  await bcrypt.hash(passw_usuario, 10),
                 rol_usuario,
-                estado_usuario: true,
+                estado_usuario: rol_usuario !== 'aprendiz',
             },
             select: SELECT,
         });
@@ -123,8 +126,26 @@ const remove = async (req, res) => {
             return res.status(400).json({ message: 'No puedes eliminar tu propia cuenta' });
         }
 
-        const existe = await prisma.user.findUnique({ where: { id } });
+        const existe = await prisma.user.findUnique({
+            where: { id },
+            include: {
+                _count: { select: { fichasComoAprendiz: true, inscripciones: true } },
+            },
+        });
         if (!existe) return res.status(404).json({ message: 'Usuario no encontrado' });
+
+        if (existe.rol_usuario === 'aprendiz') {
+            const fichas        = existe._count.fichasComoAprendiz;
+            const inscripciones = existe._count.inscripciones;
+            if (fichas > 0 || inscripciones > 0) {
+                return res.status(409).json({
+                    canDelete: false,
+                    fichas,
+                    inscripciones,
+                    message: `El aprendiz tiene ${fichas} ficha(s) y ${inscripciones} inscripción(es). Desactívalo en lugar de eliminarlo.`,
+                });
+            }
+        }
 
         await prisma.user.delete({ where: { id } });
         res.json({ message: 'Usuario eliminado' });
@@ -134,4 +155,85 @@ const remove = async (req, res) => {
     }
 };
 
-module.exports = { list, getById, create, update, remove };
+const importUsers = async (req, res) => {
+    const { rows } = req.body;
+    if (!Array.isArray(rows) || rows.length === 0) {
+        return res.status(400).json({ message: 'No hay filas para importar' });
+    }
+
+    const DEFAULT_PASSWORD = 'Sena2025';
+    const created = [];
+    const failed  = [];
+
+    for (let i = 0; i < rows.length; i++) {
+        const row  = rows[i];
+        const fila = i + 2;
+
+        try {
+            const nombre_usuario = (row.nombre_usuario || row.nombre || '').toString().trim();
+            const correo_usuario = (row.correo_usuario || row.correo || '').toString().trim().toLowerCase();
+            const passw_raw      = (row['contraseña']  || row.password || row.passw_usuario || '').toString().trim();
+            const numero_ficha   = (row.numero_ficha   || row.numero  || '').toString().trim();
+
+            if (!correo_usuario) {
+                failed.push({ fila, correo: '—', error: 'Correo vacío' });
+                continue;
+            }
+            if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(correo_usuario)) {
+                failed.push({ fila, correo: correo_usuario, error: 'Formato de correo inválido' });
+                continue;
+            }
+
+            const password = passw_raw || DEFAULT_PASSWORD;
+            if (password.length < 6) {
+                failed.push({ fila, correo: correo_usuario, error: 'Contraseña muy corta (mín. 6 caracteres)' });
+                continue;
+            }
+
+            const existe = await prisma.user.findUnique({ where: { correo_usuario } });
+            if (existe) {
+                failed.push({ fila, correo: correo_usuario, error: 'Correo ya registrado' });
+                continue;
+            }
+
+            const usuario = await prisma.user.create({
+                data: {
+                    nombre_usuario: nombre_usuario || null,
+                    correo_usuario,
+                    passw_usuario:  await bcrypt.hash(password, 10),
+                    rol_usuario:    'aprendiz',
+                    estado_usuario: false,
+                },
+                select: SELECT,
+            });
+
+            if (numero_ficha) {
+                try {
+                    const ficha = await prisma.ficha.findFirst({ where: { numero: numero_ficha } });
+                    if (ficha) {
+                        await prisma.fichaAprendiz.create({
+                            data: { fichaId: ficha.id, aprendizId: usuario.id, estado: 'activo' }
+                        });
+                        await prisma.user.update({
+                            where: { id: usuario.id },
+                            data:  { estado_usuario: true },
+                        });
+                    }
+                } catch (_) { /* ficha assignment failed, user still created */ }
+            }
+
+            created.push({
+                fila,
+                correo: correo_usuario,
+                nombre: nombre_usuario || '—',
+                contraseña_usada: passw_raw ? null : DEFAULT_PASSWORD,
+            });
+        } catch (err) {
+            failed.push({ fila, correo: row.correo_usuario || '—', error: err.message });
+        }
+    }
+
+    res.json({ created, failed, total: rows.length });
+};
+
+module.exports = { list, getById, create, update, remove, importUsers };

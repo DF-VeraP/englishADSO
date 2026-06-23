@@ -5,7 +5,23 @@ const notify = require('../services/notification.service');
 const SELECT_INSC = {
     id: true, progreso: true, estado: true, createdAt: true, updatedAt: true,
     aprendiz: { select: { id: true, nombre_usuario: true, correo_usuario: true } },
-    curso:    { select: { id: true, titulo: true, nivel: true } },
+    curso: {
+        select: {
+            id: true, titulo: true, nivel: true, estado: true,
+            instructor: { select: { nombre_usuario: true } },
+            fichas: {
+                select: {
+                    ficha: {
+                        select: {
+                            numero: true,
+                            programa: { select: { nombre: true } },
+                        },
+                    },
+                },
+                take: 1,
+            },
+        },
+    },
 };
 
 // GET /api/inscripciones  (admin: todas | aprendiz: las suyas)

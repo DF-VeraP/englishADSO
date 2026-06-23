@@ -1,4 +1,4 @@
-require('dotenv').config();
+require('dotenv').config({ path: require('path').resolve(__dirname, '../.env') });
 const express = require('express');
 const cors = require('cors');
 const morgan = require('morgan');
@@ -19,6 +19,9 @@ const inscripcionesRoutes  = require('./routes/inscripciones.routes');
 const auditRoutes          = require('./routes/audit.routes');
 const notificationsRoutes  = require('./routes/notifications.routes');
 const actividadesRoutes    = require('./routes/actividades.routes');
+const fichasRoutes         = require('./routes/fichas.routes');
+const programasRoutes      = require('./routes/programas.routes');
+const instructorRoutes     = require('./routes/instructor.routes');
 const { prisma } = require('./config/db');
 
 app.get('/api/health', (req, res) => {
@@ -44,6 +47,9 @@ app.use('/api/inscripciones',  inscripcionesRoutes);
 app.use('/api/audit',          auditRoutes);
 app.use('/api/notifications',  notificationsRoutes);
 app.use('/api',                actividadesRoutes);
+app.use('/api/fichas',         fichasRoutes);
+app.use('/api/programas',      programasRoutes);
+app.use('/api/instructor',     instructorRoutes);
 
 // Start Server
 const startServer = async () => {

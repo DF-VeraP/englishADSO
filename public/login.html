@@ -34,73 +34,117 @@
             <!-- Ilustración SVG Enfermería -->
             <div class="illustration-wrap">
                 <svg class="nurse-svg" viewBox="0 0 400 480" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <!-- Cruz médica fondo -->
-                    <rect x="172" y="30" width="56" height="160" rx="16" fill="white" fill-opacity="0.08"/>
-                    <rect x="120" y="82" width="160" height="56" rx="16" fill="white" fill-opacity="0.08"/>
-
-                    <!-- Cuerpo / bata -->
-                    <ellipse cx="200" cy="370" rx="72" ry="85" fill="#1e4d8c" fill-opacity="0.9"/>
-                    <ellipse cx="200" cy="370" rx="72" ry="85" fill="url(#bodyGrad)"/>
-
-                    <!-- Brazos -->
-                    <path d="M128 300 Q95 340 105 390" stroke="#f5d0b0" stroke-width="28" stroke-linecap="round"/>
-                    <path d="M272 300 Q305 340 295 390" stroke="#f5d0b0" stroke-width="28" stroke-linecap="round"/>
-
-                    <!-- Guantes -->
-                    <circle cx="104" cy="395" r="20" fill="#60b8e0"/>
-                    <circle cx="296" cy="395" r="20" fill="#60b8e0"/>
-
-                    <!-- Estetoscopio -->
-                    <path d="M165 295 Q155 320 148 345 Q142 365 155 375 Q168 385 178 370" stroke="#60b8e0" stroke-width="5" stroke-linecap="round" fill="none"/>
-                    <circle cx="178" cy="370" r="10" fill="#60b8e0" stroke="white" stroke-width="2"/>
-
-                    <!-- Cuello -->
-                    <rect x="183" y="245" width="34" height="55" rx="17" fill="#f5d0b0"/>
-
-                    <!-- Cabeza -->
-                    <ellipse cx="200" cy="210" rx="52" ry="56" fill="#f5d0b0"/>
-
-                    <!-- Gorro de enfermería -->
-                    <path d="M148 185 L200 145 L252 185 Z" fill="white" fill-opacity="0.95"/>
-                    <rect x="148" y="183" width="104" height="14" rx="7" fill="white"/>
-                    <rect x="170" y="160" width="60" height="8" rx="4" fill="#e63946"/>
-
-                    <!-- Cruz en gorro -->
-                    <rect x="195" y="154" width="10" height="26" rx="3" fill="#e63946"/>
-                    <rect x="186" y="163" width="28" height="10" rx="3" fill="#e63946"/>
-
-                    <!-- Ojos -->
-                    <ellipse cx="185" cy="208" rx="6" ry="7" fill="#2d2d2d"/>
-                    <ellipse cx="215" cy="208" rx="6" ry="7" fill="#2d2d2d"/>
-                    <circle cx="187" cy="206" r="2" fill="white"/>
-                    <circle cx="217" cy="206" r="2" fill="white"/>
-
-                    <!-- Sonrisa -->
-                    <path d="M187 228 Q200 240 213 228" stroke="#c4795a" stroke-width="2.5" stroke-linecap="round" fill="none"/>
-
-                    <!-- Bata: línea central y bolsillo -->
-                    <line x1="200" y1="300" x2="200" y2="450" stroke="white" stroke-width="2" stroke-opacity="0.25"/>
-                    <rect x="215" y="340" width="36" height="30" rx="6" fill="white" fill-opacity="0.15" stroke="white" stroke-width="1" stroke-opacity="0.3"/>
-                    <line x1="233" y1="347" x2="233" y2="363" stroke="#60b8e0" stroke-width="2.5" stroke-linecap="round"/>
-                    <line x1="226" y1="355" x2="240" y2="355" stroke="#60b8e0" stroke-width="2.5" stroke-linecap="round"/>
-
-                    <!-- Portapapeles en mano izquierda -->
-                    <rect x="75" y="350" width="44" height="58" rx="5" fill="white" fill-opacity="0.9"/>
-                    <rect x="91" y="344" width="12" height="10" rx="3" fill="#aaa"/>
-                    <line x1="82" y1="368" x2="112" y2="368" stroke="#ccc" stroke-width="2"/>
-                    <line x1="82" y1="378" x2="105" y2="378" stroke="#ccc" stroke-width="2"/>
-                    <line x1="82" y1="388" x2="112" y2="388" stroke="#ccc" stroke-width="2"/>
-
-                    <!-- Pulso latido fondo -->
-                    <polyline points="30,430 60,430 75,400 90,460 110,420 130,430 160,430" stroke="white" stroke-width="2.5" fill="none" stroke-opacity="0.2" stroke-linecap="round" stroke-linejoin="round"/>
-                    <polyline points="240,430 270,430 285,400 300,460 320,420 340,430 370,430" stroke="white" stroke-width="2.5" fill="none" stroke-opacity="0.2" stroke-linecap="round" stroke-linejoin="round"/>
-
                     <defs>
                         <linearGradient id="bodyGrad" x1="128" y1="285" x2="272" y2="455" gradientUnits="userSpaceOnUse">
-                            <stop offset="0%" stop-color="#2d6dbf" stop-opacity="0.6"/>
-                            <stop offset="100%" stop-color="#1a3a5c" stop-opacity="0.4"/>
+                            <stop offset="0%" stop-color="#2563eb"/>
+                            <stop offset="100%" stop-color="#1e3a6e"/>
+                        </linearGradient>
+                        <linearGradient id="faceGrad" x1="200" y1="153" x2="200" y2="267" gradientUnits="userSpaceOnUse">
+                            <stop offset="0%" stop-color="#fde8cc"/>
+                            <stop offset="100%" stop-color="#f5c9a0"/>
                         </linearGradient>
                     </defs>
+
+                    <!-- Cruz médica fondo decorativa -->
+                    <rect x="176" y="22" width="48" height="148" rx="14" fill="white" fill-opacity="0.06"/>
+                    <rect x="126" y="72" width="148" height="48" rx="14" fill="white" fill-opacity="0.06"/>
+
+                    <!-- CUERPO / UNIFORME -->
+                    <ellipse cx="200" cy="375" rx="75" ry="88" fill="url(#bodyGrad)"/>
+
+                    <!-- Cuello de bata y solapa -->
+                    <path d="M177 295 Q200 310 223 295 L219 315 Q200 325 181 315 Z" fill="#1d4ed8"/>
+                    <path d="M180 295 Q200 308 220 295 L217 309 Q200 319 183 309 Z" fill="white" fill-opacity="0.88"/>
+
+                    <!-- BRAZOS -->
+                    <path d="M125 310 Q90 350 100 400" stroke="#fde8cc" stroke-width="30" stroke-linecap="round"/>
+                    <path d="M275 310 Q310 350 300 400" stroke="#fde8cc" stroke-width="30" stroke-linecap="round"/>
+
+                    <!-- GUANTES -->
+                    <ellipse cx="99" cy="406" rx="23" ry="18" fill="#38bdf8"/>
+                    <ellipse cx="301" cy="406" rx="23" ry="18" fill="#38bdf8"/>
+
+                    <!-- ESTETOSCOPIO -->
+                    <path d="M170 298 Q158 326 152 354 Q146 374 160 386 Q174 397 186 380"
+                          stroke="#38bdf8" stroke-width="5.5" stroke-linecap="round" fill="none"/>
+                    <circle cx="186" cy="380" r="12" fill="#38bdf8" stroke="white" stroke-width="2.5"/>
+                    <circle cx="186" cy="380" r="5" fill="white" fill-opacity="0.55"/>
+                    <circle cx="170" cy="295" r="5.5" fill="#38bdf8"/>
+
+                    <!-- PORTAPAPELES -->
+                    <rect x="66" y="358" width="48" height="62" rx="6" fill="white" fill-opacity="0.93"/>
+                    <rect x="83" y="352" width="14" height="12" rx="4" fill="#94a3b8"/>
+                    <rect x="84" y="349" width="12" height="6" rx="3" fill="#64748b"/>
+                    <line x1="74" y1="374" x2="107" y2="374" stroke="#94a3b8" stroke-width="2"/>
+                    <line x1="74" y1="384" x2="107" y2="384" stroke="#94a3b8" stroke-width="2"/>
+                    <line x1="74" y1="394" x2="100" y2="394" stroke="#94a3b8" stroke-width="2"/>
+                    <line x1="74" y1="404" x2="107" y2="404" stroke="#94a3b8" stroke-width="2"/>
+
+                    <!-- Línea central y bolsillo con cruz -->
+                    <line x1="200" y1="310" x2="200" y2="460" stroke="white" stroke-width="2" stroke-opacity="0.18"/>
+                    <rect x="218" y="348" width="40" height="34" rx="7" fill="white" fill-opacity="0.12" stroke="white" stroke-width="1.5" stroke-opacity="0.25"/>
+                    <line x1="238" y1="356" x2="238" y2="374" stroke="#60d6fa" stroke-width="3" stroke-linecap="round"/>
+                    <line x1="230" y1="365" x2="246" y2="365" stroke="#60d6fa" stroke-width="3" stroke-linecap="round"/>
+
+                    <!-- CUELLO -->
+                    <rect x="185" y="250" width="30" height="50" rx="15" fill="#fde8cc"/>
+
+                    <!-- OREJAS -->
+                    <ellipse cx="148" cy="216" rx="10" ry="13" fill="#fde8cc"/>
+                    <ellipse cx="150" cy="216" rx="6" ry="9" fill="#f5c9a0"/>
+                    <ellipse cx="252" cy="216" rx="10" ry="13" fill="#fde8cc"/>
+                    <ellipse cx="250" cy="216" rx="6" ry="9" fill="#f5c9a0"/>
+
+                    <!-- CABEZA -->
+                    <ellipse cx="200" cy="212" rx="53" ry="57" fill="url(#faceGrad)"/>
+
+                    <!-- GORRO DE ENFERMERÍA -->
+                    <!-- Cúpula principal del gorro -->
+                    <path d="M152 192 Q150 172 154 160 Q162 145 200 140 Q238 145 246 160 Q250 172 248 192 Z"
+                          fill="white" fill-opacity="0.97"/>
+                    <!-- Alas laterales -->
+                    <path d="M152 192 Q144 189 141 199 Q142 208 152 207 Z" fill="white" fill-opacity="0.92"/>
+                    <path d="M248 192 Q256 189 259 199 Q258 208 248 207 Z" fill="white" fill-opacity="0.92"/>
+                    <!-- Banda inferior blanca -->
+                    <rect x="150" y="190" width="100" height="15" rx="7.5" fill="white"/>
+                    <!-- Franja roja en la banda -->
+                    <rect x="152" y="193" width="96" height="9" rx="4.5" fill="#dc2626"/>
+
+                    <!-- Cruz médica en el gorro (centrada, proporcional) -->
+                    <rect x="196" y="150" width="8" height="30" rx="3" fill="#dc2626"/>
+                    <rect x="185" y="159" width="30" height="8" rx="3" fill="#dc2626"/>
+
+                    <!-- CEJAS -->
+                    <path d="M176 198 Q185 192 193 196" stroke="#b5651d" stroke-width="3" stroke-linecap="round" fill="none"/>
+                    <path d="M207 196 Q215 192 224 198" stroke="#b5651d" stroke-width="3" stroke-linecap="round" fill="none"/>
+
+                    <!-- OJOS -->
+                    <ellipse cx="185" cy="214" rx="10" ry="11" fill="white"/>
+                    <ellipse cx="215" cy="214" rx="10" ry="11" fill="white"/>
+                    <ellipse cx="185" cy="215" rx="7" ry="7.5" fill="#4a90c4"/>
+                    <ellipse cx="215" cy="215" rx="7" ry="7.5" fill="#4a90c4"/>
+                    <ellipse cx="185" cy="215" rx="4" ry="4.5" fill="#1a1a2e"/>
+                    <ellipse cx="215" cy="215" rx="4" ry="4.5" fill="#1a1a2e"/>
+                    <circle cx="188" cy="211" r="2.2" fill="white"/>
+                    <circle cx="218" cy="211" r="2.2" fill="white"/>
+
+                    <!-- MEJILLAS -->
+                    <ellipse cx="171" cy="228" rx="14" ry="8" fill="#f87171" fill-opacity="0.22"/>
+                    <ellipse cx="229" cy="228" rx="14" ry="8" fill="#f87171" fill-opacity="0.22"/>
+
+                    <!-- NARIZ -->
+                    <path d="M196 222 Q200 229 204 222" stroke="#b5651d" stroke-width="2" stroke-linecap="round" fill="none"/>
+
+                    <!-- SONRISA -->
+                    <path d="M183 236 Q200 251 217 236" stroke="#c4795a" stroke-width="3.5" stroke-linecap="round" fill="none"/>
+
+                    <!-- PULSO LATIDO (decorativo) -->
+                    <polyline points="20,445 55,445 70,414 86,472 106,432 126,445 166,445"
+                              stroke="white" stroke-width="2.5" fill="none" stroke-opacity="0.16"
+                              stroke-linecap="round" stroke-linejoin="round"/>
+                    <polyline points="234,445 269,445 284,414 300,472 320,432 340,445 380,445"
+                              stroke="white" stroke-width="2.5" fill="none" stroke-opacity="0.16"
+                              stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
 
                 <div class="brand-tagline">

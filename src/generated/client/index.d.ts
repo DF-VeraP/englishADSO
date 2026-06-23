@@ -64,6 +64,31 @@ export type Inscripcion = $Result.DefaultSelection<Prisma.$InscripcionPayload>
  */
 export type AuditLog = $Result.DefaultSelection<Prisma.$AuditLogPayload>
 /**
+ * Model Programa
+ * 
+ */
+export type Programa = $Result.DefaultSelection<Prisma.$ProgramaPayload>
+/**
+ * Model Ficha
+ * 
+ */
+export type Ficha = $Result.DefaultSelection<Prisma.$FichaPayload>
+/**
+ * Model FichaCurso
+ * 
+ */
+export type FichaCurso = $Result.DefaultSelection<Prisma.$FichaCursoPayload>
+/**
+ * Model FichaInstructor
+ * 
+ */
+export type FichaInstructor = $Result.DefaultSelection<Prisma.$FichaInstructorPayload>
+/**
+ * Model FichaAprendiz
+ * 
+ */
+export type FichaAprendiz = $Result.DefaultSelection<Prisma.$FichaAprendizPayload>
+/**
  * Model Notificacion
  * 
  */
@@ -289,6 +314,56 @@ export class PrismaClient<
     * ```
     */
   get auditLog(): Prisma.AuditLogDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.programa`: Exposes CRUD operations for the **Programa** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Programas
+    * const programas = await prisma.programa.findMany()
+    * ```
+    */
+  get programa(): Prisma.ProgramaDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.ficha`: Exposes CRUD operations for the **Ficha** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Fichas
+    * const fichas = await prisma.ficha.findMany()
+    * ```
+    */
+  get ficha(): Prisma.FichaDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.fichaCurso`: Exposes CRUD operations for the **FichaCurso** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more FichaCursos
+    * const fichaCursos = await prisma.fichaCurso.findMany()
+    * ```
+    */
+  get fichaCurso(): Prisma.FichaCursoDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.fichaInstructor`: Exposes CRUD operations for the **FichaInstructor** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more FichaInstructors
+    * const fichaInstructors = await prisma.fichaInstructor.findMany()
+    * ```
+    */
+  get fichaInstructor(): Prisma.FichaInstructorDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.fichaAprendiz`: Exposes CRUD operations for the **FichaAprendiz** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more FichaAprendizs
+    * const fichaAprendizs = await prisma.fichaAprendiz.findMany()
+    * ```
+    */
+  get fichaAprendiz(): Prisma.FichaAprendizDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.notificacion`: Exposes CRUD operations for the **Notificacion** model.
@@ -743,6 +818,11 @@ export namespace Prisma {
     TestResultado: 'TestResultado',
     Inscripcion: 'Inscripcion',
     AuditLog: 'AuditLog',
+    Programa: 'Programa',
+    Ficha: 'Ficha',
+    FichaCurso: 'FichaCurso',
+    FichaInstructor: 'FichaInstructor',
+    FichaAprendiz: 'FichaAprendiz',
     Notificacion: 'Notificacion'
   };
 
@@ -759,7 +839,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "curso" | "modulo" | "momento" | "actividad" | "progresoActividad" | "insigniaAprendiz" | "testResultado" | "inscripcion" | "auditLog" | "notificacion"
+      modelProps: "user" | "curso" | "modulo" | "momento" | "actividad" | "progresoActividad" | "insigniaAprendiz" | "testResultado" | "inscripcion" | "auditLog" | "programa" | "ficha" | "fichaCurso" | "fichaInstructor" | "fichaAprendiz" | "notificacion"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1503,6 +1583,376 @@ export namespace Prisma {
           }
         }
       }
+      Programa: {
+        payload: Prisma.$ProgramaPayload<ExtArgs>
+        fields: Prisma.ProgramaFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ProgramaFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProgramaPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ProgramaFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProgramaPayload>
+          }
+          findFirst: {
+            args: Prisma.ProgramaFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProgramaPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ProgramaFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProgramaPayload>
+          }
+          findMany: {
+            args: Prisma.ProgramaFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProgramaPayload>[]
+          }
+          create: {
+            args: Prisma.ProgramaCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProgramaPayload>
+          }
+          createMany: {
+            args: Prisma.ProgramaCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.ProgramaCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProgramaPayload>[]
+          }
+          delete: {
+            args: Prisma.ProgramaDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProgramaPayload>
+          }
+          update: {
+            args: Prisma.ProgramaUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProgramaPayload>
+          }
+          deleteMany: {
+            args: Prisma.ProgramaDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ProgramaUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.ProgramaUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProgramaPayload>[]
+          }
+          upsert: {
+            args: Prisma.ProgramaUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProgramaPayload>
+          }
+          aggregate: {
+            args: Prisma.ProgramaAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregatePrograma>
+          }
+          groupBy: {
+            args: Prisma.ProgramaGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ProgramaGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.ProgramaCountArgs<ExtArgs>
+            result: $Utils.Optional<ProgramaCountAggregateOutputType> | number
+          }
+        }
+      }
+      Ficha: {
+        payload: Prisma.$FichaPayload<ExtArgs>
+        fields: Prisma.FichaFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.FichaFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FichaPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.FichaFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FichaPayload>
+          }
+          findFirst: {
+            args: Prisma.FichaFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FichaPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.FichaFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FichaPayload>
+          }
+          findMany: {
+            args: Prisma.FichaFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FichaPayload>[]
+          }
+          create: {
+            args: Prisma.FichaCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FichaPayload>
+          }
+          createMany: {
+            args: Prisma.FichaCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.FichaCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FichaPayload>[]
+          }
+          delete: {
+            args: Prisma.FichaDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FichaPayload>
+          }
+          update: {
+            args: Prisma.FichaUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FichaPayload>
+          }
+          deleteMany: {
+            args: Prisma.FichaDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.FichaUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.FichaUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FichaPayload>[]
+          }
+          upsert: {
+            args: Prisma.FichaUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FichaPayload>
+          }
+          aggregate: {
+            args: Prisma.FichaAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateFicha>
+          }
+          groupBy: {
+            args: Prisma.FichaGroupByArgs<ExtArgs>
+            result: $Utils.Optional<FichaGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.FichaCountArgs<ExtArgs>
+            result: $Utils.Optional<FichaCountAggregateOutputType> | number
+          }
+        }
+      }
+      FichaCurso: {
+        payload: Prisma.$FichaCursoPayload<ExtArgs>
+        fields: Prisma.FichaCursoFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.FichaCursoFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FichaCursoPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.FichaCursoFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FichaCursoPayload>
+          }
+          findFirst: {
+            args: Prisma.FichaCursoFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FichaCursoPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.FichaCursoFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FichaCursoPayload>
+          }
+          findMany: {
+            args: Prisma.FichaCursoFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FichaCursoPayload>[]
+          }
+          create: {
+            args: Prisma.FichaCursoCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FichaCursoPayload>
+          }
+          createMany: {
+            args: Prisma.FichaCursoCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.FichaCursoCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FichaCursoPayload>[]
+          }
+          delete: {
+            args: Prisma.FichaCursoDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FichaCursoPayload>
+          }
+          update: {
+            args: Prisma.FichaCursoUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FichaCursoPayload>
+          }
+          deleteMany: {
+            args: Prisma.FichaCursoDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.FichaCursoUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.FichaCursoUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FichaCursoPayload>[]
+          }
+          upsert: {
+            args: Prisma.FichaCursoUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FichaCursoPayload>
+          }
+          aggregate: {
+            args: Prisma.FichaCursoAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateFichaCurso>
+          }
+          groupBy: {
+            args: Prisma.FichaCursoGroupByArgs<ExtArgs>
+            result: $Utils.Optional<FichaCursoGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.FichaCursoCountArgs<ExtArgs>
+            result: $Utils.Optional<FichaCursoCountAggregateOutputType> | number
+          }
+        }
+      }
+      FichaInstructor: {
+        payload: Prisma.$FichaInstructorPayload<ExtArgs>
+        fields: Prisma.FichaInstructorFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.FichaInstructorFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FichaInstructorPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.FichaInstructorFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FichaInstructorPayload>
+          }
+          findFirst: {
+            args: Prisma.FichaInstructorFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FichaInstructorPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.FichaInstructorFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FichaInstructorPayload>
+          }
+          findMany: {
+            args: Prisma.FichaInstructorFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FichaInstructorPayload>[]
+          }
+          create: {
+            args: Prisma.FichaInstructorCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FichaInstructorPayload>
+          }
+          createMany: {
+            args: Prisma.FichaInstructorCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.FichaInstructorCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FichaInstructorPayload>[]
+          }
+          delete: {
+            args: Prisma.FichaInstructorDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FichaInstructorPayload>
+          }
+          update: {
+            args: Prisma.FichaInstructorUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FichaInstructorPayload>
+          }
+          deleteMany: {
+            args: Prisma.FichaInstructorDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.FichaInstructorUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.FichaInstructorUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FichaInstructorPayload>[]
+          }
+          upsert: {
+            args: Prisma.FichaInstructorUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FichaInstructorPayload>
+          }
+          aggregate: {
+            args: Prisma.FichaInstructorAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateFichaInstructor>
+          }
+          groupBy: {
+            args: Prisma.FichaInstructorGroupByArgs<ExtArgs>
+            result: $Utils.Optional<FichaInstructorGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.FichaInstructorCountArgs<ExtArgs>
+            result: $Utils.Optional<FichaInstructorCountAggregateOutputType> | number
+          }
+        }
+      }
+      FichaAprendiz: {
+        payload: Prisma.$FichaAprendizPayload<ExtArgs>
+        fields: Prisma.FichaAprendizFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.FichaAprendizFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FichaAprendizPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.FichaAprendizFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FichaAprendizPayload>
+          }
+          findFirst: {
+            args: Prisma.FichaAprendizFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FichaAprendizPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.FichaAprendizFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FichaAprendizPayload>
+          }
+          findMany: {
+            args: Prisma.FichaAprendizFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FichaAprendizPayload>[]
+          }
+          create: {
+            args: Prisma.FichaAprendizCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FichaAprendizPayload>
+          }
+          createMany: {
+            args: Prisma.FichaAprendizCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.FichaAprendizCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FichaAprendizPayload>[]
+          }
+          delete: {
+            args: Prisma.FichaAprendizDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FichaAprendizPayload>
+          }
+          update: {
+            args: Prisma.FichaAprendizUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FichaAprendizPayload>
+          }
+          deleteMany: {
+            args: Prisma.FichaAprendizDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.FichaAprendizUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.FichaAprendizUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FichaAprendizPayload>[]
+          }
+          upsert: {
+            args: Prisma.FichaAprendizUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FichaAprendizPayload>
+          }
+          aggregate: {
+            args: Prisma.FichaAprendizAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateFichaAprendiz>
+          }
+          groupBy: {
+            args: Prisma.FichaAprendizGroupByArgs<ExtArgs>
+            result: $Utils.Optional<FichaAprendizGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.FichaAprendizCountArgs<ExtArgs>
+            result: $Utils.Optional<FichaAprendizCountAggregateOutputType> | number
+          }
+        }
+      }
       Notificacion: {
         payload: Prisma.$NotificacionPayload<ExtArgs>
         fields: Prisma.NotificacionFieldRefs
@@ -1695,6 +2145,11 @@ export namespace Prisma {
     testResultado?: TestResultadoOmit
     inscripcion?: InscripcionOmit
     auditLog?: AuditLogOmit
+    programa?: ProgramaOmit
+    ficha?: FichaOmit
+    fichaCurso?: FichaCursoOmit
+    fichaInstructor?: FichaInstructorOmit
+    fichaAprendiz?: FichaAprendizOmit
     notificacion?: NotificacionOmit
   }
 
@@ -1783,6 +2238,8 @@ export namespace Prisma {
     progresoActividades: number
     insignias: number
     testResultados: number
+    fichasComoInstructor: number
+    fichasComoAprendiz: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -1793,6 +2250,8 @@ export namespace Prisma {
     progresoActividades?: boolean | UserCountOutputTypeCountProgresoActividadesArgs
     insignias?: boolean | UserCountOutputTypeCountInsigniasArgs
     testResultados?: boolean | UserCountOutputTypeCountTestResultadosArgs
+    fichasComoInstructor?: boolean | UserCountOutputTypeCountFichasComoInstructorArgs
+    fichasComoAprendiz?: boolean | UserCountOutputTypeCountFichasComoAprendizArgs
   }
 
   // Custom InputTypes
@@ -1855,6 +2314,20 @@ export namespace Prisma {
     where?: TestResultadoWhereInput
   }
 
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountFichasComoInstructorArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: FichaInstructorWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountFichasComoAprendizArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: FichaAprendizWhereInput
+  }
+
 
   /**
    * Count Type CursoCountOutputType
@@ -1863,11 +2336,13 @@ export namespace Prisma {
   export type CursoCountOutputType = {
     modulos: number
     inscripciones: number
+    fichas: number
   }
 
   export type CursoCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     modulos?: boolean | CursoCountOutputTypeCountModulosArgs
     inscripciones?: boolean | CursoCountOutputTypeCountInscripcionesArgs
+    fichas?: boolean | CursoCountOutputTypeCountFichasArgs
   }
 
   // Custom InputTypes
@@ -1893,6 +2368,13 @@ export namespace Prisma {
    */
   export type CursoCountOutputTypeCountInscripcionesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: InscripcionWhereInput
+  }
+
+  /**
+   * CursoCountOutputType without action
+   */
+  export type CursoCountOutputTypeCountFichasArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: FichaCursoWhereInput
   }
 
 
@@ -1986,6 +2468,86 @@ export namespace Prisma {
    */
   export type ActividadCountOutputTypeCountProgresosArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: ProgresoActividadWhereInput
+  }
+
+
+  /**
+   * Count Type ProgramaCountOutputType
+   */
+
+  export type ProgramaCountOutputType = {
+    fichas: number
+  }
+
+  export type ProgramaCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    fichas?: boolean | ProgramaCountOutputTypeCountFichasArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * ProgramaCountOutputType without action
+   */
+  export type ProgramaCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProgramaCountOutputType
+     */
+    select?: ProgramaCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * ProgramaCountOutputType without action
+   */
+  export type ProgramaCountOutputTypeCountFichasArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: FichaWhereInput
+  }
+
+
+  /**
+   * Count Type FichaCountOutputType
+   */
+
+  export type FichaCountOutputType = {
+    instructores: number
+    aprendices: number
+    cursos: number
+  }
+
+  export type FichaCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    instructores?: boolean | FichaCountOutputTypeCountInstructoresArgs
+    aprendices?: boolean | FichaCountOutputTypeCountAprendicesArgs
+    cursos?: boolean | FichaCountOutputTypeCountCursosArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * FichaCountOutputType without action
+   */
+  export type FichaCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FichaCountOutputType
+     */
+    select?: FichaCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * FichaCountOutputType without action
+   */
+  export type FichaCountOutputTypeCountInstructoresArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: FichaInstructorWhereInput
+  }
+
+  /**
+   * FichaCountOutputType without action
+   */
+  export type FichaCountOutputTypeCountAprendicesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: FichaAprendizWhereInput
+  }
+
+  /**
+   * FichaCountOutputType without action
+   */
+  export type FichaCountOutputTypeCountCursosArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: FichaCursoWhereInput
   }
 
 
@@ -2222,6 +2784,8 @@ export namespace Prisma {
     progresoActividades?: boolean | User$progresoActividadesArgs<ExtArgs>
     insignias?: boolean | User$insigniasArgs<ExtArgs>
     testResultados?: boolean | User$testResultadosArgs<ExtArgs>
+    fichasComoInstructor?: boolean | User$fichasComoInstructorArgs<ExtArgs>
+    fichasComoAprendiz?: boolean | User$fichasComoAprendizArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -2267,6 +2831,8 @@ export namespace Prisma {
     progresoActividades?: boolean | User$progresoActividadesArgs<ExtArgs>
     insignias?: boolean | User$insigniasArgs<ExtArgs>
     testResultados?: boolean | User$testResultadosArgs<ExtArgs>
+    fichasComoInstructor?: boolean | User$fichasComoInstructorArgs<ExtArgs>
+    fichasComoAprendiz?: boolean | User$fichasComoAprendizArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -2282,6 +2848,8 @@ export namespace Prisma {
       progresoActividades: Prisma.$ProgresoActividadPayload<ExtArgs>[]
       insignias: Prisma.$InsigniaAprendizPayload<ExtArgs>[]
       testResultados: Prisma.$TestResultadoPayload<ExtArgs>[]
+      fichasComoInstructor: Prisma.$FichaInstructorPayload<ExtArgs>[]
+      fichasComoAprendiz: Prisma.$FichaAprendizPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -2693,6 +3261,8 @@ export namespace Prisma {
     progresoActividades<T extends User$progresoActividadesArgs<ExtArgs> = {}>(args?: Subset<T, User$progresoActividadesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProgresoActividadPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     insignias<T extends User$insigniasArgs<ExtArgs> = {}>(args?: Subset<T, User$insigniasArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InsigniaAprendizPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     testResultados<T extends User$testResultadosArgs<ExtArgs> = {}>(args?: Subset<T, User$testResultadosArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TestResultadoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    fichasComoInstructor<T extends User$fichasComoInstructorArgs<ExtArgs> = {}>(args?: Subset<T, User$fichasComoInstructorArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FichaInstructorPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    fichasComoAprendiz<T extends User$fichasComoAprendizArgs<ExtArgs> = {}>(args?: Subset<T, User$fichasComoAprendizArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FichaAprendizPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3291,6 +3861,54 @@ export namespace Prisma {
   }
 
   /**
+   * User.fichasComoInstructor
+   */
+  export type User$fichasComoInstructorArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FichaInstructor
+     */
+    select?: FichaInstructorSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the FichaInstructor
+     */
+    omit?: FichaInstructorOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FichaInstructorInclude<ExtArgs> | null
+    where?: FichaInstructorWhereInput
+    orderBy?: FichaInstructorOrderByWithRelationInput | FichaInstructorOrderByWithRelationInput[]
+    cursor?: FichaInstructorWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: FichaInstructorScalarFieldEnum | FichaInstructorScalarFieldEnum[]
+  }
+
+  /**
+   * User.fichasComoAprendiz
+   */
+  export type User$fichasComoAprendizArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FichaAprendiz
+     */
+    select?: FichaAprendizSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the FichaAprendiz
+     */
+    omit?: FichaAprendizOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FichaAprendizInclude<ExtArgs> | null
+    where?: FichaAprendizWhereInput
+    orderBy?: FichaAprendizOrderByWithRelationInput | FichaAprendizOrderByWithRelationInput[]
+    cursor?: FichaAprendizWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: FichaAprendizScalarFieldEnum | FichaAprendizScalarFieldEnum[]
+  }
+
+  /**
    * User without action
    */
   export type UserDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3538,6 +4156,7 @@ export namespace Prisma {
     instructor?: boolean | UserDefaultArgs<ExtArgs>
     modulos?: boolean | Curso$modulosArgs<ExtArgs>
     inscripciones?: boolean | Curso$inscripcionesArgs<ExtArgs>
+    fichas?: boolean | Curso$fichasArgs<ExtArgs>
     _count?: boolean | CursoCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["curso"]>
 
@@ -3581,6 +4200,7 @@ export namespace Prisma {
     instructor?: boolean | UserDefaultArgs<ExtArgs>
     modulos?: boolean | Curso$modulosArgs<ExtArgs>
     inscripciones?: boolean | Curso$inscripcionesArgs<ExtArgs>
+    fichas?: boolean | Curso$fichasArgs<ExtArgs>
     _count?: boolean | CursoCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type CursoIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3596,6 +4216,7 @@ export namespace Prisma {
       instructor: Prisma.$UserPayload<ExtArgs>
       modulos: Prisma.$ModuloPayload<ExtArgs>[]
       inscripciones: Prisma.$InscripcionPayload<ExtArgs>[]
+      fichas: Prisma.$FichaCursoPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -4003,6 +4624,7 @@ export namespace Prisma {
     instructor<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     modulos<T extends Curso$modulosArgs<ExtArgs> = {}>(args?: Subset<T, Curso$modulosArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ModuloPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     inscripciones<T extends Curso$inscripcionesArgs<ExtArgs> = {}>(args?: Subset<T, Curso$inscripcionesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InscripcionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    fichas<T extends Curso$fichasArgs<ExtArgs> = {}>(args?: Subset<T, Curso$fichasArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FichaCursoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -4486,6 +5108,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: InscripcionScalarFieldEnum | InscripcionScalarFieldEnum[]
+  }
+
+  /**
+   * Curso.fichas
+   */
+  export type Curso$fichasArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FichaCurso
+     */
+    select?: FichaCursoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the FichaCurso
+     */
+    omit?: FichaCursoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FichaCursoInclude<ExtArgs> | null
+    where?: FichaCursoWhereInput
+    orderBy?: FichaCursoOrderByWithRelationInput | FichaCursoOrderByWithRelationInput[]
+    cursor?: FichaCursoWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: FichaCursoScalarFieldEnum | FichaCursoScalarFieldEnum[]
   }
 
   /**
@@ -13879,6 +14525,5710 @@ export namespace Prisma {
 
 
   /**
+   * Model Programa
+   */
+
+  export type AggregatePrograma = {
+    _count: ProgramaCountAggregateOutputType | null
+    _avg: ProgramaAvgAggregateOutputType | null
+    _sum: ProgramaSumAggregateOutputType | null
+    _min: ProgramaMinAggregateOutputType | null
+    _max: ProgramaMaxAggregateOutputType | null
+  }
+
+  export type ProgramaAvgAggregateOutputType = {
+    id: number | null
+    duracion: number | null
+  }
+
+  export type ProgramaSumAggregateOutputType = {
+    id: number | null
+    duracion: number | null
+  }
+
+  export type ProgramaMinAggregateOutputType = {
+    id: number | null
+    codigo: string | null
+    nombre: string | null
+    nivel: string | null
+    duracion: number | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type ProgramaMaxAggregateOutputType = {
+    id: number | null
+    codigo: string | null
+    nombre: string | null
+    nivel: string | null
+    duracion: number | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type ProgramaCountAggregateOutputType = {
+    id: number
+    codigo: number
+    nombre: number
+    nivel: number
+    duracion: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type ProgramaAvgAggregateInputType = {
+    id?: true
+    duracion?: true
+  }
+
+  export type ProgramaSumAggregateInputType = {
+    id?: true
+    duracion?: true
+  }
+
+  export type ProgramaMinAggregateInputType = {
+    id?: true
+    codigo?: true
+    nombre?: true
+    nivel?: true
+    duracion?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type ProgramaMaxAggregateInputType = {
+    id?: true
+    codigo?: true
+    nombre?: true
+    nivel?: true
+    duracion?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type ProgramaCountAggregateInputType = {
+    id?: true
+    codigo?: true
+    nombre?: true
+    nivel?: true
+    duracion?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type ProgramaAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Programa to aggregate.
+     */
+    where?: ProgramaWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Programas to fetch.
+     */
+    orderBy?: ProgramaOrderByWithRelationInput | ProgramaOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ProgramaWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Programas from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Programas.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Programas
+    **/
+    _count?: true | ProgramaCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: ProgramaAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: ProgramaSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ProgramaMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ProgramaMaxAggregateInputType
+  }
+
+  export type GetProgramaAggregateType<T extends ProgramaAggregateArgs> = {
+        [P in keyof T & keyof AggregatePrograma]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregatePrograma[P]>
+      : GetScalarType<T[P], AggregatePrograma[P]>
+  }
+
+
+
+
+  export type ProgramaGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ProgramaWhereInput
+    orderBy?: ProgramaOrderByWithAggregationInput | ProgramaOrderByWithAggregationInput[]
+    by: ProgramaScalarFieldEnum[] | ProgramaScalarFieldEnum
+    having?: ProgramaScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ProgramaCountAggregateInputType | true
+    _avg?: ProgramaAvgAggregateInputType
+    _sum?: ProgramaSumAggregateInputType
+    _min?: ProgramaMinAggregateInputType
+    _max?: ProgramaMaxAggregateInputType
+  }
+
+  export type ProgramaGroupByOutputType = {
+    id: number
+    codigo: string
+    nombre: string
+    nivel: string
+    duracion: number | null
+    createdAt: Date
+    updatedAt: Date
+    _count: ProgramaCountAggregateOutputType | null
+    _avg: ProgramaAvgAggregateOutputType | null
+    _sum: ProgramaSumAggregateOutputType | null
+    _min: ProgramaMinAggregateOutputType | null
+    _max: ProgramaMaxAggregateOutputType | null
+  }
+
+  type GetProgramaGroupByPayload<T extends ProgramaGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ProgramaGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ProgramaGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ProgramaGroupByOutputType[P]>
+            : GetScalarType<T[P], ProgramaGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ProgramaSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    codigo?: boolean
+    nombre?: boolean
+    nivel?: boolean
+    duracion?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    fichas?: boolean | Programa$fichasArgs<ExtArgs>
+    _count?: boolean | ProgramaCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["programa"]>
+
+  export type ProgramaSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    codigo?: boolean
+    nombre?: boolean
+    nivel?: boolean
+    duracion?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["programa"]>
+
+  export type ProgramaSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    codigo?: boolean
+    nombre?: boolean
+    nivel?: boolean
+    duracion?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["programa"]>
+
+  export type ProgramaSelectScalar = {
+    id?: boolean
+    codigo?: boolean
+    nombre?: boolean
+    nivel?: boolean
+    duracion?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type ProgramaOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "codigo" | "nombre" | "nivel" | "duracion" | "createdAt" | "updatedAt", ExtArgs["result"]["programa"]>
+  export type ProgramaInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    fichas?: boolean | Programa$fichasArgs<ExtArgs>
+    _count?: boolean | ProgramaCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type ProgramaIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type ProgramaIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+
+  export type $ProgramaPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Programa"
+    objects: {
+      fichas: Prisma.$FichaPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      codigo: string
+      nombre: string
+      nivel: string
+      duracion: number | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["programa"]>
+    composites: {}
+  }
+
+  type ProgramaGetPayload<S extends boolean | null | undefined | ProgramaDefaultArgs> = $Result.GetResult<Prisma.$ProgramaPayload, S>
+
+  type ProgramaCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<ProgramaFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: ProgramaCountAggregateInputType | true
+    }
+
+  export interface ProgramaDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Programa'], meta: { name: 'Programa' } }
+    /**
+     * Find zero or one Programa that matches the filter.
+     * @param {ProgramaFindUniqueArgs} args - Arguments to find a Programa
+     * @example
+     * // Get one Programa
+     * const programa = await prisma.programa.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ProgramaFindUniqueArgs>(args: SelectSubset<T, ProgramaFindUniqueArgs<ExtArgs>>): Prisma__ProgramaClient<$Result.GetResult<Prisma.$ProgramaPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Programa that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {ProgramaFindUniqueOrThrowArgs} args - Arguments to find a Programa
+     * @example
+     * // Get one Programa
+     * const programa = await prisma.programa.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ProgramaFindUniqueOrThrowArgs>(args: SelectSubset<T, ProgramaFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ProgramaClient<$Result.GetResult<Prisma.$ProgramaPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Programa that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ProgramaFindFirstArgs} args - Arguments to find a Programa
+     * @example
+     * // Get one Programa
+     * const programa = await prisma.programa.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ProgramaFindFirstArgs>(args?: SelectSubset<T, ProgramaFindFirstArgs<ExtArgs>>): Prisma__ProgramaClient<$Result.GetResult<Prisma.$ProgramaPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Programa that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ProgramaFindFirstOrThrowArgs} args - Arguments to find a Programa
+     * @example
+     * // Get one Programa
+     * const programa = await prisma.programa.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ProgramaFindFirstOrThrowArgs>(args?: SelectSubset<T, ProgramaFindFirstOrThrowArgs<ExtArgs>>): Prisma__ProgramaClient<$Result.GetResult<Prisma.$ProgramaPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Programas that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ProgramaFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Programas
+     * const programas = await prisma.programa.findMany()
+     * 
+     * // Get first 10 Programas
+     * const programas = await prisma.programa.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const programaWithIdOnly = await prisma.programa.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends ProgramaFindManyArgs>(args?: SelectSubset<T, ProgramaFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProgramaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Programa.
+     * @param {ProgramaCreateArgs} args - Arguments to create a Programa.
+     * @example
+     * // Create one Programa
+     * const Programa = await prisma.programa.create({
+     *   data: {
+     *     // ... data to create a Programa
+     *   }
+     * })
+     * 
+     */
+    create<T extends ProgramaCreateArgs>(args: SelectSubset<T, ProgramaCreateArgs<ExtArgs>>): Prisma__ProgramaClient<$Result.GetResult<Prisma.$ProgramaPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Programas.
+     * @param {ProgramaCreateManyArgs} args - Arguments to create many Programas.
+     * @example
+     * // Create many Programas
+     * const programa = await prisma.programa.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends ProgramaCreateManyArgs>(args?: SelectSubset<T, ProgramaCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Programas and returns the data saved in the database.
+     * @param {ProgramaCreateManyAndReturnArgs} args - Arguments to create many Programas.
+     * @example
+     * // Create many Programas
+     * const programa = await prisma.programa.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Programas and only return the `id`
+     * const programaWithIdOnly = await prisma.programa.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends ProgramaCreateManyAndReturnArgs>(args?: SelectSubset<T, ProgramaCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProgramaPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Programa.
+     * @param {ProgramaDeleteArgs} args - Arguments to delete one Programa.
+     * @example
+     * // Delete one Programa
+     * const Programa = await prisma.programa.delete({
+     *   where: {
+     *     // ... filter to delete one Programa
+     *   }
+     * })
+     * 
+     */
+    delete<T extends ProgramaDeleteArgs>(args: SelectSubset<T, ProgramaDeleteArgs<ExtArgs>>): Prisma__ProgramaClient<$Result.GetResult<Prisma.$ProgramaPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Programa.
+     * @param {ProgramaUpdateArgs} args - Arguments to update one Programa.
+     * @example
+     * // Update one Programa
+     * const programa = await prisma.programa.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends ProgramaUpdateArgs>(args: SelectSubset<T, ProgramaUpdateArgs<ExtArgs>>): Prisma__ProgramaClient<$Result.GetResult<Prisma.$ProgramaPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Programas.
+     * @param {ProgramaDeleteManyArgs} args - Arguments to filter Programas to delete.
+     * @example
+     * // Delete a few Programas
+     * const { count } = await prisma.programa.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends ProgramaDeleteManyArgs>(args?: SelectSubset<T, ProgramaDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Programas.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ProgramaUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Programas
+     * const programa = await prisma.programa.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends ProgramaUpdateManyArgs>(args: SelectSubset<T, ProgramaUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Programas and returns the data updated in the database.
+     * @param {ProgramaUpdateManyAndReturnArgs} args - Arguments to update many Programas.
+     * @example
+     * // Update many Programas
+     * const programa = await prisma.programa.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Programas and only return the `id`
+     * const programaWithIdOnly = await prisma.programa.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends ProgramaUpdateManyAndReturnArgs>(args: SelectSubset<T, ProgramaUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProgramaPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Programa.
+     * @param {ProgramaUpsertArgs} args - Arguments to update or create a Programa.
+     * @example
+     * // Update or create a Programa
+     * const programa = await prisma.programa.upsert({
+     *   create: {
+     *     // ... data to create a Programa
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Programa we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ProgramaUpsertArgs>(args: SelectSubset<T, ProgramaUpsertArgs<ExtArgs>>): Prisma__ProgramaClient<$Result.GetResult<Prisma.$ProgramaPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Programas.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ProgramaCountArgs} args - Arguments to filter Programas to count.
+     * @example
+     * // Count the number of Programas
+     * const count = await prisma.programa.count({
+     *   where: {
+     *     // ... the filter for the Programas we want to count
+     *   }
+     * })
+    **/
+    count<T extends ProgramaCountArgs>(
+      args?: Subset<T, ProgramaCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ProgramaCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Programa.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ProgramaAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ProgramaAggregateArgs>(args: Subset<T, ProgramaAggregateArgs>): Prisma.PrismaPromise<GetProgramaAggregateType<T>>
+
+    /**
+     * Group by Programa.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ProgramaGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ProgramaGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ProgramaGroupByArgs['orderBy'] }
+        : { orderBy?: ProgramaGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ProgramaGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetProgramaGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Programa model
+   */
+  readonly fields: ProgramaFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Programa.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ProgramaClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    fichas<T extends Programa$fichasArgs<ExtArgs> = {}>(args?: Subset<T, Programa$fichasArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FichaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Programa model
+   */
+  interface ProgramaFieldRefs {
+    readonly id: FieldRef<"Programa", 'Int'>
+    readonly codigo: FieldRef<"Programa", 'String'>
+    readonly nombre: FieldRef<"Programa", 'String'>
+    readonly nivel: FieldRef<"Programa", 'String'>
+    readonly duracion: FieldRef<"Programa", 'Int'>
+    readonly createdAt: FieldRef<"Programa", 'DateTime'>
+    readonly updatedAt: FieldRef<"Programa", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Programa findUnique
+   */
+  export type ProgramaFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Programa
+     */
+    select?: ProgramaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Programa
+     */
+    omit?: ProgramaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProgramaInclude<ExtArgs> | null
+    /**
+     * Filter, which Programa to fetch.
+     */
+    where: ProgramaWhereUniqueInput
+  }
+
+  /**
+   * Programa findUniqueOrThrow
+   */
+  export type ProgramaFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Programa
+     */
+    select?: ProgramaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Programa
+     */
+    omit?: ProgramaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProgramaInclude<ExtArgs> | null
+    /**
+     * Filter, which Programa to fetch.
+     */
+    where: ProgramaWhereUniqueInput
+  }
+
+  /**
+   * Programa findFirst
+   */
+  export type ProgramaFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Programa
+     */
+    select?: ProgramaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Programa
+     */
+    omit?: ProgramaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProgramaInclude<ExtArgs> | null
+    /**
+     * Filter, which Programa to fetch.
+     */
+    where?: ProgramaWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Programas to fetch.
+     */
+    orderBy?: ProgramaOrderByWithRelationInput | ProgramaOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Programas.
+     */
+    cursor?: ProgramaWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Programas from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Programas.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Programas.
+     */
+    distinct?: ProgramaScalarFieldEnum | ProgramaScalarFieldEnum[]
+  }
+
+  /**
+   * Programa findFirstOrThrow
+   */
+  export type ProgramaFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Programa
+     */
+    select?: ProgramaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Programa
+     */
+    omit?: ProgramaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProgramaInclude<ExtArgs> | null
+    /**
+     * Filter, which Programa to fetch.
+     */
+    where?: ProgramaWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Programas to fetch.
+     */
+    orderBy?: ProgramaOrderByWithRelationInput | ProgramaOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Programas.
+     */
+    cursor?: ProgramaWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Programas from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Programas.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Programas.
+     */
+    distinct?: ProgramaScalarFieldEnum | ProgramaScalarFieldEnum[]
+  }
+
+  /**
+   * Programa findMany
+   */
+  export type ProgramaFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Programa
+     */
+    select?: ProgramaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Programa
+     */
+    omit?: ProgramaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProgramaInclude<ExtArgs> | null
+    /**
+     * Filter, which Programas to fetch.
+     */
+    where?: ProgramaWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Programas to fetch.
+     */
+    orderBy?: ProgramaOrderByWithRelationInput | ProgramaOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Programas.
+     */
+    cursor?: ProgramaWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Programas from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Programas.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Programas.
+     */
+    distinct?: ProgramaScalarFieldEnum | ProgramaScalarFieldEnum[]
+  }
+
+  /**
+   * Programa create
+   */
+  export type ProgramaCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Programa
+     */
+    select?: ProgramaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Programa
+     */
+    omit?: ProgramaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProgramaInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Programa.
+     */
+    data: XOR<ProgramaCreateInput, ProgramaUncheckedCreateInput>
+  }
+
+  /**
+   * Programa createMany
+   */
+  export type ProgramaCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Programas.
+     */
+    data: ProgramaCreateManyInput | ProgramaCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Programa createManyAndReturn
+   */
+  export type ProgramaCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Programa
+     */
+    select?: ProgramaSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Programa
+     */
+    omit?: ProgramaOmit<ExtArgs> | null
+    /**
+     * The data used to create many Programas.
+     */
+    data: ProgramaCreateManyInput | ProgramaCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Programa update
+   */
+  export type ProgramaUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Programa
+     */
+    select?: ProgramaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Programa
+     */
+    omit?: ProgramaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProgramaInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Programa.
+     */
+    data: XOR<ProgramaUpdateInput, ProgramaUncheckedUpdateInput>
+    /**
+     * Choose, which Programa to update.
+     */
+    where: ProgramaWhereUniqueInput
+  }
+
+  /**
+   * Programa updateMany
+   */
+  export type ProgramaUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Programas.
+     */
+    data: XOR<ProgramaUpdateManyMutationInput, ProgramaUncheckedUpdateManyInput>
+    /**
+     * Filter which Programas to update
+     */
+    where?: ProgramaWhereInput
+    /**
+     * Limit how many Programas to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Programa updateManyAndReturn
+   */
+  export type ProgramaUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Programa
+     */
+    select?: ProgramaSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Programa
+     */
+    omit?: ProgramaOmit<ExtArgs> | null
+    /**
+     * The data used to update Programas.
+     */
+    data: XOR<ProgramaUpdateManyMutationInput, ProgramaUncheckedUpdateManyInput>
+    /**
+     * Filter which Programas to update
+     */
+    where?: ProgramaWhereInput
+    /**
+     * Limit how many Programas to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Programa upsert
+   */
+  export type ProgramaUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Programa
+     */
+    select?: ProgramaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Programa
+     */
+    omit?: ProgramaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProgramaInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Programa to update in case it exists.
+     */
+    where: ProgramaWhereUniqueInput
+    /**
+     * In case the Programa found by the `where` argument doesn't exist, create a new Programa with this data.
+     */
+    create: XOR<ProgramaCreateInput, ProgramaUncheckedCreateInput>
+    /**
+     * In case the Programa was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ProgramaUpdateInput, ProgramaUncheckedUpdateInput>
+  }
+
+  /**
+   * Programa delete
+   */
+  export type ProgramaDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Programa
+     */
+    select?: ProgramaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Programa
+     */
+    omit?: ProgramaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProgramaInclude<ExtArgs> | null
+    /**
+     * Filter which Programa to delete.
+     */
+    where: ProgramaWhereUniqueInput
+  }
+
+  /**
+   * Programa deleteMany
+   */
+  export type ProgramaDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Programas to delete
+     */
+    where?: ProgramaWhereInput
+    /**
+     * Limit how many Programas to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Programa.fichas
+   */
+  export type Programa$fichasArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Ficha
+     */
+    select?: FichaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Ficha
+     */
+    omit?: FichaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FichaInclude<ExtArgs> | null
+    where?: FichaWhereInput
+    orderBy?: FichaOrderByWithRelationInput | FichaOrderByWithRelationInput[]
+    cursor?: FichaWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: FichaScalarFieldEnum | FichaScalarFieldEnum[]
+  }
+
+  /**
+   * Programa without action
+   */
+  export type ProgramaDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Programa
+     */
+    select?: ProgramaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Programa
+     */
+    omit?: ProgramaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProgramaInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Ficha
+   */
+
+  export type AggregateFicha = {
+    _count: FichaCountAggregateOutputType | null
+    _avg: FichaAvgAggregateOutputType | null
+    _sum: FichaSumAggregateOutputType | null
+    _min: FichaMinAggregateOutputType | null
+    _max: FichaMaxAggregateOutputType | null
+  }
+
+  export type FichaAvgAggregateOutputType = {
+    id: number | null
+    programaId: number | null
+  }
+
+  export type FichaSumAggregateOutputType = {
+    id: number | null
+    programaId: number | null
+  }
+
+  export type FichaMinAggregateOutputType = {
+    id: number | null
+    numero: string | null
+    programaId: number | null
+    jornada: string | null
+    modalidad: string | null
+    estado: string | null
+    fecha_inicio: Date | null
+    fecha_fin: Date | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type FichaMaxAggregateOutputType = {
+    id: number | null
+    numero: string | null
+    programaId: number | null
+    jornada: string | null
+    modalidad: string | null
+    estado: string | null
+    fecha_inicio: Date | null
+    fecha_fin: Date | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type FichaCountAggregateOutputType = {
+    id: number
+    numero: number
+    programaId: number
+    jornada: number
+    modalidad: number
+    estado: number
+    fecha_inicio: number
+    fecha_fin: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type FichaAvgAggregateInputType = {
+    id?: true
+    programaId?: true
+  }
+
+  export type FichaSumAggregateInputType = {
+    id?: true
+    programaId?: true
+  }
+
+  export type FichaMinAggregateInputType = {
+    id?: true
+    numero?: true
+    programaId?: true
+    jornada?: true
+    modalidad?: true
+    estado?: true
+    fecha_inicio?: true
+    fecha_fin?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type FichaMaxAggregateInputType = {
+    id?: true
+    numero?: true
+    programaId?: true
+    jornada?: true
+    modalidad?: true
+    estado?: true
+    fecha_inicio?: true
+    fecha_fin?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type FichaCountAggregateInputType = {
+    id?: true
+    numero?: true
+    programaId?: true
+    jornada?: true
+    modalidad?: true
+    estado?: true
+    fecha_inicio?: true
+    fecha_fin?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type FichaAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Ficha to aggregate.
+     */
+    where?: FichaWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Fichas to fetch.
+     */
+    orderBy?: FichaOrderByWithRelationInput | FichaOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: FichaWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Fichas from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Fichas.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Fichas
+    **/
+    _count?: true | FichaCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: FichaAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: FichaSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: FichaMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: FichaMaxAggregateInputType
+  }
+
+  export type GetFichaAggregateType<T extends FichaAggregateArgs> = {
+        [P in keyof T & keyof AggregateFicha]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateFicha[P]>
+      : GetScalarType<T[P], AggregateFicha[P]>
+  }
+
+
+
+
+  export type FichaGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: FichaWhereInput
+    orderBy?: FichaOrderByWithAggregationInput | FichaOrderByWithAggregationInput[]
+    by: FichaScalarFieldEnum[] | FichaScalarFieldEnum
+    having?: FichaScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: FichaCountAggregateInputType | true
+    _avg?: FichaAvgAggregateInputType
+    _sum?: FichaSumAggregateInputType
+    _min?: FichaMinAggregateInputType
+    _max?: FichaMaxAggregateInputType
+  }
+
+  export type FichaGroupByOutputType = {
+    id: number
+    numero: string
+    programaId: number
+    jornada: string
+    modalidad: string
+    estado: string
+    fecha_inicio: Date | null
+    fecha_fin: Date | null
+    createdAt: Date
+    updatedAt: Date
+    _count: FichaCountAggregateOutputType | null
+    _avg: FichaAvgAggregateOutputType | null
+    _sum: FichaSumAggregateOutputType | null
+    _min: FichaMinAggregateOutputType | null
+    _max: FichaMaxAggregateOutputType | null
+  }
+
+  type GetFichaGroupByPayload<T extends FichaGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<FichaGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof FichaGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], FichaGroupByOutputType[P]>
+            : GetScalarType<T[P], FichaGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type FichaSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    numero?: boolean
+    programaId?: boolean
+    jornada?: boolean
+    modalidad?: boolean
+    estado?: boolean
+    fecha_inicio?: boolean
+    fecha_fin?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    programa?: boolean | ProgramaDefaultArgs<ExtArgs>
+    instructores?: boolean | Ficha$instructoresArgs<ExtArgs>
+    aprendices?: boolean | Ficha$aprendicesArgs<ExtArgs>
+    cursos?: boolean | Ficha$cursosArgs<ExtArgs>
+    _count?: boolean | FichaCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["ficha"]>
+
+  export type FichaSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    numero?: boolean
+    programaId?: boolean
+    jornada?: boolean
+    modalidad?: boolean
+    estado?: boolean
+    fecha_inicio?: boolean
+    fecha_fin?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    programa?: boolean | ProgramaDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["ficha"]>
+
+  export type FichaSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    numero?: boolean
+    programaId?: boolean
+    jornada?: boolean
+    modalidad?: boolean
+    estado?: boolean
+    fecha_inicio?: boolean
+    fecha_fin?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    programa?: boolean | ProgramaDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["ficha"]>
+
+  export type FichaSelectScalar = {
+    id?: boolean
+    numero?: boolean
+    programaId?: boolean
+    jornada?: boolean
+    modalidad?: boolean
+    estado?: boolean
+    fecha_inicio?: boolean
+    fecha_fin?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type FichaOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "numero" | "programaId" | "jornada" | "modalidad" | "estado" | "fecha_inicio" | "fecha_fin" | "createdAt" | "updatedAt", ExtArgs["result"]["ficha"]>
+  export type FichaInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    programa?: boolean | ProgramaDefaultArgs<ExtArgs>
+    instructores?: boolean | Ficha$instructoresArgs<ExtArgs>
+    aprendices?: boolean | Ficha$aprendicesArgs<ExtArgs>
+    cursos?: boolean | Ficha$cursosArgs<ExtArgs>
+    _count?: boolean | FichaCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type FichaIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    programa?: boolean | ProgramaDefaultArgs<ExtArgs>
+  }
+  export type FichaIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    programa?: boolean | ProgramaDefaultArgs<ExtArgs>
+  }
+
+  export type $FichaPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Ficha"
+    objects: {
+      programa: Prisma.$ProgramaPayload<ExtArgs>
+      instructores: Prisma.$FichaInstructorPayload<ExtArgs>[]
+      aprendices: Prisma.$FichaAprendizPayload<ExtArgs>[]
+      cursos: Prisma.$FichaCursoPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      numero: string
+      programaId: number
+      jornada: string
+      modalidad: string
+      estado: string
+      fecha_inicio: Date | null
+      fecha_fin: Date | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["ficha"]>
+    composites: {}
+  }
+
+  type FichaGetPayload<S extends boolean | null | undefined | FichaDefaultArgs> = $Result.GetResult<Prisma.$FichaPayload, S>
+
+  type FichaCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<FichaFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: FichaCountAggregateInputType | true
+    }
+
+  export interface FichaDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Ficha'], meta: { name: 'Ficha' } }
+    /**
+     * Find zero or one Ficha that matches the filter.
+     * @param {FichaFindUniqueArgs} args - Arguments to find a Ficha
+     * @example
+     * // Get one Ficha
+     * const ficha = await prisma.ficha.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends FichaFindUniqueArgs>(args: SelectSubset<T, FichaFindUniqueArgs<ExtArgs>>): Prisma__FichaClient<$Result.GetResult<Prisma.$FichaPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Ficha that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {FichaFindUniqueOrThrowArgs} args - Arguments to find a Ficha
+     * @example
+     * // Get one Ficha
+     * const ficha = await prisma.ficha.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends FichaFindUniqueOrThrowArgs>(args: SelectSubset<T, FichaFindUniqueOrThrowArgs<ExtArgs>>): Prisma__FichaClient<$Result.GetResult<Prisma.$FichaPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Ficha that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FichaFindFirstArgs} args - Arguments to find a Ficha
+     * @example
+     * // Get one Ficha
+     * const ficha = await prisma.ficha.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends FichaFindFirstArgs>(args?: SelectSubset<T, FichaFindFirstArgs<ExtArgs>>): Prisma__FichaClient<$Result.GetResult<Prisma.$FichaPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Ficha that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FichaFindFirstOrThrowArgs} args - Arguments to find a Ficha
+     * @example
+     * // Get one Ficha
+     * const ficha = await prisma.ficha.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends FichaFindFirstOrThrowArgs>(args?: SelectSubset<T, FichaFindFirstOrThrowArgs<ExtArgs>>): Prisma__FichaClient<$Result.GetResult<Prisma.$FichaPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Fichas that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FichaFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Fichas
+     * const fichas = await prisma.ficha.findMany()
+     * 
+     * // Get first 10 Fichas
+     * const fichas = await prisma.ficha.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const fichaWithIdOnly = await prisma.ficha.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends FichaFindManyArgs>(args?: SelectSubset<T, FichaFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FichaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Ficha.
+     * @param {FichaCreateArgs} args - Arguments to create a Ficha.
+     * @example
+     * // Create one Ficha
+     * const Ficha = await prisma.ficha.create({
+     *   data: {
+     *     // ... data to create a Ficha
+     *   }
+     * })
+     * 
+     */
+    create<T extends FichaCreateArgs>(args: SelectSubset<T, FichaCreateArgs<ExtArgs>>): Prisma__FichaClient<$Result.GetResult<Prisma.$FichaPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Fichas.
+     * @param {FichaCreateManyArgs} args - Arguments to create many Fichas.
+     * @example
+     * // Create many Fichas
+     * const ficha = await prisma.ficha.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends FichaCreateManyArgs>(args?: SelectSubset<T, FichaCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Fichas and returns the data saved in the database.
+     * @param {FichaCreateManyAndReturnArgs} args - Arguments to create many Fichas.
+     * @example
+     * // Create many Fichas
+     * const ficha = await prisma.ficha.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Fichas and only return the `id`
+     * const fichaWithIdOnly = await prisma.ficha.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends FichaCreateManyAndReturnArgs>(args?: SelectSubset<T, FichaCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FichaPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Ficha.
+     * @param {FichaDeleteArgs} args - Arguments to delete one Ficha.
+     * @example
+     * // Delete one Ficha
+     * const Ficha = await prisma.ficha.delete({
+     *   where: {
+     *     // ... filter to delete one Ficha
+     *   }
+     * })
+     * 
+     */
+    delete<T extends FichaDeleteArgs>(args: SelectSubset<T, FichaDeleteArgs<ExtArgs>>): Prisma__FichaClient<$Result.GetResult<Prisma.$FichaPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Ficha.
+     * @param {FichaUpdateArgs} args - Arguments to update one Ficha.
+     * @example
+     * // Update one Ficha
+     * const ficha = await prisma.ficha.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends FichaUpdateArgs>(args: SelectSubset<T, FichaUpdateArgs<ExtArgs>>): Prisma__FichaClient<$Result.GetResult<Prisma.$FichaPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Fichas.
+     * @param {FichaDeleteManyArgs} args - Arguments to filter Fichas to delete.
+     * @example
+     * // Delete a few Fichas
+     * const { count } = await prisma.ficha.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends FichaDeleteManyArgs>(args?: SelectSubset<T, FichaDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Fichas.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FichaUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Fichas
+     * const ficha = await prisma.ficha.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends FichaUpdateManyArgs>(args: SelectSubset<T, FichaUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Fichas and returns the data updated in the database.
+     * @param {FichaUpdateManyAndReturnArgs} args - Arguments to update many Fichas.
+     * @example
+     * // Update many Fichas
+     * const ficha = await prisma.ficha.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Fichas and only return the `id`
+     * const fichaWithIdOnly = await prisma.ficha.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends FichaUpdateManyAndReturnArgs>(args: SelectSubset<T, FichaUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FichaPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Ficha.
+     * @param {FichaUpsertArgs} args - Arguments to update or create a Ficha.
+     * @example
+     * // Update or create a Ficha
+     * const ficha = await prisma.ficha.upsert({
+     *   create: {
+     *     // ... data to create a Ficha
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Ficha we want to update
+     *   }
+     * })
+     */
+    upsert<T extends FichaUpsertArgs>(args: SelectSubset<T, FichaUpsertArgs<ExtArgs>>): Prisma__FichaClient<$Result.GetResult<Prisma.$FichaPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Fichas.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FichaCountArgs} args - Arguments to filter Fichas to count.
+     * @example
+     * // Count the number of Fichas
+     * const count = await prisma.ficha.count({
+     *   where: {
+     *     // ... the filter for the Fichas we want to count
+     *   }
+     * })
+    **/
+    count<T extends FichaCountArgs>(
+      args?: Subset<T, FichaCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], FichaCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Ficha.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FichaAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends FichaAggregateArgs>(args: Subset<T, FichaAggregateArgs>): Prisma.PrismaPromise<GetFichaAggregateType<T>>
+
+    /**
+     * Group by Ficha.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FichaGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends FichaGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: FichaGroupByArgs['orderBy'] }
+        : { orderBy?: FichaGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, FichaGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetFichaGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Ficha model
+   */
+  readonly fields: FichaFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Ficha.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__FichaClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    programa<T extends ProgramaDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ProgramaDefaultArgs<ExtArgs>>): Prisma__ProgramaClient<$Result.GetResult<Prisma.$ProgramaPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    instructores<T extends Ficha$instructoresArgs<ExtArgs> = {}>(args?: Subset<T, Ficha$instructoresArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FichaInstructorPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    aprendices<T extends Ficha$aprendicesArgs<ExtArgs> = {}>(args?: Subset<T, Ficha$aprendicesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FichaAprendizPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    cursos<T extends Ficha$cursosArgs<ExtArgs> = {}>(args?: Subset<T, Ficha$cursosArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FichaCursoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Ficha model
+   */
+  interface FichaFieldRefs {
+    readonly id: FieldRef<"Ficha", 'Int'>
+    readonly numero: FieldRef<"Ficha", 'String'>
+    readonly programaId: FieldRef<"Ficha", 'Int'>
+    readonly jornada: FieldRef<"Ficha", 'String'>
+    readonly modalidad: FieldRef<"Ficha", 'String'>
+    readonly estado: FieldRef<"Ficha", 'String'>
+    readonly fecha_inicio: FieldRef<"Ficha", 'DateTime'>
+    readonly fecha_fin: FieldRef<"Ficha", 'DateTime'>
+    readonly createdAt: FieldRef<"Ficha", 'DateTime'>
+    readonly updatedAt: FieldRef<"Ficha", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Ficha findUnique
+   */
+  export type FichaFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Ficha
+     */
+    select?: FichaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Ficha
+     */
+    omit?: FichaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FichaInclude<ExtArgs> | null
+    /**
+     * Filter, which Ficha to fetch.
+     */
+    where: FichaWhereUniqueInput
+  }
+
+  /**
+   * Ficha findUniqueOrThrow
+   */
+  export type FichaFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Ficha
+     */
+    select?: FichaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Ficha
+     */
+    omit?: FichaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FichaInclude<ExtArgs> | null
+    /**
+     * Filter, which Ficha to fetch.
+     */
+    where: FichaWhereUniqueInput
+  }
+
+  /**
+   * Ficha findFirst
+   */
+  export type FichaFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Ficha
+     */
+    select?: FichaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Ficha
+     */
+    omit?: FichaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FichaInclude<ExtArgs> | null
+    /**
+     * Filter, which Ficha to fetch.
+     */
+    where?: FichaWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Fichas to fetch.
+     */
+    orderBy?: FichaOrderByWithRelationInput | FichaOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Fichas.
+     */
+    cursor?: FichaWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Fichas from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Fichas.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Fichas.
+     */
+    distinct?: FichaScalarFieldEnum | FichaScalarFieldEnum[]
+  }
+
+  /**
+   * Ficha findFirstOrThrow
+   */
+  export type FichaFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Ficha
+     */
+    select?: FichaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Ficha
+     */
+    omit?: FichaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FichaInclude<ExtArgs> | null
+    /**
+     * Filter, which Ficha to fetch.
+     */
+    where?: FichaWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Fichas to fetch.
+     */
+    orderBy?: FichaOrderByWithRelationInput | FichaOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Fichas.
+     */
+    cursor?: FichaWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Fichas from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Fichas.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Fichas.
+     */
+    distinct?: FichaScalarFieldEnum | FichaScalarFieldEnum[]
+  }
+
+  /**
+   * Ficha findMany
+   */
+  export type FichaFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Ficha
+     */
+    select?: FichaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Ficha
+     */
+    omit?: FichaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FichaInclude<ExtArgs> | null
+    /**
+     * Filter, which Fichas to fetch.
+     */
+    where?: FichaWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Fichas to fetch.
+     */
+    orderBy?: FichaOrderByWithRelationInput | FichaOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Fichas.
+     */
+    cursor?: FichaWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Fichas from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Fichas.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Fichas.
+     */
+    distinct?: FichaScalarFieldEnum | FichaScalarFieldEnum[]
+  }
+
+  /**
+   * Ficha create
+   */
+  export type FichaCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Ficha
+     */
+    select?: FichaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Ficha
+     */
+    omit?: FichaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FichaInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Ficha.
+     */
+    data: XOR<FichaCreateInput, FichaUncheckedCreateInput>
+  }
+
+  /**
+   * Ficha createMany
+   */
+  export type FichaCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Fichas.
+     */
+    data: FichaCreateManyInput | FichaCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Ficha createManyAndReturn
+   */
+  export type FichaCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Ficha
+     */
+    select?: FichaSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Ficha
+     */
+    omit?: FichaOmit<ExtArgs> | null
+    /**
+     * The data used to create many Fichas.
+     */
+    data: FichaCreateManyInput | FichaCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FichaIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Ficha update
+   */
+  export type FichaUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Ficha
+     */
+    select?: FichaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Ficha
+     */
+    omit?: FichaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FichaInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Ficha.
+     */
+    data: XOR<FichaUpdateInput, FichaUncheckedUpdateInput>
+    /**
+     * Choose, which Ficha to update.
+     */
+    where: FichaWhereUniqueInput
+  }
+
+  /**
+   * Ficha updateMany
+   */
+  export type FichaUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Fichas.
+     */
+    data: XOR<FichaUpdateManyMutationInput, FichaUncheckedUpdateManyInput>
+    /**
+     * Filter which Fichas to update
+     */
+    where?: FichaWhereInput
+    /**
+     * Limit how many Fichas to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Ficha updateManyAndReturn
+   */
+  export type FichaUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Ficha
+     */
+    select?: FichaSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Ficha
+     */
+    omit?: FichaOmit<ExtArgs> | null
+    /**
+     * The data used to update Fichas.
+     */
+    data: XOR<FichaUpdateManyMutationInput, FichaUncheckedUpdateManyInput>
+    /**
+     * Filter which Fichas to update
+     */
+    where?: FichaWhereInput
+    /**
+     * Limit how many Fichas to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FichaIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Ficha upsert
+   */
+  export type FichaUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Ficha
+     */
+    select?: FichaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Ficha
+     */
+    omit?: FichaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FichaInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Ficha to update in case it exists.
+     */
+    where: FichaWhereUniqueInput
+    /**
+     * In case the Ficha found by the `where` argument doesn't exist, create a new Ficha with this data.
+     */
+    create: XOR<FichaCreateInput, FichaUncheckedCreateInput>
+    /**
+     * In case the Ficha was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<FichaUpdateInput, FichaUncheckedUpdateInput>
+  }
+
+  /**
+   * Ficha delete
+   */
+  export type FichaDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Ficha
+     */
+    select?: FichaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Ficha
+     */
+    omit?: FichaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FichaInclude<ExtArgs> | null
+    /**
+     * Filter which Ficha to delete.
+     */
+    where: FichaWhereUniqueInput
+  }
+
+  /**
+   * Ficha deleteMany
+   */
+  export type FichaDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Fichas to delete
+     */
+    where?: FichaWhereInput
+    /**
+     * Limit how many Fichas to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Ficha.instructores
+   */
+  export type Ficha$instructoresArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FichaInstructor
+     */
+    select?: FichaInstructorSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the FichaInstructor
+     */
+    omit?: FichaInstructorOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FichaInstructorInclude<ExtArgs> | null
+    where?: FichaInstructorWhereInput
+    orderBy?: FichaInstructorOrderByWithRelationInput | FichaInstructorOrderByWithRelationInput[]
+    cursor?: FichaInstructorWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: FichaInstructorScalarFieldEnum | FichaInstructorScalarFieldEnum[]
+  }
+
+  /**
+   * Ficha.aprendices
+   */
+  export type Ficha$aprendicesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FichaAprendiz
+     */
+    select?: FichaAprendizSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the FichaAprendiz
+     */
+    omit?: FichaAprendizOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FichaAprendizInclude<ExtArgs> | null
+    where?: FichaAprendizWhereInput
+    orderBy?: FichaAprendizOrderByWithRelationInput | FichaAprendizOrderByWithRelationInput[]
+    cursor?: FichaAprendizWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: FichaAprendizScalarFieldEnum | FichaAprendizScalarFieldEnum[]
+  }
+
+  /**
+   * Ficha.cursos
+   */
+  export type Ficha$cursosArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FichaCurso
+     */
+    select?: FichaCursoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the FichaCurso
+     */
+    omit?: FichaCursoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FichaCursoInclude<ExtArgs> | null
+    where?: FichaCursoWhereInput
+    orderBy?: FichaCursoOrderByWithRelationInput | FichaCursoOrderByWithRelationInput[]
+    cursor?: FichaCursoWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: FichaCursoScalarFieldEnum | FichaCursoScalarFieldEnum[]
+  }
+
+  /**
+   * Ficha without action
+   */
+  export type FichaDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Ficha
+     */
+    select?: FichaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Ficha
+     */
+    omit?: FichaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FichaInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model FichaCurso
+   */
+
+  export type AggregateFichaCurso = {
+    _count: FichaCursoCountAggregateOutputType | null
+    _avg: FichaCursoAvgAggregateOutputType | null
+    _sum: FichaCursoSumAggregateOutputType | null
+    _min: FichaCursoMinAggregateOutputType | null
+    _max: FichaCursoMaxAggregateOutputType | null
+  }
+
+  export type FichaCursoAvgAggregateOutputType = {
+    id: number | null
+    fichaId: number | null
+    cursoId: number | null
+  }
+
+  export type FichaCursoSumAggregateOutputType = {
+    id: number | null
+    fichaId: number | null
+    cursoId: number | null
+  }
+
+  export type FichaCursoMinAggregateOutputType = {
+    id: number | null
+    fichaId: number | null
+    cursoId: number | null
+    asignadoAt: Date | null
+  }
+
+  export type FichaCursoMaxAggregateOutputType = {
+    id: number | null
+    fichaId: number | null
+    cursoId: number | null
+    asignadoAt: Date | null
+  }
+
+  export type FichaCursoCountAggregateOutputType = {
+    id: number
+    fichaId: number
+    cursoId: number
+    asignadoAt: number
+    _all: number
+  }
+
+
+  export type FichaCursoAvgAggregateInputType = {
+    id?: true
+    fichaId?: true
+    cursoId?: true
+  }
+
+  export type FichaCursoSumAggregateInputType = {
+    id?: true
+    fichaId?: true
+    cursoId?: true
+  }
+
+  export type FichaCursoMinAggregateInputType = {
+    id?: true
+    fichaId?: true
+    cursoId?: true
+    asignadoAt?: true
+  }
+
+  export type FichaCursoMaxAggregateInputType = {
+    id?: true
+    fichaId?: true
+    cursoId?: true
+    asignadoAt?: true
+  }
+
+  export type FichaCursoCountAggregateInputType = {
+    id?: true
+    fichaId?: true
+    cursoId?: true
+    asignadoAt?: true
+    _all?: true
+  }
+
+  export type FichaCursoAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which FichaCurso to aggregate.
+     */
+    where?: FichaCursoWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of FichaCursos to fetch.
+     */
+    orderBy?: FichaCursoOrderByWithRelationInput | FichaCursoOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: FichaCursoWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` FichaCursos from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` FichaCursos.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned FichaCursos
+    **/
+    _count?: true | FichaCursoCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: FichaCursoAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: FichaCursoSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: FichaCursoMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: FichaCursoMaxAggregateInputType
+  }
+
+  export type GetFichaCursoAggregateType<T extends FichaCursoAggregateArgs> = {
+        [P in keyof T & keyof AggregateFichaCurso]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateFichaCurso[P]>
+      : GetScalarType<T[P], AggregateFichaCurso[P]>
+  }
+
+
+
+
+  export type FichaCursoGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: FichaCursoWhereInput
+    orderBy?: FichaCursoOrderByWithAggregationInput | FichaCursoOrderByWithAggregationInput[]
+    by: FichaCursoScalarFieldEnum[] | FichaCursoScalarFieldEnum
+    having?: FichaCursoScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: FichaCursoCountAggregateInputType | true
+    _avg?: FichaCursoAvgAggregateInputType
+    _sum?: FichaCursoSumAggregateInputType
+    _min?: FichaCursoMinAggregateInputType
+    _max?: FichaCursoMaxAggregateInputType
+  }
+
+  export type FichaCursoGroupByOutputType = {
+    id: number
+    fichaId: number
+    cursoId: number
+    asignadoAt: Date
+    _count: FichaCursoCountAggregateOutputType | null
+    _avg: FichaCursoAvgAggregateOutputType | null
+    _sum: FichaCursoSumAggregateOutputType | null
+    _min: FichaCursoMinAggregateOutputType | null
+    _max: FichaCursoMaxAggregateOutputType | null
+  }
+
+  type GetFichaCursoGroupByPayload<T extends FichaCursoGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<FichaCursoGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof FichaCursoGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], FichaCursoGroupByOutputType[P]>
+            : GetScalarType<T[P], FichaCursoGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type FichaCursoSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    fichaId?: boolean
+    cursoId?: boolean
+    asignadoAt?: boolean
+    ficha?: boolean | FichaDefaultArgs<ExtArgs>
+    curso?: boolean | CursoDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["fichaCurso"]>
+
+  export type FichaCursoSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    fichaId?: boolean
+    cursoId?: boolean
+    asignadoAt?: boolean
+    ficha?: boolean | FichaDefaultArgs<ExtArgs>
+    curso?: boolean | CursoDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["fichaCurso"]>
+
+  export type FichaCursoSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    fichaId?: boolean
+    cursoId?: boolean
+    asignadoAt?: boolean
+    ficha?: boolean | FichaDefaultArgs<ExtArgs>
+    curso?: boolean | CursoDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["fichaCurso"]>
+
+  export type FichaCursoSelectScalar = {
+    id?: boolean
+    fichaId?: boolean
+    cursoId?: boolean
+    asignadoAt?: boolean
+  }
+
+  export type FichaCursoOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "fichaId" | "cursoId" | "asignadoAt", ExtArgs["result"]["fichaCurso"]>
+  export type FichaCursoInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    ficha?: boolean | FichaDefaultArgs<ExtArgs>
+    curso?: boolean | CursoDefaultArgs<ExtArgs>
+  }
+  export type FichaCursoIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    ficha?: boolean | FichaDefaultArgs<ExtArgs>
+    curso?: boolean | CursoDefaultArgs<ExtArgs>
+  }
+  export type FichaCursoIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    ficha?: boolean | FichaDefaultArgs<ExtArgs>
+    curso?: boolean | CursoDefaultArgs<ExtArgs>
+  }
+
+  export type $FichaCursoPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "FichaCurso"
+    objects: {
+      ficha: Prisma.$FichaPayload<ExtArgs>
+      curso: Prisma.$CursoPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      fichaId: number
+      cursoId: number
+      asignadoAt: Date
+    }, ExtArgs["result"]["fichaCurso"]>
+    composites: {}
+  }
+
+  type FichaCursoGetPayload<S extends boolean | null | undefined | FichaCursoDefaultArgs> = $Result.GetResult<Prisma.$FichaCursoPayload, S>
+
+  type FichaCursoCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<FichaCursoFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: FichaCursoCountAggregateInputType | true
+    }
+
+  export interface FichaCursoDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['FichaCurso'], meta: { name: 'FichaCurso' } }
+    /**
+     * Find zero or one FichaCurso that matches the filter.
+     * @param {FichaCursoFindUniqueArgs} args - Arguments to find a FichaCurso
+     * @example
+     * // Get one FichaCurso
+     * const fichaCurso = await prisma.fichaCurso.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends FichaCursoFindUniqueArgs>(args: SelectSubset<T, FichaCursoFindUniqueArgs<ExtArgs>>): Prisma__FichaCursoClient<$Result.GetResult<Prisma.$FichaCursoPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one FichaCurso that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {FichaCursoFindUniqueOrThrowArgs} args - Arguments to find a FichaCurso
+     * @example
+     * // Get one FichaCurso
+     * const fichaCurso = await prisma.fichaCurso.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends FichaCursoFindUniqueOrThrowArgs>(args: SelectSubset<T, FichaCursoFindUniqueOrThrowArgs<ExtArgs>>): Prisma__FichaCursoClient<$Result.GetResult<Prisma.$FichaCursoPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first FichaCurso that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FichaCursoFindFirstArgs} args - Arguments to find a FichaCurso
+     * @example
+     * // Get one FichaCurso
+     * const fichaCurso = await prisma.fichaCurso.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends FichaCursoFindFirstArgs>(args?: SelectSubset<T, FichaCursoFindFirstArgs<ExtArgs>>): Prisma__FichaCursoClient<$Result.GetResult<Prisma.$FichaCursoPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first FichaCurso that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FichaCursoFindFirstOrThrowArgs} args - Arguments to find a FichaCurso
+     * @example
+     * // Get one FichaCurso
+     * const fichaCurso = await prisma.fichaCurso.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends FichaCursoFindFirstOrThrowArgs>(args?: SelectSubset<T, FichaCursoFindFirstOrThrowArgs<ExtArgs>>): Prisma__FichaCursoClient<$Result.GetResult<Prisma.$FichaCursoPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more FichaCursos that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FichaCursoFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all FichaCursos
+     * const fichaCursos = await prisma.fichaCurso.findMany()
+     * 
+     * // Get first 10 FichaCursos
+     * const fichaCursos = await prisma.fichaCurso.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const fichaCursoWithIdOnly = await prisma.fichaCurso.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends FichaCursoFindManyArgs>(args?: SelectSubset<T, FichaCursoFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FichaCursoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a FichaCurso.
+     * @param {FichaCursoCreateArgs} args - Arguments to create a FichaCurso.
+     * @example
+     * // Create one FichaCurso
+     * const FichaCurso = await prisma.fichaCurso.create({
+     *   data: {
+     *     // ... data to create a FichaCurso
+     *   }
+     * })
+     * 
+     */
+    create<T extends FichaCursoCreateArgs>(args: SelectSubset<T, FichaCursoCreateArgs<ExtArgs>>): Prisma__FichaCursoClient<$Result.GetResult<Prisma.$FichaCursoPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many FichaCursos.
+     * @param {FichaCursoCreateManyArgs} args - Arguments to create many FichaCursos.
+     * @example
+     * // Create many FichaCursos
+     * const fichaCurso = await prisma.fichaCurso.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends FichaCursoCreateManyArgs>(args?: SelectSubset<T, FichaCursoCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many FichaCursos and returns the data saved in the database.
+     * @param {FichaCursoCreateManyAndReturnArgs} args - Arguments to create many FichaCursos.
+     * @example
+     * // Create many FichaCursos
+     * const fichaCurso = await prisma.fichaCurso.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many FichaCursos and only return the `id`
+     * const fichaCursoWithIdOnly = await prisma.fichaCurso.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends FichaCursoCreateManyAndReturnArgs>(args?: SelectSubset<T, FichaCursoCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FichaCursoPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a FichaCurso.
+     * @param {FichaCursoDeleteArgs} args - Arguments to delete one FichaCurso.
+     * @example
+     * // Delete one FichaCurso
+     * const FichaCurso = await prisma.fichaCurso.delete({
+     *   where: {
+     *     // ... filter to delete one FichaCurso
+     *   }
+     * })
+     * 
+     */
+    delete<T extends FichaCursoDeleteArgs>(args: SelectSubset<T, FichaCursoDeleteArgs<ExtArgs>>): Prisma__FichaCursoClient<$Result.GetResult<Prisma.$FichaCursoPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one FichaCurso.
+     * @param {FichaCursoUpdateArgs} args - Arguments to update one FichaCurso.
+     * @example
+     * // Update one FichaCurso
+     * const fichaCurso = await prisma.fichaCurso.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends FichaCursoUpdateArgs>(args: SelectSubset<T, FichaCursoUpdateArgs<ExtArgs>>): Prisma__FichaCursoClient<$Result.GetResult<Prisma.$FichaCursoPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more FichaCursos.
+     * @param {FichaCursoDeleteManyArgs} args - Arguments to filter FichaCursos to delete.
+     * @example
+     * // Delete a few FichaCursos
+     * const { count } = await prisma.fichaCurso.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends FichaCursoDeleteManyArgs>(args?: SelectSubset<T, FichaCursoDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more FichaCursos.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FichaCursoUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many FichaCursos
+     * const fichaCurso = await prisma.fichaCurso.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends FichaCursoUpdateManyArgs>(args: SelectSubset<T, FichaCursoUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more FichaCursos and returns the data updated in the database.
+     * @param {FichaCursoUpdateManyAndReturnArgs} args - Arguments to update many FichaCursos.
+     * @example
+     * // Update many FichaCursos
+     * const fichaCurso = await prisma.fichaCurso.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more FichaCursos and only return the `id`
+     * const fichaCursoWithIdOnly = await prisma.fichaCurso.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends FichaCursoUpdateManyAndReturnArgs>(args: SelectSubset<T, FichaCursoUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FichaCursoPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one FichaCurso.
+     * @param {FichaCursoUpsertArgs} args - Arguments to update or create a FichaCurso.
+     * @example
+     * // Update or create a FichaCurso
+     * const fichaCurso = await prisma.fichaCurso.upsert({
+     *   create: {
+     *     // ... data to create a FichaCurso
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the FichaCurso we want to update
+     *   }
+     * })
+     */
+    upsert<T extends FichaCursoUpsertArgs>(args: SelectSubset<T, FichaCursoUpsertArgs<ExtArgs>>): Prisma__FichaCursoClient<$Result.GetResult<Prisma.$FichaCursoPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of FichaCursos.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FichaCursoCountArgs} args - Arguments to filter FichaCursos to count.
+     * @example
+     * // Count the number of FichaCursos
+     * const count = await prisma.fichaCurso.count({
+     *   where: {
+     *     // ... the filter for the FichaCursos we want to count
+     *   }
+     * })
+    **/
+    count<T extends FichaCursoCountArgs>(
+      args?: Subset<T, FichaCursoCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], FichaCursoCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a FichaCurso.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FichaCursoAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends FichaCursoAggregateArgs>(args: Subset<T, FichaCursoAggregateArgs>): Prisma.PrismaPromise<GetFichaCursoAggregateType<T>>
+
+    /**
+     * Group by FichaCurso.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FichaCursoGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends FichaCursoGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: FichaCursoGroupByArgs['orderBy'] }
+        : { orderBy?: FichaCursoGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, FichaCursoGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetFichaCursoGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the FichaCurso model
+   */
+  readonly fields: FichaCursoFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for FichaCurso.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__FichaCursoClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    ficha<T extends FichaDefaultArgs<ExtArgs> = {}>(args?: Subset<T, FichaDefaultArgs<ExtArgs>>): Prisma__FichaClient<$Result.GetResult<Prisma.$FichaPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    curso<T extends CursoDefaultArgs<ExtArgs> = {}>(args?: Subset<T, CursoDefaultArgs<ExtArgs>>): Prisma__CursoClient<$Result.GetResult<Prisma.$CursoPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the FichaCurso model
+   */
+  interface FichaCursoFieldRefs {
+    readonly id: FieldRef<"FichaCurso", 'Int'>
+    readonly fichaId: FieldRef<"FichaCurso", 'Int'>
+    readonly cursoId: FieldRef<"FichaCurso", 'Int'>
+    readonly asignadoAt: FieldRef<"FichaCurso", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * FichaCurso findUnique
+   */
+  export type FichaCursoFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FichaCurso
+     */
+    select?: FichaCursoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the FichaCurso
+     */
+    omit?: FichaCursoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FichaCursoInclude<ExtArgs> | null
+    /**
+     * Filter, which FichaCurso to fetch.
+     */
+    where: FichaCursoWhereUniqueInput
+  }
+
+  /**
+   * FichaCurso findUniqueOrThrow
+   */
+  export type FichaCursoFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FichaCurso
+     */
+    select?: FichaCursoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the FichaCurso
+     */
+    omit?: FichaCursoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FichaCursoInclude<ExtArgs> | null
+    /**
+     * Filter, which FichaCurso to fetch.
+     */
+    where: FichaCursoWhereUniqueInput
+  }
+
+  /**
+   * FichaCurso findFirst
+   */
+  export type FichaCursoFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FichaCurso
+     */
+    select?: FichaCursoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the FichaCurso
+     */
+    omit?: FichaCursoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FichaCursoInclude<ExtArgs> | null
+    /**
+     * Filter, which FichaCurso to fetch.
+     */
+    where?: FichaCursoWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of FichaCursos to fetch.
+     */
+    orderBy?: FichaCursoOrderByWithRelationInput | FichaCursoOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for FichaCursos.
+     */
+    cursor?: FichaCursoWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` FichaCursos from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` FichaCursos.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of FichaCursos.
+     */
+    distinct?: FichaCursoScalarFieldEnum | FichaCursoScalarFieldEnum[]
+  }
+
+  /**
+   * FichaCurso findFirstOrThrow
+   */
+  export type FichaCursoFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FichaCurso
+     */
+    select?: FichaCursoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the FichaCurso
+     */
+    omit?: FichaCursoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FichaCursoInclude<ExtArgs> | null
+    /**
+     * Filter, which FichaCurso to fetch.
+     */
+    where?: FichaCursoWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of FichaCursos to fetch.
+     */
+    orderBy?: FichaCursoOrderByWithRelationInput | FichaCursoOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for FichaCursos.
+     */
+    cursor?: FichaCursoWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` FichaCursos from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` FichaCursos.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of FichaCursos.
+     */
+    distinct?: FichaCursoScalarFieldEnum | FichaCursoScalarFieldEnum[]
+  }
+
+  /**
+   * FichaCurso findMany
+   */
+  export type FichaCursoFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FichaCurso
+     */
+    select?: FichaCursoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the FichaCurso
+     */
+    omit?: FichaCursoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FichaCursoInclude<ExtArgs> | null
+    /**
+     * Filter, which FichaCursos to fetch.
+     */
+    where?: FichaCursoWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of FichaCursos to fetch.
+     */
+    orderBy?: FichaCursoOrderByWithRelationInput | FichaCursoOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing FichaCursos.
+     */
+    cursor?: FichaCursoWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` FichaCursos from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` FichaCursos.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of FichaCursos.
+     */
+    distinct?: FichaCursoScalarFieldEnum | FichaCursoScalarFieldEnum[]
+  }
+
+  /**
+   * FichaCurso create
+   */
+  export type FichaCursoCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FichaCurso
+     */
+    select?: FichaCursoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the FichaCurso
+     */
+    omit?: FichaCursoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FichaCursoInclude<ExtArgs> | null
+    /**
+     * The data needed to create a FichaCurso.
+     */
+    data: XOR<FichaCursoCreateInput, FichaCursoUncheckedCreateInput>
+  }
+
+  /**
+   * FichaCurso createMany
+   */
+  export type FichaCursoCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many FichaCursos.
+     */
+    data: FichaCursoCreateManyInput | FichaCursoCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * FichaCurso createManyAndReturn
+   */
+  export type FichaCursoCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FichaCurso
+     */
+    select?: FichaCursoSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the FichaCurso
+     */
+    omit?: FichaCursoOmit<ExtArgs> | null
+    /**
+     * The data used to create many FichaCursos.
+     */
+    data: FichaCursoCreateManyInput | FichaCursoCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FichaCursoIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * FichaCurso update
+   */
+  export type FichaCursoUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FichaCurso
+     */
+    select?: FichaCursoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the FichaCurso
+     */
+    omit?: FichaCursoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FichaCursoInclude<ExtArgs> | null
+    /**
+     * The data needed to update a FichaCurso.
+     */
+    data: XOR<FichaCursoUpdateInput, FichaCursoUncheckedUpdateInput>
+    /**
+     * Choose, which FichaCurso to update.
+     */
+    where: FichaCursoWhereUniqueInput
+  }
+
+  /**
+   * FichaCurso updateMany
+   */
+  export type FichaCursoUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update FichaCursos.
+     */
+    data: XOR<FichaCursoUpdateManyMutationInput, FichaCursoUncheckedUpdateManyInput>
+    /**
+     * Filter which FichaCursos to update
+     */
+    where?: FichaCursoWhereInput
+    /**
+     * Limit how many FichaCursos to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * FichaCurso updateManyAndReturn
+   */
+  export type FichaCursoUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FichaCurso
+     */
+    select?: FichaCursoSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the FichaCurso
+     */
+    omit?: FichaCursoOmit<ExtArgs> | null
+    /**
+     * The data used to update FichaCursos.
+     */
+    data: XOR<FichaCursoUpdateManyMutationInput, FichaCursoUncheckedUpdateManyInput>
+    /**
+     * Filter which FichaCursos to update
+     */
+    where?: FichaCursoWhereInput
+    /**
+     * Limit how many FichaCursos to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FichaCursoIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * FichaCurso upsert
+   */
+  export type FichaCursoUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FichaCurso
+     */
+    select?: FichaCursoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the FichaCurso
+     */
+    omit?: FichaCursoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FichaCursoInclude<ExtArgs> | null
+    /**
+     * The filter to search for the FichaCurso to update in case it exists.
+     */
+    where: FichaCursoWhereUniqueInput
+    /**
+     * In case the FichaCurso found by the `where` argument doesn't exist, create a new FichaCurso with this data.
+     */
+    create: XOR<FichaCursoCreateInput, FichaCursoUncheckedCreateInput>
+    /**
+     * In case the FichaCurso was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<FichaCursoUpdateInput, FichaCursoUncheckedUpdateInput>
+  }
+
+  /**
+   * FichaCurso delete
+   */
+  export type FichaCursoDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FichaCurso
+     */
+    select?: FichaCursoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the FichaCurso
+     */
+    omit?: FichaCursoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FichaCursoInclude<ExtArgs> | null
+    /**
+     * Filter which FichaCurso to delete.
+     */
+    where: FichaCursoWhereUniqueInput
+  }
+
+  /**
+   * FichaCurso deleteMany
+   */
+  export type FichaCursoDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which FichaCursos to delete
+     */
+    where?: FichaCursoWhereInput
+    /**
+     * Limit how many FichaCursos to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * FichaCurso without action
+   */
+  export type FichaCursoDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FichaCurso
+     */
+    select?: FichaCursoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the FichaCurso
+     */
+    omit?: FichaCursoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FichaCursoInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model FichaInstructor
+   */
+
+  export type AggregateFichaInstructor = {
+    _count: FichaInstructorCountAggregateOutputType | null
+    _avg: FichaInstructorAvgAggregateOutputType | null
+    _sum: FichaInstructorSumAggregateOutputType | null
+    _min: FichaInstructorMinAggregateOutputType | null
+    _max: FichaInstructorMaxAggregateOutputType | null
+  }
+
+  export type FichaInstructorAvgAggregateOutputType = {
+    id: number | null
+    fichaId: number | null
+    instructorId: number | null
+  }
+
+  export type FichaInstructorSumAggregateOutputType = {
+    id: number | null
+    fichaId: number | null
+    instructorId: number | null
+  }
+
+  export type FichaInstructorMinAggregateOutputType = {
+    id: number | null
+    fichaId: number | null
+    instructorId: number | null
+    asignadoAt: Date | null
+  }
+
+  export type FichaInstructorMaxAggregateOutputType = {
+    id: number | null
+    fichaId: number | null
+    instructorId: number | null
+    asignadoAt: Date | null
+  }
+
+  export type FichaInstructorCountAggregateOutputType = {
+    id: number
+    fichaId: number
+    instructorId: number
+    asignadoAt: number
+    _all: number
+  }
+
+
+  export type FichaInstructorAvgAggregateInputType = {
+    id?: true
+    fichaId?: true
+    instructorId?: true
+  }
+
+  export type FichaInstructorSumAggregateInputType = {
+    id?: true
+    fichaId?: true
+    instructorId?: true
+  }
+
+  export type FichaInstructorMinAggregateInputType = {
+    id?: true
+    fichaId?: true
+    instructorId?: true
+    asignadoAt?: true
+  }
+
+  export type FichaInstructorMaxAggregateInputType = {
+    id?: true
+    fichaId?: true
+    instructorId?: true
+    asignadoAt?: true
+  }
+
+  export type FichaInstructorCountAggregateInputType = {
+    id?: true
+    fichaId?: true
+    instructorId?: true
+    asignadoAt?: true
+    _all?: true
+  }
+
+  export type FichaInstructorAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which FichaInstructor to aggregate.
+     */
+    where?: FichaInstructorWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of FichaInstructors to fetch.
+     */
+    orderBy?: FichaInstructorOrderByWithRelationInput | FichaInstructorOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: FichaInstructorWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` FichaInstructors from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` FichaInstructors.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned FichaInstructors
+    **/
+    _count?: true | FichaInstructorCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: FichaInstructorAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: FichaInstructorSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: FichaInstructorMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: FichaInstructorMaxAggregateInputType
+  }
+
+  export type GetFichaInstructorAggregateType<T extends FichaInstructorAggregateArgs> = {
+        [P in keyof T & keyof AggregateFichaInstructor]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateFichaInstructor[P]>
+      : GetScalarType<T[P], AggregateFichaInstructor[P]>
+  }
+
+
+
+
+  export type FichaInstructorGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: FichaInstructorWhereInput
+    orderBy?: FichaInstructorOrderByWithAggregationInput | FichaInstructorOrderByWithAggregationInput[]
+    by: FichaInstructorScalarFieldEnum[] | FichaInstructorScalarFieldEnum
+    having?: FichaInstructorScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: FichaInstructorCountAggregateInputType | true
+    _avg?: FichaInstructorAvgAggregateInputType
+    _sum?: FichaInstructorSumAggregateInputType
+    _min?: FichaInstructorMinAggregateInputType
+    _max?: FichaInstructorMaxAggregateInputType
+  }
+
+  export type FichaInstructorGroupByOutputType = {
+    id: number
+    fichaId: number
+    instructorId: number
+    asignadoAt: Date
+    _count: FichaInstructorCountAggregateOutputType | null
+    _avg: FichaInstructorAvgAggregateOutputType | null
+    _sum: FichaInstructorSumAggregateOutputType | null
+    _min: FichaInstructorMinAggregateOutputType | null
+    _max: FichaInstructorMaxAggregateOutputType | null
+  }
+
+  type GetFichaInstructorGroupByPayload<T extends FichaInstructorGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<FichaInstructorGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof FichaInstructorGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], FichaInstructorGroupByOutputType[P]>
+            : GetScalarType<T[P], FichaInstructorGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type FichaInstructorSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    fichaId?: boolean
+    instructorId?: boolean
+    asignadoAt?: boolean
+    ficha?: boolean | FichaDefaultArgs<ExtArgs>
+    instructor?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["fichaInstructor"]>
+
+  export type FichaInstructorSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    fichaId?: boolean
+    instructorId?: boolean
+    asignadoAt?: boolean
+    ficha?: boolean | FichaDefaultArgs<ExtArgs>
+    instructor?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["fichaInstructor"]>
+
+  export type FichaInstructorSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    fichaId?: boolean
+    instructorId?: boolean
+    asignadoAt?: boolean
+    ficha?: boolean | FichaDefaultArgs<ExtArgs>
+    instructor?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["fichaInstructor"]>
+
+  export type FichaInstructorSelectScalar = {
+    id?: boolean
+    fichaId?: boolean
+    instructorId?: boolean
+    asignadoAt?: boolean
+  }
+
+  export type FichaInstructorOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "fichaId" | "instructorId" | "asignadoAt", ExtArgs["result"]["fichaInstructor"]>
+  export type FichaInstructorInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    ficha?: boolean | FichaDefaultArgs<ExtArgs>
+    instructor?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type FichaInstructorIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    ficha?: boolean | FichaDefaultArgs<ExtArgs>
+    instructor?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type FichaInstructorIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    ficha?: boolean | FichaDefaultArgs<ExtArgs>
+    instructor?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $FichaInstructorPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "FichaInstructor"
+    objects: {
+      ficha: Prisma.$FichaPayload<ExtArgs>
+      instructor: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      fichaId: number
+      instructorId: number
+      asignadoAt: Date
+    }, ExtArgs["result"]["fichaInstructor"]>
+    composites: {}
+  }
+
+  type FichaInstructorGetPayload<S extends boolean | null | undefined | FichaInstructorDefaultArgs> = $Result.GetResult<Prisma.$FichaInstructorPayload, S>
+
+  type FichaInstructorCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<FichaInstructorFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: FichaInstructorCountAggregateInputType | true
+    }
+
+  export interface FichaInstructorDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['FichaInstructor'], meta: { name: 'FichaInstructor' } }
+    /**
+     * Find zero or one FichaInstructor that matches the filter.
+     * @param {FichaInstructorFindUniqueArgs} args - Arguments to find a FichaInstructor
+     * @example
+     * // Get one FichaInstructor
+     * const fichaInstructor = await prisma.fichaInstructor.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends FichaInstructorFindUniqueArgs>(args: SelectSubset<T, FichaInstructorFindUniqueArgs<ExtArgs>>): Prisma__FichaInstructorClient<$Result.GetResult<Prisma.$FichaInstructorPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one FichaInstructor that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {FichaInstructorFindUniqueOrThrowArgs} args - Arguments to find a FichaInstructor
+     * @example
+     * // Get one FichaInstructor
+     * const fichaInstructor = await prisma.fichaInstructor.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends FichaInstructorFindUniqueOrThrowArgs>(args: SelectSubset<T, FichaInstructorFindUniqueOrThrowArgs<ExtArgs>>): Prisma__FichaInstructorClient<$Result.GetResult<Prisma.$FichaInstructorPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first FichaInstructor that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FichaInstructorFindFirstArgs} args - Arguments to find a FichaInstructor
+     * @example
+     * // Get one FichaInstructor
+     * const fichaInstructor = await prisma.fichaInstructor.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends FichaInstructorFindFirstArgs>(args?: SelectSubset<T, FichaInstructorFindFirstArgs<ExtArgs>>): Prisma__FichaInstructorClient<$Result.GetResult<Prisma.$FichaInstructorPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first FichaInstructor that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FichaInstructorFindFirstOrThrowArgs} args - Arguments to find a FichaInstructor
+     * @example
+     * // Get one FichaInstructor
+     * const fichaInstructor = await prisma.fichaInstructor.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends FichaInstructorFindFirstOrThrowArgs>(args?: SelectSubset<T, FichaInstructorFindFirstOrThrowArgs<ExtArgs>>): Prisma__FichaInstructorClient<$Result.GetResult<Prisma.$FichaInstructorPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more FichaInstructors that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FichaInstructorFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all FichaInstructors
+     * const fichaInstructors = await prisma.fichaInstructor.findMany()
+     * 
+     * // Get first 10 FichaInstructors
+     * const fichaInstructors = await prisma.fichaInstructor.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const fichaInstructorWithIdOnly = await prisma.fichaInstructor.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends FichaInstructorFindManyArgs>(args?: SelectSubset<T, FichaInstructorFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FichaInstructorPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a FichaInstructor.
+     * @param {FichaInstructorCreateArgs} args - Arguments to create a FichaInstructor.
+     * @example
+     * // Create one FichaInstructor
+     * const FichaInstructor = await prisma.fichaInstructor.create({
+     *   data: {
+     *     // ... data to create a FichaInstructor
+     *   }
+     * })
+     * 
+     */
+    create<T extends FichaInstructorCreateArgs>(args: SelectSubset<T, FichaInstructorCreateArgs<ExtArgs>>): Prisma__FichaInstructorClient<$Result.GetResult<Prisma.$FichaInstructorPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many FichaInstructors.
+     * @param {FichaInstructorCreateManyArgs} args - Arguments to create many FichaInstructors.
+     * @example
+     * // Create many FichaInstructors
+     * const fichaInstructor = await prisma.fichaInstructor.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends FichaInstructorCreateManyArgs>(args?: SelectSubset<T, FichaInstructorCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many FichaInstructors and returns the data saved in the database.
+     * @param {FichaInstructorCreateManyAndReturnArgs} args - Arguments to create many FichaInstructors.
+     * @example
+     * // Create many FichaInstructors
+     * const fichaInstructor = await prisma.fichaInstructor.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many FichaInstructors and only return the `id`
+     * const fichaInstructorWithIdOnly = await prisma.fichaInstructor.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends FichaInstructorCreateManyAndReturnArgs>(args?: SelectSubset<T, FichaInstructorCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FichaInstructorPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a FichaInstructor.
+     * @param {FichaInstructorDeleteArgs} args - Arguments to delete one FichaInstructor.
+     * @example
+     * // Delete one FichaInstructor
+     * const FichaInstructor = await prisma.fichaInstructor.delete({
+     *   where: {
+     *     // ... filter to delete one FichaInstructor
+     *   }
+     * })
+     * 
+     */
+    delete<T extends FichaInstructorDeleteArgs>(args: SelectSubset<T, FichaInstructorDeleteArgs<ExtArgs>>): Prisma__FichaInstructorClient<$Result.GetResult<Prisma.$FichaInstructorPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one FichaInstructor.
+     * @param {FichaInstructorUpdateArgs} args - Arguments to update one FichaInstructor.
+     * @example
+     * // Update one FichaInstructor
+     * const fichaInstructor = await prisma.fichaInstructor.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends FichaInstructorUpdateArgs>(args: SelectSubset<T, FichaInstructorUpdateArgs<ExtArgs>>): Prisma__FichaInstructorClient<$Result.GetResult<Prisma.$FichaInstructorPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more FichaInstructors.
+     * @param {FichaInstructorDeleteManyArgs} args - Arguments to filter FichaInstructors to delete.
+     * @example
+     * // Delete a few FichaInstructors
+     * const { count } = await prisma.fichaInstructor.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends FichaInstructorDeleteManyArgs>(args?: SelectSubset<T, FichaInstructorDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more FichaInstructors.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FichaInstructorUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many FichaInstructors
+     * const fichaInstructor = await prisma.fichaInstructor.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends FichaInstructorUpdateManyArgs>(args: SelectSubset<T, FichaInstructorUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more FichaInstructors and returns the data updated in the database.
+     * @param {FichaInstructorUpdateManyAndReturnArgs} args - Arguments to update many FichaInstructors.
+     * @example
+     * // Update many FichaInstructors
+     * const fichaInstructor = await prisma.fichaInstructor.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more FichaInstructors and only return the `id`
+     * const fichaInstructorWithIdOnly = await prisma.fichaInstructor.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends FichaInstructorUpdateManyAndReturnArgs>(args: SelectSubset<T, FichaInstructorUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FichaInstructorPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one FichaInstructor.
+     * @param {FichaInstructorUpsertArgs} args - Arguments to update or create a FichaInstructor.
+     * @example
+     * // Update or create a FichaInstructor
+     * const fichaInstructor = await prisma.fichaInstructor.upsert({
+     *   create: {
+     *     // ... data to create a FichaInstructor
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the FichaInstructor we want to update
+     *   }
+     * })
+     */
+    upsert<T extends FichaInstructorUpsertArgs>(args: SelectSubset<T, FichaInstructorUpsertArgs<ExtArgs>>): Prisma__FichaInstructorClient<$Result.GetResult<Prisma.$FichaInstructorPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of FichaInstructors.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FichaInstructorCountArgs} args - Arguments to filter FichaInstructors to count.
+     * @example
+     * // Count the number of FichaInstructors
+     * const count = await prisma.fichaInstructor.count({
+     *   where: {
+     *     // ... the filter for the FichaInstructors we want to count
+     *   }
+     * })
+    **/
+    count<T extends FichaInstructorCountArgs>(
+      args?: Subset<T, FichaInstructorCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], FichaInstructorCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a FichaInstructor.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FichaInstructorAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends FichaInstructorAggregateArgs>(args: Subset<T, FichaInstructorAggregateArgs>): Prisma.PrismaPromise<GetFichaInstructorAggregateType<T>>
+
+    /**
+     * Group by FichaInstructor.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FichaInstructorGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends FichaInstructorGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: FichaInstructorGroupByArgs['orderBy'] }
+        : { orderBy?: FichaInstructorGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, FichaInstructorGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetFichaInstructorGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the FichaInstructor model
+   */
+  readonly fields: FichaInstructorFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for FichaInstructor.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__FichaInstructorClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    ficha<T extends FichaDefaultArgs<ExtArgs> = {}>(args?: Subset<T, FichaDefaultArgs<ExtArgs>>): Prisma__FichaClient<$Result.GetResult<Prisma.$FichaPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    instructor<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the FichaInstructor model
+   */
+  interface FichaInstructorFieldRefs {
+    readonly id: FieldRef<"FichaInstructor", 'Int'>
+    readonly fichaId: FieldRef<"FichaInstructor", 'Int'>
+    readonly instructorId: FieldRef<"FichaInstructor", 'Int'>
+    readonly asignadoAt: FieldRef<"FichaInstructor", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * FichaInstructor findUnique
+   */
+  export type FichaInstructorFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FichaInstructor
+     */
+    select?: FichaInstructorSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the FichaInstructor
+     */
+    omit?: FichaInstructorOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FichaInstructorInclude<ExtArgs> | null
+    /**
+     * Filter, which FichaInstructor to fetch.
+     */
+    where: FichaInstructorWhereUniqueInput
+  }
+
+  /**
+   * FichaInstructor findUniqueOrThrow
+   */
+  export type FichaInstructorFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FichaInstructor
+     */
+    select?: FichaInstructorSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the FichaInstructor
+     */
+    omit?: FichaInstructorOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FichaInstructorInclude<ExtArgs> | null
+    /**
+     * Filter, which FichaInstructor to fetch.
+     */
+    where: FichaInstructorWhereUniqueInput
+  }
+
+  /**
+   * FichaInstructor findFirst
+   */
+  export type FichaInstructorFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FichaInstructor
+     */
+    select?: FichaInstructorSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the FichaInstructor
+     */
+    omit?: FichaInstructorOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FichaInstructorInclude<ExtArgs> | null
+    /**
+     * Filter, which FichaInstructor to fetch.
+     */
+    where?: FichaInstructorWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of FichaInstructors to fetch.
+     */
+    orderBy?: FichaInstructorOrderByWithRelationInput | FichaInstructorOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for FichaInstructors.
+     */
+    cursor?: FichaInstructorWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` FichaInstructors from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` FichaInstructors.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of FichaInstructors.
+     */
+    distinct?: FichaInstructorScalarFieldEnum | FichaInstructorScalarFieldEnum[]
+  }
+
+  /**
+   * FichaInstructor findFirstOrThrow
+   */
+  export type FichaInstructorFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FichaInstructor
+     */
+    select?: FichaInstructorSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the FichaInstructor
+     */
+    omit?: FichaInstructorOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FichaInstructorInclude<ExtArgs> | null
+    /**
+     * Filter, which FichaInstructor to fetch.
+     */
+    where?: FichaInstructorWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of FichaInstructors to fetch.
+     */
+    orderBy?: FichaInstructorOrderByWithRelationInput | FichaInstructorOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for FichaInstructors.
+     */
+    cursor?: FichaInstructorWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` FichaInstructors from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` FichaInstructors.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of FichaInstructors.
+     */
+    distinct?: FichaInstructorScalarFieldEnum | FichaInstructorScalarFieldEnum[]
+  }
+
+  /**
+   * FichaInstructor findMany
+   */
+  export type FichaInstructorFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FichaInstructor
+     */
+    select?: FichaInstructorSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the FichaInstructor
+     */
+    omit?: FichaInstructorOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FichaInstructorInclude<ExtArgs> | null
+    /**
+     * Filter, which FichaInstructors to fetch.
+     */
+    where?: FichaInstructorWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of FichaInstructors to fetch.
+     */
+    orderBy?: FichaInstructorOrderByWithRelationInput | FichaInstructorOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing FichaInstructors.
+     */
+    cursor?: FichaInstructorWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` FichaInstructors from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` FichaInstructors.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of FichaInstructors.
+     */
+    distinct?: FichaInstructorScalarFieldEnum | FichaInstructorScalarFieldEnum[]
+  }
+
+  /**
+   * FichaInstructor create
+   */
+  export type FichaInstructorCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FichaInstructor
+     */
+    select?: FichaInstructorSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the FichaInstructor
+     */
+    omit?: FichaInstructorOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FichaInstructorInclude<ExtArgs> | null
+    /**
+     * The data needed to create a FichaInstructor.
+     */
+    data: XOR<FichaInstructorCreateInput, FichaInstructorUncheckedCreateInput>
+  }
+
+  /**
+   * FichaInstructor createMany
+   */
+  export type FichaInstructorCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many FichaInstructors.
+     */
+    data: FichaInstructorCreateManyInput | FichaInstructorCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * FichaInstructor createManyAndReturn
+   */
+  export type FichaInstructorCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FichaInstructor
+     */
+    select?: FichaInstructorSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the FichaInstructor
+     */
+    omit?: FichaInstructorOmit<ExtArgs> | null
+    /**
+     * The data used to create many FichaInstructors.
+     */
+    data: FichaInstructorCreateManyInput | FichaInstructorCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FichaInstructorIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * FichaInstructor update
+   */
+  export type FichaInstructorUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FichaInstructor
+     */
+    select?: FichaInstructorSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the FichaInstructor
+     */
+    omit?: FichaInstructorOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FichaInstructorInclude<ExtArgs> | null
+    /**
+     * The data needed to update a FichaInstructor.
+     */
+    data: XOR<FichaInstructorUpdateInput, FichaInstructorUncheckedUpdateInput>
+    /**
+     * Choose, which FichaInstructor to update.
+     */
+    where: FichaInstructorWhereUniqueInput
+  }
+
+  /**
+   * FichaInstructor updateMany
+   */
+  export type FichaInstructorUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update FichaInstructors.
+     */
+    data: XOR<FichaInstructorUpdateManyMutationInput, FichaInstructorUncheckedUpdateManyInput>
+    /**
+     * Filter which FichaInstructors to update
+     */
+    where?: FichaInstructorWhereInput
+    /**
+     * Limit how many FichaInstructors to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * FichaInstructor updateManyAndReturn
+   */
+  export type FichaInstructorUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FichaInstructor
+     */
+    select?: FichaInstructorSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the FichaInstructor
+     */
+    omit?: FichaInstructorOmit<ExtArgs> | null
+    /**
+     * The data used to update FichaInstructors.
+     */
+    data: XOR<FichaInstructorUpdateManyMutationInput, FichaInstructorUncheckedUpdateManyInput>
+    /**
+     * Filter which FichaInstructors to update
+     */
+    where?: FichaInstructorWhereInput
+    /**
+     * Limit how many FichaInstructors to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FichaInstructorIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * FichaInstructor upsert
+   */
+  export type FichaInstructorUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FichaInstructor
+     */
+    select?: FichaInstructorSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the FichaInstructor
+     */
+    omit?: FichaInstructorOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FichaInstructorInclude<ExtArgs> | null
+    /**
+     * The filter to search for the FichaInstructor to update in case it exists.
+     */
+    where: FichaInstructorWhereUniqueInput
+    /**
+     * In case the FichaInstructor found by the `where` argument doesn't exist, create a new FichaInstructor with this data.
+     */
+    create: XOR<FichaInstructorCreateInput, FichaInstructorUncheckedCreateInput>
+    /**
+     * In case the FichaInstructor was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<FichaInstructorUpdateInput, FichaInstructorUncheckedUpdateInput>
+  }
+
+  /**
+   * FichaInstructor delete
+   */
+  export type FichaInstructorDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FichaInstructor
+     */
+    select?: FichaInstructorSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the FichaInstructor
+     */
+    omit?: FichaInstructorOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FichaInstructorInclude<ExtArgs> | null
+    /**
+     * Filter which FichaInstructor to delete.
+     */
+    where: FichaInstructorWhereUniqueInput
+  }
+
+  /**
+   * FichaInstructor deleteMany
+   */
+  export type FichaInstructorDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which FichaInstructors to delete
+     */
+    where?: FichaInstructorWhereInput
+    /**
+     * Limit how many FichaInstructors to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * FichaInstructor without action
+   */
+  export type FichaInstructorDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FichaInstructor
+     */
+    select?: FichaInstructorSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the FichaInstructor
+     */
+    omit?: FichaInstructorOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FichaInstructorInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model FichaAprendiz
+   */
+
+  export type AggregateFichaAprendiz = {
+    _count: FichaAprendizCountAggregateOutputType | null
+    _avg: FichaAprendizAvgAggregateOutputType | null
+    _sum: FichaAprendizSumAggregateOutputType | null
+    _min: FichaAprendizMinAggregateOutputType | null
+    _max: FichaAprendizMaxAggregateOutputType | null
+  }
+
+  export type FichaAprendizAvgAggregateOutputType = {
+    id: number | null
+    fichaId: number | null
+    aprendizId: number | null
+  }
+
+  export type FichaAprendizSumAggregateOutputType = {
+    id: number | null
+    fichaId: number | null
+    aprendizId: number | null
+  }
+
+  export type FichaAprendizMinAggregateOutputType = {
+    id: number | null
+    fichaId: number | null
+    aprendizId: number | null
+    estado: string | null
+    ingresadoAt: Date | null
+  }
+
+  export type FichaAprendizMaxAggregateOutputType = {
+    id: number | null
+    fichaId: number | null
+    aprendizId: number | null
+    estado: string | null
+    ingresadoAt: Date | null
+  }
+
+  export type FichaAprendizCountAggregateOutputType = {
+    id: number
+    fichaId: number
+    aprendizId: number
+    estado: number
+    ingresadoAt: number
+    _all: number
+  }
+
+
+  export type FichaAprendizAvgAggregateInputType = {
+    id?: true
+    fichaId?: true
+    aprendizId?: true
+  }
+
+  export type FichaAprendizSumAggregateInputType = {
+    id?: true
+    fichaId?: true
+    aprendizId?: true
+  }
+
+  export type FichaAprendizMinAggregateInputType = {
+    id?: true
+    fichaId?: true
+    aprendizId?: true
+    estado?: true
+    ingresadoAt?: true
+  }
+
+  export type FichaAprendizMaxAggregateInputType = {
+    id?: true
+    fichaId?: true
+    aprendizId?: true
+    estado?: true
+    ingresadoAt?: true
+  }
+
+  export type FichaAprendizCountAggregateInputType = {
+    id?: true
+    fichaId?: true
+    aprendizId?: true
+    estado?: true
+    ingresadoAt?: true
+    _all?: true
+  }
+
+  export type FichaAprendizAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which FichaAprendiz to aggregate.
+     */
+    where?: FichaAprendizWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of FichaAprendizs to fetch.
+     */
+    orderBy?: FichaAprendizOrderByWithRelationInput | FichaAprendizOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: FichaAprendizWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` FichaAprendizs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` FichaAprendizs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned FichaAprendizs
+    **/
+    _count?: true | FichaAprendizCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: FichaAprendizAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: FichaAprendizSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: FichaAprendizMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: FichaAprendizMaxAggregateInputType
+  }
+
+  export type GetFichaAprendizAggregateType<T extends FichaAprendizAggregateArgs> = {
+        [P in keyof T & keyof AggregateFichaAprendiz]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateFichaAprendiz[P]>
+      : GetScalarType<T[P], AggregateFichaAprendiz[P]>
+  }
+
+
+
+
+  export type FichaAprendizGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: FichaAprendizWhereInput
+    orderBy?: FichaAprendizOrderByWithAggregationInput | FichaAprendizOrderByWithAggregationInput[]
+    by: FichaAprendizScalarFieldEnum[] | FichaAprendizScalarFieldEnum
+    having?: FichaAprendizScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: FichaAprendizCountAggregateInputType | true
+    _avg?: FichaAprendizAvgAggregateInputType
+    _sum?: FichaAprendizSumAggregateInputType
+    _min?: FichaAprendizMinAggregateInputType
+    _max?: FichaAprendizMaxAggregateInputType
+  }
+
+  export type FichaAprendizGroupByOutputType = {
+    id: number
+    fichaId: number
+    aprendizId: number
+    estado: string
+    ingresadoAt: Date
+    _count: FichaAprendizCountAggregateOutputType | null
+    _avg: FichaAprendizAvgAggregateOutputType | null
+    _sum: FichaAprendizSumAggregateOutputType | null
+    _min: FichaAprendizMinAggregateOutputType | null
+    _max: FichaAprendizMaxAggregateOutputType | null
+  }
+
+  type GetFichaAprendizGroupByPayload<T extends FichaAprendizGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<FichaAprendizGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof FichaAprendizGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], FichaAprendizGroupByOutputType[P]>
+            : GetScalarType<T[P], FichaAprendizGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type FichaAprendizSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    fichaId?: boolean
+    aprendizId?: boolean
+    estado?: boolean
+    ingresadoAt?: boolean
+    ficha?: boolean | FichaDefaultArgs<ExtArgs>
+    aprendiz?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["fichaAprendiz"]>
+
+  export type FichaAprendizSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    fichaId?: boolean
+    aprendizId?: boolean
+    estado?: boolean
+    ingresadoAt?: boolean
+    ficha?: boolean | FichaDefaultArgs<ExtArgs>
+    aprendiz?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["fichaAprendiz"]>
+
+  export type FichaAprendizSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    fichaId?: boolean
+    aprendizId?: boolean
+    estado?: boolean
+    ingresadoAt?: boolean
+    ficha?: boolean | FichaDefaultArgs<ExtArgs>
+    aprendiz?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["fichaAprendiz"]>
+
+  export type FichaAprendizSelectScalar = {
+    id?: boolean
+    fichaId?: boolean
+    aprendizId?: boolean
+    estado?: boolean
+    ingresadoAt?: boolean
+  }
+
+  export type FichaAprendizOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "fichaId" | "aprendizId" | "estado" | "ingresadoAt", ExtArgs["result"]["fichaAprendiz"]>
+  export type FichaAprendizInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    ficha?: boolean | FichaDefaultArgs<ExtArgs>
+    aprendiz?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type FichaAprendizIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    ficha?: boolean | FichaDefaultArgs<ExtArgs>
+    aprendiz?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type FichaAprendizIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    ficha?: boolean | FichaDefaultArgs<ExtArgs>
+    aprendiz?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $FichaAprendizPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "FichaAprendiz"
+    objects: {
+      ficha: Prisma.$FichaPayload<ExtArgs>
+      aprendiz: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      fichaId: number
+      aprendizId: number
+      estado: string
+      ingresadoAt: Date
+    }, ExtArgs["result"]["fichaAprendiz"]>
+    composites: {}
+  }
+
+  type FichaAprendizGetPayload<S extends boolean | null | undefined | FichaAprendizDefaultArgs> = $Result.GetResult<Prisma.$FichaAprendizPayload, S>
+
+  type FichaAprendizCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<FichaAprendizFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: FichaAprendizCountAggregateInputType | true
+    }
+
+  export interface FichaAprendizDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['FichaAprendiz'], meta: { name: 'FichaAprendiz' } }
+    /**
+     * Find zero or one FichaAprendiz that matches the filter.
+     * @param {FichaAprendizFindUniqueArgs} args - Arguments to find a FichaAprendiz
+     * @example
+     * // Get one FichaAprendiz
+     * const fichaAprendiz = await prisma.fichaAprendiz.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends FichaAprendizFindUniqueArgs>(args: SelectSubset<T, FichaAprendizFindUniqueArgs<ExtArgs>>): Prisma__FichaAprendizClient<$Result.GetResult<Prisma.$FichaAprendizPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one FichaAprendiz that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {FichaAprendizFindUniqueOrThrowArgs} args - Arguments to find a FichaAprendiz
+     * @example
+     * // Get one FichaAprendiz
+     * const fichaAprendiz = await prisma.fichaAprendiz.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends FichaAprendizFindUniqueOrThrowArgs>(args: SelectSubset<T, FichaAprendizFindUniqueOrThrowArgs<ExtArgs>>): Prisma__FichaAprendizClient<$Result.GetResult<Prisma.$FichaAprendizPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first FichaAprendiz that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FichaAprendizFindFirstArgs} args - Arguments to find a FichaAprendiz
+     * @example
+     * // Get one FichaAprendiz
+     * const fichaAprendiz = await prisma.fichaAprendiz.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends FichaAprendizFindFirstArgs>(args?: SelectSubset<T, FichaAprendizFindFirstArgs<ExtArgs>>): Prisma__FichaAprendizClient<$Result.GetResult<Prisma.$FichaAprendizPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first FichaAprendiz that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FichaAprendizFindFirstOrThrowArgs} args - Arguments to find a FichaAprendiz
+     * @example
+     * // Get one FichaAprendiz
+     * const fichaAprendiz = await prisma.fichaAprendiz.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends FichaAprendizFindFirstOrThrowArgs>(args?: SelectSubset<T, FichaAprendizFindFirstOrThrowArgs<ExtArgs>>): Prisma__FichaAprendizClient<$Result.GetResult<Prisma.$FichaAprendizPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more FichaAprendizs that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FichaAprendizFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all FichaAprendizs
+     * const fichaAprendizs = await prisma.fichaAprendiz.findMany()
+     * 
+     * // Get first 10 FichaAprendizs
+     * const fichaAprendizs = await prisma.fichaAprendiz.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const fichaAprendizWithIdOnly = await prisma.fichaAprendiz.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends FichaAprendizFindManyArgs>(args?: SelectSubset<T, FichaAprendizFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FichaAprendizPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a FichaAprendiz.
+     * @param {FichaAprendizCreateArgs} args - Arguments to create a FichaAprendiz.
+     * @example
+     * // Create one FichaAprendiz
+     * const FichaAprendiz = await prisma.fichaAprendiz.create({
+     *   data: {
+     *     // ... data to create a FichaAprendiz
+     *   }
+     * })
+     * 
+     */
+    create<T extends FichaAprendizCreateArgs>(args: SelectSubset<T, FichaAprendizCreateArgs<ExtArgs>>): Prisma__FichaAprendizClient<$Result.GetResult<Prisma.$FichaAprendizPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many FichaAprendizs.
+     * @param {FichaAprendizCreateManyArgs} args - Arguments to create many FichaAprendizs.
+     * @example
+     * // Create many FichaAprendizs
+     * const fichaAprendiz = await prisma.fichaAprendiz.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends FichaAprendizCreateManyArgs>(args?: SelectSubset<T, FichaAprendizCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many FichaAprendizs and returns the data saved in the database.
+     * @param {FichaAprendizCreateManyAndReturnArgs} args - Arguments to create many FichaAprendizs.
+     * @example
+     * // Create many FichaAprendizs
+     * const fichaAprendiz = await prisma.fichaAprendiz.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many FichaAprendizs and only return the `id`
+     * const fichaAprendizWithIdOnly = await prisma.fichaAprendiz.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends FichaAprendizCreateManyAndReturnArgs>(args?: SelectSubset<T, FichaAprendizCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FichaAprendizPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a FichaAprendiz.
+     * @param {FichaAprendizDeleteArgs} args - Arguments to delete one FichaAprendiz.
+     * @example
+     * // Delete one FichaAprendiz
+     * const FichaAprendiz = await prisma.fichaAprendiz.delete({
+     *   where: {
+     *     // ... filter to delete one FichaAprendiz
+     *   }
+     * })
+     * 
+     */
+    delete<T extends FichaAprendizDeleteArgs>(args: SelectSubset<T, FichaAprendizDeleteArgs<ExtArgs>>): Prisma__FichaAprendizClient<$Result.GetResult<Prisma.$FichaAprendizPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one FichaAprendiz.
+     * @param {FichaAprendizUpdateArgs} args - Arguments to update one FichaAprendiz.
+     * @example
+     * // Update one FichaAprendiz
+     * const fichaAprendiz = await prisma.fichaAprendiz.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends FichaAprendizUpdateArgs>(args: SelectSubset<T, FichaAprendizUpdateArgs<ExtArgs>>): Prisma__FichaAprendizClient<$Result.GetResult<Prisma.$FichaAprendizPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more FichaAprendizs.
+     * @param {FichaAprendizDeleteManyArgs} args - Arguments to filter FichaAprendizs to delete.
+     * @example
+     * // Delete a few FichaAprendizs
+     * const { count } = await prisma.fichaAprendiz.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends FichaAprendizDeleteManyArgs>(args?: SelectSubset<T, FichaAprendizDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more FichaAprendizs.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FichaAprendizUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many FichaAprendizs
+     * const fichaAprendiz = await prisma.fichaAprendiz.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends FichaAprendizUpdateManyArgs>(args: SelectSubset<T, FichaAprendizUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more FichaAprendizs and returns the data updated in the database.
+     * @param {FichaAprendizUpdateManyAndReturnArgs} args - Arguments to update many FichaAprendizs.
+     * @example
+     * // Update many FichaAprendizs
+     * const fichaAprendiz = await prisma.fichaAprendiz.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more FichaAprendizs and only return the `id`
+     * const fichaAprendizWithIdOnly = await prisma.fichaAprendiz.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends FichaAprendizUpdateManyAndReturnArgs>(args: SelectSubset<T, FichaAprendizUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FichaAprendizPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one FichaAprendiz.
+     * @param {FichaAprendizUpsertArgs} args - Arguments to update or create a FichaAprendiz.
+     * @example
+     * // Update or create a FichaAprendiz
+     * const fichaAprendiz = await prisma.fichaAprendiz.upsert({
+     *   create: {
+     *     // ... data to create a FichaAprendiz
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the FichaAprendiz we want to update
+     *   }
+     * })
+     */
+    upsert<T extends FichaAprendizUpsertArgs>(args: SelectSubset<T, FichaAprendizUpsertArgs<ExtArgs>>): Prisma__FichaAprendizClient<$Result.GetResult<Prisma.$FichaAprendizPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of FichaAprendizs.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FichaAprendizCountArgs} args - Arguments to filter FichaAprendizs to count.
+     * @example
+     * // Count the number of FichaAprendizs
+     * const count = await prisma.fichaAprendiz.count({
+     *   where: {
+     *     // ... the filter for the FichaAprendizs we want to count
+     *   }
+     * })
+    **/
+    count<T extends FichaAprendizCountArgs>(
+      args?: Subset<T, FichaAprendizCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], FichaAprendizCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a FichaAprendiz.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FichaAprendizAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends FichaAprendizAggregateArgs>(args: Subset<T, FichaAprendizAggregateArgs>): Prisma.PrismaPromise<GetFichaAprendizAggregateType<T>>
+
+    /**
+     * Group by FichaAprendiz.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FichaAprendizGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends FichaAprendizGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: FichaAprendizGroupByArgs['orderBy'] }
+        : { orderBy?: FichaAprendizGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, FichaAprendizGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetFichaAprendizGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the FichaAprendiz model
+   */
+  readonly fields: FichaAprendizFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for FichaAprendiz.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__FichaAprendizClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    ficha<T extends FichaDefaultArgs<ExtArgs> = {}>(args?: Subset<T, FichaDefaultArgs<ExtArgs>>): Prisma__FichaClient<$Result.GetResult<Prisma.$FichaPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    aprendiz<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the FichaAprendiz model
+   */
+  interface FichaAprendizFieldRefs {
+    readonly id: FieldRef<"FichaAprendiz", 'Int'>
+    readonly fichaId: FieldRef<"FichaAprendiz", 'Int'>
+    readonly aprendizId: FieldRef<"FichaAprendiz", 'Int'>
+    readonly estado: FieldRef<"FichaAprendiz", 'String'>
+    readonly ingresadoAt: FieldRef<"FichaAprendiz", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * FichaAprendiz findUnique
+   */
+  export type FichaAprendizFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FichaAprendiz
+     */
+    select?: FichaAprendizSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the FichaAprendiz
+     */
+    omit?: FichaAprendizOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FichaAprendizInclude<ExtArgs> | null
+    /**
+     * Filter, which FichaAprendiz to fetch.
+     */
+    where: FichaAprendizWhereUniqueInput
+  }
+
+  /**
+   * FichaAprendiz findUniqueOrThrow
+   */
+  export type FichaAprendizFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FichaAprendiz
+     */
+    select?: FichaAprendizSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the FichaAprendiz
+     */
+    omit?: FichaAprendizOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FichaAprendizInclude<ExtArgs> | null
+    /**
+     * Filter, which FichaAprendiz to fetch.
+     */
+    where: FichaAprendizWhereUniqueInput
+  }
+
+  /**
+   * FichaAprendiz findFirst
+   */
+  export type FichaAprendizFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FichaAprendiz
+     */
+    select?: FichaAprendizSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the FichaAprendiz
+     */
+    omit?: FichaAprendizOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FichaAprendizInclude<ExtArgs> | null
+    /**
+     * Filter, which FichaAprendiz to fetch.
+     */
+    where?: FichaAprendizWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of FichaAprendizs to fetch.
+     */
+    orderBy?: FichaAprendizOrderByWithRelationInput | FichaAprendizOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for FichaAprendizs.
+     */
+    cursor?: FichaAprendizWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` FichaAprendizs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` FichaAprendizs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of FichaAprendizs.
+     */
+    distinct?: FichaAprendizScalarFieldEnum | FichaAprendizScalarFieldEnum[]
+  }
+
+  /**
+   * FichaAprendiz findFirstOrThrow
+   */
+  export type FichaAprendizFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FichaAprendiz
+     */
+    select?: FichaAprendizSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the FichaAprendiz
+     */
+    omit?: FichaAprendizOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FichaAprendizInclude<ExtArgs> | null
+    /**
+     * Filter, which FichaAprendiz to fetch.
+     */
+    where?: FichaAprendizWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of FichaAprendizs to fetch.
+     */
+    orderBy?: FichaAprendizOrderByWithRelationInput | FichaAprendizOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for FichaAprendizs.
+     */
+    cursor?: FichaAprendizWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` FichaAprendizs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` FichaAprendizs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of FichaAprendizs.
+     */
+    distinct?: FichaAprendizScalarFieldEnum | FichaAprendizScalarFieldEnum[]
+  }
+
+  /**
+   * FichaAprendiz findMany
+   */
+  export type FichaAprendizFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FichaAprendiz
+     */
+    select?: FichaAprendizSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the FichaAprendiz
+     */
+    omit?: FichaAprendizOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FichaAprendizInclude<ExtArgs> | null
+    /**
+     * Filter, which FichaAprendizs to fetch.
+     */
+    where?: FichaAprendizWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of FichaAprendizs to fetch.
+     */
+    orderBy?: FichaAprendizOrderByWithRelationInput | FichaAprendizOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing FichaAprendizs.
+     */
+    cursor?: FichaAprendizWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` FichaAprendizs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` FichaAprendizs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of FichaAprendizs.
+     */
+    distinct?: FichaAprendizScalarFieldEnum | FichaAprendizScalarFieldEnum[]
+  }
+
+  /**
+   * FichaAprendiz create
+   */
+  export type FichaAprendizCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FichaAprendiz
+     */
+    select?: FichaAprendizSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the FichaAprendiz
+     */
+    omit?: FichaAprendizOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FichaAprendizInclude<ExtArgs> | null
+    /**
+     * The data needed to create a FichaAprendiz.
+     */
+    data: XOR<FichaAprendizCreateInput, FichaAprendizUncheckedCreateInput>
+  }
+
+  /**
+   * FichaAprendiz createMany
+   */
+  export type FichaAprendizCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many FichaAprendizs.
+     */
+    data: FichaAprendizCreateManyInput | FichaAprendizCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * FichaAprendiz createManyAndReturn
+   */
+  export type FichaAprendizCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FichaAprendiz
+     */
+    select?: FichaAprendizSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the FichaAprendiz
+     */
+    omit?: FichaAprendizOmit<ExtArgs> | null
+    /**
+     * The data used to create many FichaAprendizs.
+     */
+    data: FichaAprendizCreateManyInput | FichaAprendizCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FichaAprendizIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * FichaAprendiz update
+   */
+  export type FichaAprendizUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FichaAprendiz
+     */
+    select?: FichaAprendizSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the FichaAprendiz
+     */
+    omit?: FichaAprendizOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FichaAprendizInclude<ExtArgs> | null
+    /**
+     * The data needed to update a FichaAprendiz.
+     */
+    data: XOR<FichaAprendizUpdateInput, FichaAprendizUncheckedUpdateInput>
+    /**
+     * Choose, which FichaAprendiz to update.
+     */
+    where: FichaAprendizWhereUniqueInput
+  }
+
+  /**
+   * FichaAprendiz updateMany
+   */
+  export type FichaAprendizUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update FichaAprendizs.
+     */
+    data: XOR<FichaAprendizUpdateManyMutationInput, FichaAprendizUncheckedUpdateManyInput>
+    /**
+     * Filter which FichaAprendizs to update
+     */
+    where?: FichaAprendizWhereInput
+    /**
+     * Limit how many FichaAprendizs to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * FichaAprendiz updateManyAndReturn
+   */
+  export type FichaAprendizUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FichaAprendiz
+     */
+    select?: FichaAprendizSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the FichaAprendiz
+     */
+    omit?: FichaAprendizOmit<ExtArgs> | null
+    /**
+     * The data used to update FichaAprendizs.
+     */
+    data: XOR<FichaAprendizUpdateManyMutationInput, FichaAprendizUncheckedUpdateManyInput>
+    /**
+     * Filter which FichaAprendizs to update
+     */
+    where?: FichaAprendizWhereInput
+    /**
+     * Limit how many FichaAprendizs to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FichaAprendizIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * FichaAprendiz upsert
+   */
+  export type FichaAprendizUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FichaAprendiz
+     */
+    select?: FichaAprendizSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the FichaAprendiz
+     */
+    omit?: FichaAprendizOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FichaAprendizInclude<ExtArgs> | null
+    /**
+     * The filter to search for the FichaAprendiz to update in case it exists.
+     */
+    where: FichaAprendizWhereUniqueInput
+    /**
+     * In case the FichaAprendiz found by the `where` argument doesn't exist, create a new FichaAprendiz with this data.
+     */
+    create: XOR<FichaAprendizCreateInput, FichaAprendizUncheckedCreateInput>
+    /**
+     * In case the FichaAprendiz was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<FichaAprendizUpdateInput, FichaAprendizUncheckedUpdateInput>
+  }
+
+  /**
+   * FichaAprendiz delete
+   */
+  export type FichaAprendizDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FichaAprendiz
+     */
+    select?: FichaAprendizSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the FichaAprendiz
+     */
+    omit?: FichaAprendizOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FichaAprendizInclude<ExtArgs> | null
+    /**
+     * Filter which FichaAprendiz to delete.
+     */
+    where: FichaAprendizWhereUniqueInput
+  }
+
+  /**
+   * FichaAprendiz deleteMany
+   */
+  export type FichaAprendizDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which FichaAprendizs to delete
+     */
+    where?: FichaAprendizWhereInput
+    /**
+     * Limit how many FichaAprendizs to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * FichaAprendiz without action
+   */
+  export type FichaAprendizDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FichaAprendiz
+     */
+    select?: FichaAprendizSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the FichaAprendiz
+     */
+    omit?: FichaAprendizOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FichaAprendizInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Model Notificacion
    */
 
@@ -15178,6 +21528,66 @@ export namespace Prisma {
   export type AuditLogScalarFieldEnum = (typeof AuditLogScalarFieldEnum)[keyof typeof AuditLogScalarFieldEnum]
 
 
+  export const ProgramaScalarFieldEnum: {
+    id: 'id',
+    codigo: 'codigo',
+    nombre: 'nombre',
+    nivel: 'nivel',
+    duracion: 'duracion',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type ProgramaScalarFieldEnum = (typeof ProgramaScalarFieldEnum)[keyof typeof ProgramaScalarFieldEnum]
+
+
+  export const FichaScalarFieldEnum: {
+    id: 'id',
+    numero: 'numero',
+    programaId: 'programaId',
+    jornada: 'jornada',
+    modalidad: 'modalidad',
+    estado: 'estado',
+    fecha_inicio: 'fecha_inicio',
+    fecha_fin: 'fecha_fin',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type FichaScalarFieldEnum = (typeof FichaScalarFieldEnum)[keyof typeof FichaScalarFieldEnum]
+
+
+  export const FichaCursoScalarFieldEnum: {
+    id: 'id',
+    fichaId: 'fichaId',
+    cursoId: 'cursoId',
+    asignadoAt: 'asignadoAt'
+  };
+
+  export type FichaCursoScalarFieldEnum = (typeof FichaCursoScalarFieldEnum)[keyof typeof FichaCursoScalarFieldEnum]
+
+
+  export const FichaInstructorScalarFieldEnum: {
+    id: 'id',
+    fichaId: 'fichaId',
+    instructorId: 'instructorId',
+    asignadoAt: 'asignadoAt'
+  };
+
+  export type FichaInstructorScalarFieldEnum = (typeof FichaInstructorScalarFieldEnum)[keyof typeof FichaInstructorScalarFieldEnum]
+
+
+  export const FichaAprendizScalarFieldEnum: {
+    id: 'id',
+    fichaId: 'fichaId',
+    aprendizId: 'aprendizId',
+    estado: 'estado',
+    ingresadoAt: 'ingresadoAt'
+  };
+
+  export type FichaAprendizScalarFieldEnum = (typeof FichaAprendizScalarFieldEnum)[keyof typeof FichaAprendizScalarFieldEnum]
+
+
   export const NotificacionScalarFieldEnum: {
     id: 'id',
     tipo: 'tipo',
@@ -15344,6 +21754,8 @@ export namespace Prisma {
     progresoActividades?: ProgresoActividadListRelationFilter
     insignias?: InsigniaAprendizListRelationFilter
     testResultados?: TestResultadoListRelationFilter
+    fichasComoInstructor?: FichaInstructorListRelationFilter
+    fichasComoAprendiz?: FichaAprendizListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -15362,6 +21774,8 @@ export namespace Prisma {
     progresoActividades?: ProgresoActividadOrderByRelationAggregateInput
     insignias?: InsigniaAprendizOrderByRelationAggregateInput
     testResultados?: TestResultadoOrderByRelationAggregateInput
+    fichasComoInstructor?: FichaInstructorOrderByRelationAggregateInput
+    fichasComoAprendiz?: FichaAprendizOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -15383,6 +21797,8 @@ export namespace Prisma {
     progresoActividades?: ProgresoActividadListRelationFilter
     insignias?: InsigniaAprendizListRelationFilter
     testResultados?: TestResultadoListRelationFilter
+    fichasComoInstructor?: FichaInstructorListRelationFilter
+    fichasComoAprendiz?: FichaAprendizListRelationFilter
   }, "id" | "correo_usuario">
 
   export type UserOrderByWithAggregationInput = {
@@ -15430,6 +21846,7 @@ export namespace Prisma {
     instructor?: XOR<UserScalarRelationFilter, UserWhereInput>
     modulos?: ModuloListRelationFilter
     inscripciones?: InscripcionListRelationFilter
+    fichas?: FichaCursoListRelationFilter
   }
 
   export type CursoOrderByWithRelationInput = {
@@ -15444,6 +21861,7 @@ export namespace Prisma {
     instructor?: UserOrderByWithRelationInput
     modulos?: ModuloOrderByRelationAggregateInput
     inscripciones?: InscripcionOrderByRelationAggregateInput
+    fichas?: FichaCursoOrderByRelationAggregateInput
   }
 
   export type CursoWhereUniqueInput = Prisma.AtLeast<{
@@ -15461,6 +21879,7 @@ export namespace Prisma {
     instructor?: XOR<UserScalarRelationFilter, UserWhereInput>
     modulos?: ModuloListRelationFilter
     inscripciones?: InscripcionListRelationFilter
+    fichas?: FichaCursoListRelationFilter
   }, "id">
 
   export type CursoOrderByWithAggregationInput = {
@@ -16116,6 +22535,337 @@ export namespace Prisma {
     createdAt?: DateTimeWithAggregatesFilter<"AuditLog"> | Date | string
   }
 
+  export type ProgramaWhereInput = {
+    AND?: ProgramaWhereInput | ProgramaWhereInput[]
+    OR?: ProgramaWhereInput[]
+    NOT?: ProgramaWhereInput | ProgramaWhereInput[]
+    id?: IntFilter<"Programa"> | number
+    codigo?: StringFilter<"Programa"> | string
+    nombre?: StringFilter<"Programa"> | string
+    nivel?: StringFilter<"Programa"> | string
+    duracion?: IntNullableFilter<"Programa"> | number | null
+    createdAt?: DateTimeFilter<"Programa"> | Date | string
+    updatedAt?: DateTimeFilter<"Programa"> | Date | string
+    fichas?: FichaListRelationFilter
+  }
+
+  export type ProgramaOrderByWithRelationInput = {
+    id?: SortOrder
+    codigo?: SortOrder
+    nombre?: SortOrder
+    nivel?: SortOrder
+    duracion?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    fichas?: FichaOrderByRelationAggregateInput
+  }
+
+  export type ProgramaWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    codigo?: string
+    AND?: ProgramaWhereInput | ProgramaWhereInput[]
+    OR?: ProgramaWhereInput[]
+    NOT?: ProgramaWhereInput | ProgramaWhereInput[]
+    nombre?: StringFilter<"Programa"> | string
+    nivel?: StringFilter<"Programa"> | string
+    duracion?: IntNullableFilter<"Programa"> | number | null
+    createdAt?: DateTimeFilter<"Programa"> | Date | string
+    updatedAt?: DateTimeFilter<"Programa"> | Date | string
+    fichas?: FichaListRelationFilter
+  }, "id" | "codigo">
+
+  export type ProgramaOrderByWithAggregationInput = {
+    id?: SortOrder
+    codigo?: SortOrder
+    nombre?: SortOrder
+    nivel?: SortOrder
+    duracion?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: ProgramaCountOrderByAggregateInput
+    _avg?: ProgramaAvgOrderByAggregateInput
+    _max?: ProgramaMaxOrderByAggregateInput
+    _min?: ProgramaMinOrderByAggregateInput
+    _sum?: ProgramaSumOrderByAggregateInput
+  }
+
+  export type ProgramaScalarWhereWithAggregatesInput = {
+    AND?: ProgramaScalarWhereWithAggregatesInput | ProgramaScalarWhereWithAggregatesInput[]
+    OR?: ProgramaScalarWhereWithAggregatesInput[]
+    NOT?: ProgramaScalarWhereWithAggregatesInput | ProgramaScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"Programa"> | number
+    codigo?: StringWithAggregatesFilter<"Programa"> | string
+    nombre?: StringWithAggregatesFilter<"Programa"> | string
+    nivel?: StringWithAggregatesFilter<"Programa"> | string
+    duracion?: IntNullableWithAggregatesFilter<"Programa"> | number | null
+    createdAt?: DateTimeWithAggregatesFilter<"Programa"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Programa"> | Date | string
+  }
+
+  export type FichaWhereInput = {
+    AND?: FichaWhereInput | FichaWhereInput[]
+    OR?: FichaWhereInput[]
+    NOT?: FichaWhereInput | FichaWhereInput[]
+    id?: IntFilter<"Ficha"> | number
+    numero?: StringFilter<"Ficha"> | string
+    programaId?: IntFilter<"Ficha"> | number
+    jornada?: StringFilter<"Ficha"> | string
+    modalidad?: StringFilter<"Ficha"> | string
+    estado?: StringFilter<"Ficha"> | string
+    fecha_inicio?: DateTimeNullableFilter<"Ficha"> | Date | string | null
+    fecha_fin?: DateTimeNullableFilter<"Ficha"> | Date | string | null
+    createdAt?: DateTimeFilter<"Ficha"> | Date | string
+    updatedAt?: DateTimeFilter<"Ficha"> | Date | string
+    programa?: XOR<ProgramaScalarRelationFilter, ProgramaWhereInput>
+    instructores?: FichaInstructorListRelationFilter
+    aprendices?: FichaAprendizListRelationFilter
+    cursos?: FichaCursoListRelationFilter
+  }
+
+  export type FichaOrderByWithRelationInput = {
+    id?: SortOrder
+    numero?: SortOrder
+    programaId?: SortOrder
+    jornada?: SortOrder
+    modalidad?: SortOrder
+    estado?: SortOrder
+    fecha_inicio?: SortOrderInput | SortOrder
+    fecha_fin?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    programa?: ProgramaOrderByWithRelationInput
+    instructores?: FichaInstructorOrderByRelationAggregateInput
+    aprendices?: FichaAprendizOrderByRelationAggregateInput
+    cursos?: FichaCursoOrderByRelationAggregateInput
+  }
+
+  export type FichaWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    numero?: string
+    AND?: FichaWhereInput | FichaWhereInput[]
+    OR?: FichaWhereInput[]
+    NOT?: FichaWhereInput | FichaWhereInput[]
+    programaId?: IntFilter<"Ficha"> | number
+    jornada?: StringFilter<"Ficha"> | string
+    modalidad?: StringFilter<"Ficha"> | string
+    estado?: StringFilter<"Ficha"> | string
+    fecha_inicio?: DateTimeNullableFilter<"Ficha"> | Date | string | null
+    fecha_fin?: DateTimeNullableFilter<"Ficha"> | Date | string | null
+    createdAt?: DateTimeFilter<"Ficha"> | Date | string
+    updatedAt?: DateTimeFilter<"Ficha"> | Date | string
+    programa?: XOR<ProgramaScalarRelationFilter, ProgramaWhereInput>
+    instructores?: FichaInstructorListRelationFilter
+    aprendices?: FichaAprendizListRelationFilter
+    cursos?: FichaCursoListRelationFilter
+  }, "id" | "numero">
+
+  export type FichaOrderByWithAggregationInput = {
+    id?: SortOrder
+    numero?: SortOrder
+    programaId?: SortOrder
+    jornada?: SortOrder
+    modalidad?: SortOrder
+    estado?: SortOrder
+    fecha_inicio?: SortOrderInput | SortOrder
+    fecha_fin?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: FichaCountOrderByAggregateInput
+    _avg?: FichaAvgOrderByAggregateInput
+    _max?: FichaMaxOrderByAggregateInput
+    _min?: FichaMinOrderByAggregateInput
+    _sum?: FichaSumOrderByAggregateInput
+  }
+
+  export type FichaScalarWhereWithAggregatesInput = {
+    AND?: FichaScalarWhereWithAggregatesInput | FichaScalarWhereWithAggregatesInput[]
+    OR?: FichaScalarWhereWithAggregatesInput[]
+    NOT?: FichaScalarWhereWithAggregatesInput | FichaScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"Ficha"> | number
+    numero?: StringWithAggregatesFilter<"Ficha"> | string
+    programaId?: IntWithAggregatesFilter<"Ficha"> | number
+    jornada?: StringWithAggregatesFilter<"Ficha"> | string
+    modalidad?: StringWithAggregatesFilter<"Ficha"> | string
+    estado?: StringWithAggregatesFilter<"Ficha"> | string
+    fecha_inicio?: DateTimeNullableWithAggregatesFilter<"Ficha"> | Date | string | null
+    fecha_fin?: DateTimeNullableWithAggregatesFilter<"Ficha"> | Date | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"Ficha"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Ficha"> | Date | string
+  }
+
+  export type FichaCursoWhereInput = {
+    AND?: FichaCursoWhereInput | FichaCursoWhereInput[]
+    OR?: FichaCursoWhereInput[]
+    NOT?: FichaCursoWhereInput | FichaCursoWhereInput[]
+    id?: IntFilter<"FichaCurso"> | number
+    fichaId?: IntFilter<"FichaCurso"> | number
+    cursoId?: IntFilter<"FichaCurso"> | number
+    asignadoAt?: DateTimeFilter<"FichaCurso"> | Date | string
+    ficha?: XOR<FichaScalarRelationFilter, FichaWhereInput>
+    curso?: XOR<CursoScalarRelationFilter, CursoWhereInput>
+  }
+
+  export type FichaCursoOrderByWithRelationInput = {
+    id?: SortOrder
+    fichaId?: SortOrder
+    cursoId?: SortOrder
+    asignadoAt?: SortOrder
+    ficha?: FichaOrderByWithRelationInput
+    curso?: CursoOrderByWithRelationInput
+  }
+
+  export type FichaCursoWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    fichaId_cursoId?: FichaCursoFichaIdCursoIdCompoundUniqueInput
+    AND?: FichaCursoWhereInput | FichaCursoWhereInput[]
+    OR?: FichaCursoWhereInput[]
+    NOT?: FichaCursoWhereInput | FichaCursoWhereInput[]
+    fichaId?: IntFilter<"FichaCurso"> | number
+    cursoId?: IntFilter<"FichaCurso"> | number
+    asignadoAt?: DateTimeFilter<"FichaCurso"> | Date | string
+    ficha?: XOR<FichaScalarRelationFilter, FichaWhereInput>
+    curso?: XOR<CursoScalarRelationFilter, CursoWhereInput>
+  }, "id" | "fichaId_cursoId">
+
+  export type FichaCursoOrderByWithAggregationInput = {
+    id?: SortOrder
+    fichaId?: SortOrder
+    cursoId?: SortOrder
+    asignadoAt?: SortOrder
+    _count?: FichaCursoCountOrderByAggregateInput
+    _avg?: FichaCursoAvgOrderByAggregateInput
+    _max?: FichaCursoMaxOrderByAggregateInput
+    _min?: FichaCursoMinOrderByAggregateInput
+    _sum?: FichaCursoSumOrderByAggregateInput
+  }
+
+  export type FichaCursoScalarWhereWithAggregatesInput = {
+    AND?: FichaCursoScalarWhereWithAggregatesInput | FichaCursoScalarWhereWithAggregatesInput[]
+    OR?: FichaCursoScalarWhereWithAggregatesInput[]
+    NOT?: FichaCursoScalarWhereWithAggregatesInput | FichaCursoScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"FichaCurso"> | number
+    fichaId?: IntWithAggregatesFilter<"FichaCurso"> | number
+    cursoId?: IntWithAggregatesFilter<"FichaCurso"> | number
+    asignadoAt?: DateTimeWithAggregatesFilter<"FichaCurso"> | Date | string
+  }
+
+  export type FichaInstructorWhereInput = {
+    AND?: FichaInstructorWhereInput | FichaInstructorWhereInput[]
+    OR?: FichaInstructorWhereInput[]
+    NOT?: FichaInstructorWhereInput | FichaInstructorWhereInput[]
+    id?: IntFilter<"FichaInstructor"> | number
+    fichaId?: IntFilter<"FichaInstructor"> | number
+    instructorId?: IntFilter<"FichaInstructor"> | number
+    asignadoAt?: DateTimeFilter<"FichaInstructor"> | Date | string
+    ficha?: XOR<FichaScalarRelationFilter, FichaWhereInput>
+    instructor?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type FichaInstructorOrderByWithRelationInput = {
+    id?: SortOrder
+    fichaId?: SortOrder
+    instructorId?: SortOrder
+    asignadoAt?: SortOrder
+    ficha?: FichaOrderByWithRelationInput
+    instructor?: UserOrderByWithRelationInput
+  }
+
+  export type FichaInstructorWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    fichaId_instructorId?: FichaInstructorFichaIdInstructorIdCompoundUniqueInput
+    AND?: FichaInstructorWhereInput | FichaInstructorWhereInput[]
+    OR?: FichaInstructorWhereInput[]
+    NOT?: FichaInstructorWhereInput | FichaInstructorWhereInput[]
+    fichaId?: IntFilter<"FichaInstructor"> | number
+    instructorId?: IntFilter<"FichaInstructor"> | number
+    asignadoAt?: DateTimeFilter<"FichaInstructor"> | Date | string
+    ficha?: XOR<FichaScalarRelationFilter, FichaWhereInput>
+    instructor?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id" | "fichaId_instructorId">
+
+  export type FichaInstructorOrderByWithAggregationInput = {
+    id?: SortOrder
+    fichaId?: SortOrder
+    instructorId?: SortOrder
+    asignadoAt?: SortOrder
+    _count?: FichaInstructorCountOrderByAggregateInput
+    _avg?: FichaInstructorAvgOrderByAggregateInput
+    _max?: FichaInstructorMaxOrderByAggregateInput
+    _min?: FichaInstructorMinOrderByAggregateInput
+    _sum?: FichaInstructorSumOrderByAggregateInput
+  }
+
+  export type FichaInstructorScalarWhereWithAggregatesInput = {
+    AND?: FichaInstructorScalarWhereWithAggregatesInput | FichaInstructorScalarWhereWithAggregatesInput[]
+    OR?: FichaInstructorScalarWhereWithAggregatesInput[]
+    NOT?: FichaInstructorScalarWhereWithAggregatesInput | FichaInstructorScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"FichaInstructor"> | number
+    fichaId?: IntWithAggregatesFilter<"FichaInstructor"> | number
+    instructorId?: IntWithAggregatesFilter<"FichaInstructor"> | number
+    asignadoAt?: DateTimeWithAggregatesFilter<"FichaInstructor"> | Date | string
+  }
+
+  export type FichaAprendizWhereInput = {
+    AND?: FichaAprendizWhereInput | FichaAprendizWhereInput[]
+    OR?: FichaAprendizWhereInput[]
+    NOT?: FichaAprendizWhereInput | FichaAprendizWhereInput[]
+    id?: IntFilter<"FichaAprendiz"> | number
+    fichaId?: IntFilter<"FichaAprendiz"> | number
+    aprendizId?: IntFilter<"FichaAprendiz"> | number
+    estado?: StringFilter<"FichaAprendiz"> | string
+    ingresadoAt?: DateTimeFilter<"FichaAprendiz"> | Date | string
+    ficha?: XOR<FichaScalarRelationFilter, FichaWhereInput>
+    aprendiz?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type FichaAprendizOrderByWithRelationInput = {
+    id?: SortOrder
+    fichaId?: SortOrder
+    aprendizId?: SortOrder
+    estado?: SortOrder
+    ingresadoAt?: SortOrder
+    ficha?: FichaOrderByWithRelationInput
+    aprendiz?: UserOrderByWithRelationInput
+  }
+
+  export type FichaAprendizWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    fichaId_aprendizId?: FichaAprendizFichaIdAprendizIdCompoundUniqueInput
+    AND?: FichaAprendizWhereInput | FichaAprendizWhereInput[]
+    OR?: FichaAprendizWhereInput[]
+    NOT?: FichaAprendizWhereInput | FichaAprendizWhereInput[]
+    fichaId?: IntFilter<"FichaAprendiz"> | number
+    aprendizId?: IntFilter<"FichaAprendiz"> | number
+    estado?: StringFilter<"FichaAprendiz"> | string
+    ingresadoAt?: DateTimeFilter<"FichaAprendiz"> | Date | string
+    ficha?: XOR<FichaScalarRelationFilter, FichaWhereInput>
+    aprendiz?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id" | "fichaId_aprendizId">
+
+  export type FichaAprendizOrderByWithAggregationInput = {
+    id?: SortOrder
+    fichaId?: SortOrder
+    aprendizId?: SortOrder
+    estado?: SortOrder
+    ingresadoAt?: SortOrder
+    _count?: FichaAprendizCountOrderByAggregateInput
+    _avg?: FichaAprendizAvgOrderByAggregateInput
+    _max?: FichaAprendizMaxOrderByAggregateInput
+    _min?: FichaAprendizMinOrderByAggregateInput
+    _sum?: FichaAprendizSumOrderByAggregateInput
+  }
+
+  export type FichaAprendizScalarWhereWithAggregatesInput = {
+    AND?: FichaAprendizScalarWhereWithAggregatesInput | FichaAprendizScalarWhereWithAggregatesInput[]
+    OR?: FichaAprendizScalarWhereWithAggregatesInput[]
+    NOT?: FichaAprendizScalarWhereWithAggregatesInput | FichaAprendizScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"FichaAprendiz"> | number
+    fichaId?: IntWithAggregatesFilter<"FichaAprendiz"> | number
+    aprendizId?: IntWithAggregatesFilter<"FichaAprendiz"> | number
+    estado?: StringWithAggregatesFilter<"FichaAprendiz"> | string
+    ingresadoAt?: DateTimeWithAggregatesFilter<"FichaAprendiz"> | Date | string
+  }
+
   export type NotificacionWhereInput = {
     AND?: NotificacionWhereInput | NotificacionWhereInput[]
     OR?: NotificacionWhereInput[]
@@ -16203,6 +22953,8 @@ export namespace Prisma {
     progresoActividades?: ProgresoActividadCreateNestedManyWithoutAprendizInput
     insignias?: InsigniaAprendizCreateNestedManyWithoutAprendizInput
     testResultados?: TestResultadoCreateNestedManyWithoutAprendizInput
+    fichasComoInstructor?: FichaInstructorCreateNestedManyWithoutInstructorInput
+    fichasComoAprendiz?: FichaAprendizCreateNestedManyWithoutAprendizInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -16221,6 +22973,8 @@ export namespace Prisma {
     progresoActividades?: ProgresoActividadUncheckedCreateNestedManyWithoutAprendizInput
     insignias?: InsigniaAprendizUncheckedCreateNestedManyWithoutAprendizInput
     testResultados?: TestResultadoUncheckedCreateNestedManyWithoutAprendizInput
+    fichasComoInstructor?: FichaInstructorUncheckedCreateNestedManyWithoutInstructorInput
+    fichasComoAprendiz?: FichaAprendizUncheckedCreateNestedManyWithoutAprendizInput
   }
 
   export type UserUpdateInput = {
@@ -16238,6 +22992,8 @@ export namespace Prisma {
     progresoActividades?: ProgresoActividadUpdateManyWithoutAprendizNestedInput
     insignias?: InsigniaAprendizUpdateManyWithoutAprendizNestedInput
     testResultados?: TestResultadoUpdateManyWithoutAprendizNestedInput
+    fichasComoInstructor?: FichaInstructorUpdateManyWithoutInstructorNestedInput
+    fichasComoAprendiz?: FichaAprendizUpdateManyWithoutAprendizNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -16256,6 +23012,8 @@ export namespace Prisma {
     progresoActividades?: ProgresoActividadUncheckedUpdateManyWithoutAprendizNestedInput
     insignias?: InsigniaAprendizUncheckedUpdateManyWithoutAprendizNestedInput
     testResultados?: TestResultadoUncheckedUpdateManyWithoutAprendizNestedInput
+    fichasComoInstructor?: FichaInstructorUncheckedUpdateManyWithoutInstructorNestedInput
+    fichasComoAprendiz?: FichaAprendizUncheckedUpdateManyWithoutAprendizNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -16300,6 +23058,7 @@ export namespace Prisma {
     instructor: UserCreateNestedOneWithoutCursosComoInstructorInput
     modulos?: ModuloCreateNestedManyWithoutCursoInput
     inscripciones?: InscripcionCreateNestedManyWithoutCursoInput
+    fichas?: FichaCursoCreateNestedManyWithoutCursoInput
   }
 
   export type CursoUncheckedCreateInput = {
@@ -16313,6 +23072,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     modulos?: ModuloUncheckedCreateNestedManyWithoutCursoInput
     inscripciones?: InscripcionUncheckedCreateNestedManyWithoutCursoInput
+    fichas?: FichaCursoUncheckedCreateNestedManyWithoutCursoInput
   }
 
   export type CursoUpdateInput = {
@@ -16325,6 +23085,7 @@ export namespace Prisma {
     instructor?: UserUpdateOneRequiredWithoutCursosComoInstructorNestedInput
     modulos?: ModuloUpdateManyWithoutCursoNestedInput
     inscripciones?: InscripcionUpdateManyWithoutCursoNestedInput
+    fichas?: FichaCursoUpdateManyWithoutCursoNestedInput
   }
 
   export type CursoUncheckedUpdateInput = {
@@ -16338,6 +23099,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     modulos?: ModuloUncheckedUpdateManyWithoutCursoNestedInput
     inscripciones?: InscripcionUncheckedUpdateManyWithoutCursoNestedInput
+    fichas?: FichaCursoUncheckedUpdateManyWithoutCursoNestedInput
   }
 
   export type CursoCreateManyInput = {
@@ -17007,6 +23769,315 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type ProgramaCreateInput = {
+    codigo: string
+    nombre: string
+    nivel?: string
+    duracion?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    fichas?: FichaCreateNestedManyWithoutProgramaInput
+  }
+
+  export type ProgramaUncheckedCreateInput = {
+    id?: number
+    codigo: string
+    nombre: string
+    nivel?: string
+    duracion?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    fichas?: FichaUncheckedCreateNestedManyWithoutProgramaInput
+  }
+
+  export type ProgramaUpdateInput = {
+    codigo?: StringFieldUpdateOperationsInput | string
+    nombre?: StringFieldUpdateOperationsInput | string
+    nivel?: StringFieldUpdateOperationsInput | string
+    duracion?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    fichas?: FichaUpdateManyWithoutProgramaNestedInput
+  }
+
+  export type ProgramaUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    codigo?: StringFieldUpdateOperationsInput | string
+    nombre?: StringFieldUpdateOperationsInput | string
+    nivel?: StringFieldUpdateOperationsInput | string
+    duracion?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    fichas?: FichaUncheckedUpdateManyWithoutProgramaNestedInput
+  }
+
+  export type ProgramaCreateManyInput = {
+    id?: number
+    codigo: string
+    nombre: string
+    nivel?: string
+    duracion?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ProgramaUpdateManyMutationInput = {
+    codigo?: StringFieldUpdateOperationsInput | string
+    nombre?: StringFieldUpdateOperationsInput | string
+    nivel?: StringFieldUpdateOperationsInput | string
+    duracion?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ProgramaUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    codigo?: StringFieldUpdateOperationsInput | string
+    nombre?: StringFieldUpdateOperationsInput | string
+    nivel?: StringFieldUpdateOperationsInput | string
+    duracion?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type FichaCreateInput = {
+    numero: string
+    jornada?: string
+    modalidad?: string
+    estado?: string
+    fecha_inicio?: Date | string | null
+    fecha_fin?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    programa: ProgramaCreateNestedOneWithoutFichasInput
+    instructores?: FichaInstructorCreateNestedManyWithoutFichaInput
+    aprendices?: FichaAprendizCreateNestedManyWithoutFichaInput
+    cursos?: FichaCursoCreateNestedManyWithoutFichaInput
+  }
+
+  export type FichaUncheckedCreateInput = {
+    id?: number
+    numero: string
+    programaId: number
+    jornada?: string
+    modalidad?: string
+    estado?: string
+    fecha_inicio?: Date | string | null
+    fecha_fin?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    instructores?: FichaInstructorUncheckedCreateNestedManyWithoutFichaInput
+    aprendices?: FichaAprendizUncheckedCreateNestedManyWithoutFichaInput
+    cursos?: FichaCursoUncheckedCreateNestedManyWithoutFichaInput
+  }
+
+  export type FichaUpdateInput = {
+    numero?: StringFieldUpdateOperationsInput | string
+    jornada?: StringFieldUpdateOperationsInput | string
+    modalidad?: StringFieldUpdateOperationsInput | string
+    estado?: StringFieldUpdateOperationsInput | string
+    fecha_inicio?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fecha_fin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    programa?: ProgramaUpdateOneRequiredWithoutFichasNestedInput
+    instructores?: FichaInstructorUpdateManyWithoutFichaNestedInput
+    aprendices?: FichaAprendizUpdateManyWithoutFichaNestedInput
+    cursos?: FichaCursoUpdateManyWithoutFichaNestedInput
+  }
+
+  export type FichaUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    numero?: StringFieldUpdateOperationsInput | string
+    programaId?: IntFieldUpdateOperationsInput | number
+    jornada?: StringFieldUpdateOperationsInput | string
+    modalidad?: StringFieldUpdateOperationsInput | string
+    estado?: StringFieldUpdateOperationsInput | string
+    fecha_inicio?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fecha_fin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    instructores?: FichaInstructorUncheckedUpdateManyWithoutFichaNestedInput
+    aprendices?: FichaAprendizUncheckedUpdateManyWithoutFichaNestedInput
+    cursos?: FichaCursoUncheckedUpdateManyWithoutFichaNestedInput
+  }
+
+  export type FichaCreateManyInput = {
+    id?: number
+    numero: string
+    programaId: number
+    jornada?: string
+    modalidad?: string
+    estado?: string
+    fecha_inicio?: Date | string | null
+    fecha_fin?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type FichaUpdateManyMutationInput = {
+    numero?: StringFieldUpdateOperationsInput | string
+    jornada?: StringFieldUpdateOperationsInput | string
+    modalidad?: StringFieldUpdateOperationsInput | string
+    estado?: StringFieldUpdateOperationsInput | string
+    fecha_inicio?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fecha_fin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type FichaUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    numero?: StringFieldUpdateOperationsInput | string
+    programaId?: IntFieldUpdateOperationsInput | number
+    jornada?: StringFieldUpdateOperationsInput | string
+    modalidad?: StringFieldUpdateOperationsInput | string
+    estado?: StringFieldUpdateOperationsInput | string
+    fecha_inicio?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fecha_fin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type FichaCursoCreateInput = {
+    asignadoAt?: Date | string
+    ficha: FichaCreateNestedOneWithoutCursosInput
+    curso: CursoCreateNestedOneWithoutFichasInput
+  }
+
+  export type FichaCursoUncheckedCreateInput = {
+    id?: number
+    fichaId: number
+    cursoId: number
+    asignadoAt?: Date | string
+  }
+
+  export type FichaCursoUpdateInput = {
+    asignadoAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    ficha?: FichaUpdateOneRequiredWithoutCursosNestedInput
+    curso?: CursoUpdateOneRequiredWithoutFichasNestedInput
+  }
+
+  export type FichaCursoUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    fichaId?: IntFieldUpdateOperationsInput | number
+    cursoId?: IntFieldUpdateOperationsInput | number
+    asignadoAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type FichaCursoCreateManyInput = {
+    id?: number
+    fichaId: number
+    cursoId: number
+    asignadoAt?: Date | string
+  }
+
+  export type FichaCursoUpdateManyMutationInput = {
+    asignadoAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type FichaCursoUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    fichaId?: IntFieldUpdateOperationsInput | number
+    cursoId?: IntFieldUpdateOperationsInput | number
+    asignadoAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type FichaInstructorCreateInput = {
+    asignadoAt?: Date | string
+    ficha: FichaCreateNestedOneWithoutInstructoresInput
+    instructor: UserCreateNestedOneWithoutFichasComoInstructorInput
+  }
+
+  export type FichaInstructorUncheckedCreateInput = {
+    id?: number
+    fichaId: number
+    instructorId: number
+    asignadoAt?: Date | string
+  }
+
+  export type FichaInstructorUpdateInput = {
+    asignadoAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    ficha?: FichaUpdateOneRequiredWithoutInstructoresNestedInput
+    instructor?: UserUpdateOneRequiredWithoutFichasComoInstructorNestedInput
+  }
+
+  export type FichaInstructorUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    fichaId?: IntFieldUpdateOperationsInput | number
+    instructorId?: IntFieldUpdateOperationsInput | number
+    asignadoAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type FichaInstructorCreateManyInput = {
+    id?: number
+    fichaId: number
+    instructorId: number
+    asignadoAt?: Date | string
+  }
+
+  export type FichaInstructorUpdateManyMutationInput = {
+    asignadoAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type FichaInstructorUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    fichaId?: IntFieldUpdateOperationsInput | number
+    instructorId?: IntFieldUpdateOperationsInput | number
+    asignadoAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type FichaAprendizCreateInput = {
+    estado?: string
+    ingresadoAt?: Date | string
+    ficha: FichaCreateNestedOneWithoutAprendicesInput
+    aprendiz: UserCreateNestedOneWithoutFichasComoAprendizInput
+  }
+
+  export type FichaAprendizUncheckedCreateInput = {
+    id?: number
+    fichaId: number
+    aprendizId: number
+    estado?: string
+    ingresadoAt?: Date | string
+  }
+
+  export type FichaAprendizUpdateInput = {
+    estado?: StringFieldUpdateOperationsInput | string
+    ingresadoAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    ficha?: FichaUpdateOneRequiredWithoutAprendicesNestedInput
+    aprendiz?: UserUpdateOneRequiredWithoutFichasComoAprendizNestedInput
+  }
+
+  export type FichaAprendizUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    fichaId?: IntFieldUpdateOperationsInput | number
+    aprendizId?: IntFieldUpdateOperationsInput | number
+    estado?: StringFieldUpdateOperationsInput | string
+    ingresadoAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type FichaAprendizCreateManyInput = {
+    id?: number
+    fichaId: number
+    aprendizId: number
+    estado?: string
+    ingresadoAt?: Date | string
+  }
+
+  export type FichaAprendizUpdateManyMutationInput = {
+    estado?: StringFieldUpdateOperationsInput | string
+    ingresadoAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type FichaAprendizUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    fichaId?: IntFieldUpdateOperationsInput | number
+    aprendizId?: IntFieldUpdateOperationsInput | number
+    estado?: StringFieldUpdateOperationsInput | string
+    ingresadoAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type NotificacionCreateInput = {
     tipo: string
     asunto: string
@@ -17179,6 +24250,18 @@ export namespace Prisma {
     none?: TestResultadoWhereInput
   }
 
+  export type FichaInstructorListRelationFilter = {
+    every?: FichaInstructorWhereInput
+    some?: FichaInstructorWhereInput
+    none?: FichaInstructorWhereInput
+  }
+
+  export type FichaAprendizListRelationFilter = {
+    every?: FichaAprendizWhereInput
+    some?: FichaAprendizWhereInput
+    none?: FichaAprendizWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
@@ -17209,6 +24292,14 @@ export namespace Prisma {
   }
 
   export type TestResultadoOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type FichaInstructorOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type FichaAprendizOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -17338,7 +24429,17 @@ export namespace Prisma {
     none?: ModuloWhereInput
   }
 
+  export type FichaCursoListRelationFilter = {
+    every?: FichaCursoWhereInput
+    some?: FichaCursoWhereInput
+    none?: FichaCursoWhereInput
+  }
+
   export type ModuloOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type FichaCursoOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -18030,6 +25131,232 @@ export namespace Prisma {
     usuarioId?: SortOrder
   }
 
+  export type FichaListRelationFilter = {
+    every?: FichaWhereInput
+    some?: FichaWhereInput
+    none?: FichaWhereInput
+  }
+
+  export type FichaOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type ProgramaCountOrderByAggregateInput = {
+    id?: SortOrder
+    codigo?: SortOrder
+    nombre?: SortOrder
+    nivel?: SortOrder
+    duracion?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ProgramaAvgOrderByAggregateInput = {
+    id?: SortOrder
+    duracion?: SortOrder
+  }
+
+  export type ProgramaMaxOrderByAggregateInput = {
+    id?: SortOrder
+    codigo?: SortOrder
+    nombre?: SortOrder
+    nivel?: SortOrder
+    duracion?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ProgramaMinOrderByAggregateInput = {
+    id?: SortOrder
+    codigo?: SortOrder
+    nombre?: SortOrder
+    nivel?: SortOrder
+    duracion?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ProgramaSumOrderByAggregateInput = {
+    id?: SortOrder
+    duracion?: SortOrder
+  }
+
+  export type ProgramaScalarRelationFilter = {
+    is?: ProgramaWhereInput
+    isNot?: ProgramaWhereInput
+  }
+
+  export type FichaCountOrderByAggregateInput = {
+    id?: SortOrder
+    numero?: SortOrder
+    programaId?: SortOrder
+    jornada?: SortOrder
+    modalidad?: SortOrder
+    estado?: SortOrder
+    fecha_inicio?: SortOrder
+    fecha_fin?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type FichaAvgOrderByAggregateInput = {
+    id?: SortOrder
+    programaId?: SortOrder
+  }
+
+  export type FichaMaxOrderByAggregateInput = {
+    id?: SortOrder
+    numero?: SortOrder
+    programaId?: SortOrder
+    jornada?: SortOrder
+    modalidad?: SortOrder
+    estado?: SortOrder
+    fecha_inicio?: SortOrder
+    fecha_fin?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type FichaMinOrderByAggregateInput = {
+    id?: SortOrder
+    numero?: SortOrder
+    programaId?: SortOrder
+    jornada?: SortOrder
+    modalidad?: SortOrder
+    estado?: SortOrder
+    fecha_inicio?: SortOrder
+    fecha_fin?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type FichaSumOrderByAggregateInput = {
+    id?: SortOrder
+    programaId?: SortOrder
+  }
+
+  export type FichaScalarRelationFilter = {
+    is?: FichaWhereInput
+    isNot?: FichaWhereInput
+  }
+
+  export type FichaCursoFichaIdCursoIdCompoundUniqueInput = {
+    fichaId: number
+    cursoId: number
+  }
+
+  export type FichaCursoCountOrderByAggregateInput = {
+    id?: SortOrder
+    fichaId?: SortOrder
+    cursoId?: SortOrder
+    asignadoAt?: SortOrder
+  }
+
+  export type FichaCursoAvgOrderByAggregateInput = {
+    id?: SortOrder
+    fichaId?: SortOrder
+    cursoId?: SortOrder
+  }
+
+  export type FichaCursoMaxOrderByAggregateInput = {
+    id?: SortOrder
+    fichaId?: SortOrder
+    cursoId?: SortOrder
+    asignadoAt?: SortOrder
+  }
+
+  export type FichaCursoMinOrderByAggregateInput = {
+    id?: SortOrder
+    fichaId?: SortOrder
+    cursoId?: SortOrder
+    asignadoAt?: SortOrder
+  }
+
+  export type FichaCursoSumOrderByAggregateInput = {
+    id?: SortOrder
+    fichaId?: SortOrder
+    cursoId?: SortOrder
+  }
+
+  export type FichaInstructorFichaIdInstructorIdCompoundUniqueInput = {
+    fichaId: number
+    instructorId: number
+  }
+
+  export type FichaInstructorCountOrderByAggregateInput = {
+    id?: SortOrder
+    fichaId?: SortOrder
+    instructorId?: SortOrder
+    asignadoAt?: SortOrder
+  }
+
+  export type FichaInstructorAvgOrderByAggregateInput = {
+    id?: SortOrder
+    fichaId?: SortOrder
+    instructorId?: SortOrder
+  }
+
+  export type FichaInstructorMaxOrderByAggregateInput = {
+    id?: SortOrder
+    fichaId?: SortOrder
+    instructorId?: SortOrder
+    asignadoAt?: SortOrder
+  }
+
+  export type FichaInstructorMinOrderByAggregateInput = {
+    id?: SortOrder
+    fichaId?: SortOrder
+    instructorId?: SortOrder
+    asignadoAt?: SortOrder
+  }
+
+  export type FichaInstructorSumOrderByAggregateInput = {
+    id?: SortOrder
+    fichaId?: SortOrder
+    instructorId?: SortOrder
+  }
+
+  export type FichaAprendizFichaIdAprendizIdCompoundUniqueInput = {
+    fichaId: number
+    aprendizId: number
+  }
+
+  export type FichaAprendizCountOrderByAggregateInput = {
+    id?: SortOrder
+    fichaId?: SortOrder
+    aprendizId?: SortOrder
+    estado?: SortOrder
+    ingresadoAt?: SortOrder
+  }
+
+  export type FichaAprendizAvgOrderByAggregateInput = {
+    id?: SortOrder
+    fichaId?: SortOrder
+    aprendizId?: SortOrder
+  }
+
+  export type FichaAprendizMaxOrderByAggregateInput = {
+    id?: SortOrder
+    fichaId?: SortOrder
+    aprendizId?: SortOrder
+    estado?: SortOrder
+    ingresadoAt?: SortOrder
+  }
+
+  export type FichaAprendizMinOrderByAggregateInput = {
+    id?: SortOrder
+    fichaId?: SortOrder
+    aprendizId?: SortOrder
+    estado?: SortOrder
+    ingresadoAt?: SortOrder
+  }
+
+  export type FichaAprendizSumOrderByAggregateInput = {
+    id?: SortOrder
+    fichaId?: SortOrder
+    aprendizId?: SortOrder
+  }
+
   export type NotificacionCountOrderByAggregateInput = {
     id?: SortOrder
     tipo?: SortOrder
@@ -18122,6 +25449,20 @@ export namespace Prisma {
     connect?: TestResultadoWhereUniqueInput | TestResultadoWhereUniqueInput[]
   }
 
+  export type FichaInstructorCreateNestedManyWithoutInstructorInput = {
+    create?: XOR<FichaInstructorCreateWithoutInstructorInput, FichaInstructorUncheckedCreateWithoutInstructorInput> | FichaInstructorCreateWithoutInstructorInput[] | FichaInstructorUncheckedCreateWithoutInstructorInput[]
+    connectOrCreate?: FichaInstructorCreateOrConnectWithoutInstructorInput | FichaInstructorCreateOrConnectWithoutInstructorInput[]
+    createMany?: FichaInstructorCreateManyInstructorInputEnvelope
+    connect?: FichaInstructorWhereUniqueInput | FichaInstructorWhereUniqueInput[]
+  }
+
+  export type FichaAprendizCreateNestedManyWithoutAprendizInput = {
+    create?: XOR<FichaAprendizCreateWithoutAprendizInput, FichaAprendizUncheckedCreateWithoutAprendizInput> | FichaAprendizCreateWithoutAprendizInput[] | FichaAprendizUncheckedCreateWithoutAprendizInput[]
+    connectOrCreate?: FichaAprendizCreateOrConnectWithoutAprendizInput | FichaAprendizCreateOrConnectWithoutAprendizInput[]
+    createMany?: FichaAprendizCreateManyAprendizInputEnvelope
+    connect?: FichaAprendizWhereUniqueInput | FichaAprendizWhereUniqueInput[]
+  }
+
   export type CursoUncheckedCreateNestedManyWithoutInstructorInput = {
     create?: XOR<CursoCreateWithoutInstructorInput, CursoUncheckedCreateWithoutInstructorInput> | CursoCreateWithoutInstructorInput[] | CursoUncheckedCreateWithoutInstructorInput[]
     connectOrCreate?: CursoCreateOrConnectWithoutInstructorInput | CursoCreateOrConnectWithoutInstructorInput[]
@@ -18169,6 +25510,20 @@ export namespace Prisma {
     connectOrCreate?: TestResultadoCreateOrConnectWithoutAprendizInput | TestResultadoCreateOrConnectWithoutAprendizInput[]
     createMany?: TestResultadoCreateManyAprendizInputEnvelope
     connect?: TestResultadoWhereUniqueInput | TestResultadoWhereUniqueInput[]
+  }
+
+  export type FichaInstructorUncheckedCreateNestedManyWithoutInstructorInput = {
+    create?: XOR<FichaInstructorCreateWithoutInstructorInput, FichaInstructorUncheckedCreateWithoutInstructorInput> | FichaInstructorCreateWithoutInstructorInput[] | FichaInstructorUncheckedCreateWithoutInstructorInput[]
+    connectOrCreate?: FichaInstructorCreateOrConnectWithoutInstructorInput | FichaInstructorCreateOrConnectWithoutInstructorInput[]
+    createMany?: FichaInstructorCreateManyInstructorInputEnvelope
+    connect?: FichaInstructorWhereUniqueInput | FichaInstructorWhereUniqueInput[]
+  }
+
+  export type FichaAprendizUncheckedCreateNestedManyWithoutAprendizInput = {
+    create?: XOR<FichaAprendizCreateWithoutAprendizInput, FichaAprendizUncheckedCreateWithoutAprendizInput> | FichaAprendizCreateWithoutAprendizInput[] | FichaAprendizUncheckedCreateWithoutAprendizInput[]
+    connectOrCreate?: FichaAprendizCreateOrConnectWithoutAprendizInput | FichaAprendizCreateOrConnectWithoutAprendizInput[]
+    createMany?: FichaAprendizCreateManyAprendizInputEnvelope
+    connect?: FichaAprendizWhereUniqueInput | FichaAprendizWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -18285,6 +25640,34 @@ export namespace Prisma {
     deleteMany?: TestResultadoScalarWhereInput | TestResultadoScalarWhereInput[]
   }
 
+  export type FichaInstructorUpdateManyWithoutInstructorNestedInput = {
+    create?: XOR<FichaInstructorCreateWithoutInstructorInput, FichaInstructorUncheckedCreateWithoutInstructorInput> | FichaInstructorCreateWithoutInstructorInput[] | FichaInstructorUncheckedCreateWithoutInstructorInput[]
+    connectOrCreate?: FichaInstructorCreateOrConnectWithoutInstructorInput | FichaInstructorCreateOrConnectWithoutInstructorInput[]
+    upsert?: FichaInstructorUpsertWithWhereUniqueWithoutInstructorInput | FichaInstructorUpsertWithWhereUniqueWithoutInstructorInput[]
+    createMany?: FichaInstructorCreateManyInstructorInputEnvelope
+    set?: FichaInstructorWhereUniqueInput | FichaInstructorWhereUniqueInput[]
+    disconnect?: FichaInstructorWhereUniqueInput | FichaInstructorWhereUniqueInput[]
+    delete?: FichaInstructorWhereUniqueInput | FichaInstructorWhereUniqueInput[]
+    connect?: FichaInstructorWhereUniqueInput | FichaInstructorWhereUniqueInput[]
+    update?: FichaInstructorUpdateWithWhereUniqueWithoutInstructorInput | FichaInstructorUpdateWithWhereUniqueWithoutInstructorInput[]
+    updateMany?: FichaInstructorUpdateManyWithWhereWithoutInstructorInput | FichaInstructorUpdateManyWithWhereWithoutInstructorInput[]
+    deleteMany?: FichaInstructorScalarWhereInput | FichaInstructorScalarWhereInput[]
+  }
+
+  export type FichaAprendizUpdateManyWithoutAprendizNestedInput = {
+    create?: XOR<FichaAprendizCreateWithoutAprendizInput, FichaAprendizUncheckedCreateWithoutAprendizInput> | FichaAprendizCreateWithoutAprendizInput[] | FichaAprendizUncheckedCreateWithoutAprendizInput[]
+    connectOrCreate?: FichaAprendizCreateOrConnectWithoutAprendizInput | FichaAprendizCreateOrConnectWithoutAprendizInput[]
+    upsert?: FichaAprendizUpsertWithWhereUniqueWithoutAprendizInput | FichaAprendizUpsertWithWhereUniqueWithoutAprendizInput[]
+    createMany?: FichaAprendizCreateManyAprendizInputEnvelope
+    set?: FichaAprendizWhereUniqueInput | FichaAprendizWhereUniqueInput[]
+    disconnect?: FichaAprendizWhereUniqueInput | FichaAprendizWhereUniqueInput[]
+    delete?: FichaAprendizWhereUniqueInput | FichaAprendizWhereUniqueInput[]
+    connect?: FichaAprendizWhereUniqueInput | FichaAprendizWhereUniqueInput[]
+    update?: FichaAprendizUpdateWithWhereUniqueWithoutAprendizInput | FichaAprendizUpdateWithWhereUniqueWithoutAprendizInput[]
+    updateMany?: FichaAprendizUpdateManyWithWhereWithoutAprendizInput | FichaAprendizUpdateManyWithWhereWithoutAprendizInput[]
+    deleteMany?: FichaAprendizScalarWhereInput | FichaAprendizScalarWhereInput[]
+  }
+
   export type IntFieldUpdateOperationsInput = {
     set?: number
     increment?: number
@@ -18391,6 +25774,34 @@ export namespace Prisma {
     deleteMany?: TestResultadoScalarWhereInput | TestResultadoScalarWhereInput[]
   }
 
+  export type FichaInstructorUncheckedUpdateManyWithoutInstructorNestedInput = {
+    create?: XOR<FichaInstructorCreateWithoutInstructorInput, FichaInstructorUncheckedCreateWithoutInstructorInput> | FichaInstructorCreateWithoutInstructorInput[] | FichaInstructorUncheckedCreateWithoutInstructorInput[]
+    connectOrCreate?: FichaInstructorCreateOrConnectWithoutInstructorInput | FichaInstructorCreateOrConnectWithoutInstructorInput[]
+    upsert?: FichaInstructorUpsertWithWhereUniqueWithoutInstructorInput | FichaInstructorUpsertWithWhereUniqueWithoutInstructorInput[]
+    createMany?: FichaInstructorCreateManyInstructorInputEnvelope
+    set?: FichaInstructorWhereUniqueInput | FichaInstructorWhereUniqueInput[]
+    disconnect?: FichaInstructorWhereUniqueInput | FichaInstructorWhereUniqueInput[]
+    delete?: FichaInstructorWhereUniqueInput | FichaInstructorWhereUniqueInput[]
+    connect?: FichaInstructorWhereUniqueInput | FichaInstructorWhereUniqueInput[]
+    update?: FichaInstructorUpdateWithWhereUniqueWithoutInstructorInput | FichaInstructorUpdateWithWhereUniqueWithoutInstructorInput[]
+    updateMany?: FichaInstructorUpdateManyWithWhereWithoutInstructorInput | FichaInstructorUpdateManyWithWhereWithoutInstructorInput[]
+    deleteMany?: FichaInstructorScalarWhereInput | FichaInstructorScalarWhereInput[]
+  }
+
+  export type FichaAprendizUncheckedUpdateManyWithoutAprendizNestedInput = {
+    create?: XOR<FichaAprendizCreateWithoutAprendizInput, FichaAprendizUncheckedCreateWithoutAprendizInput> | FichaAprendizCreateWithoutAprendizInput[] | FichaAprendizUncheckedCreateWithoutAprendizInput[]
+    connectOrCreate?: FichaAprendizCreateOrConnectWithoutAprendizInput | FichaAprendizCreateOrConnectWithoutAprendizInput[]
+    upsert?: FichaAprendizUpsertWithWhereUniqueWithoutAprendizInput | FichaAprendizUpsertWithWhereUniqueWithoutAprendizInput[]
+    createMany?: FichaAprendizCreateManyAprendizInputEnvelope
+    set?: FichaAprendizWhereUniqueInput | FichaAprendizWhereUniqueInput[]
+    disconnect?: FichaAprendizWhereUniqueInput | FichaAprendizWhereUniqueInput[]
+    delete?: FichaAprendizWhereUniqueInput | FichaAprendizWhereUniqueInput[]
+    connect?: FichaAprendizWhereUniqueInput | FichaAprendizWhereUniqueInput[]
+    update?: FichaAprendizUpdateWithWhereUniqueWithoutAprendizInput | FichaAprendizUpdateWithWhereUniqueWithoutAprendizInput[]
+    updateMany?: FichaAprendizUpdateManyWithWhereWithoutAprendizInput | FichaAprendizUpdateManyWithWhereWithoutAprendizInput[]
+    deleteMany?: FichaAprendizScalarWhereInput | FichaAprendizScalarWhereInput[]
+  }
+
   export type UserCreateNestedOneWithoutCursosComoInstructorInput = {
     create?: XOR<UserCreateWithoutCursosComoInstructorInput, UserUncheckedCreateWithoutCursosComoInstructorInput>
     connectOrCreate?: UserCreateOrConnectWithoutCursosComoInstructorInput
@@ -18411,6 +25822,13 @@ export namespace Prisma {
     connect?: InscripcionWhereUniqueInput | InscripcionWhereUniqueInput[]
   }
 
+  export type FichaCursoCreateNestedManyWithoutCursoInput = {
+    create?: XOR<FichaCursoCreateWithoutCursoInput, FichaCursoUncheckedCreateWithoutCursoInput> | FichaCursoCreateWithoutCursoInput[] | FichaCursoUncheckedCreateWithoutCursoInput[]
+    connectOrCreate?: FichaCursoCreateOrConnectWithoutCursoInput | FichaCursoCreateOrConnectWithoutCursoInput[]
+    createMany?: FichaCursoCreateManyCursoInputEnvelope
+    connect?: FichaCursoWhereUniqueInput | FichaCursoWhereUniqueInput[]
+  }
+
   export type ModuloUncheckedCreateNestedManyWithoutCursoInput = {
     create?: XOR<ModuloCreateWithoutCursoInput, ModuloUncheckedCreateWithoutCursoInput> | ModuloCreateWithoutCursoInput[] | ModuloUncheckedCreateWithoutCursoInput[]
     connectOrCreate?: ModuloCreateOrConnectWithoutCursoInput | ModuloCreateOrConnectWithoutCursoInput[]
@@ -18423,6 +25841,13 @@ export namespace Prisma {
     connectOrCreate?: InscripcionCreateOrConnectWithoutCursoInput | InscripcionCreateOrConnectWithoutCursoInput[]
     createMany?: InscripcionCreateManyCursoInputEnvelope
     connect?: InscripcionWhereUniqueInput | InscripcionWhereUniqueInput[]
+  }
+
+  export type FichaCursoUncheckedCreateNestedManyWithoutCursoInput = {
+    create?: XOR<FichaCursoCreateWithoutCursoInput, FichaCursoUncheckedCreateWithoutCursoInput> | FichaCursoCreateWithoutCursoInput[] | FichaCursoUncheckedCreateWithoutCursoInput[]
+    connectOrCreate?: FichaCursoCreateOrConnectWithoutCursoInput | FichaCursoCreateOrConnectWithoutCursoInput[]
+    createMany?: FichaCursoCreateManyCursoInputEnvelope
+    connect?: FichaCursoWhereUniqueInput | FichaCursoWhereUniqueInput[]
   }
 
   export type UserUpdateOneRequiredWithoutCursosComoInstructorNestedInput = {
@@ -18461,6 +25886,20 @@ export namespace Prisma {
     deleteMany?: InscripcionScalarWhereInput | InscripcionScalarWhereInput[]
   }
 
+  export type FichaCursoUpdateManyWithoutCursoNestedInput = {
+    create?: XOR<FichaCursoCreateWithoutCursoInput, FichaCursoUncheckedCreateWithoutCursoInput> | FichaCursoCreateWithoutCursoInput[] | FichaCursoUncheckedCreateWithoutCursoInput[]
+    connectOrCreate?: FichaCursoCreateOrConnectWithoutCursoInput | FichaCursoCreateOrConnectWithoutCursoInput[]
+    upsert?: FichaCursoUpsertWithWhereUniqueWithoutCursoInput | FichaCursoUpsertWithWhereUniqueWithoutCursoInput[]
+    createMany?: FichaCursoCreateManyCursoInputEnvelope
+    set?: FichaCursoWhereUniqueInput | FichaCursoWhereUniqueInput[]
+    disconnect?: FichaCursoWhereUniqueInput | FichaCursoWhereUniqueInput[]
+    delete?: FichaCursoWhereUniqueInput | FichaCursoWhereUniqueInput[]
+    connect?: FichaCursoWhereUniqueInput | FichaCursoWhereUniqueInput[]
+    update?: FichaCursoUpdateWithWhereUniqueWithoutCursoInput | FichaCursoUpdateWithWhereUniqueWithoutCursoInput[]
+    updateMany?: FichaCursoUpdateManyWithWhereWithoutCursoInput | FichaCursoUpdateManyWithWhereWithoutCursoInput[]
+    deleteMany?: FichaCursoScalarWhereInput | FichaCursoScalarWhereInput[]
+  }
+
   export type ModuloUncheckedUpdateManyWithoutCursoNestedInput = {
     create?: XOR<ModuloCreateWithoutCursoInput, ModuloUncheckedCreateWithoutCursoInput> | ModuloCreateWithoutCursoInput[] | ModuloUncheckedCreateWithoutCursoInput[]
     connectOrCreate?: ModuloCreateOrConnectWithoutCursoInput | ModuloCreateOrConnectWithoutCursoInput[]
@@ -18487,6 +25926,20 @@ export namespace Prisma {
     update?: InscripcionUpdateWithWhereUniqueWithoutCursoInput | InscripcionUpdateWithWhereUniqueWithoutCursoInput[]
     updateMany?: InscripcionUpdateManyWithWhereWithoutCursoInput | InscripcionUpdateManyWithWhereWithoutCursoInput[]
     deleteMany?: InscripcionScalarWhereInput | InscripcionScalarWhereInput[]
+  }
+
+  export type FichaCursoUncheckedUpdateManyWithoutCursoNestedInput = {
+    create?: XOR<FichaCursoCreateWithoutCursoInput, FichaCursoUncheckedCreateWithoutCursoInput> | FichaCursoCreateWithoutCursoInput[] | FichaCursoUncheckedCreateWithoutCursoInput[]
+    connectOrCreate?: FichaCursoCreateOrConnectWithoutCursoInput | FichaCursoCreateOrConnectWithoutCursoInput[]
+    upsert?: FichaCursoUpsertWithWhereUniqueWithoutCursoInput | FichaCursoUpsertWithWhereUniqueWithoutCursoInput[]
+    createMany?: FichaCursoCreateManyCursoInputEnvelope
+    set?: FichaCursoWhereUniqueInput | FichaCursoWhereUniqueInput[]
+    disconnect?: FichaCursoWhereUniqueInput | FichaCursoWhereUniqueInput[]
+    delete?: FichaCursoWhereUniqueInput | FichaCursoWhereUniqueInput[]
+    connect?: FichaCursoWhereUniqueInput | FichaCursoWhereUniqueInput[]
+    update?: FichaCursoUpdateWithWhereUniqueWithoutCursoInput | FichaCursoUpdateWithWhereUniqueWithoutCursoInput[]
+    updateMany?: FichaCursoUpdateManyWithWhereWithoutCursoInput | FichaCursoUpdateManyWithWhereWithoutCursoInput[]
+    deleteMany?: FichaCursoScalarWhereInput | FichaCursoScalarWhereInput[]
   }
 
   export type CursoCreateNestedOneWithoutModulosInput = {
@@ -18783,6 +26236,272 @@ export namespace Prisma {
     delete?: UserWhereInput | boolean
     connect?: UserWhereUniqueInput
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutAuditLogsInput, UserUpdateWithoutAuditLogsInput>, UserUncheckedUpdateWithoutAuditLogsInput>
+  }
+
+  export type FichaCreateNestedManyWithoutProgramaInput = {
+    create?: XOR<FichaCreateWithoutProgramaInput, FichaUncheckedCreateWithoutProgramaInput> | FichaCreateWithoutProgramaInput[] | FichaUncheckedCreateWithoutProgramaInput[]
+    connectOrCreate?: FichaCreateOrConnectWithoutProgramaInput | FichaCreateOrConnectWithoutProgramaInput[]
+    createMany?: FichaCreateManyProgramaInputEnvelope
+    connect?: FichaWhereUniqueInput | FichaWhereUniqueInput[]
+  }
+
+  export type FichaUncheckedCreateNestedManyWithoutProgramaInput = {
+    create?: XOR<FichaCreateWithoutProgramaInput, FichaUncheckedCreateWithoutProgramaInput> | FichaCreateWithoutProgramaInput[] | FichaUncheckedCreateWithoutProgramaInput[]
+    connectOrCreate?: FichaCreateOrConnectWithoutProgramaInput | FichaCreateOrConnectWithoutProgramaInput[]
+    createMany?: FichaCreateManyProgramaInputEnvelope
+    connect?: FichaWhereUniqueInput | FichaWhereUniqueInput[]
+  }
+
+  export type FichaUpdateManyWithoutProgramaNestedInput = {
+    create?: XOR<FichaCreateWithoutProgramaInput, FichaUncheckedCreateWithoutProgramaInput> | FichaCreateWithoutProgramaInput[] | FichaUncheckedCreateWithoutProgramaInput[]
+    connectOrCreate?: FichaCreateOrConnectWithoutProgramaInput | FichaCreateOrConnectWithoutProgramaInput[]
+    upsert?: FichaUpsertWithWhereUniqueWithoutProgramaInput | FichaUpsertWithWhereUniqueWithoutProgramaInput[]
+    createMany?: FichaCreateManyProgramaInputEnvelope
+    set?: FichaWhereUniqueInput | FichaWhereUniqueInput[]
+    disconnect?: FichaWhereUniqueInput | FichaWhereUniqueInput[]
+    delete?: FichaWhereUniqueInput | FichaWhereUniqueInput[]
+    connect?: FichaWhereUniqueInput | FichaWhereUniqueInput[]
+    update?: FichaUpdateWithWhereUniqueWithoutProgramaInput | FichaUpdateWithWhereUniqueWithoutProgramaInput[]
+    updateMany?: FichaUpdateManyWithWhereWithoutProgramaInput | FichaUpdateManyWithWhereWithoutProgramaInput[]
+    deleteMany?: FichaScalarWhereInput | FichaScalarWhereInput[]
+  }
+
+  export type FichaUncheckedUpdateManyWithoutProgramaNestedInput = {
+    create?: XOR<FichaCreateWithoutProgramaInput, FichaUncheckedCreateWithoutProgramaInput> | FichaCreateWithoutProgramaInput[] | FichaUncheckedCreateWithoutProgramaInput[]
+    connectOrCreate?: FichaCreateOrConnectWithoutProgramaInput | FichaCreateOrConnectWithoutProgramaInput[]
+    upsert?: FichaUpsertWithWhereUniqueWithoutProgramaInput | FichaUpsertWithWhereUniqueWithoutProgramaInput[]
+    createMany?: FichaCreateManyProgramaInputEnvelope
+    set?: FichaWhereUniqueInput | FichaWhereUniqueInput[]
+    disconnect?: FichaWhereUniqueInput | FichaWhereUniqueInput[]
+    delete?: FichaWhereUniqueInput | FichaWhereUniqueInput[]
+    connect?: FichaWhereUniqueInput | FichaWhereUniqueInput[]
+    update?: FichaUpdateWithWhereUniqueWithoutProgramaInput | FichaUpdateWithWhereUniqueWithoutProgramaInput[]
+    updateMany?: FichaUpdateManyWithWhereWithoutProgramaInput | FichaUpdateManyWithWhereWithoutProgramaInput[]
+    deleteMany?: FichaScalarWhereInput | FichaScalarWhereInput[]
+  }
+
+  export type ProgramaCreateNestedOneWithoutFichasInput = {
+    create?: XOR<ProgramaCreateWithoutFichasInput, ProgramaUncheckedCreateWithoutFichasInput>
+    connectOrCreate?: ProgramaCreateOrConnectWithoutFichasInput
+    connect?: ProgramaWhereUniqueInput
+  }
+
+  export type FichaInstructorCreateNestedManyWithoutFichaInput = {
+    create?: XOR<FichaInstructorCreateWithoutFichaInput, FichaInstructorUncheckedCreateWithoutFichaInput> | FichaInstructorCreateWithoutFichaInput[] | FichaInstructorUncheckedCreateWithoutFichaInput[]
+    connectOrCreate?: FichaInstructorCreateOrConnectWithoutFichaInput | FichaInstructorCreateOrConnectWithoutFichaInput[]
+    createMany?: FichaInstructorCreateManyFichaInputEnvelope
+    connect?: FichaInstructorWhereUniqueInput | FichaInstructorWhereUniqueInput[]
+  }
+
+  export type FichaAprendizCreateNestedManyWithoutFichaInput = {
+    create?: XOR<FichaAprendizCreateWithoutFichaInput, FichaAprendizUncheckedCreateWithoutFichaInput> | FichaAprendizCreateWithoutFichaInput[] | FichaAprendizUncheckedCreateWithoutFichaInput[]
+    connectOrCreate?: FichaAprendizCreateOrConnectWithoutFichaInput | FichaAprendizCreateOrConnectWithoutFichaInput[]
+    createMany?: FichaAprendizCreateManyFichaInputEnvelope
+    connect?: FichaAprendizWhereUniqueInput | FichaAprendizWhereUniqueInput[]
+  }
+
+  export type FichaCursoCreateNestedManyWithoutFichaInput = {
+    create?: XOR<FichaCursoCreateWithoutFichaInput, FichaCursoUncheckedCreateWithoutFichaInput> | FichaCursoCreateWithoutFichaInput[] | FichaCursoUncheckedCreateWithoutFichaInput[]
+    connectOrCreate?: FichaCursoCreateOrConnectWithoutFichaInput | FichaCursoCreateOrConnectWithoutFichaInput[]
+    createMany?: FichaCursoCreateManyFichaInputEnvelope
+    connect?: FichaCursoWhereUniqueInput | FichaCursoWhereUniqueInput[]
+  }
+
+  export type FichaInstructorUncheckedCreateNestedManyWithoutFichaInput = {
+    create?: XOR<FichaInstructorCreateWithoutFichaInput, FichaInstructorUncheckedCreateWithoutFichaInput> | FichaInstructorCreateWithoutFichaInput[] | FichaInstructorUncheckedCreateWithoutFichaInput[]
+    connectOrCreate?: FichaInstructorCreateOrConnectWithoutFichaInput | FichaInstructorCreateOrConnectWithoutFichaInput[]
+    createMany?: FichaInstructorCreateManyFichaInputEnvelope
+    connect?: FichaInstructorWhereUniqueInput | FichaInstructorWhereUniqueInput[]
+  }
+
+  export type FichaAprendizUncheckedCreateNestedManyWithoutFichaInput = {
+    create?: XOR<FichaAprendizCreateWithoutFichaInput, FichaAprendizUncheckedCreateWithoutFichaInput> | FichaAprendizCreateWithoutFichaInput[] | FichaAprendizUncheckedCreateWithoutFichaInput[]
+    connectOrCreate?: FichaAprendizCreateOrConnectWithoutFichaInput | FichaAprendizCreateOrConnectWithoutFichaInput[]
+    createMany?: FichaAprendizCreateManyFichaInputEnvelope
+    connect?: FichaAprendizWhereUniqueInput | FichaAprendizWhereUniqueInput[]
+  }
+
+  export type FichaCursoUncheckedCreateNestedManyWithoutFichaInput = {
+    create?: XOR<FichaCursoCreateWithoutFichaInput, FichaCursoUncheckedCreateWithoutFichaInput> | FichaCursoCreateWithoutFichaInput[] | FichaCursoUncheckedCreateWithoutFichaInput[]
+    connectOrCreate?: FichaCursoCreateOrConnectWithoutFichaInput | FichaCursoCreateOrConnectWithoutFichaInput[]
+    createMany?: FichaCursoCreateManyFichaInputEnvelope
+    connect?: FichaCursoWhereUniqueInput | FichaCursoWhereUniqueInput[]
+  }
+
+  export type ProgramaUpdateOneRequiredWithoutFichasNestedInput = {
+    create?: XOR<ProgramaCreateWithoutFichasInput, ProgramaUncheckedCreateWithoutFichasInput>
+    connectOrCreate?: ProgramaCreateOrConnectWithoutFichasInput
+    upsert?: ProgramaUpsertWithoutFichasInput
+    connect?: ProgramaWhereUniqueInput
+    update?: XOR<XOR<ProgramaUpdateToOneWithWhereWithoutFichasInput, ProgramaUpdateWithoutFichasInput>, ProgramaUncheckedUpdateWithoutFichasInput>
+  }
+
+  export type FichaInstructorUpdateManyWithoutFichaNestedInput = {
+    create?: XOR<FichaInstructorCreateWithoutFichaInput, FichaInstructorUncheckedCreateWithoutFichaInput> | FichaInstructorCreateWithoutFichaInput[] | FichaInstructorUncheckedCreateWithoutFichaInput[]
+    connectOrCreate?: FichaInstructorCreateOrConnectWithoutFichaInput | FichaInstructorCreateOrConnectWithoutFichaInput[]
+    upsert?: FichaInstructorUpsertWithWhereUniqueWithoutFichaInput | FichaInstructorUpsertWithWhereUniqueWithoutFichaInput[]
+    createMany?: FichaInstructorCreateManyFichaInputEnvelope
+    set?: FichaInstructorWhereUniqueInput | FichaInstructorWhereUniqueInput[]
+    disconnect?: FichaInstructorWhereUniqueInput | FichaInstructorWhereUniqueInput[]
+    delete?: FichaInstructorWhereUniqueInput | FichaInstructorWhereUniqueInput[]
+    connect?: FichaInstructorWhereUniqueInput | FichaInstructorWhereUniqueInput[]
+    update?: FichaInstructorUpdateWithWhereUniqueWithoutFichaInput | FichaInstructorUpdateWithWhereUniqueWithoutFichaInput[]
+    updateMany?: FichaInstructorUpdateManyWithWhereWithoutFichaInput | FichaInstructorUpdateManyWithWhereWithoutFichaInput[]
+    deleteMany?: FichaInstructorScalarWhereInput | FichaInstructorScalarWhereInput[]
+  }
+
+  export type FichaAprendizUpdateManyWithoutFichaNestedInput = {
+    create?: XOR<FichaAprendizCreateWithoutFichaInput, FichaAprendizUncheckedCreateWithoutFichaInput> | FichaAprendizCreateWithoutFichaInput[] | FichaAprendizUncheckedCreateWithoutFichaInput[]
+    connectOrCreate?: FichaAprendizCreateOrConnectWithoutFichaInput | FichaAprendizCreateOrConnectWithoutFichaInput[]
+    upsert?: FichaAprendizUpsertWithWhereUniqueWithoutFichaInput | FichaAprendizUpsertWithWhereUniqueWithoutFichaInput[]
+    createMany?: FichaAprendizCreateManyFichaInputEnvelope
+    set?: FichaAprendizWhereUniqueInput | FichaAprendizWhereUniqueInput[]
+    disconnect?: FichaAprendizWhereUniqueInput | FichaAprendizWhereUniqueInput[]
+    delete?: FichaAprendizWhereUniqueInput | FichaAprendizWhereUniqueInput[]
+    connect?: FichaAprendizWhereUniqueInput | FichaAprendizWhereUniqueInput[]
+    update?: FichaAprendizUpdateWithWhereUniqueWithoutFichaInput | FichaAprendizUpdateWithWhereUniqueWithoutFichaInput[]
+    updateMany?: FichaAprendizUpdateManyWithWhereWithoutFichaInput | FichaAprendizUpdateManyWithWhereWithoutFichaInput[]
+    deleteMany?: FichaAprendizScalarWhereInput | FichaAprendizScalarWhereInput[]
+  }
+
+  export type FichaCursoUpdateManyWithoutFichaNestedInput = {
+    create?: XOR<FichaCursoCreateWithoutFichaInput, FichaCursoUncheckedCreateWithoutFichaInput> | FichaCursoCreateWithoutFichaInput[] | FichaCursoUncheckedCreateWithoutFichaInput[]
+    connectOrCreate?: FichaCursoCreateOrConnectWithoutFichaInput | FichaCursoCreateOrConnectWithoutFichaInput[]
+    upsert?: FichaCursoUpsertWithWhereUniqueWithoutFichaInput | FichaCursoUpsertWithWhereUniqueWithoutFichaInput[]
+    createMany?: FichaCursoCreateManyFichaInputEnvelope
+    set?: FichaCursoWhereUniqueInput | FichaCursoWhereUniqueInput[]
+    disconnect?: FichaCursoWhereUniqueInput | FichaCursoWhereUniqueInput[]
+    delete?: FichaCursoWhereUniqueInput | FichaCursoWhereUniqueInput[]
+    connect?: FichaCursoWhereUniqueInput | FichaCursoWhereUniqueInput[]
+    update?: FichaCursoUpdateWithWhereUniqueWithoutFichaInput | FichaCursoUpdateWithWhereUniqueWithoutFichaInput[]
+    updateMany?: FichaCursoUpdateManyWithWhereWithoutFichaInput | FichaCursoUpdateManyWithWhereWithoutFichaInput[]
+    deleteMany?: FichaCursoScalarWhereInput | FichaCursoScalarWhereInput[]
+  }
+
+  export type FichaInstructorUncheckedUpdateManyWithoutFichaNestedInput = {
+    create?: XOR<FichaInstructorCreateWithoutFichaInput, FichaInstructorUncheckedCreateWithoutFichaInput> | FichaInstructorCreateWithoutFichaInput[] | FichaInstructorUncheckedCreateWithoutFichaInput[]
+    connectOrCreate?: FichaInstructorCreateOrConnectWithoutFichaInput | FichaInstructorCreateOrConnectWithoutFichaInput[]
+    upsert?: FichaInstructorUpsertWithWhereUniqueWithoutFichaInput | FichaInstructorUpsertWithWhereUniqueWithoutFichaInput[]
+    createMany?: FichaInstructorCreateManyFichaInputEnvelope
+    set?: FichaInstructorWhereUniqueInput | FichaInstructorWhereUniqueInput[]
+    disconnect?: FichaInstructorWhereUniqueInput | FichaInstructorWhereUniqueInput[]
+    delete?: FichaInstructorWhereUniqueInput | FichaInstructorWhereUniqueInput[]
+    connect?: FichaInstructorWhereUniqueInput | FichaInstructorWhereUniqueInput[]
+    update?: FichaInstructorUpdateWithWhereUniqueWithoutFichaInput | FichaInstructorUpdateWithWhereUniqueWithoutFichaInput[]
+    updateMany?: FichaInstructorUpdateManyWithWhereWithoutFichaInput | FichaInstructorUpdateManyWithWhereWithoutFichaInput[]
+    deleteMany?: FichaInstructorScalarWhereInput | FichaInstructorScalarWhereInput[]
+  }
+
+  export type FichaAprendizUncheckedUpdateManyWithoutFichaNestedInput = {
+    create?: XOR<FichaAprendizCreateWithoutFichaInput, FichaAprendizUncheckedCreateWithoutFichaInput> | FichaAprendizCreateWithoutFichaInput[] | FichaAprendizUncheckedCreateWithoutFichaInput[]
+    connectOrCreate?: FichaAprendizCreateOrConnectWithoutFichaInput | FichaAprendizCreateOrConnectWithoutFichaInput[]
+    upsert?: FichaAprendizUpsertWithWhereUniqueWithoutFichaInput | FichaAprendizUpsertWithWhereUniqueWithoutFichaInput[]
+    createMany?: FichaAprendizCreateManyFichaInputEnvelope
+    set?: FichaAprendizWhereUniqueInput | FichaAprendizWhereUniqueInput[]
+    disconnect?: FichaAprendizWhereUniqueInput | FichaAprendizWhereUniqueInput[]
+    delete?: FichaAprendizWhereUniqueInput | FichaAprendizWhereUniqueInput[]
+    connect?: FichaAprendizWhereUniqueInput | FichaAprendizWhereUniqueInput[]
+    update?: FichaAprendizUpdateWithWhereUniqueWithoutFichaInput | FichaAprendizUpdateWithWhereUniqueWithoutFichaInput[]
+    updateMany?: FichaAprendizUpdateManyWithWhereWithoutFichaInput | FichaAprendizUpdateManyWithWhereWithoutFichaInput[]
+    deleteMany?: FichaAprendizScalarWhereInput | FichaAprendizScalarWhereInput[]
+  }
+
+  export type FichaCursoUncheckedUpdateManyWithoutFichaNestedInput = {
+    create?: XOR<FichaCursoCreateWithoutFichaInput, FichaCursoUncheckedCreateWithoutFichaInput> | FichaCursoCreateWithoutFichaInput[] | FichaCursoUncheckedCreateWithoutFichaInput[]
+    connectOrCreate?: FichaCursoCreateOrConnectWithoutFichaInput | FichaCursoCreateOrConnectWithoutFichaInput[]
+    upsert?: FichaCursoUpsertWithWhereUniqueWithoutFichaInput | FichaCursoUpsertWithWhereUniqueWithoutFichaInput[]
+    createMany?: FichaCursoCreateManyFichaInputEnvelope
+    set?: FichaCursoWhereUniqueInput | FichaCursoWhereUniqueInput[]
+    disconnect?: FichaCursoWhereUniqueInput | FichaCursoWhereUniqueInput[]
+    delete?: FichaCursoWhereUniqueInput | FichaCursoWhereUniqueInput[]
+    connect?: FichaCursoWhereUniqueInput | FichaCursoWhereUniqueInput[]
+    update?: FichaCursoUpdateWithWhereUniqueWithoutFichaInput | FichaCursoUpdateWithWhereUniqueWithoutFichaInput[]
+    updateMany?: FichaCursoUpdateManyWithWhereWithoutFichaInput | FichaCursoUpdateManyWithWhereWithoutFichaInput[]
+    deleteMany?: FichaCursoScalarWhereInput | FichaCursoScalarWhereInput[]
+  }
+
+  export type FichaCreateNestedOneWithoutCursosInput = {
+    create?: XOR<FichaCreateWithoutCursosInput, FichaUncheckedCreateWithoutCursosInput>
+    connectOrCreate?: FichaCreateOrConnectWithoutCursosInput
+    connect?: FichaWhereUniqueInput
+  }
+
+  export type CursoCreateNestedOneWithoutFichasInput = {
+    create?: XOR<CursoCreateWithoutFichasInput, CursoUncheckedCreateWithoutFichasInput>
+    connectOrCreate?: CursoCreateOrConnectWithoutFichasInput
+    connect?: CursoWhereUniqueInput
+  }
+
+  export type FichaUpdateOneRequiredWithoutCursosNestedInput = {
+    create?: XOR<FichaCreateWithoutCursosInput, FichaUncheckedCreateWithoutCursosInput>
+    connectOrCreate?: FichaCreateOrConnectWithoutCursosInput
+    upsert?: FichaUpsertWithoutCursosInput
+    connect?: FichaWhereUniqueInput
+    update?: XOR<XOR<FichaUpdateToOneWithWhereWithoutCursosInput, FichaUpdateWithoutCursosInput>, FichaUncheckedUpdateWithoutCursosInput>
+  }
+
+  export type CursoUpdateOneRequiredWithoutFichasNestedInput = {
+    create?: XOR<CursoCreateWithoutFichasInput, CursoUncheckedCreateWithoutFichasInput>
+    connectOrCreate?: CursoCreateOrConnectWithoutFichasInput
+    upsert?: CursoUpsertWithoutFichasInput
+    connect?: CursoWhereUniqueInput
+    update?: XOR<XOR<CursoUpdateToOneWithWhereWithoutFichasInput, CursoUpdateWithoutFichasInput>, CursoUncheckedUpdateWithoutFichasInput>
+  }
+
+  export type FichaCreateNestedOneWithoutInstructoresInput = {
+    create?: XOR<FichaCreateWithoutInstructoresInput, FichaUncheckedCreateWithoutInstructoresInput>
+    connectOrCreate?: FichaCreateOrConnectWithoutInstructoresInput
+    connect?: FichaWhereUniqueInput
+  }
+
+  export type UserCreateNestedOneWithoutFichasComoInstructorInput = {
+    create?: XOR<UserCreateWithoutFichasComoInstructorInput, UserUncheckedCreateWithoutFichasComoInstructorInput>
+    connectOrCreate?: UserCreateOrConnectWithoutFichasComoInstructorInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type FichaUpdateOneRequiredWithoutInstructoresNestedInput = {
+    create?: XOR<FichaCreateWithoutInstructoresInput, FichaUncheckedCreateWithoutInstructoresInput>
+    connectOrCreate?: FichaCreateOrConnectWithoutInstructoresInput
+    upsert?: FichaUpsertWithoutInstructoresInput
+    connect?: FichaWhereUniqueInput
+    update?: XOR<XOR<FichaUpdateToOneWithWhereWithoutInstructoresInput, FichaUpdateWithoutInstructoresInput>, FichaUncheckedUpdateWithoutInstructoresInput>
+  }
+
+  export type UserUpdateOneRequiredWithoutFichasComoInstructorNestedInput = {
+    create?: XOR<UserCreateWithoutFichasComoInstructorInput, UserUncheckedCreateWithoutFichasComoInstructorInput>
+    connectOrCreate?: UserCreateOrConnectWithoutFichasComoInstructorInput
+    upsert?: UserUpsertWithoutFichasComoInstructorInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutFichasComoInstructorInput, UserUpdateWithoutFichasComoInstructorInput>, UserUncheckedUpdateWithoutFichasComoInstructorInput>
+  }
+
+  export type FichaCreateNestedOneWithoutAprendicesInput = {
+    create?: XOR<FichaCreateWithoutAprendicesInput, FichaUncheckedCreateWithoutAprendicesInput>
+    connectOrCreate?: FichaCreateOrConnectWithoutAprendicesInput
+    connect?: FichaWhereUniqueInput
+  }
+
+  export type UserCreateNestedOneWithoutFichasComoAprendizInput = {
+    create?: XOR<UserCreateWithoutFichasComoAprendizInput, UserUncheckedCreateWithoutFichasComoAprendizInput>
+    connectOrCreate?: UserCreateOrConnectWithoutFichasComoAprendizInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type FichaUpdateOneRequiredWithoutAprendicesNestedInput = {
+    create?: XOR<FichaCreateWithoutAprendicesInput, FichaUncheckedCreateWithoutAprendicesInput>
+    connectOrCreate?: FichaCreateOrConnectWithoutAprendicesInput
+    upsert?: FichaUpsertWithoutAprendicesInput
+    connect?: FichaWhereUniqueInput
+    update?: XOR<XOR<FichaUpdateToOneWithWhereWithoutAprendicesInput, FichaUpdateWithoutAprendicesInput>, FichaUncheckedUpdateWithoutAprendicesInput>
+  }
+
+  export type UserUpdateOneRequiredWithoutFichasComoAprendizNestedInput = {
+    create?: XOR<UserCreateWithoutFichasComoAprendizInput, UserUncheckedCreateWithoutFichasComoAprendizInput>
+    connectOrCreate?: UserCreateOrConnectWithoutFichasComoAprendizInput
+    upsert?: UserUpsertWithoutFichasComoAprendizInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutFichasComoAprendizInput, UserUpdateWithoutFichasComoAprendizInput>, UserUncheckedUpdateWithoutFichasComoAprendizInput>
   }
 
   export type UserCreateNestedOneWithoutNotificacionesInput = {
@@ -19087,6 +26806,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     modulos?: ModuloCreateNestedManyWithoutCursoInput
     inscripciones?: InscripcionCreateNestedManyWithoutCursoInput
+    fichas?: FichaCursoCreateNestedManyWithoutCursoInput
   }
 
   export type CursoUncheckedCreateWithoutInstructorInput = {
@@ -19099,6 +26819,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     modulos?: ModuloUncheckedCreateNestedManyWithoutCursoInput
     inscripciones?: InscripcionUncheckedCreateNestedManyWithoutCursoInput
+    fichas?: FichaCursoUncheckedCreateNestedManyWithoutCursoInput
   }
 
   export type CursoCreateOrConnectWithoutInstructorInput = {
@@ -19290,6 +27011,50 @@ export namespace Prisma {
 
   export type TestResultadoCreateManyAprendizInputEnvelope = {
     data: TestResultadoCreateManyAprendizInput | TestResultadoCreateManyAprendizInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type FichaInstructorCreateWithoutInstructorInput = {
+    asignadoAt?: Date | string
+    ficha: FichaCreateNestedOneWithoutInstructoresInput
+  }
+
+  export type FichaInstructorUncheckedCreateWithoutInstructorInput = {
+    id?: number
+    fichaId: number
+    asignadoAt?: Date | string
+  }
+
+  export type FichaInstructorCreateOrConnectWithoutInstructorInput = {
+    where: FichaInstructorWhereUniqueInput
+    create: XOR<FichaInstructorCreateWithoutInstructorInput, FichaInstructorUncheckedCreateWithoutInstructorInput>
+  }
+
+  export type FichaInstructorCreateManyInstructorInputEnvelope = {
+    data: FichaInstructorCreateManyInstructorInput | FichaInstructorCreateManyInstructorInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type FichaAprendizCreateWithoutAprendizInput = {
+    estado?: string
+    ingresadoAt?: Date | string
+    ficha: FichaCreateNestedOneWithoutAprendicesInput
+  }
+
+  export type FichaAprendizUncheckedCreateWithoutAprendizInput = {
+    id?: number
+    fichaId: number
+    estado?: string
+    ingresadoAt?: Date | string
+  }
+
+  export type FichaAprendizCreateOrConnectWithoutAprendizInput = {
+    where: FichaAprendizWhereUniqueInput
+    create: XOR<FichaAprendizCreateWithoutAprendizInput, FichaAprendizUncheckedCreateWithoutAprendizInput>
+  }
+
+  export type FichaAprendizCreateManyAprendizInputEnvelope = {
+    data: FichaAprendizCreateManyAprendizInput | FichaAprendizCreateManyAprendizInput[]
     skipDuplicates?: boolean
   }
 
@@ -19507,6 +27272,59 @@ export namespace Prisma {
     completadoAt?: DateTimeFilter<"TestResultado"> | Date | string
   }
 
+  export type FichaInstructorUpsertWithWhereUniqueWithoutInstructorInput = {
+    where: FichaInstructorWhereUniqueInput
+    update: XOR<FichaInstructorUpdateWithoutInstructorInput, FichaInstructorUncheckedUpdateWithoutInstructorInput>
+    create: XOR<FichaInstructorCreateWithoutInstructorInput, FichaInstructorUncheckedCreateWithoutInstructorInput>
+  }
+
+  export type FichaInstructorUpdateWithWhereUniqueWithoutInstructorInput = {
+    where: FichaInstructorWhereUniqueInput
+    data: XOR<FichaInstructorUpdateWithoutInstructorInput, FichaInstructorUncheckedUpdateWithoutInstructorInput>
+  }
+
+  export type FichaInstructorUpdateManyWithWhereWithoutInstructorInput = {
+    where: FichaInstructorScalarWhereInput
+    data: XOR<FichaInstructorUpdateManyMutationInput, FichaInstructorUncheckedUpdateManyWithoutInstructorInput>
+  }
+
+  export type FichaInstructorScalarWhereInput = {
+    AND?: FichaInstructorScalarWhereInput | FichaInstructorScalarWhereInput[]
+    OR?: FichaInstructorScalarWhereInput[]
+    NOT?: FichaInstructorScalarWhereInput | FichaInstructorScalarWhereInput[]
+    id?: IntFilter<"FichaInstructor"> | number
+    fichaId?: IntFilter<"FichaInstructor"> | number
+    instructorId?: IntFilter<"FichaInstructor"> | number
+    asignadoAt?: DateTimeFilter<"FichaInstructor"> | Date | string
+  }
+
+  export type FichaAprendizUpsertWithWhereUniqueWithoutAprendizInput = {
+    where: FichaAprendizWhereUniqueInput
+    update: XOR<FichaAprendizUpdateWithoutAprendizInput, FichaAprendizUncheckedUpdateWithoutAprendizInput>
+    create: XOR<FichaAprendizCreateWithoutAprendizInput, FichaAprendizUncheckedCreateWithoutAprendizInput>
+  }
+
+  export type FichaAprendizUpdateWithWhereUniqueWithoutAprendizInput = {
+    where: FichaAprendizWhereUniqueInput
+    data: XOR<FichaAprendizUpdateWithoutAprendizInput, FichaAprendizUncheckedUpdateWithoutAprendizInput>
+  }
+
+  export type FichaAprendizUpdateManyWithWhereWithoutAprendizInput = {
+    where: FichaAprendizScalarWhereInput
+    data: XOR<FichaAprendizUpdateManyMutationInput, FichaAprendizUncheckedUpdateManyWithoutAprendizInput>
+  }
+
+  export type FichaAprendizScalarWhereInput = {
+    AND?: FichaAprendizScalarWhereInput | FichaAprendizScalarWhereInput[]
+    OR?: FichaAprendizScalarWhereInput[]
+    NOT?: FichaAprendizScalarWhereInput | FichaAprendizScalarWhereInput[]
+    id?: IntFilter<"FichaAprendiz"> | number
+    fichaId?: IntFilter<"FichaAprendiz"> | number
+    aprendizId?: IntFilter<"FichaAprendiz"> | number
+    estado?: StringFilter<"FichaAprendiz"> | string
+    ingresadoAt?: DateTimeFilter<"FichaAprendiz"> | Date | string
+  }
+
   export type UserCreateWithoutCursosComoInstructorInput = {
     correo_usuario: string
     passw_usuario: string
@@ -19521,6 +27339,8 @@ export namespace Prisma {
     progresoActividades?: ProgresoActividadCreateNestedManyWithoutAprendizInput
     insignias?: InsigniaAprendizCreateNestedManyWithoutAprendizInput
     testResultados?: TestResultadoCreateNestedManyWithoutAprendizInput
+    fichasComoInstructor?: FichaInstructorCreateNestedManyWithoutInstructorInput
+    fichasComoAprendiz?: FichaAprendizCreateNestedManyWithoutAprendizInput
   }
 
   export type UserUncheckedCreateWithoutCursosComoInstructorInput = {
@@ -19538,6 +27358,8 @@ export namespace Prisma {
     progresoActividades?: ProgresoActividadUncheckedCreateNestedManyWithoutAprendizInput
     insignias?: InsigniaAprendizUncheckedCreateNestedManyWithoutAprendizInput
     testResultados?: TestResultadoUncheckedCreateNestedManyWithoutAprendizInput
+    fichasComoInstructor?: FichaInstructorUncheckedCreateNestedManyWithoutInstructorInput
+    fichasComoAprendiz?: FichaAprendizUncheckedCreateNestedManyWithoutAprendizInput
   }
 
   export type UserCreateOrConnectWithoutCursosComoInstructorInput = {
@@ -19605,6 +27427,27 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type FichaCursoCreateWithoutCursoInput = {
+    asignadoAt?: Date | string
+    ficha: FichaCreateNestedOneWithoutCursosInput
+  }
+
+  export type FichaCursoUncheckedCreateWithoutCursoInput = {
+    id?: number
+    fichaId: number
+    asignadoAt?: Date | string
+  }
+
+  export type FichaCursoCreateOrConnectWithoutCursoInput = {
+    where: FichaCursoWhereUniqueInput
+    create: XOR<FichaCursoCreateWithoutCursoInput, FichaCursoUncheckedCreateWithoutCursoInput>
+  }
+
+  export type FichaCursoCreateManyCursoInputEnvelope = {
+    data: FichaCursoCreateManyCursoInput | FichaCursoCreateManyCursoInput[]
+    skipDuplicates?: boolean
+  }
+
   export type UserUpsertWithoutCursosComoInstructorInput = {
     update: XOR<UserUpdateWithoutCursosComoInstructorInput, UserUncheckedUpdateWithoutCursosComoInstructorInput>
     create: XOR<UserCreateWithoutCursosComoInstructorInput, UserUncheckedCreateWithoutCursosComoInstructorInput>
@@ -19630,6 +27473,8 @@ export namespace Prisma {
     progresoActividades?: ProgresoActividadUpdateManyWithoutAprendizNestedInput
     insignias?: InsigniaAprendizUpdateManyWithoutAprendizNestedInput
     testResultados?: TestResultadoUpdateManyWithoutAprendizNestedInput
+    fichasComoInstructor?: FichaInstructorUpdateManyWithoutInstructorNestedInput
+    fichasComoAprendiz?: FichaAprendizUpdateManyWithoutAprendizNestedInput
   }
 
   export type UserUncheckedUpdateWithoutCursosComoInstructorInput = {
@@ -19647,6 +27492,8 @@ export namespace Prisma {
     progresoActividades?: ProgresoActividadUncheckedUpdateManyWithoutAprendizNestedInput
     insignias?: InsigniaAprendizUncheckedUpdateManyWithoutAprendizNestedInput
     testResultados?: TestResultadoUncheckedUpdateManyWithoutAprendizNestedInput
+    fichasComoInstructor?: FichaInstructorUncheckedUpdateManyWithoutInstructorNestedInput
+    fichasComoAprendiz?: FichaAprendizUncheckedUpdateManyWithoutAprendizNestedInput
   }
 
   export type ModuloUpsertWithWhereUniqueWithoutCursoInput = {
@@ -19696,6 +27543,32 @@ export namespace Prisma {
     data: XOR<InscripcionUpdateManyMutationInput, InscripcionUncheckedUpdateManyWithoutCursoInput>
   }
 
+  export type FichaCursoUpsertWithWhereUniqueWithoutCursoInput = {
+    where: FichaCursoWhereUniqueInput
+    update: XOR<FichaCursoUpdateWithoutCursoInput, FichaCursoUncheckedUpdateWithoutCursoInput>
+    create: XOR<FichaCursoCreateWithoutCursoInput, FichaCursoUncheckedCreateWithoutCursoInput>
+  }
+
+  export type FichaCursoUpdateWithWhereUniqueWithoutCursoInput = {
+    where: FichaCursoWhereUniqueInput
+    data: XOR<FichaCursoUpdateWithoutCursoInput, FichaCursoUncheckedUpdateWithoutCursoInput>
+  }
+
+  export type FichaCursoUpdateManyWithWhereWithoutCursoInput = {
+    where: FichaCursoScalarWhereInput
+    data: XOR<FichaCursoUpdateManyMutationInput, FichaCursoUncheckedUpdateManyWithoutCursoInput>
+  }
+
+  export type FichaCursoScalarWhereInput = {
+    AND?: FichaCursoScalarWhereInput | FichaCursoScalarWhereInput[]
+    OR?: FichaCursoScalarWhereInput[]
+    NOT?: FichaCursoScalarWhereInput | FichaCursoScalarWhereInput[]
+    id?: IntFilter<"FichaCurso"> | number
+    fichaId?: IntFilter<"FichaCurso"> | number
+    cursoId?: IntFilter<"FichaCurso"> | number
+    asignadoAt?: DateTimeFilter<"FichaCurso"> | Date | string
+  }
+
   export type CursoCreateWithoutModulosInput = {
     titulo: string
     descripcion?: string | null
@@ -19705,6 +27578,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     instructor: UserCreateNestedOneWithoutCursosComoInstructorInput
     inscripciones?: InscripcionCreateNestedManyWithoutCursoInput
+    fichas?: FichaCursoCreateNestedManyWithoutCursoInput
   }
 
   export type CursoUncheckedCreateWithoutModulosInput = {
@@ -19717,6 +27591,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     inscripciones?: InscripcionUncheckedCreateNestedManyWithoutCursoInput
+    fichas?: FichaCursoUncheckedCreateNestedManyWithoutCursoInput
   }
 
   export type CursoCreateOrConnectWithoutModulosInput = {
@@ -19773,6 +27648,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     instructor?: UserUpdateOneRequiredWithoutCursosComoInstructorNestedInput
     inscripciones?: InscripcionUpdateManyWithoutCursoNestedInput
+    fichas?: FichaCursoUpdateManyWithoutCursoNestedInput
   }
 
   export type CursoUncheckedUpdateWithoutModulosInput = {
@@ -19785,6 +27661,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     inscripciones?: InscripcionUncheckedUpdateManyWithoutCursoNestedInput
+    fichas?: FichaCursoUncheckedUpdateManyWithoutCursoNestedInput
   }
 
   export type MomentoUpsertWithWhereUniqueWithoutModuloInput = {
@@ -20062,6 +27939,8 @@ export namespace Prisma {
     notificaciones?: NotificacionCreateNestedManyWithoutDestinatarioInput
     insignias?: InsigniaAprendizCreateNestedManyWithoutAprendizInput
     testResultados?: TestResultadoCreateNestedManyWithoutAprendizInput
+    fichasComoInstructor?: FichaInstructorCreateNestedManyWithoutInstructorInput
+    fichasComoAprendiz?: FichaAprendizCreateNestedManyWithoutAprendizInput
   }
 
   export type UserUncheckedCreateWithoutProgresoActividadesInput = {
@@ -20079,6 +27958,8 @@ export namespace Prisma {
     notificaciones?: NotificacionUncheckedCreateNestedManyWithoutDestinatarioInput
     insignias?: InsigniaAprendizUncheckedCreateNestedManyWithoutAprendizInput
     testResultados?: TestResultadoUncheckedCreateNestedManyWithoutAprendizInput
+    fichasComoInstructor?: FichaInstructorUncheckedCreateNestedManyWithoutInstructorInput
+    fichasComoAprendiz?: FichaAprendizUncheckedCreateNestedManyWithoutAprendizInput
   }
 
   export type UserCreateOrConnectWithoutProgresoActividadesInput = {
@@ -20141,6 +28022,8 @@ export namespace Prisma {
     notificaciones?: NotificacionUpdateManyWithoutDestinatarioNestedInput
     insignias?: InsigniaAprendizUpdateManyWithoutAprendizNestedInput
     testResultados?: TestResultadoUpdateManyWithoutAprendizNestedInput
+    fichasComoInstructor?: FichaInstructorUpdateManyWithoutInstructorNestedInput
+    fichasComoAprendiz?: FichaAprendizUpdateManyWithoutAprendizNestedInput
   }
 
   export type UserUncheckedUpdateWithoutProgresoActividadesInput = {
@@ -20158,6 +28041,8 @@ export namespace Prisma {
     notificaciones?: NotificacionUncheckedUpdateManyWithoutDestinatarioNestedInput
     insignias?: InsigniaAprendizUncheckedUpdateManyWithoutAprendizNestedInput
     testResultados?: TestResultadoUncheckedUpdateManyWithoutAprendizNestedInput
+    fichasComoInstructor?: FichaInstructorUncheckedUpdateManyWithoutInstructorNestedInput
+    fichasComoAprendiz?: FichaAprendizUncheckedUpdateManyWithoutAprendizNestedInput
   }
 
   export type ActividadUpsertWithoutProgresosInput = {
@@ -20210,6 +28095,8 @@ export namespace Prisma {
     notificaciones?: NotificacionCreateNestedManyWithoutDestinatarioInput
     progresoActividades?: ProgresoActividadCreateNestedManyWithoutAprendizInput
     testResultados?: TestResultadoCreateNestedManyWithoutAprendizInput
+    fichasComoInstructor?: FichaInstructorCreateNestedManyWithoutInstructorInput
+    fichasComoAprendiz?: FichaAprendizCreateNestedManyWithoutAprendizInput
   }
 
   export type UserUncheckedCreateWithoutInsigniasInput = {
@@ -20227,6 +28114,8 @@ export namespace Prisma {
     notificaciones?: NotificacionUncheckedCreateNestedManyWithoutDestinatarioInput
     progresoActividades?: ProgresoActividadUncheckedCreateNestedManyWithoutAprendizInput
     testResultados?: TestResultadoUncheckedCreateNestedManyWithoutAprendizInput
+    fichasComoInstructor?: FichaInstructorUncheckedCreateNestedManyWithoutInstructorInput
+    fichasComoAprendiz?: FichaAprendizUncheckedCreateNestedManyWithoutAprendizInput
   }
 
   export type UserCreateOrConnectWithoutInsigniasInput = {
@@ -20259,6 +28148,8 @@ export namespace Prisma {
     notificaciones?: NotificacionUpdateManyWithoutDestinatarioNestedInput
     progresoActividades?: ProgresoActividadUpdateManyWithoutAprendizNestedInput
     testResultados?: TestResultadoUpdateManyWithoutAprendizNestedInput
+    fichasComoInstructor?: FichaInstructorUpdateManyWithoutInstructorNestedInput
+    fichasComoAprendiz?: FichaAprendizUpdateManyWithoutAprendizNestedInput
   }
 
   export type UserUncheckedUpdateWithoutInsigniasInput = {
@@ -20276,6 +28167,8 @@ export namespace Prisma {
     notificaciones?: NotificacionUncheckedUpdateManyWithoutDestinatarioNestedInput
     progresoActividades?: ProgresoActividadUncheckedUpdateManyWithoutAprendizNestedInput
     testResultados?: TestResultadoUncheckedUpdateManyWithoutAprendizNestedInput
+    fichasComoInstructor?: FichaInstructorUncheckedUpdateManyWithoutInstructorNestedInput
+    fichasComoAprendiz?: FichaAprendizUncheckedUpdateManyWithoutAprendizNestedInput
   }
 
   export type UserCreateWithoutTestResultadosInput = {
@@ -20292,6 +28185,8 @@ export namespace Prisma {
     notificaciones?: NotificacionCreateNestedManyWithoutDestinatarioInput
     progresoActividades?: ProgresoActividadCreateNestedManyWithoutAprendizInput
     insignias?: InsigniaAprendizCreateNestedManyWithoutAprendizInput
+    fichasComoInstructor?: FichaInstructorCreateNestedManyWithoutInstructorInput
+    fichasComoAprendiz?: FichaAprendizCreateNestedManyWithoutAprendizInput
   }
 
   export type UserUncheckedCreateWithoutTestResultadosInput = {
@@ -20309,6 +28204,8 @@ export namespace Prisma {
     notificaciones?: NotificacionUncheckedCreateNestedManyWithoutDestinatarioInput
     progresoActividades?: ProgresoActividadUncheckedCreateNestedManyWithoutAprendizInput
     insignias?: InsigniaAprendizUncheckedCreateNestedManyWithoutAprendizInput
+    fichasComoInstructor?: FichaInstructorUncheckedCreateNestedManyWithoutInstructorInput
+    fichasComoAprendiz?: FichaAprendizUncheckedCreateNestedManyWithoutAprendizInput
   }
 
   export type UserCreateOrConnectWithoutTestResultadosInput = {
@@ -20341,6 +28238,8 @@ export namespace Prisma {
     notificaciones?: NotificacionUpdateManyWithoutDestinatarioNestedInput
     progresoActividades?: ProgresoActividadUpdateManyWithoutAprendizNestedInput
     insignias?: InsigniaAprendizUpdateManyWithoutAprendizNestedInput
+    fichasComoInstructor?: FichaInstructorUpdateManyWithoutInstructorNestedInput
+    fichasComoAprendiz?: FichaAprendizUpdateManyWithoutAprendizNestedInput
   }
 
   export type UserUncheckedUpdateWithoutTestResultadosInput = {
@@ -20358,6 +28257,8 @@ export namespace Prisma {
     notificaciones?: NotificacionUncheckedUpdateManyWithoutDestinatarioNestedInput
     progresoActividades?: ProgresoActividadUncheckedUpdateManyWithoutAprendizNestedInput
     insignias?: InsigniaAprendizUncheckedUpdateManyWithoutAprendizNestedInput
+    fichasComoInstructor?: FichaInstructorUncheckedUpdateManyWithoutInstructorNestedInput
+    fichasComoAprendiz?: FichaAprendizUncheckedUpdateManyWithoutAprendizNestedInput
   }
 
   export type UserCreateWithoutInscripcionesInput = {
@@ -20374,6 +28275,8 @@ export namespace Prisma {
     progresoActividades?: ProgresoActividadCreateNestedManyWithoutAprendizInput
     insignias?: InsigniaAprendizCreateNestedManyWithoutAprendizInput
     testResultados?: TestResultadoCreateNestedManyWithoutAprendizInput
+    fichasComoInstructor?: FichaInstructorCreateNestedManyWithoutInstructorInput
+    fichasComoAprendiz?: FichaAprendizCreateNestedManyWithoutAprendizInput
   }
 
   export type UserUncheckedCreateWithoutInscripcionesInput = {
@@ -20391,6 +28294,8 @@ export namespace Prisma {
     progresoActividades?: ProgresoActividadUncheckedCreateNestedManyWithoutAprendizInput
     insignias?: InsigniaAprendizUncheckedCreateNestedManyWithoutAprendizInput
     testResultados?: TestResultadoUncheckedCreateNestedManyWithoutAprendizInput
+    fichasComoInstructor?: FichaInstructorUncheckedCreateNestedManyWithoutInstructorInput
+    fichasComoAprendiz?: FichaAprendizUncheckedCreateNestedManyWithoutAprendizInput
   }
 
   export type UserCreateOrConnectWithoutInscripcionesInput = {
@@ -20407,6 +28312,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     instructor: UserCreateNestedOneWithoutCursosComoInstructorInput
     modulos?: ModuloCreateNestedManyWithoutCursoInput
+    fichas?: FichaCursoCreateNestedManyWithoutCursoInput
   }
 
   export type CursoUncheckedCreateWithoutInscripcionesInput = {
@@ -20419,6 +28325,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     modulos?: ModuloUncheckedCreateNestedManyWithoutCursoInput
+    fichas?: FichaCursoUncheckedCreateNestedManyWithoutCursoInput
   }
 
   export type CursoCreateOrConnectWithoutInscripcionesInput = {
@@ -20451,6 +28358,8 @@ export namespace Prisma {
     progresoActividades?: ProgresoActividadUpdateManyWithoutAprendizNestedInput
     insignias?: InsigniaAprendizUpdateManyWithoutAprendizNestedInput
     testResultados?: TestResultadoUpdateManyWithoutAprendizNestedInput
+    fichasComoInstructor?: FichaInstructorUpdateManyWithoutInstructorNestedInput
+    fichasComoAprendiz?: FichaAprendizUpdateManyWithoutAprendizNestedInput
   }
 
   export type UserUncheckedUpdateWithoutInscripcionesInput = {
@@ -20468,6 +28377,8 @@ export namespace Prisma {
     progresoActividades?: ProgresoActividadUncheckedUpdateManyWithoutAprendizNestedInput
     insignias?: InsigniaAprendizUncheckedUpdateManyWithoutAprendizNestedInput
     testResultados?: TestResultadoUncheckedUpdateManyWithoutAprendizNestedInput
+    fichasComoInstructor?: FichaInstructorUncheckedUpdateManyWithoutInstructorNestedInput
+    fichasComoAprendiz?: FichaAprendizUncheckedUpdateManyWithoutAprendizNestedInput
   }
 
   export type CursoUpsertWithoutInscripcionesInput = {
@@ -20490,6 +28401,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     instructor?: UserUpdateOneRequiredWithoutCursosComoInstructorNestedInput
     modulos?: ModuloUpdateManyWithoutCursoNestedInput
+    fichas?: FichaCursoUpdateManyWithoutCursoNestedInput
   }
 
   export type CursoUncheckedUpdateWithoutInscripcionesInput = {
@@ -20502,6 +28414,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     modulos?: ModuloUncheckedUpdateManyWithoutCursoNestedInput
+    fichas?: FichaCursoUncheckedUpdateManyWithoutCursoNestedInput
   }
 
   export type UserCreateWithoutAuditLogsInput = {
@@ -20518,6 +28431,8 @@ export namespace Prisma {
     progresoActividades?: ProgresoActividadCreateNestedManyWithoutAprendizInput
     insignias?: InsigniaAprendizCreateNestedManyWithoutAprendizInput
     testResultados?: TestResultadoCreateNestedManyWithoutAprendizInput
+    fichasComoInstructor?: FichaInstructorCreateNestedManyWithoutInstructorInput
+    fichasComoAprendiz?: FichaAprendizCreateNestedManyWithoutAprendizInput
   }
 
   export type UserUncheckedCreateWithoutAuditLogsInput = {
@@ -20535,6 +28450,8 @@ export namespace Prisma {
     progresoActividades?: ProgresoActividadUncheckedCreateNestedManyWithoutAprendizInput
     insignias?: InsigniaAprendizUncheckedCreateNestedManyWithoutAprendizInput
     testResultados?: TestResultadoUncheckedCreateNestedManyWithoutAprendizInput
+    fichasComoInstructor?: FichaInstructorUncheckedCreateNestedManyWithoutInstructorInput
+    fichasComoAprendiz?: FichaAprendizUncheckedCreateNestedManyWithoutAprendizInput
   }
 
   export type UserCreateOrConnectWithoutAuditLogsInput = {
@@ -20567,6 +28484,8 @@ export namespace Prisma {
     progresoActividades?: ProgresoActividadUpdateManyWithoutAprendizNestedInput
     insignias?: InsigniaAprendizUpdateManyWithoutAprendizNestedInput
     testResultados?: TestResultadoUpdateManyWithoutAprendizNestedInput
+    fichasComoInstructor?: FichaInstructorUpdateManyWithoutInstructorNestedInput
+    fichasComoAprendiz?: FichaAprendizUpdateManyWithoutAprendizNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAuditLogsInput = {
@@ -20584,6 +28503,714 @@ export namespace Prisma {
     progresoActividades?: ProgresoActividadUncheckedUpdateManyWithoutAprendizNestedInput
     insignias?: InsigniaAprendizUncheckedUpdateManyWithoutAprendizNestedInput
     testResultados?: TestResultadoUncheckedUpdateManyWithoutAprendizNestedInput
+    fichasComoInstructor?: FichaInstructorUncheckedUpdateManyWithoutInstructorNestedInput
+    fichasComoAprendiz?: FichaAprendizUncheckedUpdateManyWithoutAprendizNestedInput
+  }
+
+  export type FichaCreateWithoutProgramaInput = {
+    numero: string
+    jornada?: string
+    modalidad?: string
+    estado?: string
+    fecha_inicio?: Date | string | null
+    fecha_fin?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    instructores?: FichaInstructorCreateNestedManyWithoutFichaInput
+    aprendices?: FichaAprendizCreateNestedManyWithoutFichaInput
+    cursos?: FichaCursoCreateNestedManyWithoutFichaInput
+  }
+
+  export type FichaUncheckedCreateWithoutProgramaInput = {
+    id?: number
+    numero: string
+    jornada?: string
+    modalidad?: string
+    estado?: string
+    fecha_inicio?: Date | string | null
+    fecha_fin?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    instructores?: FichaInstructorUncheckedCreateNestedManyWithoutFichaInput
+    aprendices?: FichaAprendizUncheckedCreateNestedManyWithoutFichaInput
+    cursos?: FichaCursoUncheckedCreateNestedManyWithoutFichaInput
+  }
+
+  export type FichaCreateOrConnectWithoutProgramaInput = {
+    where: FichaWhereUniqueInput
+    create: XOR<FichaCreateWithoutProgramaInput, FichaUncheckedCreateWithoutProgramaInput>
+  }
+
+  export type FichaCreateManyProgramaInputEnvelope = {
+    data: FichaCreateManyProgramaInput | FichaCreateManyProgramaInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type FichaUpsertWithWhereUniqueWithoutProgramaInput = {
+    where: FichaWhereUniqueInput
+    update: XOR<FichaUpdateWithoutProgramaInput, FichaUncheckedUpdateWithoutProgramaInput>
+    create: XOR<FichaCreateWithoutProgramaInput, FichaUncheckedCreateWithoutProgramaInput>
+  }
+
+  export type FichaUpdateWithWhereUniqueWithoutProgramaInput = {
+    where: FichaWhereUniqueInput
+    data: XOR<FichaUpdateWithoutProgramaInput, FichaUncheckedUpdateWithoutProgramaInput>
+  }
+
+  export type FichaUpdateManyWithWhereWithoutProgramaInput = {
+    where: FichaScalarWhereInput
+    data: XOR<FichaUpdateManyMutationInput, FichaUncheckedUpdateManyWithoutProgramaInput>
+  }
+
+  export type FichaScalarWhereInput = {
+    AND?: FichaScalarWhereInput | FichaScalarWhereInput[]
+    OR?: FichaScalarWhereInput[]
+    NOT?: FichaScalarWhereInput | FichaScalarWhereInput[]
+    id?: IntFilter<"Ficha"> | number
+    numero?: StringFilter<"Ficha"> | string
+    programaId?: IntFilter<"Ficha"> | number
+    jornada?: StringFilter<"Ficha"> | string
+    modalidad?: StringFilter<"Ficha"> | string
+    estado?: StringFilter<"Ficha"> | string
+    fecha_inicio?: DateTimeNullableFilter<"Ficha"> | Date | string | null
+    fecha_fin?: DateTimeNullableFilter<"Ficha"> | Date | string | null
+    createdAt?: DateTimeFilter<"Ficha"> | Date | string
+    updatedAt?: DateTimeFilter<"Ficha"> | Date | string
+  }
+
+  export type ProgramaCreateWithoutFichasInput = {
+    codigo: string
+    nombre: string
+    nivel?: string
+    duracion?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ProgramaUncheckedCreateWithoutFichasInput = {
+    id?: number
+    codigo: string
+    nombre: string
+    nivel?: string
+    duracion?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ProgramaCreateOrConnectWithoutFichasInput = {
+    where: ProgramaWhereUniqueInput
+    create: XOR<ProgramaCreateWithoutFichasInput, ProgramaUncheckedCreateWithoutFichasInput>
+  }
+
+  export type FichaInstructorCreateWithoutFichaInput = {
+    asignadoAt?: Date | string
+    instructor: UserCreateNestedOneWithoutFichasComoInstructorInput
+  }
+
+  export type FichaInstructorUncheckedCreateWithoutFichaInput = {
+    id?: number
+    instructorId: number
+    asignadoAt?: Date | string
+  }
+
+  export type FichaInstructorCreateOrConnectWithoutFichaInput = {
+    where: FichaInstructorWhereUniqueInput
+    create: XOR<FichaInstructorCreateWithoutFichaInput, FichaInstructorUncheckedCreateWithoutFichaInput>
+  }
+
+  export type FichaInstructorCreateManyFichaInputEnvelope = {
+    data: FichaInstructorCreateManyFichaInput | FichaInstructorCreateManyFichaInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type FichaAprendizCreateWithoutFichaInput = {
+    estado?: string
+    ingresadoAt?: Date | string
+    aprendiz: UserCreateNestedOneWithoutFichasComoAprendizInput
+  }
+
+  export type FichaAprendizUncheckedCreateWithoutFichaInput = {
+    id?: number
+    aprendizId: number
+    estado?: string
+    ingresadoAt?: Date | string
+  }
+
+  export type FichaAprendizCreateOrConnectWithoutFichaInput = {
+    where: FichaAprendizWhereUniqueInput
+    create: XOR<FichaAprendizCreateWithoutFichaInput, FichaAprendizUncheckedCreateWithoutFichaInput>
+  }
+
+  export type FichaAprendizCreateManyFichaInputEnvelope = {
+    data: FichaAprendizCreateManyFichaInput | FichaAprendizCreateManyFichaInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type FichaCursoCreateWithoutFichaInput = {
+    asignadoAt?: Date | string
+    curso: CursoCreateNestedOneWithoutFichasInput
+  }
+
+  export type FichaCursoUncheckedCreateWithoutFichaInput = {
+    id?: number
+    cursoId: number
+    asignadoAt?: Date | string
+  }
+
+  export type FichaCursoCreateOrConnectWithoutFichaInput = {
+    where: FichaCursoWhereUniqueInput
+    create: XOR<FichaCursoCreateWithoutFichaInput, FichaCursoUncheckedCreateWithoutFichaInput>
+  }
+
+  export type FichaCursoCreateManyFichaInputEnvelope = {
+    data: FichaCursoCreateManyFichaInput | FichaCursoCreateManyFichaInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type ProgramaUpsertWithoutFichasInput = {
+    update: XOR<ProgramaUpdateWithoutFichasInput, ProgramaUncheckedUpdateWithoutFichasInput>
+    create: XOR<ProgramaCreateWithoutFichasInput, ProgramaUncheckedCreateWithoutFichasInput>
+    where?: ProgramaWhereInput
+  }
+
+  export type ProgramaUpdateToOneWithWhereWithoutFichasInput = {
+    where?: ProgramaWhereInput
+    data: XOR<ProgramaUpdateWithoutFichasInput, ProgramaUncheckedUpdateWithoutFichasInput>
+  }
+
+  export type ProgramaUpdateWithoutFichasInput = {
+    codigo?: StringFieldUpdateOperationsInput | string
+    nombre?: StringFieldUpdateOperationsInput | string
+    nivel?: StringFieldUpdateOperationsInput | string
+    duracion?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ProgramaUncheckedUpdateWithoutFichasInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    codigo?: StringFieldUpdateOperationsInput | string
+    nombre?: StringFieldUpdateOperationsInput | string
+    nivel?: StringFieldUpdateOperationsInput | string
+    duracion?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type FichaInstructorUpsertWithWhereUniqueWithoutFichaInput = {
+    where: FichaInstructorWhereUniqueInput
+    update: XOR<FichaInstructorUpdateWithoutFichaInput, FichaInstructorUncheckedUpdateWithoutFichaInput>
+    create: XOR<FichaInstructorCreateWithoutFichaInput, FichaInstructorUncheckedCreateWithoutFichaInput>
+  }
+
+  export type FichaInstructorUpdateWithWhereUniqueWithoutFichaInput = {
+    where: FichaInstructorWhereUniqueInput
+    data: XOR<FichaInstructorUpdateWithoutFichaInput, FichaInstructorUncheckedUpdateWithoutFichaInput>
+  }
+
+  export type FichaInstructorUpdateManyWithWhereWithoutFichaInput = {
+    where: FichaInstructorScalarWhereInput
+    data: XOR<FichaInstructorUpdateManyMutationInput, FichaInstructorUncheckedUpdateManyWithoutFichaInput>
+  }
+
+  export type FichaAprendizUpsertWithWhereUniqueWithoutFichaInput = {
+    where: FichaAprendizWhereUniqueInput
+    update: XOR<FichaAprendizUpdateWithoutFichaInput, FichaAprendizUncheckedUpdateWithoutFichaInput>
+    create: XOR<FichaAprendizCreateWithoutFichaInput, FichaAprendizUncheckedCreateWithoutFichaInput>
+  }
+
+  export type FichaAprendizUpdateWithWhereUniqueWithoutFichaInput = {
+    where: FichaAprendizWhereUniqueInput
+    data: XOR<FichaAprendizUpdateWithoutFichaInput, FichaAprendizUncheckedUpdateWithoutFichaInput>
+  }
+
+  export type FichaAprendizUpdateManyWithWhereWithoutFichaInput = {
+    where: FichaAprendizScalarWhereInput
+    data: XOR<FichaAprendizUpdateManyMutationInput, FichaAprendizUncheckedUpdateManyWithoutFichaInput>
+  }
+
+  export type FichaCursoUpsertWithWhereUniqueWithoutFichaInput = {
+    where: FichaCursoWhereUniqueInput
+    update: XOR<FichaCursoUpdateWithoutFichaInput, FichaCursoUncheckedUpdateWithoutFichaInput>
+    create: XOR<FichaCursoCreateWithoutFichaInput, FichaCursoUncheckedCreateWithoutFichaInput>
+  }
+
+  export type FichaCursoUpdateWithWhereUniqueWithoutFichaInput = {
+    where: FichaCursoWhereUniqueInput
+    data: XOR<FichaCursoUpdateWithoutFichaInput, FichaCursoUncheckedUpdateWithoutFichaInput>
+  }
+
+  export type FichaCursoUpdateManyWithWhereWithoutFichaInput = {
+    where: FichaCursoScalarWhereInput
+    data: XOR<FichaCursoUpdateManyMutationInput, FichaCursoUncheckedUpdateManyWithoutFichaInput>
+  }
+
+  export type FichaCreateWithoutCursosInput = {
+    numero: string
+    jornada?: string
+    modalidad?: string
+    estado?: string
+    fecha_inicio?: Date | string | null
+    fecha_fin?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    programa: ProgramaCreateNestedOneWithoutFichasInput
+    instructores?: FichaInstructorCreateNestedManyWithoutFichaInput
+    aprendices?: FichaAprendizCreateNestedManyWithoutFichaInput
+  }
+
+  export type FichaUncheckedCreateWithoutCursosInput = {
+    id?: number
+    numero: string
+    programaId: number
+    jornada?: string
+    modalidad?: string
+    estado?: string
+    fecha_inicio?: Date | string | null
+    fecha_fin?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    instructores?: FichaInstructorUncheckedCreateNestedManyWithoutFichaInput
+    aprendices?: FichaAprendizUncheckedCreateNestedManyWithoutFichaInput
+  }
+
+  export type FichaCreateOrConnectWithoutCursosInput = {
+    where: FichaWhereUniqueInput
+    create: XOR<FichaCreateWithoutCursosInput, FichaUncheckedCreateWithoutCursosInput>
+  }
+
+  export type CursoCreateWithoutFichasInput = {
+    titulo: string
+    descripcion?: string | null
+    nivel?: string
+    estado?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    instructor: UserCreateNestedOneWithoutCursosComoInstructorInput
+    modulos?: ModuloCreateNestedManyWithoutCursoInput
+    inscripciones?: InscripcionCreateNestedManyWithoutCursoInput
+  }
+
+  export type CursoUncheckedCreateWithoutFichasInput = {
+    id?: number
+    titulo: string
+    descripcion?: string | null
+    nivel?: string
+    estado?: boolean
+    instructorId: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    modulos?: ModuloUncheckedCreateNestedManyWithoutCursoInput
+    inscripciones?: InscripcionUncheckedCreateNestedManyWithoutCursoInput
+  }
+
+  export type CursoCreateOrConnectWithoutFichasInput = {
+    where: CursoWhereUniqueInput
+    create: XOR<CursoCreateWithoutFichasInput, CursoUncheckedCreateWithoutFichasInput>
+  }
+
+  export type FichaUpsertWithoutCursosInput = {
+    update: XOR<FichaUpdateWithoutCursosInput, FichaUncheckedUpdateWithoutCursosInput>
+    create: XOR<FichaCreateWithoutCursosInput, FichaUncheckedCreateWithoutCursosInput>
+    where?: FichaWhereInput
+  }
+
+  export type FichaUpdateToOneWithWhereWithoutCursosInput = {
+    where?: FichaWhereInput
+    data: XOR<FichaUpdateWithoutCursosInput, FichaUncheckedUpdateWithoutCursosInput>
+  }
+
+  export type FichaUpdateWithoutCursosInput = {
+    numero?: StringFieldUpdateOperationsInput | string
+    jornada?: StringFieldUpdateOperationsInput | string
+    modalidad?: StringFieldUpdateOperationsInput | string
+    estado?: StringFieldUpdateOperationsInput | string
+    fecha_inicio?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fecha_fin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    programa?: ProgramaUpdateOneRequiredWithoutFichasNestedInput
+    instructores?: FichaInstructorUpdateManyWithoutFichaNestedInput
+    aprendices?: FichaAprendizUpdateManyWithoutFichaNestedInput
+  }
+
+  export type FichaUncheckedUpdateWithoutCursosInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    numero?: StringFieldUpdateOperationsInput | string
+    programaId?: IntFieldUpdateOperationsInput | number
+    jornada?: StringFieldUpdateOperationsInput | string
+    modalidad?: StringFieldUpdateOperationsInput | string
+    estado?: StringFieldUpdateOperationsInput | string
+    fecha_inicio?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fecha_fin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    instructores?: FichaInstructorUncheckedUpdateManyWithoutFichaNestedInput
+    aprendices?: FichaAprendizUncheckedUpdateManyWithoutFichaNestedInput
+  }
+
+  export type CursoUpsertWithoutFichasInput = {
+    update: XOR<CursoUpdateWithoutFichasInput, CursoUncheckedUpdateWithoutFichasInput>
+    create: XOR<CursoCreateWithoutFichasInput, CursoUncheckedCreateWithoutFichasInput>
+    where?: CursoWhereInput
+  }
+
+  export type CursoUpdateToOneWithWhereWithoutFichasInput = {
+    where?: CursoWhereInput
+    data: XOR<CursoUpdateWithoutFichasInput, CursoUncheckedUpdateWithoutFichasInput>
+  }
+
+  export type CursoUpdateWithoutFichasInput = {
+    titulo?: StringFieldUpdateOperationsInput | string
+    descripcion?: NullableStringFieldUpdateOperationsInput | string | null
+    nivel?: StringFieldUpdateOperationsInput | string
+    estado?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    instructor?: UserUpdateOneRequiredWithoutCursosComoInstructorNestedInput
+    modulos?: ModuloUpdateManyWithoutCursoNestedInput
+    inscripciones?: InscripcionUpdateManyWithoutCursoNestedInput
+  }
+
+  export type CursoUncheckedUpdateWithoutFichasInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    titulo?: StringFieldUpdateOperationsInput | string
+    descripcion?: NullableStringFieldUpdateOperationsInput | string | null
+    nivel?: StringFieldUpdateOperationsInput | string
+    estado?: BoolFieldUpdateOperationsInput | boolean
+    instructorId?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    modulos?: ModuloUncheckedUpdateManyWithoutCursoNestedInput
+    inscripciones?: InscripcionUncheckedUpdateManyWithoutCursoNestedInput
+  }
+
+  export type FichaCreateWithoutInstructoresInput = {
+    numero: string
+    jornada?: string
+    modalidad?: string
+    estado?: string
+    fecha_inicio?: Date | string | null
+    fecha_fin?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    programa: ProgramaCreateNestedOneWithoutFichasInput
+    aprendices?: FichaAprendizCreateNestedManyWithoutFichaInput
+    cursos?: FichaCursoCreateNestedManyWithoutFichaInput
+  }
+
+  export type FichaUncheckedCreateWithoutInstructoresInput = {
+    id?: number
+    numero: string
+    programaId: number
+    jornada?: string
+    modalidad?: string
+    estado?: string
+    fecha_inicio?: Date | string | null
+    fecha_fin?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    aprendices?: FichaAprendizUncheckedCreateNestedManyWithoutFichaInput
+    cursos?: FichaCursoUncheckedCreateNestedManyWithoutFichaInput
+  }
+
+  export type FichaCreateOrConnectWithoutInstructoresInput = {
+    where: FichaWhereUniqueInput
+    create: XOR<FichaCreateWithoutInstructoresInput, FichaUncheckedCreateWithoutInstructoresInput>
+  }
+
+  export type UserCreateWithoutFichasComoInstructorInput = {
+    correo_usuario: string
+    passw_usuario: string
+    nombre_usuario?: string | null
+    estado_usuario?: boolean
+    rol_usuario: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    cursosComoInstructor?: CursoCreateNestedManyWithoutInstructorInput
+    inscripciones?: InscripcionCreateNestedManyWithoutAprendizInput
+    auditLogs?: AuditLogCreateNestedManyWithoutUsuarioInput
+    notificaciones?: NotificacionCreateNestedManyWithoutDestinatarioInput
+    progresoActividades?: ProgresoActividadCreateNestedManyWithoutAprendizInput
+    insignias?: InsigniaAprendizCreateNestedManyWithoutAprendizInput
+    testResultados?: TestResultadoCreateNestedManyWithoutAprendizInput
+    fichasComoAprendiz?: FichaAprendizCreateNestedManyWithoutAprendizInput
+  }
+
+  export type UserUncheckedCreateWithoutFichasComoInstructorInput = {
+    id?: number
+    correo_usuario: string
+    passw_usuario: string
+    nombre_usuario?: string | null
+    estado_usuario?: boolean
+    rol_usuario: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    cursosComoInstructor?: CursoUncheckedCreateNestedManyWithoutInstructorInput
+    inscripciones?: InscripcionUncheckedCreateNestedManyWithoutAprendizInput
+    auditLogs?: AuditLogUncheckedCreateNestedManyWithoutUsuarioInput
+    notificaciones?: NotificacionUncheckedCreateNestedManyWithoutDestinatarioInput
+    progresoActividades?: ProgresoActividadUncheckedCreateNestedManyWithoutAprendizInput
+    insignias?: InsigniaAprendizUncheckedCreateNestedManyWithoutAprendizInput
+    testResultados?: TestResultadoUncheckedCreateNestedManyWithoutAprendizInput
+    fichasComoAprendiz?: FichaAprendizUncheckedCreateNestedManyWithoutAprendizInput
+  }
+
+  export type UserCreateOrConnectWithoutFichasComoInstructorInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutFichasComoInstructorInput, UserUncheckedCreateWithoutFichasComoInstructorInput>
+  }
+
+  export type FichaUpsertWithoutInstructoresInput = {
+    update: XOR<FichaUpdateWithoutInstructoresInput, FichaUncheckedUpdateWithoutInstructoresInput>
+    create: XOR<FichaCreateWithoutInstructoresInput, FichaUncheckedCreateWithoutInstructoresInput>
+    where?: FichaWhereInput
+  }
+
+  export type FichaUpdateToOneWithWhereWithoutInstructoresInput = {
+    where?: FichaWhereInput
+    data: XOR<FichaUpdateWithoutInstructoresInput, FichaUncheckedUpdateWithoutInstructoresInput>
+  }
+
+  export type FichaUpdateWithoutInstructoresInput = {
+    numero?: StringFieldUpdateOperationsInput | string
+    jornada?: StringFieldUpdateOperationsInput | string
+    modalidad?: StringFieldUpdateOperationsInput | string
+    estado?: StringFieldUpdateOperationsInput | string
+    fecha_inicio?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fecha_fin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    programa?: ProgramaUpdateOneRequiredWithoutFichasNestedInput
+    aprendices?: FichaAprendizUpdateManyWithoutFichaNestedInput
+    cursos?: FichaCursoUpdateManyWithoutFichaNestedInput
+  }
+
+  export type FichaUncheckedUpdateWithoutInstructoresInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    numero?: StringFieldUpdateOperationsInput | string
+    programaId?: IntFieldUpdateOperationsInput | number
+    jornada?: StringFieldUpdateOperationsInput | string
+    modalidad?: StringFieldUpdateOperationsInput | string
+    estado?: StringFieldUpdateOperationsInput | string
+    fecha_inicio?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fecha_fin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    aprendices?: FichaAprendizUncheckedUpdateManyWithoutFichaNestedInput
+    cursos?: FichaCursoUncheckedUpdateManyWithoutFichaNestedInput
+  }
+
+  export type UserUpsertWithoutFichasComoInstructorInput = {
+    update: XOR<UserUpdateWithoutFichasComoInstructorInput, UserUncheckedUpdateWithoutFichasComoInstructorInput>
+    create: XOR<UserCreateWithoutFichasComoInstructorInput, UserUncheckedCreateWithoutFichasComoInstructorInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutFichasComoInstructorInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutFichasComoInstructorInput, UserUncheckedUpdateWithoutFichasComoInstructorInput>
+  }
+
+  export type UserUpdateWithoutFichasComoInstructorInput = {
+    correo_usuario?: StringFieldUpdateOperationsInput | string
+    passw_usuario?: StringFieldUpdateOperationsInput | string
+    nombre_usuario?: NullableStringFieldUpdateOperationsInput | string | null
+    estado_usuario?: BoolFieldUpdateOperationsInput | boolean
+    rol_usuario?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    cursosComoInstructor?: CursoUpdateManyWithoutInstructorNestedInput
+    inscripciones?: InscripcionUpdateManyWithoutAprendizNestedInput
+    auditLogs?: AuditLogUpdateManyWithoutUsuarioNestedInput
+    notificaciones?: NotificacionUpdateManyWithoutDestinatarioNestedInput
+    progresoActividades?: ProgresoActividadUpdateManyWithoutAprendizNestedInput
+    insignias?: InsigniaAprendizUpdateManyWithoutAprendizNestedInput
+    testResultados?: TestResultadoUpdateManyWithoutAprendizNestedInput
+    fichasComoAprendiz?: FichaAprendizUpdateManyWithoutAprendizNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutFichasComoInstructorInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    correo_usuario?: StringFieldUpdateOperationsInput | string
+    passw_usuario?: StringFieldUpdateOperationsInput | string
+    nombre_usuario?: NullableStringFieldUpdateOperationsInput | string | null
+    estado_usuario?: BoolFieldUpdateOperationsInput | boolean
+    rol_usuario?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    cursosComoInstructor?: CursoUncheckedUpdateManyWithoutInstructorNestedInput
+    inscripciones?: InscripcionUncheckedUpdateManyWithoutAprendizNestedInput
+    auditLogs?: AuditLogUncheckedUpdateManyWithoutUsuarioNestedInput
+    notificaciones?: NotificacionUncheckedUpdateManyWithoutDestinatarioNestedInput
+    progresoActividades?: ProgresoActividadUncheckedUpdateManyWithoutAprendizNestedInput
+    insignias?: InsigniaAprendizUncheckedUpdateManyWithoutAprendizNestedInput
+    testResultados?: TestResultadoUncheckedUpdateManyWithoutAprendizNestedInput
+    fichasComoAprendiz?: FichaAprendizUncheckedUpdateManyWithoutAprendizNestedInput
+  }
+
+  export type FichaCreateWithoutAprendicesInput = {
+    numero: string
+    jornada?: string
+    modalidad?: string
+    estado?: string
+    fecha_inicio?: Date | string | null
+    fecha_fin?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    programa: ProgramaCreateNestedOneWithoutFichasInput
+    instructores?: FichaInstructorCreateNestedManyWithoutFichaInput
+    cursos?: FichaCursoCreateNestedManyWithoutFichaInput
+  }
+
+  export type FichaUncheckedCreateWithoutAprendicesInput = {
+    id?: number
+    numero: string
+    programaId: number
+    jornada?: string
+    modalidad?: string
+    estado?: string
+    fecha_inicio?: Date | string | null
+    fecha_fin?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    instructores?: FichaInstructorUncheckedCreateNestedManyWithoutFichaInput
+    cursos?: FichaCursoUncheckedCreateNestedManyWithoutFichaInput
+  }
+
+  export type FichaCreateOrConnectWithoutAprendicesInput = {
+    where: FichaWhereUniqueInput
+    create: XOR<FichaCreateWithoutAprendicesInput, FichaUncheckedCreateWithoutAprendicesInput>
+  }
+
+  export type UserCreateWithoutFichasComoAprendizInput = {
+    correo_usuario: string
+    passw_usuario: string
+    nombre_usuario?: string | null
+    estado_usuario?: boolean
+    rol_usuario: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    cursosComoInstructor?: CursoCreateNestedManyWithoutInstructorInput
+    inscripciones?: InscripcionCreateNestedManyWithoutAprendizInput
+    auditLogs?: AuditLogCreateNestedManyWithoutUsuarioInput
+    notificaciones?: NotificacionCreateNestedManyWithoutDestinatarioInput
+    progresoActividades?: ProgresoActividadCreateNestedManyWithoutAprendizInput
+    insignias?: InsigniaAprendizCreateNestedManyWithoutAprendizInput
+    testResultados?: TestResultadoCreateNestedManyWithoutAprendizInput
+    fichasComoInstructor?: FichaInstructorCreateNestedManyWithoutInstructorInput
+  }
+
+  export type UserUncheckedCreateWithoutFichasComoAprendizInput = {
+    id?: number
+    correo_usuario: string
+    passw_usuario: string
+    nombre_usuario?: string | null
+    estado_usuario?: boolean
+    rol_usuario: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    cursosComoInstructor?: CursoUncheckedCreateNestedManyWithoutInstructorInput
+    inscripciones?: InscripcionUncheckedCreateNestedManyWithoutAprendizInput
+    auditLogs?: AuditLogUncheckedCreateNestedManyWithoutUsuarioInput
+    notificaciones?: NotificacionUncheckedCreateNestedManyWithoutDestinatarioInput
+    progresoActividades?: ProgresoActividadUncheckedCreateNestedManyWithoutAprendizInput
+    insignias?: InsigniaAprendizUncheckedCreateNestedManyWithoutAprendizInput
+    testResultados?: TestResultadoUncheckedCreateNestedManyWithoutAprendizInput
+    fichasComoInstructor?: FichaInstructorUncheckedCreateNestedManyWithoutInstructorInput
+  }
+
+  export type UserCreateOrConnectWithoutFichasComoAprendizInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutFichasComoAprendizInput, UserUncheckedCreateWithoutFichasComoAprendizInput>
+  }
+
+  export type FichaUpsertWithoutAprendicesInput = {
+    update: XOR<FichaUpdateWithoutAprendicesInput, FichaUncheckedUpdateWithoutAprendicesInput>
+    create: XOR<FichaCreateWithoutAprendicesInput, FichaUncheckedCreateWithoutAprendicesInput>
+    where?: FichaWhereInput
+  }
+
+  export type FichaUpdateToOneWithWhereWithoutAprendicesInput = {
+    where?: FichaWhereInput
+    data: XOR<FichaUpdateWithoutAprendicesInput, FichaUncheckedUpdateWithoutAprendicesInput>
+  }
+
+  export type FichaUpdateWithoutAprendicesInput = {
+    numero?: StringFieldUpdateOperationsInput | string
+    jornada?: StringFieldUpdateOperationsInput | string
+    modalidad?: StringFieldUpdateOperationsInput | string
+    estado?: StringFieldUpdateOperationsInput | string
+    fecha_inicio?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fecha_fin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    programa?: ProgramaUpdateOneRequiredWithoutFichasNestedInput
+    instructores?: FichaInstructorUpdateManyWithoutFichaNestedInput
+    cursos?: FichaCursoUpdateManyWithoutFichaNestedInput
+  }
+
+  export type FichaUncheckedUpdateWithoutAprendicesInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    numero?: StringFieldUpdateOperationsInput | string
+    programaId?: IntFieldUpdateOperationsInput | number
+    jornada?: StringFieldUpdateOperationsInput | string
+    modalidad?: StringFieldUpdateOperationsInput | string
+    estado?: StringFieldUpdateOperationsInput | string
+    fecha_inicio?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fecha_fin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    instructores?: FichaInstructorUncheckedUpdateManyWithoutFichaNestedInput
+    cursos?: FichaCursoUncheckedUpdateManyWithoutFichaNestedInput
+  }
+
+  export type UserUpsertWithoutFichasComoAprendizInput = {
+    update: XOR<UserUpdateWithoutFichasComoAprendizInput, UserUncheckedUpdateWithoutFichasComoAprendizInput>
+    create: XOR<UserCreateWithoutFichasComoAprendizInput, UserUncheckedCreateWithoutFichasComoAprendizInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutFichasComoAprendizInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutFichasComoAprendizInput, UserUncheckedUpdateWithoutFichasComoAprendizInput>
+  }
+
+  export type UserUpdateWithoutFichasComoAprendizInput = {
+    correo_usuario?: StringFieldUpdateOperationsInput | string
+    passw_usuario?: StringFieldUpdateOperationsInput | string
+    nombre_usuario?: NullableStringFieldUpdateOperationsInput | string | null
+    estado_usuario?: BoolFieldUpdateOperationsInput | boolean
+    rol_usuario?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    cursosComoInstructor?: CursoUpdateManyWithoutInstructorNestedInput
+    inscripciones?: InscripcionUpdateManyWithoutAprendizNestedInput
+    auditLogs?: AuditLogUpdateManyWithoutUsuarioNestedInput
+    notificaciones?: NotificacionUpdateManyWithoutDestinatarioNestedInput
+    progresoActividades?: ProgresoActividadUpdateManyWithoutAprendizNestedInput
+    insignias?: InsigniaAprendizUpdateManyWithoutAprendizNestedInput
+    testResultados?: TestResultadoUpdateManyWithoutAprendizNestedInput
+    fichasComoInstructor?: FichaInstructorUpdateManyWithoutInstructorNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutFichasComoAprendizInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    correo_usuario?: StringFieldUpdateOperationsInput | string
+    passw_usuario?: StringFieldUpdateOperationsInput | string
+    nombre_usuario?: NullableStringFieldUpdateOperationsInput | string | null
+    estado_usuario?: BoolFieldUpdateOperationsInput | boolean
+    rol_usuario?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    cursosComoInstructor?: CursoUncheckedUpdateManyWithoutInstructorNestedInput
+    inscripciones?: InscripcionUncheckedUpdateManyWithoutAprendizNestedInput
+    auditLogs?: AuditLogUncheckedUpdateManyWithoutUsuarioNestedInput
+    notificaciones?: NotificacionUncheckedUpdateManyWithoutDestinatarioNestedInput
+    progresoActividades?: ProgresoActividadUncheckedUpdateManyWithoutAprendizNestedInput
+    insignias?: InsigniaAprendizUncheckedUpdateManyWithoutAprendizNestedInput
+    testResultados?: TestResultadoUncheckedUpdateManyWithoutAprendizNestedInput
+    fichasComoInstructor?: FichaInstructorUncheckedUpdateManyWithoutInstructorNestedInput
   }
 
   export type UserCreateWithoutNotificacionesInput = {
@@ -20600,6 +29227,8 @@ export namespace Prisma {
     progresoActividades?: ProgresoActividadCreateNestedManyWithoutAprendizInput
     insignias?: InsigniaAprendizCreateNestedManyWithoutAprendizInput
     testResultados?: TestResultadoCreateNestedManyWithoutAprendizInput
+    fichasComoInstructor?: FichaInstructorCreateNestedManyWithoutInstructorInput
+    fichasComoAprendiz?: FichaAprendizCreateNestedManyWithoutAprendizInput
   }
 
   export type UserUncheckedCreateWithoutNotificacionesInput = {
@@ -20617,6 +29246,8 @@ export namespace Prisma {
     progresoActividades?: ProgresoActividadUncheckedCreateNestedManyWithoutAprendizInput
     insignias?: InsigniaAprendizUncheckedCreateNestedManyWithoutAprendizInput
     testResultados?: TestResultadoUncheckedCreateNestedManyWithoutAprendizInput
+    fichasComoInstructor?: FichaInstructorUncheckedCreateNestedManyWithoutInstructorInput
+    fichasComoAprendiz?: FichaAprendizUncheckedCreateNestedManyWithoutAprendizInput
   }
 
   export type UserCreateOrConnectWithoutNotificacionesInput = {
@@ -20649,6 +29280,8 @@ export namespace Prisma {
     progresoActividades?: ProgresoActividadUpdateManyWithoutAprendizNestedInput
     insignias?: InsigniaAprendizUpdateManyWithoutAprendizNestedInput
     testResultados?: TestResultadoUpdateManyWithoutAprendizNestedInput
+    fichasComoInstructor?: FichaInstructorUpdateManyWithoutInstructorNestedInput
+    fichasComoAprendiz?: FichaAprendizUpdateManyWithoutAprendizNestedInput
   }
 
   export type UserUncheckedUpdateWithoutNotificacionesInput = {
@@ -20666,6 +29299,8 @@ export namespace Prisma {
     progresoActividades?: ProgresoActividadUncheckedUpdateManyWithoutAprendizNestedInput
     insignias?: InsigniaAprendizUncheckedUpdateManyWithoutAprendizNestedInput
     testResultados?: TestResultadoUncheckedUpdateManyWithoutAprendizNestedInput
+    fichasComoInstructor?: FichaInstructorUncheckedUpdateManyWithoutInstructorNestedInput
+    fichasComoAprendiz?: FichaAprendizUncheckedUpdateManyWithoutAprendizNestedInput
   }
 
   export type CursoCreateManyInstructorInput = {
@@ -20742,6 +29377,19 @@ export namespace Prisma {
     completadoAt?: Date | string
   }
 
+  export type FichaInstructorCreateManyInstructorInput = {
+    id?: number
+    fichaId: number
+    asignadoAt?: Date | string
+  }
+
+  export type FichaAprendizCreateManyAprendizInput = {
+    id?: number
+    fichaId: number
+    estado?: string
+    ingresadoAt?: Date | string
+  }
+
   export type CursoUpdateWithoutInstructorInput = {
     titulo?: StringFieldUpdateOperationsInput | string
     descripcion?: NullableStringFieldUpdateOperationsInput | string | null
@@ -20751,6 +29399,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     modulos?: ModuloUpdateManyWithoutCursoNestedInput
     inscripciones?: InscripcionUpdateManyWithoutCursoNestedInput
+    fichas?: FichaCursoUpdateManyWithoutCursoNestedInput
   }
 
   export type CursoUncheckedUpdateWithoutInstructorInput = {
@@ -20763,6 +29412,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     modulos?: ModuloUncheckedUpdateManyWithoutCursoNestedInput
     inscripciones?: InscripcionUncheckedUpdateManyWithoutCursoNestedInput
+    fichas?: FichaCursoUncheckedUpdateManyWithoutCursoNestedInput
   }
 
   export type CursoUncheckedUpdateManyWithoutInstructorInput = {
@@ -20961,6 +29611,43 @@ export namespace Prisma {
     completadoAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type FichaInstructorUpdateWithoutInstructorInput = {
+    asignadoAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    ficha?: FichaUpdateOneRequiredWithoutInstructoresNestedInput
+  }
+
+  export type FichaInstructorUncheckedUpdateWithoutInstructorInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    fichaId?: IntFieldUpdateOperationsInput | number
+    asignadoAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type FichaInstructorUncheckedUpdateManyWithoutInstructorInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    fichaId?: IntFieldUpdateOperationsInput | number
+    asignadoAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type FichaAprendizUpdateWithoutAprendizInput = {
+    estado?: StringFieldUpdateOperationsInput | string
+    ingresadoAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    ficha?: FichaUpdateOneRequiredWithoutAprendicesNestedInput
+  }
+
+  export type FichaAprendizUncheckedUpdateWithoutAprendizInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    fichaId?: IntFieldUpdateOperationsInput | number
+    estado?: StringFieldUpdateOperationsInput | string
+    ingresadoAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type FichaAprendizUncheckedUpdateManyWithoutAprendizInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    fichaId?: IntFieldUpdateOperationsInput | number
+    estado?: StringFieldUpdateOperationsInput | string
+    ingresadoAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type ModuloCreateManyCursoInput = {
     id?: number
     titulo: string
@@ -20979,6 +29666,12 @@ export namespace Prisma {
     estado?: string
     createdAt?: Date | string
     updatedAt?: Date | string
+  }
+
+  export type FichaCursoCreateManyCursoInput = {
+    id?: number
+    fichaId: number
+    asignadoAt?: Date | string
   }
 
   export type ModuloUpdateWithoutCursoInput = {
@@ -21039,6 +29732,23 @@ export namespace Prisma {
     estado?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type FichaCursoUpdateWithoutCursoInput = {
+    asignadoAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    ficha?: FichaUpdateOneRequiredWithoutCursosNestedInput
+  }
+
+  export type FichaCursoUncheckedUpdateWithoutCursoInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    fichaId?: IntFieldUpdateOperationsInput | number
+    asignadoAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type FichaCursoUncheckedUpdateManyWithoutCursoInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    fichaId?: IntFieldUpdateOperationsInput | number
+    asignadoAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type MomentoCreateManyModuloInput = {
@@ -21172,6 +29882,132 @@ export namespace Prisma {
     completadoAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type FichaCreateManyProgramaInput = {
+    id?: number
+    numero: string
+    jornada?: string
+    modalidad?: string
+    estado?: string
+    fecha_inicio?: Date | string | null
+    fecha_fin?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type FichaUpdateWithoutProgramaInput = {
+    numero?: StringFieldUpdateOperationsInput | string
+    jornada?: StringFieldUpdateOperationsInput | string
+    modalidad?: StringFieldUpdateOperationsInput | string
+    estado?: StringFieldUpdateOperationsInput | string
+    fecha_inicio?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fecha_fin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    instructores?: FichaInstructorUpdateManyWithoutFichaNestedInput
+    aprendices?: FichaAprendizUpdateManyWithoutFichaNestedInput
+    cursos?: FichaCursoUpdateManyWithoutFichaNestedInput
+  }
+
+  export type FichaUncheckedUpdateWithoutProgramaInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    numero?: StringFieldUpdateOperationsInput | string
+    jornada?: StringFieldUpdateOperationsInput | string
+    modalidad?: StringFieldUpdateOperationsInput | string
+    estado?: StringFieldUpdateOperationsInput | string
+    fecha_inicio?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fecha_fin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    instructores?: FichaInstructorUncheckedUpdateManyWithoutFichaNestedInput
+    aprendices?: FichaAprendizUncheckedUpdateManyWithoutFichaNestedInput
+    cursos?: FichaCursoUncheckedUpdateManyWithoutFichaNestedInput
+  }
+
+  export type FichaUncheckedUpdateManyWithoutProgramaInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    numero?: StringFieldUpdateOperationsInput | string
+    jornada?: StringFieldUpdateOperationsInput | string
+    modalidad?: StringFieldUpdateOperationsInput | string
+    estado?: StringFieldUpdateOperationsInput | string
+    fecha_inicio?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fecha_fin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type FichaInstructorCreateManyFichaInput = {
+    id?: number
+    instructorId: number
+    asignadoAt?: Date | string
+  }
+
+  export type FichaAprendizCreateManyFichaInput = {
+    id?: number
+    aprendizId: number
+    estado?: string
+    ingresadoAt?: Date | string
+  }
+
+  export type FichaCursoCreateManyFichaInput = {
+    id?: number
+    cursoId: number
+    asignadoAt?: Date | string
+  }
+
+  export type FichaInstructorUpdateWithoutFichaInput = {
+    asignadoAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    instructor?: UserUpdateOneRequiredWithoutFichasComoInstructorNestedInput
+  }
+
+  export type FichaInstructorUncheckedUpdateWithoutFichaInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    instructorId?: IntFieldUpdateOperationsInput | number
+    asignadoAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type FichaInstructorUncheckedUpdateManyWithoutFichaInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    instructorId?: IntFieldUpdateOperationsInput | number
+    asignadoAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type FichaAprendizUpdateWithoutFichaInput = {
+    estado?: StringFieldUpdateOperationsInput | string
+    ingresadoAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    aprendiz?: UserUpdateOneRequiredWithoutFichasComoAprendizNestedInput
+  }
+
+  export type FichaAprendizUncheckedUpdateWithoutFichaInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    aprendizId?: IntFieldUpdateOperationsInput | number
+    estado?: StringFieldUpdateOperationsInput | string
+    ingresadoAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type FichaAprendizUncheckedUpdateManyWithoutFichaInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    aprendizId?: IntFieldUpdateOperationsInput | number
+    estado?: StringFieldUpdateOperationsInput | string
+    ingresadoAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type FichaCursoUpdateWithoutFichaInput = {
+    asignadoAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    curso?: CursoUpdateOneRequiredWithoutFichasNestedInput
+  }
+
+  export type FichaCursoUncheckedUpdateWithoutFichaInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    cursoId?: IntFieldUpdateOperationsInput | number
+    asignadoAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type FichaCursoUncheckedUpdateManyWithoutFichaInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    cursoId?: IntFieldUpdateOperationsInput | number
+    asignadoAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
 

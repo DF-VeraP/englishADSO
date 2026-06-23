@@ -25,6 +25,8 @@ model User {
   progresoActividades  ProgresoActividad[]
   insignias            InsigniaAprendiz[]
   testResultados       TestResultado[]
+  fichasComoInstructor FichaInstructor[]   @relation("InstructorFichas")
+  fichasComoAprendiz   FichaAprendiz[]     @relation("AprendizFichas")
 
   @@map("usuarios")
 }
@@ -40,6 +42,7 @@ model Curso {
   instructor    User          @relation("InstructorCursos", fields: [instructorId], references: [id])
   modulos       Modulo[]
   inscripciones Inscripcion[]
+  fichas        FichaCurso[]
   createdAt     DateTime      @default(now())
   updatedAt     DateTime      @updatedAt
 
@@ -180,6 +183,81 @@ model AuditLog {
   createdAt DateTime @default(now())
 
   @@map("audit_logs")
+}
+
+// ── Sistema de Fichas SENA ────────────────────────────────
+// Programa = oferta formativa SENA (puede tener muchas fichas)
+// Ficha    = grupo/cohorte de aprendices en un programa
+// Un instructor puede tener varias fichas
+// Un aprendiz puede estar en varias fichas
+
+model Programa {
+  id        Int      @id @default(autoincrement())
+  codigo    String   @unique // código SENA ej: "228106"
+  nombre    String
+  nivel     String   @default("tecnologo") // tecnico | tecnologo | especializacion
+  duracion  Int? // duración en meses
+  fichas    Ficha[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("programas")
+}
+
+model Ficha {
+  id           Int               @id @default(autoincrement())
+  numero       String            @unique // código SENA ej: "2847612"
+  programaId   Int
+  programa     Programa          @relation(fields: [programaId], references: [id])
+  jornada      String            @default("diurna") // diurna | nocturna | madrugada
+  modalidad    String            @default("presencial") // presencial | virtual | complementaria
+  estado       String            @default("activa") // activa | inactiva | terminada
+  fecha_inicio DateTime?
+  fecha_fin    DateTime?
+  instructores FichaInstructor[]
+  aprendices   FichaAprendiz[]
+  cursos       FichaCurso[]
+  createdAt    DateTime          @default(now())
+  updatedAt    DateTime          @updatedAt
+
+  @@map("fichas")
+}
+
+model FichaCurso {
+  id         Int      @id @default(autoincrement())
+  fichaId    Int
+  cursoId    Int
+  asignadoAt DateTime @default(now())
+  ficha      Ficha    @relation(fields: [fichaId], references: [id], onDelete: Cascade)
+  curso      Curso    @relation(fields: [cursoId], references: [id], onDelete: Cascade)
+
+  @@unique([fichaId, cursoId])
+  @@map("ficha_cursos")
+}
+
+model FichaInstructor {
+  id           Int      @id @default(autoincrement())
+  fichaId      Int
+  instructorId Int
+  asignadoAt   DateTime @default(now())
+  ficha        Ficha    @relation(fields: [fichaId], references: [id], onDelete: Cascade)
+  instructor   User     @relation("InstructorFichas", fields: [instructorId], references: [id])
+
+  @@unique([fichaId, instructorId])
+  @@map("ficha_instructores")
+}
+
+model FichaAprendiz {
+  id          Int      @id @default(autoincrement())
+  fichaId     Int
+  aprendizId  Int
+  estado      String   @default("activo") // activo | retirado | certificado
+  ingresadoAt DateTime @default(now())
+  ficha       Ficha    @relation(fields: [fichaId], references: [id], onDelete: Cascade)
+  aprendiz    User     @relation("AprendizFichas", fields: [aprendizId], references: [id])
+
+  @@unique([fichaId, aprendizId])
+  @@map("ficha_aprendices")
 }
 
 // ── Notificaciones ────────────────────────────────────────

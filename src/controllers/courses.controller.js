@@ -6,6 +6,7 @@ const SELECT_CURSO = {
     id: true, titulo: true, descripcion: true, nivel: true, estado: true,
     createdAt: true, updatedAt: true,
     instructor: { select: { id: true, nombre_usuario: true, correo_usuario: true } },
+    fichas: { select: { ficha: { select: { id: true, numero: true, programa: { select: { nombre: true } } } } } },
     _count: { select: { modulos: true, inscripciones: true } },
 };
 

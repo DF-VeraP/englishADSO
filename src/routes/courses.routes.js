@@ -19,8 +19,8 @@ router.delete('/:id', requireRole('admin'), ctrl.remove);
 // CRUD Módulos dentro de un curso
 router.get('/:cursoId/modules',     requireRole('admin', 'instructor'), modCtrl.list);
 router.get('/:cursoId/modules/:id', requireRole('admin', 'instructor'), modCtrl.getById);
-router.post('/:cursoId/modules',    requireRole('admin'), modCtrl.create);
-router.put('/:cursoId/modules/:id', requireRole('admin'), modCtrl.update);
-router.delete('/:cursoId/modules/:id', requireRole('admin'), modCtrl.remove);
+router.post('/:cursoId/modules',       requireRole('admin', 'instructor'), modCtrl.create);
+router.put('/:cursoId/modules/:id',    requireRole('admin', 'instructor'), modCtrl.update);
+router.delete('/:cursoId/modules/:id', requireRole('admin', 'instructor'), modCtrl.remove);
 
 module.exports = router;

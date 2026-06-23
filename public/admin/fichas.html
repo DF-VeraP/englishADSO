@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fichas y Programas — SPEAKSOFT</title>
+    <link rel="stylesheet" href="/css/admin.css">
+</head>
+<body data-theme-default="light">
+
+<!-- ── Header ──────────────────────────────────────────────── -->
+<header class="admin-header">
+    <div class="header-brand">
+        <a href="/admin/dashboard.html" class="header-logo">SPEAKSOFT</a>
+        <span class="badge-admin">Admin</span>
+        <nav style="display:flex;gap:1rem;margin-left:1rem">
+            <a href="/admin/dashboard.html" class="header-nav-link">Dashboard</a>
+            <a href="/admin/usuarios.html"  class="header-nav-link">Usuarios</a>
+            <a href="/admin/cursos.html"    class="header-nav-link">Cursos</a>
+            <a href="/admin/fichas.html"    class="header-nav-link active">Fichas · Programas</a>
+        </nav>
+    </div>
+    <div class="header-user">
+        <span class="header-user-name" id="user-email"></span>
+        <button class="btn-logout" id="btn-logout">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/>
+                <polyline points="16 17 21 12 16 7"/>
+                <line x1="21" y1="12" x2="9" y2="12"/>
+            </svg>
+            Cerrar sesión
+        </button>
+    </div>
+</header>
+
+<!-- ── Main ────────────────────────────────────────────────── -->
+<main class="admin-main">
+
+    <div class="page-header">
+        <div>
+            <h1 class="page-title">Fichas y Programas</h1>
+            <p class="page-subtitle">Gestiona la oferta formativa SENA y sus grupos (fichas)</p>
+        </div>
+        <div style="display:flex;gap:.75rem">
+            <button class="btn btn-ghost" id="btn-new-programa">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                Nuevo Programa
+            </button>
+            <button class="btn btn-primary" id="btn-new-ficha">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                Nueva Ficha
+            </button>
+        </div>
+    </div>
+
+    <!-- Tabs de página -->
+    <div class="page-tabs">
+        <button class="page-tab-btn active" data-tab="fichas">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="vertical-align:middle;margin-right:.3rem"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            Fichas
+        </button>
+        <button class="page-tab-btn" data-tab="programas">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="vertical-align:middle;margin-right:.3rem"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>
+            Programas
+        </button>
+    </div>
+
+    <!-- ══ TAB: FICHAS ══════════════════════════════════════ -->
+    <div class="page-tab-pane active" id="page-tab-fichas">
+        <div class="filters-bar">
+            <input type="text" id="search" class="search-input" placeholder="Buscar por número o programa...">
+            <select id="filter-programa" class="select-filter">
+                <option value="">Todos los programas</option>
+            </select>
+            <select id="filter-estado" class="select-filter">
+                <option value="">Todos los estados</option>
+                <option value="activa">Activa</option>
+                <option value="inactiva">Inactiva</option>
+                <option value="terminada">Terminada</option>
+            </select>
+        </div>
+
+        <div id="loading" style="display:flex;align-items:center;justify-content:center;padding:4rem;color:var(--gray-400);gap:.75rem">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="animation:spin 1s linear infinite"><line x1="12" y1="2" x2="12" y2="6"/><line x1="12" y1="18" x2="12" y2="22"/><line x1="4.93" y1="4.93" x2="7.76" y2="7.76"/><line x1="16.24" y1="16.24" x2="19.07" y2="19.07"/><line x1="2" y1="12" x2="6" y2="12"/><line x1="18" y1="12" x2="22" y2="12"/><line x1="4.93" y1="19.07" x2="7.76" y2="16.24"/><line x1="16.24" y1="7.76" x2="19.07" y2="4.93"/></svg>
+            Cargando...
+        </div>
+
+        <div id="table-wrap" class="table-container">
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Número</th>
+                        <th>Programa</th>
+                        <th>Jornada</th>
+                        <th>Modalidad</th>
+                        <th>Estado</th>
+                        <th>Miembros</th>
+                        <th style="text-align:right">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="fichas-tbody">
+                    <tr><td colspan="7" class="empty-row">Cargando...</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- ══ TAB: PROGRAMAS ═══════════════════════════════════ -->
+    <div class="page-tab-pane" id="page-tab-programas">
+        <div class="filters-bar">
+            <input type="text" id="search-programas" class="search-input" placeholder="Buscar por nombre o código...">
+            <select id="filter-nivel" class="select-filter">
+                <option value="">Todos los niveles</option>
+                <option value="tecnico">Técnico</option>
+                <option value="tecnologo">Tecnólogo</option>
+                <option value="especializacion">Especialización</option>
+            </select>
+        </div>
+        <div class="table-container">
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Código</th>
+                        <th>Nombre del Programa</th>
+                        <th>Nivel</th>
+                        <th>Duración</th>
+                        <th>Fichas</th>
+                        <th style="text-align:right">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="programas-tbody">
+                    <tr><td colspan="6" class="empty-row">Cargando...</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</main>
+
+<!-- ── Modal: Crear / Editar Ficha ─────────────────────────── -->
+<div class="modal-overlay" id="modal-ficha">
+    <div class="modal-dialog">
+        <div class="modal-header">
+            <h3 class="modal-title" id="modal-ficha-title">Nueva Ficha</h3>
+            <button class="modal-close" id="btn-cancel-ficha">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
+        </div>
+        <form id="ficha-form">
+            <input type="hidden" id="ficha-id">
+            <div class="modal-body">
+
+                <div class="form-group">
+                    <label class="form-label">Programa <span class="required">*</span></label>
+                    <select id="ficha-programa" class="form-input" required>
+                        <option value="">Seleccionar programa...</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Número de Ficha <span class="required">*</span></label>
+                    <input type="text" id="ficha-numero" class="form-input" placeholder="Ej: 2847612" required>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Jornada</label>
+                        <select id="ficha-jornada" class="form-input">
+                            <option value="manana">Mañana</option>
+                            <option value="mixta">Mixta</option>
+                            <option value="nocturna">Nocturna</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Modalidad</label>
+                        <select id="ficha-modalidad" class="form-input">
+                            <option value="presencial">Presencial</option>
+                            <option value="virtual">Virtual</option>
+                            <option value="complementaria">Complementaria</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Estado</label>
+                        <select id="ficha-estado" class="form-input">
+                            <option value="activa">Activa</option>
+                            <option value="inactiva">Inactiva</option>
+                            <option value="terminada">Terminada</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Fecha de inicio</label>
+                        <input type="date" id="ficha-inicio" class="form-input">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Fecha de fin</label>
+                        <input type="date" id="ficha-fin" class="form-input">
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-actions">
+                <button type="button" class="btn btn-ghost" id="btn-cancel-ficha-2"
+                    onclick="document.getElementById('modal-ficha').classList.remove('open')">Cancelar</button>
+                <button type="submit" class="btn btn-primary">Guardar Ficha</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- ── Modal: Crear / Editar Programa ──────────────────────── -->
+<div class="modal-overlay" id="modal-programa">
+    <div class="modal-dialog">
+        <div class="modal-header">
+            <h3 class="modal-title" id="modal-programa-title">Nuevo Programa</h3>
+            <button class="modal-close" id="btn-cancel-programa">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
+        </div>
+        <form id="programa-form">
+            <input type="hidden" id="programa-id">
+            <div class="modal-body">
+
+                <div class="form-group">
+                    <label class="form-label">Nombre del Programa <span class="required">*</span></label>
+                    <input type="text" id="programa-nombre" class="form-input" placeholder="Ej: Análisis y Desarrollo de Software" required>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Código SENA <span class="required">*</span></label>
+                        <input type="text" id="programa-codigo" class="form-input" placeholder="Ej: 228106" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Nivel</label>
+                        <select id="programa-nivel" class="form-input">
+                            <option value="tecnico">Técnico</option>
+                            <option value="tecnologo" selected>Tecnólogo</option>
+                            <option value="especializacion">Especialización</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Duración (meses)</label>
+                        <input type="number" id="programa-duracion" class="form-input" placeholder="Ej: 24" min="1" max="72">
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-actions">
+                <button type="button" class="btn btn-ghost" id="btn-cancel-programa-2"
+                    onclick="document.getElementById('modal-programa').classList.remove('open')">Cancelar</button>
+                <button type="submit" class="btn btn-primary">Guardar Programa</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- ── Modal: Gestionar Miembros de Ficha ──────────────────── -->
+<div class="modal-overlay" id="modal-detail">
+    <div class="modal-detail-inner">
+
+        <!-- Header -->
+        <div class="detail-header">
+            <div>
+                <h2 id="detail-title">Ficha</h2>
+                <p class="detail-programa" id="detail-programa"></p>
+            </div>
+            <button class="modal-close" id="btn-close-detail">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
+        </div>
+
+        <!-- Contadores rápidos -->
+        <div class="detail-stats">
+            <div class="detail-stat inst-stat">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+                <span id="stat-instructores">0</span> instructores
+            </div>
+            <div class="detail-stat apr-stat">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+                <span id="stat-aprendices">0</span> aprendices
+            </div>
+        </div>
+
+        <!-- Buscador de miembros -->
+        <div class="members-search-bar">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+            </svg>
+            <input type="text" id="members-search" class="members-search-input" placeholder="Buscar por nombre o correo...">
+            <button class="members-search-clear" id="btn-clear-search" title="Limpiar búsqueda" style="display:none">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
+        </div>
+
+        <!-- Tabs con contadores -->
+        <div class="tabs">
+            <button class="tab-btn active" data-tab="instructores">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="2" y="3" width="20" height="14" rx="2"/></svg>
+                Instructores
+                <span class="tab-count tab-count--inst" id="detail-count-inst">0</span>
+            </button>
+            <button class="tab-btn" data-tab="aprendices">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+                Aprendices
+                <span class="tab-count tab-count--apr" id="detail-count-apr">0</span>
+            </button>
+        </div>
+
+        <!-- Tab Instructores -->
+        <div class="tab-pane active" id="tab-instructores">
+            <div class="assign-section">
+                <p class="assign-hint">Selecciona un instructor del sistema y haz clic en <strong>Asignar</strong> para vincularlo a esta ficha.</p>
+                <div class="assign-row">
+                    <select id="select-instructor" class="form-input">
+                        <option value="">— Seleccionar instructor —</option>
+                    </select>
+                    <button class="btn btn-primary" id="btn-asignar-instructor">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                        Asignar instructor
+                    </button>
+                </div>
+            </div>
+            <div class="members-list-title">Instructores asignados</div>
+            <div id="list-instructores"><p class="empty-list">Ningún instructor asignado aún.</p></div>
+        </div>
+
+        <!-- Tab Aprendices -->
+        <div class="tab-pane" id="tab-aprendices">
+            <div class="assign-section">
+                <p class="assign-hint">Selecciona un aprendiz y haz clic en <strong>Inscribir</strong> para añadirlo a esta ficha.</p>
+                <div class="assign-row">
+                    <select id="select-aprendiz" class="form-input">
+                        <option value="">— Seleccionar aprendiz —</option>
+                    </select>
+                    <button class="btn btn-primary" id="btn-inscribir-aprendiz">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                        Inscribir aprendiz
+                    </button>
+                </div>
+            </div>
+            <div class="members-list-title">Aprendices inscritos</div>
+            <div id="list-aprendices"><p class="empty-list">Ningún aprendiz inscrito aún.</p></div>
+        </div>
+
+    </div>
+</div>
+
+<!-- ── Toast ────────────────────────────────────────────────── -->
+<div class="toast" id="toast"></div>
+
+<script src="/js/ThemeToggle.js"></script>
+<script src="/js/AuthGuard.js"></script>
+<script src="/js/FichasService.js"></script>
+<script src="/js/FichasController.js"></script>
+</body>
+</html>

@@ -1,10 +1,14 @@
 class UsersController {
     constructor() {
         this.service = new UsersService();
-        this.users = [];
-        this.filtered = [];
-        this.editingId = null;
-        this.deletingId = null;
+        this.users   = [];
+        this.activeTab = 'instructores';
+        this.selectedIds = new Set();
+
+        this.editingId   = null;
+        this.deletingId  = null;
+        this.fichasUserId  = null;
+        this.fichasUserRol = null;
 
         this.checkAuth();
         this.cacheElements();
@@ -12,35 +16,63 @@ class UsersController {
         this.loadUsers();
     }
 
-    /* ── Auth guard ──────────────────────────────────────── */
+    /* ── Auth ────────────────────────────────────────────── */
     checkAuth() {
         const token = this.service.getToken();
         if (!token) return this.redirect('/login.html');
-
         try {
-            const payload = JSON.parse(atob(token.split('.')[1]));
-            if (payload.exp && payload.exp * 1000 < Date.now()) return this.redirect('/login.html');
-            if (payload.rol !== 'admin') return this.redirect('/index.html');
-            document.getElementById('user-email').textContent = payload.email;
-        } catch {
-            this.redirect('/login.html');
-        }
+            const p = JSON.parse(atob(token.split('.')[1]));
+            if (p.exp && p.exp * 1000 < Date.now()) return this.redirect('/login.html');
+            if (p.rol !== 'admin') return this.redirect('/index.html');
+            document.getElementById('user-email').textContent = p.nombre || '';
+        } catch { this.redirect('/login.html'); }
     }
 
     redirect(url) { window.location.href = url; }
 
-    /* ── DOM references ──────────────────────────────────── */
+    /* ── DOM refs ────────────────────────────────────────── */
     cacheElements() {
-        this.tbody       = document.getElementById('users-tbody');
-        this.tableState  = document.getElementById('table-state');
-        this.searchInput = document.getElementById('search');
-        this.roleFilter  = document.getElementById('filter-role');
-        this.statusFilter = document.getElementById('filter-status');
-        this.modalUser   = document.getElementById('modal-user');
-        this.modalDelete = document.getElementById('modal-delete');
-        this.formUser    = document.getElementById('form-user');
-        this.modalTitle  = document.getElementById('modal-title');
+        this.statEls = {
+            instructores: document.getElementById('stat-instructores'),
+            aprendices:   document.getElementById('stat-aprendices'),
+            admins:       document.getElementById('stat-admins'),
+            total:        document.getElementById('stat-total'),
+        };
+        this.tabCountEls = {
+            instructores: document.getElementById('tab-count-instructores'),
+            aprendices:   document.getElementById('tab-count-aprendices'),
+            admins:       document.getElementById('tab-count-admins'),
+        };
+
+        this.roles = ['instructores', 'aprendices', 'admins'];
+        this.tbodyEls  = {};
+        this.stateEls  = {};
+        this.searchEls = {};
+        this.statusEls = {};
+        this.checkAllEls = {};
+
+        for (const r of this.roles) {
+            this.tbodyEls[r]    = document.getElementById(`tbody-${r}`);
+            this.stateEls[r]    = document.getElementById(`state-${r}`);
+            this.searchEls[r]   = document.getElementById(`search-${r}`);
+            this.statusEls[r]   = document.getElementById(`filter-status-${r}`);
+            this.checkAllEls[r] = document.getElementById(`check-all-${r}`);
+        }
+
+        this.tabBtns  = document.querySelectorAll('.page-tab-btn');
+        this.tabPanes = document.querySelectorAll('.page-tab-pane');
+
+        this.modalUser      = document.getElementById('modal-user');
+        this.modalDelete    = document.getElementById('modal-delete');
+        this.formUser       = document.getElementById('form-user');
+        this.modalTitle     = document.getElementById('modal-title');
         this.deleteUserName = document.getElementById('delete-user-name');
+        this.modalFichas    = document.getElementById('modal-fichas');
+        this.modalWarnDelete = document.getElementById('modal-warn-delete');
+        this.fichasSelect   = document.getElementById('fichas-select');
+        this.fichasUserList = document.getElementById('fichas-user-list');
+        this.bulkBar        = document.getElementById('bulk-action-bar');
+        this.bulkCount      = document.getElementById('bulk-count');
     }
 
     /* ── Events ──────────────────────────────────────────── */
@@ -52,96 +84,242 @@ class UsersController {
         });
 
         document.getElementById('btn-new-user').addEventListener('click', () => this.openCreate());
-        document.getElementById('btn-close-modal').addEventListener('click', () => this.closeModal());
-        document.getElementById('btn-cancel-delete').addEventListener('click', () => this.closeDeleteModal());
-        document.getElementById('btn-confirm-delete').addEventListener('click', () => this.confirmDelete());
+
+        // Modal user
+        document.getElementById('btn-close-modal').addEventListener('click',  () => this.closeModal());
         document.getElementById('btn-cancel-modal').addEventListener('click', () => this.closeModal());
-
         this.formUser.addEventListener('submit', e => { e.preventDefault(); this.handleSubmit(); });
-
-        this.searchInput.addEventListener('input', () => this.applyFilters());
-        this.roleFilter.addEventListener('change', () => this.applyFilters());
-        this.statusFilter.addEventListener('change', () => this.applyFilters());
-
         document.getElementById('btn-toggle-pass').addEventListener('click', () => this.togglePassword());
-
         this.modalUser.addEventListener('click', e => { if (e.target === this.modalUser) this.closeModal(); });
+
+        // Modal delete (individual)
+        document.getElementById('btn-cancel-delete').addEventListener('click',  () => this.closeDeleteModal());
+        document.getElementById('btn-cancel-delete-2').addEventListener('click', () => this.closeDeleteModal());
+        document.getElementById('btn-confirm-delete').addEventListener('click', () => this.confirmDelete());
         this.modalDelete.addEventListener('click', e => { if (e.target === this.modalDelete) this.closeDeleteModal(); });
+
+        // Modal warn delete (aprendiz activo)
+        document.getElementById('btn-close-warn').addEventListener('click',       () => this.closeWarnDelete());
+        document.getElementById('btn-cancel-warn').addEventListener('click',      () => this.closeWarnDelete());
+        document.getElementById('btn-confirm-deactivate').addEventListener('click', () => this.confirmDeactivate());
+        this.modalWarnDelete.addEventListener('click', e => { if (e.target === this.modalWarnDelete) this.closeWarnDelete(); });
+
+        // Modal fichas
+        document.getElementById('btn-close-fichas').addEventListener('click',  () => this.closeFichasModal());
+        document.getElementById('btn-asignar-ficha').addEventListener('click', () => this.doAsignarFicha());
+        this.modalFichas.addEventListener('click', e => { if (e.target === this.modalFichas) this.closeFichasModal(); });
+
+        // Tab switching
+        this.tabBtns.forEach(btn =>
+            btn.addEventListener('click', () => this.switchTab(btn.dataset.tab))
+        );
+
+        // Rol radio → mostrar/ocultar selector de ficha
+        document.querySelectorAll('input[name="rol"]').forEach(radio =>
+            radio.addEventListener('change', () => this._onRolChange())
+        );
+
+        // Per-tab search + filter
+        for (const r of this.roles) {
+            this.searchEls[r].addEventListener('input',  () => this.renderRoleTable(r));
+            this.statusEls[r].addEventListener('change', () => this.renderRoleTable(r));
+
+            // "Select all" header checkbox
+            this.checkAllEls[r].addEventListener('change', e => {
+                const checked = e.target.checked;
+                const visibleIds = [...this.tbodyEls[r].querySelectorAll('.row-check')]
+                    .map(c => Number(c.dataset.id));
+                visibleIds.forEach(id => checked ? this.selectedIds.add(id) : this.selectedIds.delete(id));
+                this.renderRoleTable(r);
+                this.updateBulkBar();
+            });
+        }
+
+        // Bulk actions
+        document.getElementById('btn-bulk-delete').addEventListener('click', () => this.bulkDelete());
+        document.getElementById('btn-deselect-all').addEventListener('click', () => this.deselectAll());
+
+        // Import
+        document.getElementById('btn-open-import').addEventListener('click', () => this.openImport());
+        document.getElementById('btn-close-import').addEventListener('click', () => this.closeImport());
+        document.getElementById('modal-import').addEventListener('click', e => {
+            if (e.target === document.getElementById('modal-import')) this.closeImport();
+        });
+        document.getElementById('btn-download-template').addEventListener('click', () => this._downloadTemplate());
+        document.getElementById('btn-import-back').addEventListener('click', () => this._importStep(1));
+        document.getElementById('btn-do-import').addEventListener('click', () => this.doImport());
+        document.getElementById('btn-import-done').addEventListener('click', () => this.closeImport());
+
+        const dropArea = document.getElementById('import-drop');
+        const fileInput = document.getElementById('import-file');
+        dropArea.addEventListener('click', () => fileInput.click());
+        fileInput.addEventListener('change', e => this._handleFile(e.target.files[0]));
+        dropArea.addEventListener('dragover', e => { e.preventDefault(); dropArea.classList.add('drag-over'); });
+        dropArea.addEventListener('dragleave', () => dropArea.classList.remove('drag-over'));
+        dropArea.addEventListener('drop', e => {
+            e.preventDefault();
+            dropArea.classList.remove('drag-over');
+            this._handleFile(e.dataTransfer.files[0]);
+        });
+    }
+
+    switchTab(tab) {
+        this.activeTab = tab;
+        this.tabBtns.forEach(b => b.classList.toggle('active', b.dataset.tab === tab));
+        this.tabPanes.forEach(p => p.classList.toggle('active', p.id === `tab-${tab}`));
     }
 
     togglePassword() {
-        const input = document.getElementById('input-password');
-        const btn   = document.getElementById('btn-toggle-pass');
+        const input  = document.getElementById('input-password');
         const isText = input.type === 'text';
-        input.type = isText ? 'password' : 'text';
-        btn.innerHTML = isText ? this.eyeIcon() : this.eyeOffIcon();
+        input.type   = isText ? 'password' : 'text';
+        document.getElementById('btn-toggle-pass').innerHTML = isText ? this.eyeIcon() : this.eyeOffIcon();
     }
 
     /* ── Load & render ───────────────────────────────────── */
     async loadUsers() {
-        this.showLoading();
+        this.selectedIds.clear();
+        this.updateBulkBar();
+        this.showLoadingAll();
         try {
             this.users = await this.service.getAll();
-            this.filtered = [...this.users];
-            this.renderTable();
+            this.renderAll();
         } catch (err) {
-            this.showEmpty('Error al cargar usuarios: ' + err.message);
+            this.roles.forEach(r => this.showEmpty(r, 'Error al cargar: ' + err.message));
             this.showToast(err.message, 'error');
         }
     }
 
-    applyFilters() {
-        const q      = this.searchInput.value.toLowerCase().trim();
-        const role   = this.roleFilter.value;
-        const status = this.statusFilter.value;
-
-        this.filtered = this.users.filter(u => {
-            const matchesSearch = !q ||
-                (u.nombre_usuario || '').toLowerCase().includes(q) ||
-                u.correo_usuario.toLowerCase().includes(q);
-            const matchesRole   = !role   || u.rol_usuario    === role;
-            const matchesStatus = !status || String(u.estado_usuario) === status;
-            return matchesSearch && matchesRole && matchesStatus;
+    showLoadingAll() {
+        this.roles.forEach(r => {
+            this.tbodyEls[r].innerHTML = '';
+            this.stateEls[r].style.display = 'block';
+            this.stateEls[r].innerHTML = `<div class="spinner"></div><p>Cargando...</p>`;
+            this.checkAllEls[r].checked       = false;
+            this.checkAllEls[r].indeterminate = false;
         });
-
-        this.renderTable();
     }
 
-    renderTable() {
-        if (this.filtered.length === 0) {
-            this.showEmpty('No se encontraron usuarios');
+    renderAll() {
+        const byRole = {
+            instructores: this.users.filter(u => u.rol_usuario === 'instructor'),
+            aprendices:   this.users.filter(u => u.rol_usuario === 'aprendiz'),
+            admins:       this.users.filter(u => u.rol_usuario === 'admin'),
+        };
+
+        this.statEls.instructores.textContent = byRole.instructores.length;
+        this.statEls.aprendices.textContent   = byRole.aprendices.length;
+        this.statEls.admins.textContent       = byRole.admins.length;
+        this.statEls.total.textContent        = this.users.length;
+
+        this.tabCountEls.instructores.textContent = byRole.instructores.length;
+        this.tabCountEls.aprendices.textContent   = byRole.aprendices.length;
+        this.tabCountEls.admins.textContent       = byRole.admins.length;
+
+        this.roles.forEach(r => this.renderRoleTable(r));
+    }
+
+    renderRoleTable(role) {
+        const rolMap  = { instructores: 'instructor', aprendices: 'aprendiz', admins: 'admin' };
+        const q       = this.searchEls[role].value.toLowerCase().trim();
+        const status  = this.statusEls[role].value;
+
+        const filtered = this.users
+            .filter(u => u.rol_usuario === rolMap[role])
+            .filter(u => {
+                const matchSearch = !q ||
+                    (u.nombre_usuario || '').toLowerCase().includes(q) ||
+                    u.correo_usuario.toLowerCase().includes(q);
+                const matchStatus = !status || String(u.estado_usuario) === status;
+                return matchSearch && matchStatus;
+            });
+
+        const tbody    = this.tbodyEls[role];
+        const state    = this.stateEls[role];
+        const hasFichas = role !== 'admins';
+
+        if (filtered.length === 0) {
+            tbody.innerHTML = '';
+            state.style.display = 'block';
+            state.innerHTML = `
+                <svg width="40" height="40" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/>
+                </svg>
+                <p>No se encontraron resultados</p>`;
+            this._syncCheckAll(role, []);
             return;
         }
 
-        this.tableState.style.display = 'none';
-        this.tbody.innerHTML = this.filtered.map(u => this.rowTemplate(u)).join('');
+        state.style.display = 'none';
+        tbody.innerHTML = filtered.map(u => this.rowTemplate(u, hasFichas)).join('');
 
-        this.tbody.querySelectorAll('.btn-edit-row').forEach(btn =>
+        // Bind row checkboxes
+        tbody.querySelectorAll('.row-check').forEach(chk => {
+            chk.addEventListener('change', e => {
+                const id = Number(e.target.dataset.id);
+                e.target.checked ? this.selectedIds.add(id) : this.selectedIds.delete(id);
+                this._syncCheckAll(role, filtered);
+                this.updateBulkBar();
+            });
+        });
+
+        // Bind action buttons
+        tbody.querySelectorAll('.btn-edit-row').forEach(btn =>
             btn.addEventListener('click', () => this.openEdit(Number(btn.dataset.id)))
         );
-        this.tbody.querySelectorAll('.btn-delete-row').forEach(btn =>
+        tbody.querySelectorAll('.btn-delete-row').forEach(btn =>
             btn.addEventListener('click', () => this.openDelete(Number(btn.dataset.id), btn.dataset.name))
         );
+        tbody.querySelectorAll('.btn-fichas-row').forEach(btn =>
+            btn.addEventListener('click', () => this.openFichas(Number(btn.dataset.id)))
+        );
+
+        this._syncCheckAll(role, filtered);
     }
 
-    rowTemplate(u) {
+    _syncCheckAll(role, filtered) {
+        const el = this.checkAllEls[role];
+        if (!filtered.length) {
+            el.checked = false;
+            el.indeterminate = false;
+            return;
+        }
+        const allChecked  = filtered.every(u => this.selectedIds.has(u.id));
+        const someChecked = filtered.some(u => this.selectedIds.has(u.id));
+        el.checked       = allChecked;
+        el.indeterminate = someChecked && !allChecked;
+    }
+
+    rowTemplate(u, showFichas) {
         const fecha  = new Date(u.createdAt).toLocaleDateString('es-CO', { day: '2-digit', month: 'short', year: 'numeric' });
         const status = u.estado_usuario
             ? '<span class="status-dot active">Activo</span>'
             : '<span class="status-dot inactive">Inactivo</span>';
+        const isSelected = this.selectedIds.has(u.id);
+
+        const sinFichaBadge = (u.rol_usuario === 'aprendiz' && (u._count?.fichasComoAprendiz ?? 0) === 0)
+            ? '<span class="badge-sin-ficha" title="No está inscrito en ninguna ficha">Sin ficha</span>'
+            : '';
 
         return `
-        <tr>
+        <tr class="${isSelected ? 'row-selected' : ''}">
+            <td class="td-check">
+                <input type="checkbox" class="row-check" data-id="${u.id}" ${isSelected ? 'checked' : ''}>
+            </td>
             <td>${u.id}</td>
             <td>
-                <div class="user-name">${u.nombre_usuario || '—'}</div>
+                <div class="user-name">${u.nombre_usuario || '—'} ${sinFichaBadge}</div>
                 <div class="user-email">${u.correo_usuario}</div>
             </td>
-            <td>${this.roleBadge(u.rol_usuario)}</td>
             <td>${status}</td>
             <td>${fecha}</td>
             <td>
                 <div class="actions-cell">
+                    ${showFichas ? `
+                    <button class="btn btn-icon btn-fichas btn-fichas-row" data-id="${u.id}" title="Gestionar Fichas">
+                        ${this.fichasIcon()}
+                    </button>` : ''}
                     <button class="btn btn-icon btn-edit btn-edit-row" data-id="${u.id}" title="Editar">
                         ${this.editIcon()}
                     </button>
@@ -153,38 +331,117 @@ class UsersController {
         </tr>`;
     }
 
-    roleBadge(rol) {
-        const map = { admin: 'badge-admin', instructor: 'badge-instructor', aprendiz: 'badge-aprendiz' };
-        return `<span class="badge ${map[rol] || ''}">${rol}</span>`;
-    }
-
-    showLoading() {
-        this.tbody.innerHTML = '';
-        this.tableState.style.display = 'block';
-        this.tableState.innerHTML = `<div class="spinner"></div><p>Cargando usuarios...</p>`;
-    }
-
-    showEmpty(msg) {
-        this.tbody.innerHTML = '';
-        this.tableState.style.display = 'block';
-        this.tableState.innerHTML = `
-            <svg width="40" height="40" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+    showEmpty(role, msg) {
+        this.tbodyEls[role].innerHTML = '';
+        this.stateEls[role].style.display = 'block';
+        this.stateEls[role].innerHTML = `
+            <svg width="40" height="40" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                <path stroke-linecap="round" stroke-linejoin="round"
                     d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/>
             </svg>
             <p>${msg}</p>`;
     }
 
+    /* ── Bulk selection ──────────────────────────────────── */
+    updateBulkBar() {
+        const n = this.selectedIds.size;
+        if (n > 0) {
+            this.bulkBar.classList.add('visible');
+            this.bulkCount.textContent = `${n} usuario${n !== 1 ? 's' : ''} seleccionado${n !== 1 ? 's' : ''}`;
+        } else {
+            this.bulkBar.classList.remove('visible');
+        }
+    }
+
+    deselectAll() {
+        this.selectedIds.clear();
+        this.roles.forEach(r => {
+            this.tbodyEls[r].querySelectorAll('.row-check').forEach(c => { c.checked = false; });
+            const rows = [...this.tbodyEls[r].querySelectorAll('tr')];
+            rows.forEach(row => row.classList.remove('row-selected'));
+            this.checkAllEls[r].checked = false;
+            this.checkAllEls[r].indeterminate = false;
+        });
+        this.updateBulkBar();
+    }
+
+    async bulkDelete() {
+        const n = this.selectedIds.size;
+        if (!n) return;
+
+        const confirmed = confirm(
+            `¿Eliminar ${n} usuario${n !== 1 ? 's' : ''} seleccionado${n !== 1 ? 's' : ''}?\n\nEsta acción no se puede deshacer.`
+        );
+        if (!confirmed) return;
+
+        const btn = document.getElementById('btn-bulk-delete');
+        btn.disabled = true;
+        btn.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="animation:spin 1s linear infinite"><line x1="12" y1="2" x2="12" y2="6"/><line x1="12" y1="18" x2="12" y2="22"/><line x1="4.93" y1="4.93" x2="7.76" y2="7.76"/><line x1="16.24" y1="16.24" x2="19.07" y2="19.07"/><line x1="2" y1="12" x2="6" y2="12"/><line x1="18" y1="12" x2="22" y2="12"/><line x1="4.93" y1="19.07" x2="7.76" y2="16.24"/><line x1="16.24" y1="7.76" x2="19.07" y2="4.93"/></svg> Eliminando...`;
+
+        const ids = [...this.selectedIds];
+        const results = await Promise.allSettled(ids.map(id => this.service.remove(id)));
+        const errors  = results.filter(r => r.status === 'rejected').length;
+        const success = ids.length - errors;
+
+        this.selectedIds.clear();
+        this.updateBulkBar();
+
+        if (errors === 0) {
+            this.showToast(`${success} usuario${success !== 1 ? 's' : ''} eliminado${success !== 1 ? 's' : ''}`, 'success');
+        } else {
+            this.showToast(`${success} eliminado${success !== 1 ? 's' : ''}, ${errors} con error`, 'error');
+        }
+
+        btn.disabled = false;
+        btn.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4a1 1 0 011-1h4a1 1 0 011 1v2"/></svg> Eliminar seleccionados`;
+
+        await this.loadUsers();
+    }
+
     /* ── Create modal ────────────────────────────────────── */
-    openCreate() {
+    async openCreate() {
         this.editingId = null;
         this.modalTitle.textContent = 'Nuevo Usuario';
         this.formUser.reset();
         this.clearErrors();
-
         document.getElementById('pass-hint').textContent = 'Mínimo 6 caracteres.';
         document.getElementById('status-group').style.display = 'none';
+        document.getElementById('ficha-assign-group').style.display = 'none';
+
+        const rolMap = { instructores: 'instructor', aprendices: 'aprendiz', admins: 'admin' };
+        const preRol = rolMap[this.activeTab];
+        if (preRol) {
+            const radio = document.querySelector(`input[name="rol"][value="${preRol}"]`);
+            if (radio) radio.checked = true;
+        }
+
+        // Cargar fichas activas para el selector
+        await this._loadFichasSelect();
+        this._onRolChange();
+
         this.openModal();
+    }
+
+    async _loadFichasSelect() {
+        const sel = document.getElementById('input-ficha');
+        sel.innerHTML = '<option value="">Cargando fichas...</option>';
+        try {
+            const fichas = await FichasService.getAll();
+            const activas = fichas.filter(f => f.estado === 'activa');
+            sel.innerHTML = '<option value="">— Sin asignar por ahora —</option>' +
+                activas.map(f =>
+                    `<option value="${f.id}">${f.numero} — ${f.programa?.nombre || ''} (${this._jornadaLabel(f.jornada)})</option>`
+                ).join('');
+        } catch {
+            sel.innerHTML = '<option value="">No se pudieron cargar las fichas</option>';
+        }
+    }
+
+    _onRolChange() {
+        const rol   = document.querySelector('input[name="rol"]:checked')?.value;
+        const group = document.getElementById('ficha-assign-group');
+        group.style.display = (!this.editingId && (rol === 'instructor' || rol === 'aprendiz'))
+            ? 'block' : 'none';
     }
 
     /* ── Edit modal ──────────────────────────────────────── */
@@ -196,22 +453,35 @@ class UsersController {
         this.modalTitle.textContent = 'Editar Usuario';
         this.clearErrors();
 
-        document.getElementById('input-nombre').value  = u.nombre_usuario || '';
-        document.getElementById('input-email').value   = u.correo_usuario;
+        document.getElementById('input-nombre').value   = u.nombre_usuario || '';
+        document.getElementById('input-email').value    = u.correo_usuario;
         document.getElementById('input-password').value = '';
         document.getElementById('pass-hint').textContent = 'Dejar en blanco para no cambiar la contraseña.';
 
         const roleInput = document.querySelector(`input[name="rol"][value="${u.rol_usuario}"]`);
         if (roleInput) roleInput.checked = true;
 
-        document.getElementById('status-group').style.display = 'block';
-        document.getElementById('input-status').checked = u.estado_usuario;
+        document.getElementById('ficha-assign-group').style.display = 'none';
+
+        // El estado del aprendiz lo gestiona el sistema de fichas automáticamente
+        const showStatus = u.rol_usuario !== 'aprendiz';
+        document.getElementById('status-group').style.display = showStatus ? 'block' : 'none';
+        if (showStatus) document.getElementById('input-status').checked = u.estado_usuario;
 
         this.openModal();
     }
 
-    /* ── Delete modal ────────────────────────────────────── */
+    /* ── Delete modal (individual) ───────────────────────── */
     openDelete(id, name) {
+        const u = this.users.find(x => x.id === id);
+        const fichas        = u?._count?.fichasComoAprendiz ?? 0;
+        const inscripciones = u?._count?.inscripciones      ?? 0;
+
+        if (u?.rol_usuario === 'aprendiz' && (fichas > 0 || inscripciones > 0)) {
+            this.openWarnDelete(u, fichas, inscripciones);
+            return;
+        }
+
         this.deletingId = id;
         this.deleteUserName.textContent = name;
         this.modalDelete.classList.add('open');
@@ -225,19 +495,49 @@ class UsersController {
     async confirmDelete() {
         if (!this.deletingId) return;
         const btn = document.getElementById('btn-confirm-delete');
-        btn.disabled = true;
-        btn.textContent = 'Eliminando...';
+        btn.disabled = true; btn.textContent = 'Eliminando...';
 
         try {
             await this.service.remove(this.deletingId);
+            this.selectedIds.delete(this.deletingId);
+            this.updateBulkBar();
             this.showToast('Usuario eliminado', 'success');
             this.closeDeleteModal();
             await this.loadUsers();
         } catch (err) {
             this.showToast(err.message, 'error');
         } finally {
-            btn.disabled = false;
-            btn.textContent = 'Eliminar';
+            btn.disabled = false; btn.textContent = 'Eliminar';
+        }
+    }
+
+    /* ── Warn delete: aprendiz con fichas ────────────────── */
+    openWarnDelete(u, fichas, inscripciones) {
+        this.deletingId = u.id;
+        document.getElementById('warn-user-name').textContent    = u.nombre_usuario || u.correo_usuario;
+        document.getElementById('warn-fichas-count').textContent = fichas;
+        document.getElementById('warn-inscr-count').textContent  = inscripciones;
+        this.modalWarnDelete.classList.add('open');
+    }
+
+    closeWarnDelete() {
+        this.deletingId = null;
+        this.modalWarnDelete.classList.remove('open');
+    }
+
+    async confirmDeactivate() {
+        if (!this.deletingId) return;
+        const btn = document.getElementById('btn-confirm-deactivate');
+        btn.disabled = true; btn.textContent = 'Desactivando...';
+        try {
+            await this.service.update(this.deletingId, { estado_usuario: false });
+            this.showToast('Aprendiz desactivado correctamente', 'success');
+            this.closeWarnDelete();
+            await this.loadUsers();
+        } catch (err) {
+            this.showToast(err.message, 'error');
+        } finally {
+            btn.disabled = false; btn.textContent = 'Desactivar aprendiz';
         }
     }
 
@@ -251,30 +551,41 @@ class UsersController {
             passw_usuario:  document.getElementById('input-password').value || undefined,
             rol_usuario:    document.querySelector('input[name="rol"]:checked')?.value,
         };
-
-        if (this.editingId) {
-            payload.estado_usuario = document.getElementById('input-status').checked;
-        }
+        if (this.editingId) payload.estado_usuario = document.getElementById('input-status').checked;
 
         const btn = document.getElementById('btn-save');
-        btn.disabled = true;
-        btn.textContent = 'Guardando...';
+        btn.disabled = true; btn.textContent = 'Guardando...';
 
         try {
             if (this.editingId) {
                 await this.service.update(this.editingId, payload);
                 this.showToast('Usuario actualizado', 'success');
             } else {
-                await this.service.create(payload);
-                this.showToast('Usuario creado', 'success');
+                const result  = await this.service.create(payload);
+                const newUser = result.usuario;
+                const fichaId = Number(document.getElementById('input-ficha')?.value);
+
+                if (fichaId && newUser?.id) {
+                    try {
+                        if (payload.rol_usuario === 'instructor') {
+                            await FichasService.asignarInstructor(fichaId, newUser.id);
+                        } else if (payload.rol_usuario === 'aprendiz') {
+                            await FichasService.inscribirAprendiz(fichaId, newUser.id);
+                        }
+                        this.showToast('Usuario creado y asignado a la ficha', 'success');
+                    } catch (err) {
+                        this.showToast('Usuario creado, pero no se pudo asignar la ficha: ' + err.message, 'error');
+                    }
+                } else {
+                    this.showToast('Usuario creado', 'success');
+                }
             }
             this.closeModal();
             await this.loadUsers();
         } catch (err) {
             this.showToast(err.message, 'error');
         } finally {
-            btn.disabled = false;
-            btn.textContent = 'Guardar';
+            btn.disabled = false; btn.textContent = 'Guardar';
         }
     }
 
@@ -282,16 +593,14 @@ class UsersController {
     validateForm() {
         this.clearErrors();
         let valid = true;
-
-        const email = document.getElementById('input-email').value.trim();
+        const email    = document.getElementById('input-email').value.trim();
         const password = document.getElementById('input-password').value;
-        const rol = document.querySelector('input[name="rol"]:checked');
+        const rol      = document.querySelector('input[name="rol"]:checked');
 
         if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
             this.setError('input-email', 'error-email', 'Ingresa un correo válido');
             valid = false;
         }
-
         if (!this.editingId && !password) {
             this.setError('input-password', 'error-password', 'La contraseña es obligatoria');
             valid = false;
@@ -299,19 +608,18 @@ class UsersController {
             this.setError('input-password', 'error-password', 'Mínimo 6 caracteres');
             valid = false;
         }
-
         if (!rol) {
             document.getElementById('error-rol').style.display = 'block';
             valid = false;
         }
-
         return valid;
     }
 
     setError(inputId, errorId, msg) {
         document.getElementById(inputId).classList.add('is-invalid');
-        document.getElementById(errorId).textContent = msg;
-        document.getElementById(errorId).style.display = 'block';
+        const err = document.getElementById(errorId);
+        err.textContent = msg;
+        err.style.display = 'block';
         document.getElementById(inputId).closest('.form-group')?.classList.add('has-error');
     }
 
@@ -323,9 +631,291 @@ class UsersController {
 
     /* ── Modal helpers ───────────────────────────────────── */
     openModal()  { this.modalUser.classList.add('open'); }
-    closeModal() {
-        this.modalUser.classList.remove('open');
-        this.editingId = null;
+    closeModal() { this.modalUser.classList.remove('open'); this.editingId = null; }
+
+    /* ── Fichas del usuario ───────────────────────────────── */
+    async openFichas(id) {
+        const u = this.users.find(x => x.id === id);
+        if (!u) return;
+
+        this.fichasUserId  = id;
+        this.fichasUserRol = u.rol_usuario;
+
+        document.getElementById('fichas-modal-title').textContent =
+            `Fichas de ${u.nombre_usuario || u.correo_usuario}`;
+        document.getElementById('fichas-modal-subtitle').textContent =
+            u.rol_usuario === 'instructor'
+                ? 'Instructor — fichas que dicta'
+                : 'Aprendiz — fichas en las que está inscrito';
+
+        this.fichasUserList.innerHTML = '<p class="empty-list">Cargando...</p>';
+        this.fichasSelect.innerHTML   = '<option value="">Cargando...</option>';
+        this.modalFichas.classList.add('open');
+
+        await this._refreshFichasModal();
+    }
+
+    closeFichasModal() {
+        this.modalFichas.classList.remove('open');
+        this.fichasUserId  = null;
+        this.fichasUserRol = null;
+    }
+
+    async _refreshFichasModal() {
+        try {
+            const [userFichas, allFichas] = await Promise.all([
+                this.fichasUserRol === 'instructor'
+                    ? FichasService.getFichasDeInstructor(this.fichasUserId)
+                    : FichasService.getFichasDeAprendiz(this.fichasUserId),
+                FichasService.getAll()
+            ]);
+            this._renderFichasSelect(allFichas, userFichas);
+            this._renderFichasUserList(userFichas);
+        } catch (err) {
+            this.fichasUserList.innerHTML = `<p class="empty-list" style="color:#ef4444">Error: ${err.message}</p>`;
+        }
+    }
+
+    _renderFichasSelect(allFichas, userFichas) {
+        const assignedIds = new Set(userFichas.map(f => f.id));
+        const available   = allFichas.filter(f => !assignedIds.has(f.id) && f.estado === 'activa');
+        this.fichasSelect.innerHTML = available.length === 0
+            ? '<option value="">Sin fichas disponibles para asignar</option>'
+            : '<option value="">— Selecciona una ficha —</option>' +
+              available.map(f =>
+                  `<option value="${f.id}">${f.numero} — ${f.programa?.nombre || ''} (${this._jornadaLabel(f.jornada)})</option>`
+              ).join('');
+    }
+
+    _renderFichasUserList(fichas) {
+        if (!fichas.length) {
+            this.fichasUserList.innerHTML = '<p class="empty-list">Sin fichas asignadas aún.</p>';
+            return;
+        }
+        this.fichasUserList.innerHTML = fichas.map(f => `
+            <div class="member-row">
+                <div class="member-avatar" style="background:#e0f2fe;color:#0369a1;font-size:.75rem;font-weight:700">
+                    #${String(f.numero).slice(-3)}
+                </div>
+                <div class="member-info">
+                    <div class="member-name">Ficha ${f.numero}</div>
+                    <div class="member-email">${f.programa?.nombre || ''} · ${this._jornadaLabel(f.jornada)}</div>
+                </div>
+                <span class="estado-badge estado-${f.estado}">${f.estado}</span>
+                <button class="btn btn-icon btn-delete" data-ficha-id="${f.id}" title="Quitar ficha" style="margin-left:.5rem">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+                    </svg>
+                </button>
+            </div>`).join('');
+
+        this.fichasUserList.querySelectorAll('[data-ficha-id]').forEach(btn =>
+            btn.addEventListener('click', () => this._quitarFicha(Number(btn.dataset.fichaId)))
+        );
+    }
+
+    async doAsignarFicha() {
+        const fichaId = Number(this.fichasSelect.value);
+        if (!fichaId) return this.showToast('Selecciona una ficha', 'error');
+
+        const btn = document.getElementById('btn-asignar-ficha');
+        btn.disabled = true; btn.textContent = 'Asignando...';
+
+        try {
+            if (this.fichasUserRol === 'instructor') {
+                await FichasService.asignarInstructor(fichaId, this.fichasUserId);
+            } else {
+                await FichasService.inscribirAprendiz(fichaId, this.fichasUserId);
+            }
+            this.showToast('Ficha asignada', 'success');
+            await this._refreshFichasModal();
+        } catch (err) {
+            this.showToast(err.message, 'error');
+        } finally {
+            btn.disabled = false; btn.textContent = 'Asignar';
+        }
+    }
+
+    async _quitarFicha(fichaId) {
+        try {
+            if (this.fichasUserRol === 'instructor') {
+                await FichasService.quitarInstructor(fichaId, this.fichasUserId);
+            } else {
+                await FichasService.retirarAprendiz(fichaId, this.fichasUserId);
+            }
+            this.showToast('Ficha removida', 'success');
+            await this._refreshFichasModal();
+        } catch (err) {
+            this.showToast(err.message, 'error');
+        }
+    }
+
+    /* ── Import ──────────────────────────────────────────── */
+    openImport() {
+        this.importRows = [];
+        this._importStep(1);
+        document.getElementById('import-file').value = '';
+        document.getElementById('import-drop').classList.remove('drag-over');
+        document.getElementById('modal-import').classList.add('open');
+    }
+
+    closeImport() {
+        document.getElementById('modal-import').classList.remove('open');
+    }
+
+    _importStep(n) {
+        [1, 2, 3].forEach(i => {
+            document.getElementById(`import-step-${i}`).style.display = i === n ? '' : 'none';
+        });
+        const labels = {
+            1: 'Paso 1 — Sube el archivo',
+            2: 'Paso 2 — Vista previa',
+            3: 'Paso 3 — Resultado',
+        };
+        document.getElementById('import-step-label').textContent = labels[n];
+    }
+
+    _downloadTemplate() {
+        const wb = XLSX.utils.book_new();
+        const ws = XLSX.utils.aoa_to_sheet([
+            ['nombre_usuario', 'correo_usuario', 'contraseña', 'numero_ficha'],
+            ['María García',   'mgarcia@sena.edu.co',  'Sena2025', ''],
+            ['Carlos López',   'clopez@sena.edu.co',   '',         '2550123'],
+        ]);
+        ws['!cols'] = [{ wch: 25 }, { wch: 30 }, { wch: 15 }, { wch: 14 }];
+        XLSX.utils.book_append_sheet(wb, ws, 'Aprendices');
+        XLSX.writeFile(wb, 'plantilla_aprendices.xlsx');
+    }
+
+    _handleFile(file) {
+        if (!file) return;
+        if (!file.name.endsWith('.xlsx')) {
+            this.showToast('Solo se aceptan archivos .xlsx', 'error');
+            return;
+        }
+        const reader = new FileReader();
+        reader.onload = e => {
+            const data = new Uint8Array(e.target.result);
+            const wb   = XLSX.read(data, { type: 'array' });
+            const ws   = wb.Sheets[wb.SheetNames[0]];
+            const rows = XLSX.utils.sheet_to_json(ws, { defval: '' });
+            this.importRows = rows;
+            this._renderPreview(rows);
+            this._importStep(2);
+        };
+        reader.readAsArrayBuffer(file);
+    }
+
+    _renderPreview(rows) {
+        const DEFAULT_PASS = 'Sena2025';
+        const info  = document.getElementById('import-preview-info');
+        const tbody = document.getElementById('import-preview-tbody');
+        const btn   = document.getElementById('btn-do-import');
+
+        if (rows.length === 0) {
+            info.innerHTML = `<span class="import-badge import-badge--warn">El archivo está vacío o no tiene filas de datos</span>`;
+            tbody.innerHTML = '';
+            btn.disabled = true;
+            return;
+        }
+
+        const validCount = rows.filter(r => {
+            const c = (r.correo_usuario || r.correo || '').toString().trim();
+            return c && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(c);
+        }).length;
+
+        info.innerHTML = `
+            <span class="import-badge import-badge--info">${rows.length} fila${rows.length !== 1 ? 's' : ''} detectada${rows.length !== 1 ? 's' : ''}</span>
+            ${validCount < rows.length ? `<span class="import-badge import-badge--warn">${rows.length - validCount} con errores</span>` : ''}
+        `;
+        document.getElementById('import-count').textContent = validCount;
+        btn.disabled = validCount === 0;
+
+        tbody.innerHTML = rows.map((row, i) => {
+            const correo = (row.correo_usuario || row.correo || '').toString().trim();
+            const nombre = (row.nombre_usuario || row.nombre || '').toString().trim();
+            const pass   = (row['contraseña']   || row.password || '').toString().trim();
+            const ficha  = (row.numero_ficha || row.numero || '').toString().trim();
+            const valid  = correo && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(correo);
+
+            return `<tr>
+                <td style="color:var(--gray-400)">${i + 2}</td>
+                <td>${nombre || '<em style="color:var(--gray-300)">—</em>'}</td>
+                <td>${correo || '<em style="color:#ef4444">vacío</em>'}</td>
+                <td style="color:var(--gray-400)">${pass || DEFAULT_PASS + ' (defecto)'}</td>
+                <td style="color:var(--gray-400)">${ficha || '—'}</td>
+                <td>${valid
+                    ? '<span class="import-badge import-badge--ok">OK</span>'
+                    : '<span class="import-badge import-badge--err">Error</span>'
+                }</td>
+            </tr>`;
+        }).join('');
+    }
+
+    async doImport() {
+        if (!this.importRows?.length) return;
+        const btn = document.getElementById('btn-do-import');
+        btn.disabled = true;
+        btn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="animation:spin 1s linear infinite"><line x1="12" y1="2" x2="12" y2="6"/><line x1="12" y1="18" x2="12" y2="22"/><line x1="4.93" y1="4.93" x2="7.76" y2="7.76"/><line x1="16.24" y1="16.24" x2="19.07" y2="19.07"/><line x1="2" y1="12" x2="6" y2="12"/><line x1="18" y1="12" x2="22" y2="12"/><line x1="4.93" y1="19.07" x2="7.76" y2="16.24"/><line x1="16.24" y1="7.76" x2="19.07" y2="4.93"/></svg> Importando...';
+
+        try {
+            const token = this.service.getToken();
+            const res   = await fetch('/api/users/import', {
+                method:  'POST',
+                headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+                body:    JSON.stringify({ rows: this.importRows }),
+            });
+            const data = await res.json();
+            if (!res.ok) throw new Error(data.message || 'Error en la importación');
+            this._renderReport(data);
+            this._importStep(3);
+            await this.loadUsers();
+        } catch (err) {
+            this.showToast(err.message, 'error');
+            btn.disabled = false;
+            btn.innerHTML = `Importar <span id="import-count">${this.importRows.length}</span> aprendices`;
+        }
+    }
+
+    _renderReport({ created, failed, total }) {
+        document.getElementById('import-report-summary').innerHTML = `
+            <div class="import-report-cards">
+                <div class="import-report-card import-report-card--ok">
+                    <span class="import-report-num">${created.length}</span>
+                    <span class="import-report-lbl">Creados</span>
+                </div>
+                <div class="import-report-card import-report-card--err">
+                    <span class="import-report-num">${failed.length}</span>
+                    <span class="import-report-lbl">Con error</span>
+                </div>
+                <div class="import-report-card import-report-card--total">
+                    <span class="import-report-num">${total}</span>
+                    <span class="import-report-lbl">Total filas</span>
+                </div>
+            </div>
+            ${created.some(c => c.contraseña_usada)
+                ? `<p style="margin-top:.75rem;font-size:.82rem;color:var(--gray-500)"><strong>Nota:</strong> Las filas sin contraseña recibieron la contraseña por defecto: <code style="background:var(--gray-100);padding:0 .3rem;border-radius:3px">Sena2025</code></p>`
+                : ''
+            }
+        `;
+
+        const failWrap = document.getElementById('import-report-failures');
+        if (failed.length > 0) {
+            failWrap.style.display = '';
+            document.getElementById('import-report-tbody').innerHTML = failed.map(f =>
+                `<tr>
+                    <td style="color:var(--gray-400)">${f.fila}</td>
+                    <td>${f.correo}</td>
+                    <td style="color:#ef4444">${f.error}</td>
+                </tr>`
+            ).join('');
+        } else {
+            failWrap.style.display = 'none';
+        }
+    }
+
+    _jornadaLabel(j) {
+        return j === 'manana' ? 'Mañana' : j === 'mixta' ? 'Mixta' : j === 'nocturna' ? 'Nocturna' : j;
     }
 
     /* ── Toast ───────────────────────────────────────────── */
@@ -342,22 +932,23 @@ class UsersController {
         }, 3500);
     }
 
-    /* ── SVG icons ───────────────────────────────────────── */
+    /* ── Icons ───────────────────────────────────────────── */
     editIcon() {
         return `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>`;
     }
-
     deleteIcon() {
         return `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4a1 1 0 011-1h4a1 1 0 011 1v2"/></svg>`;
     }
-
+    fichasIcon() {
+        return `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>`;
+    }
     eyeIcon() {
         return `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>`;
     }
-
     eyeOffIcon() {
         return `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M17.94 17.94A10.07 10.07 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94M9.9 4.24A9.12 9.12 0 0112 4c7 0 11 8 11 8a18.5 18.5 0 01-2.16 3.19"/><line x1="1" y1="1" x2="23" y2="23"/></svg>`;

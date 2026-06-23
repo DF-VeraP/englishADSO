@@ -13,7 +13,7 @@ const filterState = document.getElementById('filter-estado');
 const btnNew      = document.getElementById('btn-new-course');
 
 // Header user info
-document.getElementById('user-email').textContent = user?.nombre || user?.email || '';
+document.getElementById('user-email').textContent = user?.nombre || '';
 document.getElementById('btn-logout').addEventListener('click', () => AuthGuard.logout());
 
 // Hide create button for non-admins
@@ -50,6 +50,15 @@ function render(list) {
             <td><span class="nivel-badge nivel-${c.nivel}">${c.nivel}</span></td>
             <td>${c.instructor ? `<div style="font-size:.85rem">${esc(c.instructor.nombre_usuario || c.instructor.correo_usuario)}</div>` : '<span style="color:var(--text-muted)">—</span>'}</td>
             <td>
+                ${(c.fichas && c.fichas.length)
+                    ? `<button class="btn-fichas-count" data-curso-id="${c.id}">
+                           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                           ${c.fichas.length} ficha${c.fichas.length !== 1 ? 's' : ''}
+                       </button>`
+                    : '<span class="no-fichas-label">Sin asignar</span>'
+                }
+            </td>
+            <td>
                 <span class="status-dot ${c.estado ? 'active' : 'inactive'}"></span>
                 ${c.estado ? 'Activo' : 'Inactivo'}
             </td>
@@ -57,6 +66,9 @@ function render(list) {
                 <span style="font-size:.82rem;color:var(--text-muted)">${c._count?.modulos ?? 0} módulos · ${c._count?.inscripciones ?? 0} inscritos</span>
             </td>
             <td class="actions-cell">
+                <button class="btn-action btn-modules" data-id="${c.id}" data-titulo="${esc(c.titulo)}" title="Gestionar módulos">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>
+                </button>
                 <button class="btn-action btn-edit" data-id="${c.id}" title="Editar">
                     <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
                 </button>
@@ -67,10 +79,21 @@ function render(list) {
             </td>
         </tr>`).join('');
 
+    tbody.querySelectorAll('.btn-modules').forEach(b =>
+        b.addEventListener('click', () => ModulesModal.open(Number(b.dataset.id), b.dataset.titulo)));
     tbody.querySelectorAll('.btn-edit').forEach(b =>
         b.addEventListener('click', () => openEdit(Number(b.dataset.id))));
     if (isAdmin) tbody.querySelectorAll('.btn-delete').forEach(b =>
         b.addEventListener('click', () => openDelete(Number(b.dataset.id), b.dataset.name)));
+
+    tbody.querySelectorAll('.btn-fichas-count').forEach(btn =>
+        btn.addEventListener('click', e => {
+            e.stopPropagation();
+            const cursoId = Number(btn.dataset.cursoId);
+            const curso   = list.find(c => c.id === cursoId);
+            showFichasPopover(btn, curso?.fichas || []);
+        })
+    );
 }
 
 // ── Filters ───────────────────────────────────────────────────────────────────
@@ -222,6 +245,49 @@ function showToast(msg, type = 'info') {
 function esc(str) {
     return String(str ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }
+
+// ── Fichas popover ────────────────────────────────────────────────────────────
+const popover = (() => {
+    const el = document.createElement('div');
+    el.className = 'fichas-popover';
+    el.style.display = 'none';
+    document.body.appendChild(el);
+    return el;
+})();
+
+function showFichasPopover(anchor, fichas) {
+    if (popover._anchor === anchor && popover.style.display !== 'none') {
+        hidePopover(); return;
+    }
+    popover._anchor = anchor;
+
+    popover.innerHTML = `
+        <div class="fichas-popover-title">Fichas asignadas</div>
+        ${fichas.map(fc => `
+            <div class="fichas-popover-row">
+                <span class="fichas-popover-num">${esc(fc.ficha.numero)}</span>
+                <span class="fichas-popover-prog">${esc(fc.ficha.programa?.nombre || '—')}</span>
+            </div>`).join('')}
+    `;
+
+    popover.style.display = 'block';
+    const rect = anchor.getBoundingClientRect();
+    const pop  = popover.getBoundingClientRect();
+    let top  = rect.bottom + window.scrollY + 6;
+    let left = rect.left  + window.scrollX;
+    if (left + pop.width > window.innerWidth - 12) left = window.innerWidth - pop.width - 12;
+    popover.style.top  = top + 'px';
+    popover.style.left = left + 'px';
+}
+
+function hidePopover() {
+    popover.style.display = 'none';
+    popover._anchor = null;
+}
+
+document.addEventListener('click', e => {
+    if (!popover.contains(e.target)) hidePopover();
+});
 
 // ── Init ──────────────────────────────────────────────────────────────────────
 loadCourses();

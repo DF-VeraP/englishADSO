@@ -7,10 +7,11 @@ const router = Router();
 
 router.use(verifyToken, requireRole('admin'));
 
-router.get('/', users.list);
-router.get('/:id', users.getById);
-router.post('/', users.create);
-router.put('/:id', users.update);
-router.delete('/:id', users.remove);
+router.get('/',           users.list);
+router.get('/:id',        users.getById);
+router.post('/',          users.create);
+router.post('/import',    users.importUsers);
+router.put('/:id',        users.update);
+router.delete('/:id',     users.remove);
 
 module.exports = router;

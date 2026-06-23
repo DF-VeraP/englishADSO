@@ -35,20 +35,18 @@
         }
     </style>
 </head>
-<body>
+<body data-theme-default="light">
 
     <!-- ── Header ─────────────────────────────────────────── -->
     <header class="admin-header">
         <div class="header-brand">
-            <a href="/index.html" class="header-logo">SPEAKSOFT</a>
+            <a href="/admin/dashboard.html" class="header-logo">SPEAKSOFT</a>
             <span class="badge-admin">Admin</span>
             <nav style="display:flex;gap:1rem;margin-left:1rem">
-                <a href="/index.html" class="header-nav-link">
-                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
-                    Dashboard
-                </a>
+                <a href="/admin/dashboard.html" class="header-nav-link">Dashboard</a>
                 <a href="/admin/usuarios.html" class="header-nav-link">Usuarios</a>
-                <a href="/admin/cursos.html" class="header-nav-link active">Cursos</a>
+                <a href="/admin/cursos.html"   class="header-nav-link active">Cursos</a>
+                <a href="/admin/fichas.html"   class="header-nav-link">Fichas · Programas</a>
             </nav>
         </div>
         <div class="header-user">
@@ -103,6 +101,7 @@
                         <th>Curso</th>
                         <th>Nivel</th>
                         <th>Instructor</th>
+                        <th>Fichas asignadas</th>
                         <th>Estado</th>
                         <th>Estadísticas</th>
                         <th>Acciones</th>
@@ -216,11 +215,58 @@
         </div>
     </div>
 
+    <!-- ── Modal: gestión de módulos ────────────────────────── -->
+    <div id="modal-modulos" class="modal-overlay">
+        <div class="modal modal--lg">
+            <div class="modal-header">
+                <div style="display:flex;align-items:center;gap:.65rem">
+                    <h2 id="modulos-modal-title">Módulos</h2>
+                    <span id="modulos-count-badge" class="modulos-count-badge">0</span>
+                </div>
+                <button class="btn-close" id="btn-close-modulos" type="button">&#x2715;</button>
+            </div>
+
+            <div class="modal-body modulos-modal-body">
+                <div id="modulos-list" class="modulos-list"></div>
+
+                <div id="modulos-form-area" class="modulos-form-area" style="display:none">
+                    <h3 id="modulos-form-title" class="modulos-form-title">Agregar módulo</h3>
+                    <form id="form-modulo" novalidate>
+                        <div class="form-group">
+                            <label class="form-label" for="modulo-titulo">Título <span class="required">*</span></label>
+                            <input type="text" id="modulo-titulo" class="form-input" placeholder="Ej: Unit 1 — Greetings" autocomplete="off">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="modulo-desc">Descripción</label>
+                            <textarea id="modulo-desc" class="form-input" placeholder="Breve descripción del módulo…" rows="2" style="resize:vertical"></textarea>
+                        </div>
+                        <div style="display:flex;gap:.5rem;justify-content:flex-end">
+                            <button type="button" class="btn btn-secondary" id="btn-cancel-modulo">Cancelar</button>
+                            <button type="submit"  class="btn btn-primary"   id="btn-save-modulo">Agregar módulo</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="btn-add-modulo">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+                    </svg>
+                    Agregar módulo
+                </button>
+                <button type="button" class="btn btn-secondary" id="btn-close-modulos-footer">Cerrar</button>
+            </div>
+        </div>
+    </div>
+
     <!-- ── Toasts ──────────────────────────────────────────── -->
     <div id="toast-container" class="toast-container"></div>
 
+    <script src="/js/ThemeToggle.js"></script>
     <script src="/js/AuthGuard.js"></script>
     <script src="/js/CoursesService.js"></script>
+    <script src="/js/ModulesModal.js"></script>
     <script src="/js/CoursesController.js"></script>
 </body>
 </html>

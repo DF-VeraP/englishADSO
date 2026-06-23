@@ -36,10 +36,13 @@ async function getById(req, res) {
     }
 }
 
-// POST /api/courses/:cursoId/modules  (admin)
+// POST /api/courses/:cursoId/modules
 async function create(req, res) {
     try {
         const cursoId = Number(req.params.cursoId);
+        await assertCursoAccess(cursoId, req, res);
+        if (res.headersSent) return;
+
         const { titulo, descripcion, contenido, orden } = req.body;
         if (!titulo?.trim()) return res.status(400).json({ message: 'El título es obligatorio' });
 
@@ -64,11 +67,14 @@ async function create(req, res) {
     }
 }
 
-// PUT /api/courses/:cursoId/modules/:id  (admin)
+// PUT /api/courses/:cursoId/modules/:id
 async function update(req, res) {
     try {
         const cursoId = Number(req.params.cursoId);
         const id      = Number(req.params.id);
+        await assertCursoAccess(cursoId, req, res);
+        if (res.headersSent) return;
+
         const existe  = await prisma.modulo.findFirst({ where: { id, cursoId } });
         if (!existe) return res.status(404).json({ message: 'Módulo no encontrado' });
 
@@ -89,11 +95,14 @@ async function update(req, res) {
     }
 }
 
-// DELETE /api/courses/:cursoId/modules/:id  (admin)
+// DELETE /api/courses/:cursoId/modules/:id
 async function remove(req, res) {
     try {
         const cursoId = Number(req.params.cursoId);
         const id      = Number(req.params.id);
+        await assertCursoAccess(cursoId, req, res);
+        if (res.headersSent) return;
+
         const existe  = await prisma.modulo.findFirst({ where: { id, cursoId } });
         if (!existe) return res.status(404).json({ message: 'Módulo no encontrado' });
 

@@ -61,9 +61,9 @@ async function renderStats(rol) {
             { icon: bookIcon(),  label: 'Módulos',       value: '—', color: 'green' },
         ],
         aprendiz: [
-            { icon: bookIcon(),     label: 'Cursos activos', value: '—', color: 'blue' },
-            { icon: progressIcon(), label: 'Mi progreso',    value: '—', color: 'cyan' },
-            { icon: starIcon(),     label: 'Logros',         value: '—', color: 'amber' },
+            { icon: bookIcon(),     label: 'Cursos activos', value: '—', color: 'blue',  key: 'apr-cursos'   },
+            { icon: progressIcon(), label: 'Mi progreso',    value: '—', color: 'cyan',  key: 'apr-progreso' },
+            { icon: starIcon(),     label: 'Logros',         value: '—', color: 'amber', key: 'apr-logros'   },
         ],
     };
 
@@ -78,7 +78,7 @@ async function renderStats(rol) {
         </div>`).join('');
 
     if (rol === 'admin')    await loadAdminStats();
-    if (rol === 'aprendiz') await loadAprendizCursos();
+    if (rol === 'aprendiz') { await loadAprendizFichas(); await loadAprendizCursos(); }
 }
 
 async function loadAdminStats() {
@@ -103,6 +103,38 @@ async function loadAdminStats() {
     } catch { /* stats no críticas, falla silenciosa */ }
 }
 
+async function loadAprendizFichas() {
+    try {
+        const token   = AuthGuard.getToken();
+        const headers = { Authorization: `Bearer ${token}` };
+
+        const fichas = await fetch('/api/fichas/mis-fichas', { headers })
+            .then(r => r.ok ? r.json() : [])
+            .catch(() => []);
+
+        const container = document.getElementById('aprendiz-ficha-banner');
+        if (!container || !fichas.length) return;
+
+        const jornadaLabel = j => ({ manana: 'Mañana', tarde: 'Tarde', noche: 'Noche' }[j] || j);
+
+        container.innerHTML = fichas.map(f => `
+            <div class="ficha-banner">
+                <div class="ficha-banner-programa">${f.programa?.nombre || 'Sin programa'}</div>
+                <div class="ficha-banner-meta">
+                    <span class="ficha-banner-num">Ficha <strong>${f.numero}</strong></span>
+                    ${f.jornada ? `<span class="ficha-banner-jornada">${jornadaLabel(f.jornada)}</span>` : ''}
+                    <span class="ficha-banner-estado ${f.estado === 'activa' ? 'activa' : 'inactiva'}">${f.estado}</span>
+                </div>
+                ${f.programa?.codigo ? `<div class="ficha-banner-codigo">Código: ${f.programa.codigo}</div>` : ''}
+            </div>
+        `).join('');
+
+        container.style.display = '';
+    } catch (err) {
+        console.error('[aprendiz] Error cargando fichas:', err);
+    }
+}
+
 async function loadAprendizCursos() {
     try {
         const token   = AuthGuard.getToken();
@@ -112,11 +144,12 @@ async function loadAprendizCursos() {
         const container     = document.getElementById('aprendiz-cursos');
         if (!container) return;
 
-        if (!inscripciones.length) {
+        if (!Array.isArray(inscripciones) || !inscripciones.length) {
             container.innerHTML = `
                 <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:1.5rem;margin-bottom:.5rem;text-align:center;color:var(--text-muted)">
                     <p style="font-size:.9rem">Aún no estás inscrito en ningún curso. Contacta a un administrador.</p>
                 </div>`;
+            _setAprStats(0, 0, 0);
             return;
         }
 
@@ -124,8 +157,11 @@ async function loadAprendizCursos() {
             <p class="section-title" style="margin-bottom:.75rem">Mis Cursos</p>
             <div style="display:flex;flex-direction:column;gap:.75rem">
                 ${inscripciones.map(i => {
-                    const pct = Math.round(i.progreso || 0);
-                    const nivel = i.curso?.nivel || '';
+                    const pct      = Math.round(i.progreso || 0);
+                    const nivel    = i.curso?.nivel || '';
+                    const programa = i.curso?.fichas?.[0]?.ficha?.programa?.nombre || '';
+                    const meta     = [programa, nivel ? nivel.charAt(0).toUpperCase() + nivel.slice(1) : '']
+                                        .filter(Boolean).join(' · ');
                     return `
                         <a href="/curso.html?id=${i.curso.id}" style="
                             display:flex;align-items:center;gap:1.25rem;
@@ -138,8 +174,9 @@ async function loadAprendizCursos() {
                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#06b6d4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
                             </div>
                             <div style="flex:1;min-width:0">
-                                <div style="font-weight:700;font-size:.95rem;margin-bottom:.15rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${i.curso.titulo}</div>
-                                <div style="font-size:.78rem;color:var(--text-muted);margin-bottom:.5rem">${nivel.charAt(0).toUpperCase()+nivel.slice(1)} · ${pct === 100 ? '✅ Completado' : `${pct}% completado`}</div>
+                                <div style="font-weight:700;font-size:.95rem;margin-bottom:.1rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${i.curso.titulo}</div>
+                                ${meta ? `<div style="font-size:.75rem;color:#06b6d4;font-weight:600;margin-bottom:.15rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${meta}</div>` : ''}
+                                <div style="font-size:.78rem;color:var(--text-muted);margin-bottom:.5rem">${pct === 100 ? '✅ Completado' : `${pct}% completado`}</div>
                                 <div style="height:5px;background:rgba(255,255,255,.08);border-radius:3px;overflow:hidden">
                                     <div style="height:100%;width:${pct}%;background:${pct===100?'#10b981':'#06b6d4'};border-radius:3px;transition:width .5s"></div>
                                 </div>
@@ -149,20 +186,46 @@ async function loadAprendizCursos() {
                 }).join('')}
             </div>`;
 
-        // Mostrar insignias si hay
-        const todasInsignias = await Promise.all(
-            inscripciones.map(i => fetch(`/api/courses/${i.curso.id}/mi-progreso`, { headers }).then(r => r.json()))
+        // Cargar progreso detallado de cada curso
+        const progresos = await Promise.all(
+            inscripciones.map(i =>
+                fetch(`/api/courses/${i.curso.id}/mi-progreso`, { headers })
+                    .then(r => r.ok ? r.json() : { insignias: [], tests: [] })
+                    .catch(() => ({ insignias: [], tests: [] }))
+            )
         );
-        const insignias = todasInsignias.flatMap(p => p.insignias || []);
-        if (insignias.length) {
+
+        // Stats: cursos activos, progreso promedio, logros totales
+        const cursosActivos = inscripciones.filter(i => i.estado !== 'completado').length;
+        const promedioProgreso = inscripciones.length
+            ? Math.round(inscripciones.reduce((s, i) => s + (i.progreso || 0), 0) / inscripciones.length)
+            : 0;
+        const totalInsignias = progresos.reduce((s, p) => s + (p.insignias?.length || 0), 0);
+        _setAprStats(cursosActivos, promedioProgreso, totalInsignias);
+
+        // Mostrar insignias si hay
+        if (totalInsignias) {
+            const todasInsignias = progresos.flatMap(p => p.insignias || []);
             const card = document.getElementById('insignias-card');
             if (card) {
                 card.style.display = '';
                 card.querySelector('.insignias-desc').textContent =
-                    `Tienes ${insignias.length} insignia${insignias.length > 1 ? 's' : ''}: ${insignias.map(i => i.emoji).join(' ')}`;
+                    `Tienes ${totalInsignias} insignia${totalInsignias > 1 ? 's' : ''}: ${todasInsignias.map(i => i.emoji).filter(Boolean).join(' ')}`;
             }
         }
-    } catch { /* no crítico */ }
+    } catch (err) {
+        console.error('[aprendiz] Error cargando cursos:', err);
+    }
+}
+
+function _setAprStats(cursos, progreso, logros) {
+    const k = (key, val) => {
+        const el = document.querySelector(`[data-key="${key}"]`);
+        if (el) el.textContent = val;
+    };
+    k('apr-cursos',   cursos);
+    k('apr-progreso', `${progreso}%`);
+    k('apr-logros',   logros);
 }
 
 /* ── Iconos inline ───────────────────────────────────────── */

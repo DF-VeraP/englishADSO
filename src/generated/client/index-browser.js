@@ -236,6 +236,51 @@ exports.Prisma.AuditLogScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
+exports.Prisma.ProgramaScalarFieldEnum = {
+  id: 'id',
+  codigo: 'codigo',
+  nombre: 'nombre',
+  nivel: 'nivel',
+  duracion: 'duracion',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.FichaScalarFieldEnum = {
+  id: 'id',
+  numero: 'numero',
+  programaId: 'programaId',
+  jornada: 'jornada',
+  modalidad: 'modalidad',
+  estado: 'estado',
+  fecha_inicio: 'fecha_inicio',
+  fecha_fin: 'fecha_fin',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.FichaCursoScalarFieldEnum = {
+  id: 'id',
+  fichaId: 'fichaId',
+  cursoId: 'cursoId',
+  asignadoAt: 'asignadoAt'
+};
+
+exports.Prisma.FichaInstructorScalarFieldEnum = {
+  id: 'id',
+  fichaId: 'fichaId',
+  instructorId: 'instructorId',
+  asignadoAt: 'asignadoAt'
+};
+
+exports.Prisma.FichaAprendizScalarFieldEnum = {
+  id: 'id',
+  fichaId: 'fichaId',
+  aprendizId: 'aprendizId',
+  estado: 'estado',
+  ingresadoAt: 'ingresadoAt'
+};
+
 exports.Prisma.NotificacionScalarFieldEnum = {
   id: 'id',
   tipo: 'tipo',
@@ -289,6 +334,11 @@ exports.Prisma.ModelName = {
   TestResultado: 'TestResultado',
   Inscripcion: 'Inscripcion',
   AuditLog: 'AuditLog',
+  Programa: 'Programa',
+  Ficha: 'Ficha',
+  FichaCurso: 'FichaCurso',
+  FichaInstructor: 'FichaInstructor',
+  FichaAprendiz: 'FichaAprendiz',
   Notificacion: 'Notificacion'
 };
 
