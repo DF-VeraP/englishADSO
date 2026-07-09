@@ -3,13 +3,17 @@ const express = require('express');
 const cors = require('cors');
 const morgan = require('morgan');
 const path = require('path');
+const helmet = require('helmet');
+const { apiLimiter } = require('./middleware/rateLimit');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+app.use(helmet({ contentSecurityPolicy: false }));
 app.use(cors());
 app.use(morgan('dev'));
 app.use(express.json());
+app.use('/api', apiLimiter);
 app.use(express.static(path.join(__dirname, '../public')));
 
 const authRoutes           = require('./routes/auth.routes');
@@ -22,6 +26,9 @@ const actividadesRoutes    = require('./routes/actividades.routes');
 const fichasRoutes         = require('./routes/fichas.routes');
 const programasRoutes      = require('./routes/programas.routes');
 const instructorRoutes     = require('./routes/instructor.routes');
+const dashboardRoutes      = require('./routes/dashboard.routes');
+const reportsRoutes        = require('./routes/reports.routes');
+const certificateRoutes    = require('./routes/certificate.routes');
 const { prisma } = require('./config/db');
 
 app.get('/api/health', (req, res) => {
@@ -50,6 +57,9 @@ app.use('/api',                actividadesRoutes);
 app.use('/api/fichas',         fichasRoutes);
 app.use('/api/programas',      programasRoutes);
 app.use('/api/instructor',     instructorRoutes);
+app.use('/api/dashboard',      dashboardRoutes);
+app.use('/api/reports',        reportsRoutes);
+app.use('/api/certificates',   certificateRoutes);
 
 // Start Server
 const startServer = async () => {

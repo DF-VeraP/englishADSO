@@ -60,7 +60,7 @@ class LoginController {
         this.setLoading(true);
         try {
             const response = await this.authService.login(email, password, role);
-            this.authService.saveSession(response.token, response.user, remember);
+            this.authService.saveSession(response.token, response.user, response.refreshToken, remember);
             this.showToast(`Bienvenido, ${response.user.nombre || response.user.email}`, 'success');
 
             const rol = response.user?.rol_usuario || response.user?.rol || '';

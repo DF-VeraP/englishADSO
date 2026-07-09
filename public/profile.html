@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SPEAKSOFT | Mi Perfil</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/profile.css">
+</head>
+<body data-theme-default="dark">
+<div class="bg-glow"></div>
+
+<!-- Header -->
+<header class="app-header">
+    <div class="header-left">
+        <a href="/index.html" class="app-logo"><span>SPEAKSOFT</span></a>
+        <nav class="header-nav">
+            <a href="/index.html" class="nav-item">Dashboard</a>
+            <a href="/profile.html" class="nav-item active">Mi Perfil</a>
+        </nav>
+    </div>
+    <div class="header-right">
+        <div class="user-pill">
+            <div class="user-avatar" id="user-avatar">?</div>
+            <div class="user-info">
+                <div class="user-name" id="user-name">Cargando...</div>
+                <span class="role-badge" id="role-badge"></span>
+            </div>
+        </div>
+        <button class="btn-logout" id="btn-logout">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+            <span>Cerrar sesión</span>
+        </button>
+    </div>
+</header>
+
+<main class="app-main profile-main">
+    <div class="profile-grid">
+
+        <!-- Tarjeta de avatar e info -->
+        <aside class="profile-card">
+            <div class="avatar-wrap">
+                <div class="avatar-circle" id="avatar-big">?</div>
+                <div class="avatar-ring"></div>
+            </div>
+            <h2 class="profile-name" id="profile-display-name">—</h2>
+            <span class="profile-role-badge" id="profile-role-badge">—</span>
+            <p class="profile-email" id="profile-email">—</p>
+
+            <div class="profile-stats">
+                <div class="pstat">
+                    <span class="pstat-val" id="pstat-cursos">—</span>
+                    <span class="pstat-label">Cursos</span>
+                </div>
+                <div class="pstat-divider"></div>
+                <div class="pstat">
+                    <span class="pstat-val" id="pstat-insignias">—</span>
+                    <span class="pstat-label">Insignias</span>
+                </div>
+                <div class="pstat-divider"></div>
+                <div class="pstat">
+                    <span class="pstat-val" id="pstat-desde">—</span>
+                    <span class="pstat-label">Miembro desde</span>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Formulario de edición -->
+        <section class="profile-form-section">
+            <div class="section-header">
+                <h3>Información personal</h3>
+                <p>Actualiza tus datos de perfil</p>
+            </div>
+
+            <form id="profileForm" novalidate>
+                <div id="form-alert" class="form-alert" style="display:none"></div>
+
+                <div class="pform-group">
+                    <label class="pform-label">Nombre completo</label>
+                    <input type="text" id="nombre_usuario" class="pform-input" placeholder="Tu nombre completo" autocomplete="name">
+                </div>
+
+                <div class="pform-group">
+                    <label class="pform-label">Correo electrónico</label>
+                    <input type="email" id="correo_usuario" class="pform-input" placeholder="correo@sena.edu.co" autocomplete="email">
+                </div>
+
+                <div class="pform-group">
+                    <label class="pform-label">Rol</label>
+                    <input type="text" id="rol_usuario" class="pform-input" disabled>
+                </div>
+
+                <div class="section-divider">
+                    <span>Cambiar contraseña</span>
+                </div>
+                <p class="section-hint">Deja estos campos vacíos si no deseas cambiar tu contraseña.</p>
+
+                <div class="pform-group">
+                    <label class="pform-label">Contraseña actual</label>
+                    <div class="pform-input-wrap">
+                        <input type="password" id="passw_actual" class="pform-input" placeholder="••••••••" autocomplete="current-password">
+                        <button type="button" class="ptoggle-pass" data-target="passw_actual">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="pform-group">
+                    <label class="pform-label">Nueva contraseña</label>
+                    <div class="pform-input-wrap">
+                        <input type="password" id="passw_nueva" class="pform-input" placeholder="Mínimo 6 caracteres" autocomplete="new-password">
+                        <button type="button" class="ptoggle-pass" data-target="passw_nueva">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="pform-actions">
+                    <button type="button" id="btn-cancel" class="btn-outline">Cancelar</button>
+                    <button type="submit" id="btn-save" class="btn-primary-profile">
+                        <span class="btn-text">Guardar cambios</span>
+                        <span class="loader-sm"></span>
+                    </button>
+                </div>
+            </form>
+        </section>
+    </div>
+</main>
+
+<div id="toastContainer" class="toast-container"></div>
+
+<script src="js/ThemeToggle.js"></script>
+<script src="js/AuthService.js"></script>
+<script src="js/AuthGuard.js"></script>
+<script src="js/ProfileController.js"></script>
+</body>
+</html>

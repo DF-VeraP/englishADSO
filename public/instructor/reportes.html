@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SPEAKSOFT | Mis Aprendices</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/instructor.css">
+    <style>
+        .filter-bar { display: flex; gap: 1rem; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; }
+        .filter-bar select { padding: .6rem 1rem; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; color: var(--text-primary, #fff); font-family: 'Outfit', sans-serif; font-size: .875rem; outline: none; cursor: pointer; }
+        .search-input { flex: 1; min-width: 200px; padding: .6rem 1rem; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; color: var(--text-primary,#fff); font-family: 'Outfit',sans-serif; font-size: .875rem; outline: none; }
+        .search-input::placeholder { color: var(--text-muted, rgba(255,255,255,.3)); }
+        .apr-table { width: 100%; border-collapse: collapse; }
+        .apr-table th { text-align: left; font-size: .72rem; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--text-muted); padding: .6rem 1rem; border-bottom: 1px solid var(--border); }
+        .apr-table td { padding: .85rem 1rem; border-bottom: 1px solid rgba(255,255,255,.04); font-size: .875rem; vertical-align: middle; }
+        .apr-table tr:hover td { background: rgba(255,255,255,.025); }
+        .prog-bar { height: 6px; background: rgba(255,255,255,.07); border-radius: 3px; overflow: hidden; min-width: 80px; }
+        .prog-fill { height: 100%; border-radius: 3px; background: #06b6d4; }
+        .mejora-badge { font-size: .75rem; font-weight: 700; padding: .2rem .55rem; border-radius: 6px; }
+        .mejora-badge.pos { background: rgba(16,185,129,.2); color: #34d399; }
+        .mejora-badge.neg { background: rgba(239,68,68,.15);  color: #f87171; }
+        .mejora-badge.neu { background: rgba(148,163,184,.1); color: #94a3b8; }
+        .kpis-mini { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 1rem; margin-bottom: 1.5rem; }
+        .kpi-mini { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 1.1rem 1.25rem; }
+        .kpi-mini .val { font-size: 1.6rem; font-weight: 800; color: #22d3ee; }
+        .kpi-mini .lbl { font-size: .72rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: .05em; margin-top: .15rem; }
+    </style>
+</head>
+<body data-theme-default="dark">
+<div class="bg-glow"></div>
+
+<header class="app-header">
+    <div class="header-left">
+        <a href="/index.html" class="app-logo"><span>SPEAKSOFT</span></a>
+        <nav class="header-nav">
+            <a href="/index.html" class="nav-item">Dashboard</a>
+            <a href="/instructor/dashboard.html" class="nav-item">Mis Cursos</a>
+            <a href="/instructor/reportes.html" class="nav-item active">Mis Aprendices</a>
+        </nav>
+    </div>
+    <div class="header-right">
+        <a href="/profile.html" class="user-pill" style="text-decoration:none">
+            <div class="user-avatar" id="user-avatar">?</div>
+            <div class="user-info">
+                <div class="user-name" id="user-name">Cargando...</div>
+                <span class="role-badge" id="role-badge"></span>
+            </div>
+        </a>
+        <button class="btn-logout" id="btn-logout">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+            <span>Cerrar sesión</span>
+        </button>
+    </div>
+</header>
+
+<main class="app-main">
+    <div class="welcome-banner">
+        <div class="welcome-text">
+            <h1>Mis Aprendices</h1>
+            <p>Progreso y rendimiento por ficha y curso</p>
+        </div>
+        <button id="btn-export" style="padding:.65rem 1.25rem;border-radius:10px;background:rgba(26,86,219,.2);border:1px solid rgba(26,86,219,.35);color:#60a5fa;font-family:'Outfit',sans-serif;font-size:.85rem;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:.5rem">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Exportar CSV
+        </button>
+    </div>
+
+    <div id="kpis-row" class="kpis-mini"></div>
+
+    <div class="filter-bar">
+        <select id="filter-ficha"><option value="">Todas las fichas</option></select>
+        <input type="text" id="search-apr" class="search-input" placeholder="Buscar aprendiz...">
+    </div>
+
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:16px;overflow:hidden">
+        <div id="table-wrap">
+            <div style="text-align:center;padding:3rem;color:var(--text-muted)">Cargando datos...</div>
+        </div>
+    </div>
+</main>
+
+<script src="../js/AuthService.js"></script>
+<script src="../js/AuthGuard.js"></script>
+<script>
+let allAprendices = [];
+
+document.addEventListener('DOMContentLoaded', async () => {
+    const payload = AuthGuard.requireAuth(['instructor']);
+    if (!payload) return;
+    const auth   = new AuthService();
+    const user   = AuthGuard.getUser() || {};
+    const nombre = user.nombre || payload.nombre || payload.email;
+    document.getElementById('user-avatar').textContent = nombre.slice(0,2).toUpperCase();
+    document.getElementById('user-name').textContent   = nombre;
+    document.getElementById('role-badge').textContent  = 'instructor';
+    document.getElementById('btn-logout').addEventListener('click', () => AuthGuard.logout());
+
+    try {
+        const res  = await auth.apiFetch('/api/reports/instructor');
+        const data = await res.json();
+
+        allAprendices = data.aprendices || [];
+
+        // KPIs
+        const kpiRow = document.getElementById('kpis-row');
+        const promProg = allAprendices.length
+            ? Math.round(allAprendices.reduce((s,a) => s+a.promedioProgreso, 0) / allAprendices.length)
+            : 0;
+        const conMejora = allAprendices.filter(a => a.mejora > 0).length;
+        kpiRow.innerHTML = `
+            ${mini(allAprendices.length, 'Aprendices')}
+            ${mini(data.fichas.length,   'Fichas')}
+            ${mini(data.cursos.length,   'Cursos')}
+            ${mini(promProg + '%',       'Progreso prom.')}
+            ${mini(conMejora,            'Con mejora')}`;
+
+        // Filtro fichas
+        const sel = document.getElementById('filter-ficha');
+        data.fichas.forEach(f => {
+            const opt = document.createElement('option');
+            opt.value       = f.id;
+            opt.textContent = `Ficha ${f.numero}`;
+            sel.appendChild(opt);
+        });
+
+        renderTable(allAprendices);
+
+        sel.addEventListener('change', () => filterAndRender());
+        document.getElementById('search-apr').addEventListener('input', () => filterAndRender());
+        document.getElementById('btn-export').addEventListener('click', () => exportCSV(allAprendices));
+
+    } catch(err) {
+        document.getElementById('table-wrap').innerHTML =
+            '<div style="text-align:center;padding:3rem;color:#f87171">Error al cargar datos.</div>';
+    }
+});
+
+function mini(val, lbl) {
+    return `<div class="kpi-mini"><div class="val">${val}</div><div class="lbl">${lbl}</div></div>`;
+}
+
+function filterAndRender() {
+    const fichaId = document.getElementById('filter-ficha').value;
+    const search  = document.getElementById('search-apr').value.toLowerCase();
+    const filtered = allAprendices.filter(a => {
+        const matchFicha  = !fichaId || String(a.fichaId) === fichaId;
+        const matchSearch = !search  || a.nombre.toLowerCase().includes(search) || a.correo.toLowerCase().includes(search);
+        return matchFicha && matchSearch;
+    });
+    renderTable(filtered);
+}
+
+function renderTable(aprendices) {
+    if (!aprendices.length) {
+        document.getElementById('table-wrap').innerHTML =
+            '<div style="text-align:center;padding:3rem;color:var(--text-muted)">No hay aprendices que mostrar.</div>';
+        return;
+    }
+    document.getElementById('table-wrap').innerHTML = `
+        <table class="apr-table">
+            <thead>
+                <tr>
+                    <th>Aprendiz</th>
+                    <th>Ficha</th>
+                    <th>Progreso</th>
+                    <th>Insignias</th>
+                    <th>Pre-test</th>
+                    <th>Pos-test</th>
+                    <th>Mejora</th>
+                </tr>
+            </thead>
+            <tbody>
+                ${aprendices.map(a => {
+                    const mejora = a.mejora !== null
+                        ? `<span class="mejora-badge ${a.mejora>0?'pos':a.mejora<0?'neg':'neu'}">${a.mejora>0?'+':''}${a.mejora}%</span>`
+                        : '<span style="color:var(--text-muted)">—</span>';
+                    return `
+                    <tr>
+                        <td>
+                            <div style="font-weight:600">${a.nombre}</div>
+                            <div style="font-size:.75rem;color:var(--text-muted)">${a.correo}</div>
+                        </td>
+                        <td><span style="font-size:.82rem;font-weight:600;color:#22d3ee">${a.ficha}</span></td>
+                        <td>
+                            <div style="display:flex;align-items:center;gap:.6rem">
+                                <div class="prog-bar"><div class="prog-fill" style="width:${a.promedioProgreso}%;background:${a.promedioProgreso>=70?'#10b981':'#06b6d4'}"></div></div>
+                                <span style="font-size:.78rem;font-weight:700;color:${a.promedioProgreso>=70?'#34d399':'#67e8f9'}">${a.promedioProgreso}%</span>
+                            </div>
+                        </td>
+                        <td style="font-size:1.1rem">${a.totalInsignias > 0 ? '🏅 '.repeat(Math.min(a.totalInsignias,5)) : '—'}</td>
+                        <td style="font-weight:600">${a.pretest !== null ? a.pretest+'%' : '—'}</td>
+                        <td style="font-weight:600">${a.postest !== null ? a.postest+'%' : '—'}</td>
+                        <td>${mejora}</td>
+                    </tr>`;
+                }).join('')}
+            </tbody>
+        </table>`;
+}
+
+function exportCSV(aprendices) {
+    const rows = [['Nombre','Correo','Ficha','Progreso','Insignias','Pre-test','Pos-test','Mejora']];
+    aprendices.forEach(a => rows.push([
+        a.nombre, a.correo, a.ficha,
+        a.promedioProgreso+'%', a.totalInsignias,
+        a.pretest !== null ? a.pretest+'%' : '',
+        a.postest !== null ? a.postest+'%' : '',
+        a.mejora  !== null ? a.mejora+'%'  : '',
+    ]));
+    const csv = rows.map(r => r.map(c => `"${c}"`).join(',')).join('\n');
+    const el  = document.createElement('a');
+    el.href   = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv);
+    el.download = `aprendices_${new Date().toISOString().slice(0,10)}.csv`;
+    el.click();
+}
+</script>
+</body>
+</html>

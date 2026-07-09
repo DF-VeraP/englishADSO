@@ -16944,6 +16944,7 @@ export namespace Prisma {
     fichaId: number | null
     cursoId: number | null
     asignadoAt: Date | null
+    fechaLimite: Date | null
   }
 
   export type FichaCursoMaxAggregateOutputType = {
@@ -16951,6 +16952,7 @@ export namespace Prisma {
     fichaId: number | null
     cursoId: number | null
     asignadoAt: Date | null
+    fechaLimite: Date | null
   }
 
   export type FichaCursoCountAggregateOutputType = {
@@ -16958,6 +16960,7 @@ export namespace Prisma {
     fichaId: number
     cursoId: number
     asignadoAt: number
+    fechaLimite: number
     _all: number
   }
 
@@ -16979,6 +16982,7 @@ export namespace Prisma {
     fichaId?: true
     cursoId?: true
     asignadoAt?: true
+    fechaLimite?: true
   }
 
   export type FichaCursoMaxAggregateInputType = {
@@ -16986,6 +16990,7 @@ export namespace Prisma {
     fichaId?: true
     cursoId?: true
     asignadoAt?: true
+    fechaLimite?: true
   }
 
   export type FichaCursoCountAggregateInputType = {
@@ -16993,6 +16998,7 @@ export namespace Prisma {
     fichaId?: true
     cursoId?: true
     asignadoAt?: true
+    fechaLimite?: true
     _all?: true
   }
 
@@ -17087,6 +17093,7 @@ export namespace Prisma {
     fichaId: number
     cursoId: number
     asignadoAt: Date
+    fechaLimite: Date | null
     _count: FichaCursoCountAggregateOutputType | null
     _avg: FichaCursoAvgAggregateOutputType | null
     _sum: FichaCursoSumAggregateOutputType | null
@@ -17113,6 +17120,7 @@ export namespace Prisma {
     fichaId?: boolean
     cursoId?: boolean
     asignadoAt?: boolean
+    fechaLimite?: boolean
     ficha?: boolean | FichaDefaultArgs<ExtArgs>
     curso?: boolean | CursoDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["fichaCurso"]>
@@ -17122,6 +17130,7 @@ export namespace Prisma {
     fichaId?: boolean
     cursoId?: boolean
     asignadoAt?: boolean
+    fechaLimite?: boolean
     ficha?: boolean | FichaDefaultArgs<ExtArgs>
     curso?: boolean | CursoDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["fichaCurso"]>
@@ -17131,6 +17140,7 @@ export namespace Prisma {
     fichaId?: boolean
     cursoId?: boolean
     asignadoAt?: boolean
+    fechaLimite?: boolean
     ficha?: boolean | FichaDefaultArgs<ExtArgs>
     curso?: boolean | CursoDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["fichaCurso"]>
@@ -17140,9 +17150,10 @@ export namespace Prisma {
     fichaId?: boolean
     cursoId?: boolean
     asignadoAt?: boolean
+    fechaLimite?: boolean
   }
 
-  export type FichaCursoOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "fichaId" | "cursoId" | "asignadoAt", ExtArgs["result"]["fichaCurso"]>
+  export type FichaCursoOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "fichaId" | "cursoId" | "asignadoAt" | "fechaLimite", ExtArgs["result"]["fichaCurso"]>
   export type FichaCursoInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     ficha?: boolean | FichaDefaultArgs<ExtArgs>
     curso?: boolean | CursoDefaultArgs<ExtArgs>
@@ -17167,6 +17178,7 @@ export namespace Prisma {
       fichaId: number
       cursoId: number
       asignadoAt: Date
+      fechaLimite: Date | null
     }, ExtArgs["result"]["fichaCurso"]>
     composites: {}
   }
@@ -17596,6 +17608,7 @@ export namespace Prisma {
     readonly fichaId: FieldRef<"FichaCurso", 'Int'>
     readonly cursoId: FieldRef<"FichaCurso", 'Int'>
     readonly asignadoAt: FieldRef<"FichaCurso", 'DateTime'>
+    readonly fechaLimite: FieldRef<"FichaCurso", 'DateTime'>
   }
     
 
@@ -21561,7 +21574,8 @@ export namespace Prisma {
     id: 'id',
     fichaId: 'fichaId',
     cursoId: 'cursoId',
-    asignadoAt: 'asignadoAt'
+    asignadoAt: 'asignadoAt',
+    fechaLimite: 'fechaLimite'
   };
 
   export type FichaCursoScalarFieldEnum = (typeof FichaCursoScalarFieldEnum)[keyof typeof FichaCursoScalarFieldEnum]
@@ -22701,6 +22715,7 @@ export namespace Prisma {
     fichaId?: IntFilter<"FichaCurso"> | number
     cursoId?: IntFilter<"FichaCurso"> | number
     asignadoAt?: DateTimeFilter<"FichaCurso"> | Date | string
+    fechaLimite?: DateTimeNullableFilter<"FichaCurso"> | Date | string | null
     ficha?: XOR<FichaScalarRelationFilter, FichaWhereInput>
     curso?: XOR<CursoScalarRelationFilter, CursoWhereInput>
   }
@@ -22710,6 +22725,7 @@ export namespace Prisma {
     fichaId?: SortOrder
     cursoId?: SortOrder
     asignadoAt?: SortOrder
+    fechaLimite?: SortOrderInput | SortOrder
     ficha?: FichaOrderByWithRelationInput
     curso?: CursoOrderByWithRelationInput
   }
@@ -22723,6 +22739,7 @@ export namespace Prisma {
     fichaId?: IntFilter<"FichaCurso"> | number
     cursoId?: IntFilter<"FichaCurso"> | number
     asignadoAt?: DateTimeFilter<"FichaCurso"> | Date | string
+    fechaLimite?: DateTimeNullableFilter<"FichaCurso"> | Date | string | null
     ficha?: XOR<FichaScalarRelationFilter, FichaWhereInput>
     curso?: XOR<CursoScalarRelationFilter, CursoWhereInput>
   }, "id" | "fichaId_cursoId">
@@ -22732,6 +22749,7 @@ export namespace Prisma {
     fichaId?: SortOrder
     cursoId?: SortOrder
     asignadoAt?: SortOrder
+    fechaLimite?: SortOrderInput | SortOrder
     _count?: FichaCursoCountOrderByAggregateInput
     _avg?: FichaCursoAvgOrderByAggregateInput
     _max?: FichaCursoMaxOrderByAggregateInput
@@ -22747,6 +22765,7 @@ export namespace Prisma {
     fichaId?: IntWithAggregatesFilter<"FichaCurso"> | number
     cursoId?: IntWithAggregatesFilter<"FichaCurso"> | number
     asignadoAt?: DateTimeWithAggregatesFilter<"FichaCurso"> | Date | string
+    fechaLimite?: DateTimeNullableWithAggregatesFilter<"FichaCurso"> | Date | string | null
   }
 
   export type FichaInstructorWhereInput = {
@@ -23941,6 +23960,7 @@ export namespace Prisma {
 
   export type FichaCursoCreateInput = {
     asignadoAt?: Date | string
+    fechaLimite?: Date | string | null
     ficha: FichaCreateNestedOneWithoutCursosInput
     curso: CursoCreateNestedOneWithoutFichasInput
   }
@@ -23950,10 +23970,12 @@ export namespace Prisma {
     fichaId: number
     cursoId: number
     asignadoAt?: Date | string
+    fechaLimite?: Date | string | null
   }
 
   export type FichaCursoUpdateInput = {
     asignadoAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    fechaLimite?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     ficha?: FichaUpdateOneRequiredWithoutCursosNestedInput
     curso?: CursoUpdateOneRequiredWithoutFichasNestedInput
   }
@@ -23963,6 +23985,7 @@ export namespace Prisma {
     fichaId?: IntFieldUpdateOperationsInput | number
     cursoId?: IntFieldUpdateOperationsInput | number
     asignadoAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    fechaLimite?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type FichaCursoCreateManyInput = {
@@ -23970,10 +23993,12 @@ export namespace Prisma {
     fichaId: number
     cursoId: number
     asignadoAt?: Date | string
+    fechaLimite?: Date | string | null
   }
 
   export type FichaCursoUpdateManyMutationInput = {
     asignadoAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    fechaLimite?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type FichaCursoUncheckedUpdateManyInput = {
@@ -23981,6 +24006,7 @@ export namespace Prisma {
     fichaId?: IntFieldUpdateOperationsInput | number
     cursoId?: IntFieldUpdateOperationsInput | number
     asignadoAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    fechaLimite?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type FichaInstructorCreateInput = {
@@ -25250,6 +25276,7 @@ export namespace Prisma {
     fichaId?: SortOrder
     cursoId?: SortOrder
     asignadoAt?: SortOrder
+    fechaLimite?: SortOrder
   }
 
   export type FichaCursoAvgOrderByAggregateInput = {
@@ -25263,6 +25290,7 @@ export namespace Prisma {
     fichaId?: SortOrder
     cursoId?: SortOrder
     asignadoAt?: SortOrder
+    fechaLimite?: SortOrder
   }
 
   export type FichaCursoMinOrderByAggregateInput = {
@@ -25270,6 +25298,7 @@ export namespace Prisma {
     fichaId?: SortOrder
     cursoId?: SortOrder
     asignadoAt?: SortOrder
+    fechaLimite?: SortOrder
   }
 
   export type FichaCursoSumOrderByAggregateInput = {
@@ -27429,6 +27458,7 @@ export namespace Prisma {
 
   export type FichaCursoCreateWithoutCursoInput = {
     asignadoAt?: Date | string
+    fechaLimite?: Date | string | null
     ficha: FichaCreateNestedOneWithoutCursosInput
   }
 
@@ -27436,6 +27466,7 @@ export namespace Prisma {
     id?: number
     fichaId: number
     asignadoAt?: Date | string
+    fechaLimite?: Date | string | null
   }
 
   export type FichaCursoCreateOrConnectWithoutCursoInput = {
@@ -27567,6 +27598,7 @@ export namespace Prisma {
     fichaId?: IntFilter<"FichaCurso"> | number
     cursoId?: IntFilter<"FichaCurso"> | number
     asignadoAt?: DateTimeFilter<"FichaCurso"> | Date | string
+    fechaLimite?: DateTimeNullableFilter<"FichaCurso"> | Date | string | null
   }
 
   export type CursoCreateWithoutModulosInput = {
@@ -28648,6 +28680,7 @@ export namespace Prisma {
 
   export type FichaCursoCreateWithoutFichaInput = {
     asignadoAt?: Date | string
+    fechaLimite?: Date | string | null
     curso: CursoCreateNestedOneWithoutFichasInput
   }
 
@@ -28655,6 +28688,7 @@ export namespace Prisma {
     id?: number
     cursoId: number
     asignadoAt?: Date | string
+    fechaLimite?: Date | string | null
   }
 
   export type FichaCursoCreateOrConnectWithoutFichaInput = {
@@ -29672,6 +29706,7 @@ export namespace Prisma {
     id?: number
     fichaId: number
     asignadoAt?: Date | string
+    fechaLimite?: Date | string | null
   }
 
   export type ModuloUpdateWithoutCursoInput = {
@@ -29736,6 +29771,7 @@ export namespace Prisma {
 
   export type FichaCursoUpdateWithoutCursoInput = {
     asignadoAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    fechaLimite?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     ficha?: FichaUpdateOneRequiredWithoutCursosNestedInput
   }
 
@@ -29743,12 +29779,14 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     fichaId?: IntFieldUpdateOperationsInput | number
     asignadoAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    fechaLimite?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type FichaCursoUncheckedUpdateManyWithoutCursoInput = {
     id?: IntFieldUpdateOperationsInput | number
     fichaId?: IntFieldUpdateOperationsInput | number
     asignadoAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    fechaLimite?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type MomentoCreateManyModuloInput = {
@@ -29954,6 +29992,7 @@ export namespace Prisma {
     id?: number
     cursoId: number
     asignadoAt?: Date | string
+    fechaLimite?: Date | string | null
   }
 
   export type FichaInstructorUpdateWithoutFichaInput = {
@@ -29995,6 +30034,7 @@ export namespace Prisma {
 
   export type FichaCursoUpdateWithoutFichaInput = {
     asignadoAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    fechaLimite?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     curso?: CursoUpdateOneRequiredWithoutFichasNestedInput
   }
 
@@ -30002,12 +30042,14 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     cursoId?: IntFieldUpdateOperationsInput | number
     asignadoAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    fechaLimite?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type FichaCursoUncheckedUpdateManyWithoutFichaInput = {
     id?: IntFieldUpdateOperationsInput | number
     cursoId?: IntFieldUpdateOperationsInput | number
     asignadoAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    fechaLimite?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
 

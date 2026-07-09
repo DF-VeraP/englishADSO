@@ -1,11 +1,12 @@
 class InstructorController {
     constructor() {
-        this.fichas     = [];
-        this.cursos     = [];
-        this.activeFicha = null;
-        this.editingCursoId = null;
+        this.fichas          = [];
+        this.cursos          = [];
+        this.progresoMap     = {};   // fichaId → avgProgreso
+        this.activeFicha     = null;
+        this.editingCursoId  = null;
         this.deletingCursoId = null;
-        this.activeInnerTab = 'aprendices';
+        this.activeInnerTab  = 'aprendices';
 
         this._checkAuth();
         this._bindEvents();
@@ -16,7 +17,11 @@ class InstructorController {
     _checkAuth() {
         const payload = AuthGuard.requireAuth(['instructor', 'admin']);
         if (!payload) return;
-        document.getElementById('user-name').textContent = payload.email || payload.nombre || '';
+        const user   = AuthGuard.getUser() || {};
+        const nombre = user.nombre || payload.nombre || payload.email || '';
+        document.getElementById('user-name').textContent = nombre;
+        const avatarEl = document.getElementById('user-avatar');
+        if (avatarEl) avatarEl.textContent = nombre.slice(0, 2).toUpperCase();
     }
 
     /* ── Events ──────────────────────────────────────────── */
@@ -52,6 +57,12 @@ class InstructorController {
             this._saveCurso();
         });
 
+        // Progreso tab — volver
+        document.getElementById('btn-volver-progreso').addEventListener('click', () => {
+            document.getElementById('progreso-detalle').style.display = 'none';
+            document.getElementById('progreso-resumen').style.display = '';
+        });
+
         // Delete modal
         document.getElementById('btn-cancel-del').addEventListener('click',  () => this._closeDelModal());
         document.getElementById('btn-cancel-del-2').addEventListener('click', () => this._closeDelModal());
@@ -64,10 +75,15 @@ class InstructorController {
     /* ── Load ────────────────────────────────────────────── */
     async _loadAll() {
         try {
-            [this.fichas, this.cursos] = await Promise.all([
+            const [fichas, cursos, resumen] = await Promise.all([
                 InstructorService.getMisFichas(),
                 InstructorService.getMisCursos(),
+                InstructorService.getProgresoResumen().catch(() => []),
             ]);
+            this.fichas  = fichas;
+            this.cursos  = cursos;
+            this.progresoMap = {};
+            for (const r of resumen) this.progresoMap[r.fichaId] = r.avgProgreso;
             this._renderStats();
             this._renderFichas();
             this._renderCursos();
@@ -101,10 +117,23 @@ class InstructorController {
     }
 
     _fichaCard(f) {
-        const prog   = f.programa?.nombre || '—';
+        const prog    = f.programa?.nombre || '—';
         const jornada = this._jornadaLabel(f.jornada);
-        const nApr   = f._count?.aprendices ?? 0;
-        const nCur   = f.cursos?.length ?? 0;
+        const nApr    = f._count?.aprendices ?? 0;
+        const nCur    = f.cursos?.length ?? 0;
+        const pct     = this.progresoMap[f.id] ?? null;
+        const hasProg = nApr > 0 && nCur > 0;
+        const pctVal  = pct ?? 0;
+        const barCls  = pctVal >= 80 ? 'high' : pctVal >= 40 ? 'mid' : 'low';
+
+        const progresoHtml = hasProg ? `
+            <div class="ficha-prog-row">
+                <div class="ficha-prog-bar-wrap">
+                    <div class="ficha-prog-bar ficha-prog-bar--${barCls}" style="width:${pctVal}%"></div>
+                </div>
+                <span class="ficha-prog-pct">${pctVal}%</span>
+            </div>` : '';
+
         return `
         <div class="inst-ficha-card" data-id="${f.id}">
             <div class="inst-ficha-top">
@@ -123,6 +152,7 @@ class InstructorController {
                     ${nCur} cursos
                 </span>
             </div>
+            ${progresoHtml}
         </div>`;
     }
 
@@ -185,17 +215,43 @@ class InstructorController {
             return;
         }
         list.innerHTML = cursos.map(fc => {
-            const c = fc.curso;
+            const c         = fc.curso;
+            const fechaISO  = fc.fechaLimite ? this._toDateInput(fc.fechaLimite) : '';
+            const fechaLabel = fc.fechaLimite ? this._formatFecha(fc.fechaLimite) : null;
+            const vencido    = fc.fechaLimite && new Date(fc.fechaLimite) < new Date();
+
             return `
-            <div class="inst-curso-row">
+            <div class="inst-curso-row" data-curso-id="${c.id}">
                 <div class="inst-curso-icon">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/>
                     </svg>
                 </div>
                 <div class="inst-member-info">
-                    <div class="inst-member-name">${c.titulo}</div>
+                    <div class="inst-member-name">${this._esc(c.titulo)}</div>
                     <div class="inst-member-email">${this._nivelLabel(c.nivel)}</div>
+                </div>
+                <div class="fc-deadline-wrap">
+                    <div class="fc-deadline-display">
+                        ${fechaLabel
+                            ? `<span class="fc-deadline-date${vencido ? ' fc-deadline-vencido' : ''}">
+                                   <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                                   ${fechaLabel}${vencido ? ' · Vencido' : ''}
+                               </span>`
+                            : `<span class="fc-deadline-none">Sin plazo</span>`
+                        }
+                        <button class="fc-edit-btn" data-curso-id="${c.id}" title="Editar fecha límite">
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/>
+                                <path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="fc-deadline-form" style="display:none">
+                        <input type="datetime-local" class="inst-fecha-input fc-date-input" value="${fechaISO}">
+                        <button class="fc-save-btn inst-btn inst-btn-primary" style="padding:.25rem .55rem;font-size:.75rem">✓</button>
+                        <button class="fc-cancel-btn inst-btn inst-btn-ghost" style="padding:.25rem .55rem;font-size:.75rem">✕</button>
+                    </div>
                 </div>
                 <button class="inst-btn-icon unlink" data-curso-id="${c.id}" title="Quitar de la ficha">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
@@ -205,9 +261,45 @@ class InstructorController {
             </div>`;
         }).join('');
 
-        list.querySelectorAll('[data-curso-id]').forEach(btn =>
+        list.querySelectorAll('.unlink').forEach(btn =>
             btn.addEventListener('click', () => this._quitarCurso(Number(btn.dataset.cursoId)))
         );
+
+        list.querySelectorAll('.fc-edit-btn').forEach(btn => {
+            btn.addEventListener('click', e => {
+                const row = e.currentTarget.closest('.inst-curso-row');
+                row.querySelector('.fc-deadline-display').style.display = 'none';
+                row.querySelector('.fc-deadline-form').style.display    = '';
+                row.querySelector('.fc-date-input').focus();
+            });
+        });
+
+        list.querySelectorAll('.fc-cancel-btn').forEach(btn => {
+            btn.addEventListener('click', e => {
+                const row = e.currentTarget.closest('.inst-curso-row');
+                row.querySelector('.fc-deadline-display').style.display = '';
+                row.querySelector('.fc-deadline-form').style.display    = 'none';
+            });
+        });
+
+        list.querySelectorAll('.fc-save-btn').forEach(btn => {
+            btn.addEventListener('click', async e => {
+                const row      = e.currentTarget.closest('.inst-curso-row');
+                const cursoId  = Number(row.dataset.cursoId);
+                const newFecha = row.querySelector('.fc-date-input').value || null;
+                btn.disabled = true; btn.textContent = '…';
+                try {
+                    await InstructorService.actualizarFechaCurso(this.activeFicha.id, cursoId, newFecha);
+                    this._toast('Fecha límite actualizada', 'success');
+                    await this._loadAll();
+                    const updated = this.fichas.find(f => f.id === this.activeFicha.id);
+                    if (updated) { this.activeFicha = updated; this._renderFichaCursos(updated); this._populateSelectCurso(updated); }
+                } catch (err) {
+                    this._toast(err.message, 'error');
+                    btn.disabled = false; btn.textContent = '✓';
+                }
+            });
+        });
     }
 
     _populateSelectCurso(ficha) {
@@ -221,14 +313,16 @@ class InstructorController {
     }
 
     async _doAsignarCurso() {
-        const cursoId = Number(document.getElementById('select-curso-asignar').value);
+        const cursoId     = Number(document.getElementById('select-curso-asignar').value);
+        const fechaLimite = document.getElementById('input-fecha-limite').value || null;
         if (!cursoId || !this.activeFicha) return this._toast('Selecciona un curso', 'error');
 
         const btn = document.getElementById('btn-asignar-curso');
         btn.disabled = true; btn.textContent = 'Asignando...';
         try {
-            const res = await InstructorService.asignarCursoAFicha(this.activeFicha.id, cursoId);
+            const res = await InstructorService.asignarCursoAFicha(this.activeFicha.id, cursoId, fechaLimite);
             this._toast(res.message, 'success');
+            document.getElementById('input-fecha-limite').value = '';
             await this._loadAll();
             const updated = this.fichas.find(f => f.id === this.activeFicha.id);
             if (updated) {
@@ -417,6 +511,125 @@ class InstructorController {
         }
     }
 
+    /* ── Progreso tab ────────────────────────────────────── */
+    _renderProgresoResumen() {
+        const grid  = document.getElementById('prog-fichas-grid');
+        const empty = document.getElementById('prog-empty');
+        const fichasConCursos = this.fichas.filter(f => (f.cursos?.length ?? 0) > 0);
+
+        if (!fichasConCursos.length) {
+            grid.innerHTML = '';
+            empty.style.display = '';
+            return;
+        }
+        empty.style.display = 'none';
+        grid.innerHTML = fichasConCursos.map(f => `
+        <div class="prog-ficha-card" data-id="${f.id}">
+            <div class="prog-ficha-top">
+                <span class="prog-ficha-num">Ficha ${f.numero}</span>
+                <span class="inst-ficha-estado est-${f.estado}">${f.estado}</span>
+            </div>
+            <div class="prog-ficha-prog">${f.programa?.nombre || '—'}</div>
+            <div class="prog-ficha-meta">
+                <span>${f._count?.aprendices ?? 0} aprendices</span>
+                <span>${f.cursos?.length ?? 0} cursos</span>
+            </div>
+            <button class="prog-ver-btn">Ver progreso →</button>
+        </div>`).join('');
+
+        grid.querySelectorAll('.prog-ficha-card').forEach(card =>
+            card.addEventListener('click', () => this._openProgresoDetalle(Number(card.dataset.id)))
+        );
+    }
+
+    async _openProgresoDetalle(fichaId) {
+        document.getElementById('progreso-resumen').style.display = 'none';
+        const detalleEl = document.getElementById('progreso-detalle');
+        detalleEl.style.display = '';
+        document.getElementById('prog-detalle-body').innerHTML = '<div class="prog-loading"><div class="spinner"></div><span>Cargando progreso…</span></div>';
+
+        try {
+            const data = await InstructorService.getProgresoFicha(fichaId);
+            document.getElementById('prog-ficha-title').textContent = `Ficha ${data.ficha.numero}`;
+            document.getElementById('prog-ficha-sub').textContent   = `${data.ficha.programa} · ${data.aprendices.length} aprendices · Promedio general: ${data.avgProgreso}%`;
+            document.getElementById('prog-detalle-body').innerHTML  = this._buildProgresoTable(data);
+        } catch (err) {
+            document.getElementById('prog-detalle-body').innerHTML = `<p class="prog-error">${err.message}</p>`;
+        }
+    }
+
+    _buildProgresoTable(data) {
+        if (!data.aprendices.length || !data.cursos.length) {
+            return '<p class="inst-empty-list">Esta ficha no tiene aprendices o cursos asignados.</p>';
+        }
+
+        const cursoCols = data.cursos.map(c =>
+            `<th class="prog-th-curso"><span class="prog-curso-lbl">${this._esc(c.titulo)}</span><br><span class="inst-nivel-badge nivel-${c.nivel}">${this._nivelLabel(c.nivel)}</span></th>`
+        ).join('');
+
+        const rows = data.aprendices.map(apr => {
+            const initials = (apr.nombre || apr.correo || '?').slice(0, 2).toUpperCase();
+            const celdas = apr.cursos.map(cp => {
+                if (cp.progreso === null) {
+                    return `<td class="prog-td"><span class="prog-na">—</span></td>`;
+                }
+                const pct = Math.round(cp.progreso);
+                const cls = pct >= 80 ? 'high' : pct >= 40 ? 'mid' : 'low';
+                return `<td class="prog-td">
+                    <div class="prog-bar-wrap">
+                        <div class="prog-bar prog-bar-${cls}" style="width:${pct}%"></div>
+                    </div>
+                    <span class="prog-pct">${pct}%</span>
+                </td>`;
+            }).join('');
+
+            const gp   = apr.progresoGeneral;
+            const gcls = gp >= 80 ? 'high' : gp >= 40 ? 'mid' : 'low';
+
+            return `<tr>
+                <td class="prog-td-apr-cell">
+                    <div class="prog-td-apr">
+                        <div class="inst-avatar" style="background:#ede9fe;color:#5b21b6;width:30px;height:30px;font-size:.7rem;flex-shrink:0">${initials}</div>
+                        <div>
+                            <div class="prog-apr-name">${this._esc(apr.nombre || '—')}</div>
+                            <div class="prog-apr-email">${this._esc(apr.correo)}</div>
+                        </div>
+                    </div>
+                </td>
+                ${celdas}
+                <td class="prog-td prog-td-general">
+                    <div class="prog-bar-wrap">
+                        <div class="prog-bar prog-bar-${gcls}" style="width:${gp}%"></div>
+                    </div>
+                    <span class="prog-pct prog-pct-bold">${gp}%</span>
+                </td>
+            </tr>`;
+        }).join('');
+
+        const scrollHint = data.cursos.length > 3
+            ? `<p class="prog-scroll-hint">← Desplázate horizontalmente para ver todos los cursos →</p>`
+            : '';
+
+        return `
+        <div class="prog-table-wrap">
+            <table class="prog-table">
+                <thead>
+                    <tr>
+                        <th class="prog-th-apr">Aprendiz</th>
+                        ${cursoCols}
+                        <th class="prog-th-general">General</th>
+                    </tr>
+                </thead>
+                <tbody>${rows}</tbody>
+            </table>
+        </div>
+        ${scrollHint}`;
+    }
+
+    _esc(s) {
+        return String(s ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    }
+
     /* ── Tab helpers ─────────────────────────────────────── */
     _switchTab(tab) {
         document.querySelectorAll('.inst-tab-btn').forEach(b =>
@@ -425,6 +638,11 @@ class InstructorController {
         document.querySelectorAll('.inst-tab-pane').forEach(p =>
             p.classList.toggle('active', p.id === `pane-${tab}`)
         );
+        if (tab === 'progreso') {
+            document.getElementById('progreso-resumen').style.display = '';
+            document.getElementById('progreso-detalle').style.display = 'none';
+            this._renderProgresoResumen();
+        }
     }
 
     _switchInnerTab(tab) {
@@ -437,6 +655,17 @@ class InstructorController {
     }
 
     /* ── Helpers ─────────────────────────────────────────── */
+    _toDateInput(iso) {
+        const d = new Date(iso);
+        const pad = n => String(n).padStart(2, '0');
+        return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`;
+    }
+    _formatFecha(iso) {
+        const d = new Date(iso);
+        const fecha = d.toLocaleDateString('es-CO', { day: '2-digit', month: 'short', year: 'numeric' });
+        const hora  = d.toLocaleTimeString('es-CO', { hour: '2-digit', minute: '2-digit', hour12: false });
+        return `${fecha}, ${hora}`;
+    }
     _jornadaLabel(j) {
         return { manana: 'Mañana', diurna: 'Diurna', nocturna: 'Nocturna', mixta: 'Mixta', madrugada: 'Madrugada' }[j] || j;
     }

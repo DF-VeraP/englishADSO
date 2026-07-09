@@ -224,12 +224,13 @@ model Ficha {
 }
 
 model FichaCurso {
-  id         Int      @id @default(autoincrement())
-  fichaId    Int
-  cursoId    Int
-  asignadoAt DateTime @default(now())
-  ficha      Ficha    @relation(fields: [fichaId], references: [id], onDelete: Cascade)
-  curso      Curso    @relation(fields: [cursoId], references: [id], onDelete: Cascade)
+  id          Int       @id @default(autoincrement())
+  fichaId     Int
+  cursoId     Int
+  asignadoAt  DateTime  @default(now())
+  fechaLimite DateTime? @map("fecha_limite")
+  ficha       Ficha     @relation(fields: [fichaId], references: [id], onDelete: Cascade)
+  curso       Curso     @relation(fields: [cursoId], references: [id], onDelete: Cascade)
 
   @@unique([fichaId, cursoId])
   @@map("ficha_cursos")

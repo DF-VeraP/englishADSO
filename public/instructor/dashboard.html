@@ -14,7 +14,10 @@
         <span class="inst-badge">Instructor</span>
     </div>
     <div class="inst-header-user">
-        <span class="inst-user-name" id="user-name"></span>
+        <a href="/instructor/perfil.html" class="inst-user-pill" id="user-pill" title="Mi perfil">
+            <div class="inst-user-avatar" id="user-avatar">?</div>
+            <span class="inst-user-name" id="user-name"></span>
+        </a>
         <button class="inst-btn-logout" id="btn-logout">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/>
@@ -92,6 +95,12 @@
             </svg>
             Mis Cursos
         </button>
+        <button class="inst-tab-btn" data-tab="progreso">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;margin-right:.3rem">
+                <line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/>
+            </svg>
+            Progreso
+        </button>
     </div>
 
     <!-- Tab: Fichas -->
@@ -126,6 +135,35 @@
         </div>
     </div>
 
+    <!-- Tab: Progreso -->
+    <div class="inst-tab-pane" id="pane-progreso">
+        <!-- Resumen por ficha -->
+        <div id="progreso-resumen">
+            <p class="prog-hint">Selecciona una ficha para ver el progreso individual de cada aprendiz.</p>
+            <div id="prog-fichas-grid" class="prog-fichas-grid"></div>
+            <div id="prog-empty" class="inst-empty" style="display:none">
+                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/>
+                </svg>
+                <p>No tienes fichas con cursos asignados aún</p>
+            </div>
+        </div>
+        <!-- Detalle de ficha -->
+        <div id="progreso-detalle" style="display:none">
+            <div class="prog-detalle-header">
+                <button class="prog-btn-volver" id="btn-volver-progreso">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+                    Volver al resumen
+                </button>
+                <div>
+                    <h3 class="prog-detalle-title" id="prog-ficha-title"></h3>
+                    <p class="prog-detalle-sub" id="prog-ficha-sub"></p>
+                </div>
+            </div>
+            <div id="prog-detalle-body"></div>
+        </div>
+    </div>
+
 </main>
 
 <!-- ── Modal: Ficha detalle ──────────────────────────── -->
@@ -157,7 +195,11 @@
                     <select id="select-curso-asignar" class="inst-select">
                         <option value="">— Selecciona un curso tuyo —</option>
                     </select>
-                    <button class="inst-btn inst-btn-primary" id="btn-asignar-curso">Asignar</button>
+                    <div class="inst-fecha-field">
+                        <label class="inst-fecha-label">Fecha límite <span style="font-weight:400;opacity:.65">(opcional)</span></label>
+                        <input type="datetime-local" id="input-fecha-limite" class="inst-fecha-input">
+                    </div>
+                    <button class="inst-btn inst-btn-primary" id="btn-asignar-curso" style="align-self:flex-end">Asignar</button>
                 </div>
                 <div id="ficha-cursos-list"></div>
             </div>
@@ -239,34 +281,42 @@
         <div class="inst-modal-body modulos-modal-body">
             <div id="modulos-list" class="modulos-list"></div>
 
+            <!-- Botón inline — se oculta cuando el form está abierto -->
+            <button type="button" class="inst-btn inst-btn-primary modulos-add-inline" id="btn-add-modulo">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+                </svg>
+                Nuevo módulo
+            </button>
+
             <div id="modulos-form-area" class="modulos-form-area" style="display:none">
                 <h3 id="modulos-form-title" class="modulos-form-title">Agregar módulo</h3>
                 <form id="form-modulo" novalidate>
                     <div class="inst-form-group">
-                        <label class="inst-form-label" for="modulo-titulo">Título <span style="color:var(--danger)">*</span></label>
-                        <input type="text" id="modulo-titulo" class="inst-form-input" placeholder="Ej: Unit 1 — Greetings" autocomplete="off">
+                        <label class="inst-form-label" for="modulo-titulo">
+                            Título <span style="color:var(--danger);font-weight:700">*</span>
+                        </label>
+                        <input type="text" id="modulo-titulo" class="inst-form-input"
+                            placeholder="Ej: Unit 1 — Greetings" autocomplete="off">
                     </div>
-                    <div class="inst-form-group">
+                    <div class="inst-form-group" style="margin-bottom:0">
                         <label class="inst-form-label" for="modulo-desc">Descripción</label>
-                        <textarea id="modulo-desc" class="inst-form-input" placeholder="Breve descripción del módulo…" rows="2" style="resize:vertical"></textarea>
+                        <textarea id="modulo-desc" class="inst-form-input"
+                            placeholder="Breve descripción del módulo…" rows="3"></textarea>
                     </div>
-                    <div style="display:flex;gap:.5rem;justify-content:flex-end;margin-top:.5rem">
+                    <div class="modulos-form-btns">
                         <button type="button" class="inst-btn inst-btn-ghost" id="btn-cancel-modulo">Cancelar</button>
-                        <button type="submit"  class="inst-btn inst-btn-primary" id="btn-save-modulo">Agregar módulo</button>
+                        <button type="submit" class="inst-btn inst-btn-primary" id="btn-save-modulo">
+                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0">
+                                <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+                            </svg>
+                            Guardar módulo
+                        </button>
                     </div>
                 </form>
             </div>
         </div>
 
-        <div class="inst-modal-footer">
-            <button type="button" class="inst-btn inst-btn-primary" id="btn-add-modulo">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                    <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
-                </svg>
-                Agregar módulo
-            </button>
-            <button type="button" class="inst-btn inst-btn-ghost" id="btn-close-modulos-footer">Cerrar</button>
-        </div>
     </div>
 </div>
 

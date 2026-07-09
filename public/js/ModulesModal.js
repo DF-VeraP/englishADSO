@@ -20,12 +20,13 @@ class _ModulesModal {
         this._inputDes = document.getElementById('modulo-desc');
         this._formLbl  = document.getElementById('modulos-form-title');
         this._btnSave  = document.getElementById('btn-save-modulo');
+        this._btnAdd   = document.getElementById('btn-add-modulo');
 
         document.getElementById('btn-close-modulos')?.addEventListener('click',  () => this.close());
         document.getElementById('btn-close-modulos-footer')?.addEventListener('click', () => this.close());
         this._overlay?.addEventListener('click', e => { if (e.target === this._overlay) this.close(); });
-        document.getElementById('btn-add-modulo')?.addEventListener('click',    () => this._openForm());
-        document.getElementById('btn-cancel-modulo')?.addEventListener('click', () => this._cancelForm());
+        this._btnAdd?.addEventListener('click',                                   () => this._openForm());
+        document.getElementById('btn-cancel-modulo')?.addEventListener('click',   () => this._cancelForm());
         this._form?.addEventListener('submit', e => { e.preventDefault(); this._submit(); });
         this._ready = true;
     }
@@ -114,11 +115,12 @@ class _ModulesModal {
 
     _openForm(m = null) {
         this._editId = m?.id ?? null;
-        this._inputTit.value = m ? m.titulo          : '';
-        this._inputDes.value = m ? (m.descripcion || '') : '';
-        this._formLbl.textContent  = m ? 'Editar módulo'   : 'Agregar módulo';
-        this._btnSave.textContent  = m ? 'Guardar cambios' : 'Agregar módulo';
+        this._inputTit.value = m ? m.titulo               : '';
+        this._inputDes.value = m ? (m.descripcion || '')  : '';
+        this._formLbl.textContent = m ? 'Editar módulo'   : 'Nuevo módulo';
+        this._btnSave.textContent = m ? 'Guardar cambios' : 'Guardar módulo';
         this._formArea.style.display = '';
+        if (this._btnAdd) this._btnAdd.style.display = 'none';
         this._inputTit.focus();
         this._formArea.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     }
@@ -126,9 +128,10 @@ class _ModulesModal {
     _cancelForm() {
         this._editId = null;
         this._formArea.style.display = 'none';
-        if (this._form) this._form.reset();
-        if (this._formLbl) this._formLbl.textContent = 'Agregar módulo';
-        if (this._btnSave) this._btnSave.textContent = 'Agregar módulo';
+        if (this._btnAdd) this._btnAdd.style.display = '';
+        if (this._form)    this._form.reset();
+        if (this._formLbl) this._formLbl.textContent = 'Nuevo módulo';
+        if (this._btnSave) this._btnSave.textContent = 'Guardar módulo';
     }
 
     async _submit() {

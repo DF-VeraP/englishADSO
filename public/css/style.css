@@ -1,29 +1,32 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap');
 
 :root {
-    --primary:       #1a56db;
-    --primary-dark:  #1240a0;
-    --primary-light: #3b82f6;
-    --accent:        #0891b2;
-    --accent-light:  #22d3ee;
-    --success:       #10b981;
-    --warning:       #f59e0b;
-    --danger:        #ef4444;
-    --bg:            #0f172a;
-    --bg-2:          #0e2a50;
-    --card:          #1e293b;
-    --card-border:   rgba(255,255,255,.08);
-    --white:         #ffffff;
-    --gray-400:      #94a3b8;
-    --gray-500:      #64748b;
-    --gray-600:      #475569;
-    --text:          #f8fafc;
-    --text-muted:    #94a3b8;
-    --radius:        14px;
-    --shadow:        0 4px 24px rgba(0,0,0,.35);
-    --transition:    all .22s cubic-bezier(.4,0,.2,1);
-    --surface:       rgba(255,255,255,.04);
-    --border:        rgba(255,255,255,.08);
+    --primary:        #1a56db;
+    --primary-dark:   #1240a0;
+    --primary-light:  #3b82f6;
+    --accent:         #0891b2;
+    --accent-light:   #22d3ee;
+    --success:        #10b981;
+    --warning:        #f59e0b;
+    --danger:         #ef4444;
+    --bg:             #0f172a;
+    --bg-2:           #0e2a50;
+    --card:           #1e293b;
+    --card-bg:        #1e293b;
+    --card-border:    rgba(255,255,255,.08);
+    --white:          #ffffff;
+    --gray-400:       #94a3b8;
+    --gray-500:       #64748b;
+    --gray-600:       #475569;
+    --text:           #f8fafc;
+    --text-primary:   #f8fafc;
+    --text-secondary: #94a3b8;
+    --text-muted:     #94a3b8;
+    --radius:         14px;
+    --shadow:         0 4px 24px rgba(0,0,0,.35);
+    --transition:     all .22s cubic-bezier(.4,0,.2,1);
+    --surface:        rgba(255,255,255,.04);
+    --border:         rgba(255,255,255,.08);
 }
 
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
@@ -268,10 +271,12 @@ html, body {
     flex-shrink: 0;
 }
 
-.stat-icon.blue   { background: rgba(26,86,219,.15);  color: #93c5fd; }
-.stat-icon.cyan   { background: rgba(8,145,178,.15);  color: #67e8f9; }
-.stat-icon.green  { background: rgba(16,185,129,.15); color: #6ee7b7; }
-.stat-icon.amber  { background: rgba(245,158,11,.15); color: #fcd34d; }
+.stat-icon.blue   { background: rgba(26,86,219,.18);  color: #93c5fd; }
+.stat-icon.cyan   { background: rgba(8,145,178,.18);  color: #67e8f9; }
+.stat-icon.green  { background: rgba(16,185,129,.18); color: #6ee7b7; }
+.stat-icon.amber  { background: rgba(245,158,11,.18); color: #fcd34d; }
+.stat-icon.purple { background: rgba(139,92,246,.18); color: #c4b5fd; }
+.stat-icon.red    { background: rgba(239,68,68,.18);  color: #fca5a5; }
 
 .stat-value {
     font-size: 1.5rem;
@@ -561,15 +566,18 @@ body.role-aprendiz    .role-section.aprendiz    { display: block; }
 
 /* ── Modo día (light theme override) ─────────────────────── */
 html[data-theme="light"] {
-    --bg:          #f8fafc;
-    --bg-2:        #e0f2fe;
-    --card:        #ffffff;
-    --card-border: rgba(0,0,0,.1);
-    --text:        #0f172a;
-    --text-muted:  #64748b;
-    --shadow:      0 4px 24px rgba(0,0,0,.10);
-    --surface:     #ffffff;
-    --border:      #e2e8f0;
+    --bg:             #f1f5f9;
+    --bg-2:           #e0f2fe;
+    --card:           #ffffff;
+    --card-bg:        #ffffff;
+    --card-border:    rgba(0,0,0,.1);
+    --text:           #0f172a;
+    --text-primary:   #0f172a;
+    --text-secondary: #475569;
+    --text-muted:     #64748b;
+    --shadow:         0 4px 24px rgba(0,0,0,.10);
+    --surface:        #ffffff;
+    --border:         #e2e8f0;
 }
 html[data-theme="light"] body { background: var(--bg); color: var(--text); }
 html[data-theme="light"] .bg-glow {
@@ -611,3 +619,41 @@ html[data-theme="light"] .ficha-banner-programa { color: #0f172a; }
 html[data-theme="light"] .ficha-banner-num      { color: #334155; background: rgba(0,0,0,.06); border-color: rgba(0,0,0,.1); }
 html[data-theme="light"] .ficha-banner-jornada  { color: #475569; background: rgba(0,0,0,.04); border-color: rgba(0,0,0,.08); }
 html[data-theme="light"] .ficha-banner-codigo   { color: #94a3b8; }
+
+/* Íconos de stat en modo claro: más saturados y visibles */
+html[data-theme="light"] .stat-icon.blue   { background: rgba(26,86,219,.12);  color: #1a56db; }
+html[data-theme="light"] .stat-icon.cyan   { background: rgba(8,145,178,.12);  color: #0891b2; }
+html[data-theme="light"] .stat-icon.green  { background: rgba(16,185,129,.12); color: #059669; }
+html[data-theme="light"] .stat-icon.amber  { background: rgba(245,158,11,.12); color: #d97706; }
+html[data-theme="light"] .stat-icon.purple { background: rgba(139,92,246,.12); color: #7c3aed; }
+html[data-theme="light"] .stat-icon.red    { background: rgba(239,68,68,.12);  color: #dc2626; }
+
+/* Hover de stat-card en modo claro */
+html[data-theme="light"] .stat-card:hover { border-color: rgba(0,0,0,.18); }
+
+/* Card icon en modo claro (dash-card featured) */
+html[data-theme="light"] .dash-card--featured .card-icon { border-color: rgba(0,0,0,.1); }
+
+/* Texto de Welcome en modo claro */
+html[data-theme="light"] .welcome-text h1 { color: #0f172a; }
+html[data-theme="light"] .welcome-text p  { color: #334155; }
+
+/* Header en modo claro: íconos de control */
+html[data-theme="light"] #theme-toggle-btn { color: rgba(15,23,42,.65); }
+
+/* Textos de cards en modo claro (usan var(--white) que es blanco) */
+html[data-theme="light"] .card-title        { color: #0f172a; }
+html[data-theme="light"] .card-desc         { color: #475569; }
+html[data-theme="light"] .card-arrow        { color: #94a3b8; }
+html[data-theme="light"] .card-tag          { background: rgba(16,185,129,.12); color: #059669; }
+html[data-theme="light"] .card-tag.soon     { background: rgba(100,116,139,.1);  color: #64748b; }
+html[data-theme="light"] .section-divider   { color: #64748b; }
+html[data-theme="light"] .section-title     { color: #64748b; }
+
+/* Progress bar en modo claro */
+html[data-theme="light"] .progress-bar-bg   { background: #e2e8f0; }
+
+/* Dashboard aprendiz: cursos y actividades en modo claro */
+html[data-theme="light"] .course-name       { color: #0f172a; }
+html[data-theme="light"] .course-sub        { color: #64748b; }
+html[data-theme="light"] .pct-label         { color: #0f172a; }

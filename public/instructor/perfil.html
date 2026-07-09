@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Perfil — SPEAKSOFT Instructor</title>
+    <link rel="stylesheet" href="/css/instructor.css">
+    <style>
+        /* ── Layout perfil ── */
+        .perfil-grid {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 1.5rem;
+            align-items: start;
+            max-width: 960px;
+            margin: 0 auto;
+        }
+
+        /* ── Tarjeta avatar ── */
+        .perfil-card {
+            background: #fff;
+            border: 1px solid #e2e8f0;
+            border-radius: 14px;
+            box-shadow: 0 1px 3px rgba(0,0,0,.08);
+            padding: 2rem 1.5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: .5rem;
+            position: sticky;
+            top: 76px;
+        }
+        .perfil-avatar-wrap { position: relative; margin-bottom: .5rem; }
+        .perfil-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), #818cf8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #fff;
+        }
+        .perfil-avatar-ring {
+            position: absolute;
+            inset: -4px;
+            border-radius: 50%;
+            border: 2px solid rgba(79,70,229,.3);
+            animation: ringPulse 2.5s ease-in-out infinite;
+        }
+        @keyframes ringPulse {
+            0%, 100% { transform: scale(1);    opacity: .5; }
+            50%       { transform: scale(1.06); opacity: 1;  }
+        }
+        .perfil-nombre {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #0f172a;
+            text-align: center;
+            margin-top: .25rem;
+        }
+        .perfil-rol-badge {
+            font-size: .68rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: .07em;
+            padding: .22rem .7rem;
+            border-radius: 20px;
+            background: #ede9fe;
+            color: #5b21b6;
+            border: 1px solid #c4b5fd;
+        }
+        .perfil-email {
+            font-size: .8rem;
+            color: #94a3b8;
+            text-align: center;
+        }
+        .perfil-stats {
+            display: flex;
+            gap: .85rem;
+            margin-top: 1.25rem;
+            padding-top: 1.25rem;
+            border-top: 1px solid #f1f5f9;
+            width: 100%;
+            justify-content: center;
+        }
+        .perfil-stat { display: flex; flex-direction: column; align-items: center; gap: .15rem; }
+        .perfil-stat-val   { font-size: 1.1rem; font-weight: 800; color: var(--primary); }
+        .perfil-stat-label { font-size: .65rem; color: #94a3b8; text-transform: uppercase; letter-spacing: .05em; white-space: nowrap; }
+        .perfil-stat-div   { width: 1px; height: 28px; background: #e2e8f0; }
+
+        /* ── Sección formulario ── */
+        .perfil-form-section {
+            background: #fff;
+            border: 1px solid #e2e8f0;
+            border-radius: 14px;
+            box-shadow: 0 1px 3px rgba(0,0,0,.08);
+            padding: 1.75rem 2rem;
+        }
+        .perfil-section-header { margin-bottom: 1.5rem; }
+        .perfil-section-header h3 { font-size: 1rem; font-weight: 700; color: #0f172a; margin-bottom: .2rem; }
+        .perfil-section-header p  { font-size: .82rem; color: #64748b; }
+
+        .perfil-divider {
+            display: flex;
+            align-items: center;
+            gap: .75rem;
+            margin: 1.5rem 0 .5rem;
+            color: #94a3b8;
+            font-size: .72rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: .06em;
+        }
+        .perfil-divider::before,
+        .perfil-divider::after { content: ''; flex: 1; height: 1px; background: #e2e8f0; }
+        .perfil-hint { font-size: .78rem; color: #94a3b8; margin-bottom: 1rem; }
+
+        .perfil-pass-wrap { position: relative; display: flex; align-items: center; }
+        .perfil-pass-wrap .inst-form-input { padding-right: 2.8rem; }
+        .perfil-pass-toggle {
+            position: absolute;
+            right: 10px;
+            background: none;
+            border: none;
+            color: #94a3b8;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            padding: 0;
+            transition: color .15s;
+        }
+        .perfil-pass-toggle:hover { color: var(--primary); }
+
+        .perfil-alert {
+            padding: .75rem 1rem;
+            border-radius: 8px;
+            font-size: .85rem;
+            font-weight: 500;
+            margin-bottom: 1rem;
+            display: none;
+        }
+        .perfil-alert.success { background: #f0fdf4; border: 1px solid #bbf7d0; color: #166534; }
+        .perfil-alert.error   { background: #fff1f2; border: 1px solid #fecdd3; color: #991b1b; }
+
+        .perfil-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: .75rem;
+            margin-top: 1.5rem;
+            padding-top: 1.25rem;
+            border-top: 1px solid #f1f5f9;
+        }
+
+        /* ── Responsive ── */
+        @media (max-width: 720px) {
+            .perfil-grid { grid-template-columns: 1fr; }
+            .perfil-card { position: static; }
+            .perfil-form-section { padding: 1.25rem; }
+        }
+
+        /* ── Dark mode ── */
+        html[data-theme="dark"] .perfil-card,
+        html[data-theme="dark"] .perfil-form-section {
+            background: #1e293b;
+            border-color: #334155;
+        }
+        html[data-theme="dark"] .perfil-nombre          { color: #f1f5f9; }
+        html[data-theme="dark"] .perfil-email           { color: #64748b; }
+        html[data-theme="dark"] .perfil-rol-badge       { background: rgba(99,102,241,.2); color: #a5b4fc; border-color: rgba(99,102,241,.3); }
+        html[data-theme="dark"] .perfil-stats           { border-top-color: #334155; }
+        html[data-theme="dark"] .perfil-stat-val        { color: #818cf8; }
+        html[data-theme="dark"] .perfil-stat-label      { color: #475569; }
+        html[data-theme="dark"] .perfil-stat-div        { background: #334155; }
+        html[data-theme="dark"] .perfil-section-header h3 { color: #f1f5f9; }
+        html[data-theme="dark"] .perfil-section-header p  { color: #64748b; }
+        html[data-theme="dark"] .perfil-divider         { color: #475569; }
+        html[data-theme="dark"] .perfil-divider::before,
+        html[data-theme="dark"] .perfil-divider::after  { background: #334155; }
+        html[data-theme="dark"] .perfil-hint            { color: #475569; }
+        html[data-theme="dark"] .perfil-pass-toggle     { color: #475569; }
+        html[data-theme="dark"] .perfil-pass-toggle:hover { color: #818cf8; }
+        html[data-theme="dark"] .perfil-actions         { border-top-color: #334155; }
+        html[data-theme="dark"] .perfil-alert.success   { background: #052e16; border-color: #166534; color: #4ade80; }
+        html[data-theme="dark"] .perfil-alert.error     { background: #450a0a; border-color: #7f1d1d; color: #fca5a5; }
+    </style>
+</head>
+<body data-theme-default="light">
+
+<header class="inst-header">
+    <div class="inst-header-brand">
+        <a href="/instructor/dashboard.html" style="text-decoration:none;display:flex;align-items:center;gap:.75rem">
+            <span class="inst-logo">SPEAKSOFT</span>
+            <span class="inst-badge">Instructor</span>
+        </a>
+    </div>
+    <div class="inst-header-user">
+        <a href="/instructor/dashboard.html" class="inst-btn inst-btn-ghost" style="font-size:.8rem;text-decoration:none">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/>
+            </svg>
+            Volver al panel
+        </a>
+        <button class="inst-btn-logout" id="btn-logout">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/>
+                <polyline points="16 17 21 12 16 7"/>
+                <line x1="21" y1="12" x2="9" y2="12"/>
+            </svg>
+            Salir
+        </button>
+    </div>
+</header>
+
+<main class="inst-main">
+    <div class="inst-page-header" style="margin-bottom:1.5rem">
+        <div>
+            <h1 class="inst-page-title">Mi Perfil</h1>
+            <p class="inst-page-sub">Edita tu información personal y contraseña</p>
+        </div>
+    </div>
+
+    <div class="perfil-grid">
+
+        <!-- Tarjeta lateral -->
+        <aside class="perfil-card">
+            <div class="perfil-avatar-wrap">
+                <div class="perfil-avatar" id="avatar-big">?</div>
+                <div class="perfil-avatar-ring"></div>
+            </div>
+            <p class="perfil-nombre" id="profile-display-name">—</p>
+            <span class="perfil-rol-badge" id="profile-role-badge">instructor</span>
+            <p class="perfil-email" id="profile-email">—</p>
+
+            <div class="perfil-stats">
+                <div class="perfil-stat">
+                    <span class="perfil-stat-val" id="pstat-fichas">—</span>
+                    <span class="perfil-stat-label">Fichas</span>
+                </div>
+                <div class="perfil-stat-div"></div>
+                <div class="perfil-stat">
+                    <span class="perfil-stat-val" id="pstat-cursos">—</span>
+                    <span class="perfil-stat-label">Cursos</span>
+                </div>
+                <div class="perfil-stat-div"></div>
+                <div class="perfil-stat">
+                    <span class="perfil-stat-val" id="pstat-desde">—</span>
+                    <span class="perfil-stat-label">Desde</span>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Formulario -->
+        <section class="perfil-form-section">
+            <div class="perfil-section-header">
+                <h3>Información personal</h3>
+                <p>Actualiza tus datos de perfil</p>
+            </div>
+
+            <form id="profileForm" novalidate>
+                <div id="form-alert" class="perfil-alert"></div>
+
+                <div class="inst-form-group">
+                    <label class="inst-form-label" for="nombre_usuario">Nombre completo</label>
+                    <input type="text" id="nombre_usuario" class="inst-form-input"
+                        placeholder="Tu nombre completo" autocomplete="name">
+                </div>
+
+                <div class="inst-form-group">
+                    <label class="inst-form-label" for="correo_usuario">Correo electrónico</label>
+                    <input type="email" id="correo_usuario" class="inst-form-input"
+                        placeholder="correo@sena.edu.co" autocomplete="email">
+                </div>
+
+                <div class="inst-form-group">
+                    <label class="inst-form-label" for="rol_usuario">Rol</label>
+                    <input type="text" id="rol_usuario" class="inst-form-input" disabled>
+                </div>
+
+                <div class="perfil-divider"><span>Cambiar contraseña</span></div>
+                <p class="perfil-hint">Deja estos campos vacíos si no deseas cambiar tu contraseña.</p>
+
+                <div class="inst-form-group">
+                    <label class="inst-form-label" for="passw_actual">Contraseña actual</label>
+                    <div class="perfil-pass-wrap">
+                        <input type="password" id="passw_actual" class="inst-form-input"
+                            placeholder="••••••••" autocomplete="current-password">
+                        <button type="button" class="perfil-pass-toggle" data-target="passw_actual">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                                <circle cx="12" cy="12" r="3"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="inst-form-group">
+                    <label class="inst-form-label" for="passw_nueva">Nueva contraseña</label>
+                    <div class="perfil-pass-wrap">
+                        <input type="password" id="passw_nueva" class="inst-form-input"
+                            placeholder="Mínimo 6 caracteres" autocomplete="new-password">
+                        <button type="button" class="perfil-pass-toggle" data-target="passw_nueva">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                                <circle cx="12" cy="12" r="3"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="perfil-actions">
+                    <button type="button" id="btn-cancel" class="inst-btn inst-btn-ghost">Cancelar</button>
+                    <button type="submit" id="btn-save" class="inst-btn inst-btn-primary">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" id="btn-save-icon">
+                            <path d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z"/>
+                            <polyline points="17 21 17 13 7 13 7 21"/>
+                            <polyline points="7 3 7 8 15 8"/>
+                        </svg>
+                        <span class="btn-text">Guardar cambios</span>
+                    </button>
+                </div>
+            </form>
+        </section>
+
+    </div>
+</main>
+
+<div id="toast-container" class="inst-toast-container"></div>
+
+<script src="/js/ThemeToggle.js"></script>
+<script src="/js/AuthService.js"></script>
+<script src="/js/AuthGuard.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', async () => {
+    const payload = AuthGuard.requireAuth();
+    if (!payload) return;
+
+    // Solo instructores pueden acceder
+    const rol = (AuthGuard.getUser()?.rol || payload.rol || '');
+    if (rol !== 'instructor' && rol !== 'admin') {
+        window.location.href = '/index.html';
+        return;
+    }
+
+    const auth = new AuthService();
+
+    document.getElementById('btn-logout').addEventListener('click', () => AuthGuard.logout());
+
+    // Toggle contraseña
+    document.querySelectorAll('.perfil-pass-toggle').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const input = document.getElementById(btn.dataset.target);
+            input.type = input.type === 'password' ? 'text' : 'password';
+        });
+    });
+
+    await loadProfile(auth);
+
+    document.getElementById('profileForm').addEventListener('submit', e => handleSave(e, auth));
+    document.getElementById('btn-cancel').addEventListener('click', () => loadProfile(auth));
+});
+
+async function loadProfile(auth) {
+    try {
+        const [resMe, resDash] = await Promise.all([
+            auth.apiFetch('/api/users/me'),
+            auth.apiFetch('/api/dashboard/instructor'),
+        ]);
+        const data = await resMe.json();
+        const dash = resDash.ok ? await resDash.json() : null;
+
+        document.getElementById('nombre_usuario').value = data.nombre_usuario || '';
+        document.getElementById('correo_usuario').value = data.correo_usuario  || '';
+        document.getElementById('rol_usuario').value    = data.rol_usuario     || '';
+
+        const initials = (data.nombre_usuario || data.correo_usuario || '?').slice(0, 2).toUpperCase();
+        document.getElementById('avatar-big').textContent           = initials;
+        document.getElementById('profile-display-name').textContent = data.nombre_usuario || data.correo_usuario;
+        document.getElementById('profile-email').textContent        = data.correo_usuario;
+        document.getElementById('profile-role-badge').textContent   = data.rol_usuario;
+
+        // Stats del instructor desde el dashboard
+        document.getElementById('pstat-fichas').textContent = dash?.stats?.totalFichas  ?? '—';
+        document.getElementById('pstat-cursos').textContent = dash?.stats?.totalCursos  ?? '—';
+        document.getElementById('pstat-desde').textContent  = data.createdAt
+            ? new Date(data.createdAt).toLocaleDateString('es-CO', { month: 'short', year: 'numeric' })
+            : '—';
+
+        document.getElementById('passw_actual').value = '';
+        document.getElementById('passw_nueva').value  = '';
+    } catch {
+        showToast('No se pudo cargar el perfil.', 'error');
+    }
+}
+
+async function handleSave(e, auth) {
+    e.preventDefault();
+    const btn  = document.getElementById('btn-save');
+    const icon = document.getElementById('btn-save-icon');
+    const text = btn.querySelector('.btn-text');
+    btn.disabled = true;
+    text.textContent = 'Guardando…';
+    if (icon) icon.style.display = 'none';
+
+    const body = {
+        nombre_usuario: document.getElementById('nombre_usuario').value.trim(),
+        correo_usuario: document.getElementById('correo_usuario').value.trim(),
+    };
+    const passwActual = document.getElementById('passw_actual').value;
+    const passwNueva  = document.getElementById('passw_nueva').value;
+    if (passwNueva) { body.passw_actual = passwActual; body.passw_nueva = passwNueva; }
+
+    try {
+        const res  = await auth.apiFetch('/api/users/me', {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(body),
+        });
+        const data = await res.json();
+        if (!res.ok) { showAlert(data.message || 'Error al guardar.', 'error'); return; }
+
+        showAlert('Perfil actualizado correctamente.', 'success');
+        await loadProfile(auth);
+
+        const stored = AuthGuard.getUser() || {};
+        stored.nombre = data.usuario.nombre_usuario;
+        const storage = localStorage.getItem('user') ? localStorage : sessionStorage;
+        storage.setItem('user', JSON.stringify(stored));
+    } catch {
+        showAlert('Error de conexión.', 'error');
+    } finally {
+        btn.disabled = false;
+        text.textContent = 'Guardar cambios';
+        if (icon) icon.style.display = '';
+    }
+}
+
+function showAlert(msg, type) {
+    const el = document.getElementById('form-alert');
+    el.textContent = msg;
+    el.className = `perfil-alert ${type}`;
+    el.style.display = 'block';
+    setTimeout(() => { el.style.display = 'none'; }, 4000);
+}
+
+function showToast(msg, type) {
+    const tc = document.getElementById('toast-container');
+    const t  = document.createElement('div');
+    t.className = `inst-toast ${type}`;
+    t.textContent = msg;
+    tc.appendChild(t);
+    setTimeout(() => t.classList.add('show'), 10);
+    setTimeout(() => { t.classList.remove('show'); setTimeout(() => t.remove(), 300); }, 3500);
+}
+</script>
+</body>
+</html>

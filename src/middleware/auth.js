@@ -1,8 +1,10 @@
 const jwt = require('jsonwebtoken');
 
 function verifyToken(req, res, next) {
-    const auth = req.headers['authorization'];
-    const token = auth && auth.startsWith('Bearer ') ? auth.slice(7) : null;
+    const auth  = req.headers['authorization'];
+    const token = (auth && auth.startsWith('Bearer ') ? auth.slice(7) : null)
+               || req.query.token  // permite descarga directa de archivos (ej. certificados)
+               || null;
 
     if (!token) return res.status(401).json({ message: 'Token requerido' });
 

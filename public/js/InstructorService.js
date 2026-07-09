@@ -19,10 +19,13 @@ class InstructorService {
     }
 
     static getMisFichas()                          { return this._req('GET',    '/api/instructor/fichas'); }
+    static getProgresoResumen()                    { return this._req('GET',    '/api/instructor/progreso-resumen'); }
     static getMisCursos()                          { return this._req('GET',    '/api/instructor/cursos'); }
     static crearCurso(data)                        { return this._req('POST',   '/api/instructor/cursos', data); }
     static actualizarCurso(id, data)               { return this._req('PUT',    `/api/instructor/cursos/${id}`, data); }
     static eliminarCurso(id)                       { return this._req('DELETE', `/api/instructor/cursos/${id}`); }
-    static asignarCursoAFicha(fichaId, cursoId)    { return this._req('POST',   `/api/instructor/fichas/${fichaId}/cursos`, { cursoId }); }
+    static asignarCursoAFicha(fichaId, cursoId, fechaLimite) { return this._req('POST', `/api/instructor/fichas/${fichaId}/cursos`, { cursoId, fechaLimite: fechaLimite || null }); }
+    static actualizarFechaCurso(fichaId, cursoId, fechaLimite) { return this._req('PUT', `/api/instructor/fichas/${fichaId}/cursos/${cursoId}`, { fechaLimite: fechaLimite || null }); }
     static quitarCursoDeFicha(fichaId, cursoId)    { return this._req('DELETE', `/api/instructor/fichas/${fichaId}/cursos/${cursoId}`); }
+    static getProgresoFicha(fichaId)               { return this._req('GET',    `/api/instructor/fichas/${fichaId}/progreso`); }
 }

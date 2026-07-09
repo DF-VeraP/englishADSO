@@ -263,7 +263,8 @@ exports.Prisma.FichaCursoScalarFieldEnum = {
   id: 'id',
   fichaId: 'fichaId',
   cursoId: 'cursoId',
-  asignadoAt: 'asignadoAt'
+  asignadoAt: 'asignadoAt',
+  fechaLimite: 'fechaLimite'
 };
 
 exports.Prisma.FichaInstructorScalarFieldEnum = {
