@@ -284,6 +284,20 @@ button { cursor: pointer; font-family: inherit; }
 .inst-estado-dot.active::before   { background: #22c55e; }
 .inst-estado-dot.inactive::before { background: #94a3b8; }
 
+/* ── Visibilidad badge ────────────────────────────────────── */
+.inst-visi-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: .3rem;
+    padding: .2rem .55rem;
+    border-radius: 999px;
+    font-size: .75rem;
+    font-weight: 600;
+    white-space: nowrap;
+}
+.inst-visi-badge.publico  { background: #dcfce7; color: #15803d; }
+.inst-visi-badge.privado  { background: #f1f5f9; color: #64748b; }
+
 /* ── Empty state ─────────────────────────────────────────── */
 .inst-empty {
     display: flex;
@@ -1019,7 +1033,9 @@ html[data-theme="dark"] .nivel-intermedio { background: rgba(133,77,14,.2);   co
 html[data-theme="dark"] .nivel-avanzado  { background: rgba(157,23,77,.2);   color: #f9a8d4; }
 html[data-theme="dark"] .inst-fichas-chips {}
 html[data-theme="dark"] .inst-ficha-tag  { background: rgba(91,33,182,.25); color: #c4b5fd; }
-html[data-theme="dark"] .inst-estado-dot { color: #cbd5e1; }
+html[data-theme="dark"] .inst-estado-dot         { color: #cbd5e1; }
+html[data-theme="dark"] .inst-visi-badge.publico  { background: rgba(21,128,61,.25); color: #86efac; }
+html[data-theme="dark"] .inst-visi-badge.privado  { background: rgba(100,116,139,.15); color: #94a3b8; }
 
 /* ── Botones generales ── */
 html[data-theme="dark"] .inst-btn-ghost {

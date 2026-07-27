@@ -3955,6 +3955,7 @@ export namespace Prisma {
     descripcion: string | null
     nivel: string | null
     estado: boolean | null
+    visibilidad: string | null
     instructorId: number | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -3966,6 +3967,7 @@ export namespace Prisma {
     descripcion: string | null
     nivel: string | null
     estado: boolean | null
+    visibilidad: string | null
     instructorId: number | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -3977,6 +3979,7 @@ export namespace Prisma {
     descripcion: number
     nivel: number
     estado: number
+    visibilidad: number
     instructorId: number
     createdAt: number
     updatedAt: number
@@ -4000,6 +4003,7 @@ export namespace Prisma {
     descripcion?: true
     nivel?: true
     estado?: true
+    visibilidad?: true
     instructorId?: true
     createdAt?: true
     updatedAt?: true
@@ -4011,6 +4015,7 @@ export namespace Prisma {
     descripcion?: true
     nivel?: true
     estado?: true
+    visibilidad?: true
     instructorId?: true
     createdAt?: true
     updatedAt?: true
@@ -4022,6 +4027,7 @@ export namespace Prisma {
     descripcion?: true
     nivel?: true
     estado?: true
+    visibilidad?: true
     instructorId?: true
     createdAt?: true
     updatedAt?: true
@@ -4120,6 +4126,7 @@ export namespace Prisma {
     descripcion: string | null
     nivel: string
     estado: boolean
+    visibilidad: string
     instructorId: number
     createdAt: Date
     updatedAt: Date
@@ -4150,6 +4157,7 @@ export namespace Prisma {
     descripcion?: boolean
     nivel?: boolean
     estado?: boolean
+    visibilidad?: boolean
     instructorId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -4166,6 +4174,7 @@ export namespace Prisma {
     descripcion?: boolean
     nivel?: boolean
     estado?: boolean
+    visibilidad?: boolean
     instructorId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -4178,6 +4187,7 @@ export namespace Prisma {
     descripcion?: boolean
     nivel?: boolean
     estado?: boolean
+    visibilidad?: boolean
     instructorId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -4190,12 +4200,13 @@ export namespace Prisma {
     descripcion?: boolean
     nivel?: boolean
     estado?: boolean
+    visibilidad?: boolean
     instructorId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type CursoOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "titulo" | "descripcion" | "nivel" | "estado" | "instructorId" | "createdAt" | "updatedAt", ExtArgs["result"]["curso"]>
+  export type CursoOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "titulo" | "descripcion" | "nivel" | "estado" | "visibilidad" | "instructorId" | "createdAt" | "updatedAt", ExtArgs["result"]["curso"]>
   export type CursoInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     instructor?: boolean | UserDefaultArgs<ExtArgs>
     modulos?: boolean | Curso$modulosArgs<ExtArgs>
@@ -4224,6 +4235,7 @@ export namespace Prisma {
       descripcion: string | null
       nivel: string
       estado: boolean
+      visibilidad: string
       instructorId: number
       createdAt: Date
       updatedAt: Date
@@ -4659,6 +4671,7 @@ export namespace Prisma {
     readonly descripcion: FieldRef<"Curso", 'String'>
     readonly nivel: FieldRef<"Curso", 'String'>
     readonly estado: FieldRef<"Curso", 'Boolean'>
+    readonly visibilidad: FieldRef<"Curso", 'String'>
     readonly instructorId: FieldRef<"Curso", 'Int'>
     readonly createdAt: FieldRef<"Curso", 'DateTime'>
     readonly updatedAt: FieldRef<"Curso", 'DateTime'>
@@ -21415,6 +21428,7 @@ export namespace Prisma {
     descripcion: 'descripcion',
     nivel: 'nivel',
     estado: 'estado',
+    visibilidad: 'visibilidad',
     instructorId: 'instructorId',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
@@ -21854,6 +21868,7 @@ export namespace Prisma {
     descripcion?: StringNullableFilter<"Curso"> | string | null
     nivel?: StringFilter<"Curso"> | string
     estado?: BoolFilter<"Curso"> | boolean
+    visibilidad?: StringFilter<"Curso"> | string
     instructorId?: IntFilter<"Curso"> | number
     createdAt?: DateTimeFilter<"Curso"> | Date | string
     updatedAt?: DateTimeFilter<"Curso"> | Date | string
@@ -21869,6 +21884,7 @@ export namespace Prisma {
     descripcion?: SortOrderInput | SortOrder
     nivel?: SortOrder
     estado?: SortOrder
+    visibilidad?: SortOrder
     instructorId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -21887,6 +21903,7 @@ export namespace Prisma {
     descripcion?: StringNullableFilter<"Curso"> | string | null
     nivel?: StringFilter<"Curso"> | string
     estado?: BoolFilter<"Curso"> | boolean
+    visibilidad?: StringFilter<"Curso"> | string
     instructorId?: IntFilter<"Curso"> | number
     createdAt?: DateTimeFilter<"Curso"> | Date | string
     updatedAt?: DateTimeFilter<"Curso"> | Date | string
@@ -21902,6 +21919,7 @@ export namespace Prisma {
     descripcion?: SortOrderInput | SortOrder
     nivel?: SortOrder
     estado?: SortOrder
+    visibilidad?: SortOrder
     instructorId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -21921,6 +21939,7 @@ export namespace Prisma {
     descripcion?: StringNullableWithAggregatesFilter<"Curso"> | string | null
     nivel?: StringWithAggregatesFilter<"Curso"> | string
     estado?: BoolWithAggregatesFilter<"Curso"> | boolean
+    visibilidad?: StringWithAggregatesFilter<"Curso"> | string
     instructorId?: IntWithAggregatesFilter<"Curso"> | number
     createdAt?: DateTimeWithAggregatesFilter<"Curso"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Curso"> | Date | string
@@ -23072,6 +23091,7 @@ export namespace Prisma {
     descripcion?: string | null
     nivel?: string
     estado?: boolean
+    visibilidad?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     instructor: UserCreateNestedOneWithoutCursosComoInstructorInput
@@ -23086,6 +23106,7 @@ export namespace Prisma {
     descripcion?: string | null
     nivel?: string
     estado?: boolean
+    visibilidad?: string
     instructorId: number
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -23099,6 +23120,7 @@ export namespace Prisma {
     descripcion?: NullableStringFieldUpdateOperationsInput | string | null
     nivel?: StringFieldUpdateOperationsInput | string
     estado?: BoolFieldUpdateOperationsInput | boolean
+    visibilidad?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     instructor?: UserUpdateOneRequiredWithoutCursosComoInstructorNestedInput
@@ -23113,6 +23135,7 @@ export namespace Prisma {
     descripcion?: NullableStringFieldUpdateOperationsInput | string | null
     nivel?: StringFieldUpdateOperationsInput | string
     estado?: BoolFieldUpdateOperationsInput | boolean
+    visibilidad?: StringFieldUpdateOperationsInput | string
     instructorId?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -23127,6 +23150,7 @@ export namespace Prisma {
     descripcion?: string | null
     nivel?: string
     estado?: boolean
+    visibilidad?: string
     instructorId: number
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -23137,6 +23161,7 @@ export namespace Prisma {
     descripcion?: NullableStringFieldUpdateOperationsInput | string | null
     nivel?: StringFieldUpdateOperationsInput | string
     estado?: BoolFieldUpdateOperationsInput | boolean
+    visibilidad?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -23147,6 +23172,7 @@ export namespace Prisma {
     descripcion?: NullableStringFieldUpdateOperationsInput | string | null
     nivel?: StringFieldUpdateOperationsInput | string
     estado?: BoolFieldUpdateOperationsInput | boolean
+    visibilidad?: StringFieldUpdateOperationsInput | string
     instructorId?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -24475,6 +24501,7 @@ export namespace Prisma {
     descripcion?: SortOrder
     nivel?: SortOrder
     estado?: SortOrder
+    visibilidad?: SortOrder
     instructorId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -24491,6 +24518,7 @@ export namespace Prisma {
     descripcion?: SortOrder
     nivel?: SortOrder
     estado?: SortOrder
+    visibilidad?: SortOrder
     instructorId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -24502,6 +24530,7 @@ export namespace Prisma {
     descripcion?: SortOrder
     nivel?: SortOrder
     estado?: SortOrder
+    visibilidad?: SortOrder
     instructorId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -26831,6 +26860,7 @@ export namespace Prisma {
     descripcion?: string | null
     nivel?: string
     estado?: boolean
+    visibilidad?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     modulos?: ModuloCreateNestedManyWithoutCursoInput
@@ -26844,6 +26874,7 @@ export namespace Prisma {
     descripcion?: string | null
     nivel?: string
     estado?: boolean
+    visibilidad?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     modulos?: ModuloUncheckedCreateNestedManyWithoutCursoInput
@@ -27112,6 +27143,7 @@ export namespace Prisma {
     descripcion?: StringNullableFilter<"Curso"> | string | null
     nivel?: StringFilter<"Curso"> | string
     estado?: BoolFilter<"Curso"> | boolean
+    visibilidad?: StringFilter<"Curso"> | string
     instructorId?: IntFilter<"Curso"> | number
     createdAt?: DateTimeFilter<"Curso"> | Date | string
     updatedAt?: DateTimeFilter<"Curso"> | Date | string
@@ -27606,6 +27638,7 @@ export namespace Prisma {
     descripcion?: string | null
     nivel?: string
     estado?: boolean
+    visibilidad?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     instructor: UserCreateNestedOneWithoutCursosComoInstructorInput
@@ -27619,6 +27652,7 @@ export namespace Prisma {
     descripcion?: string | null
     nivel?: string
     estado?: boolean
+    visibilidad?: string
     instructorId: number
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -27676,6 +27710,7 @@ export namespace Prisma {
     descripcion?: NullableStringFieldUpdateOperationsInput | string | null
     nivel?: StringFieldUpdateOperationsInput | string
     estado?: BoolFieldUpdateOperationsInput | boolean
+    visibilidad?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     instructor?: UserUpdateOneRequiredWithoutCursosComoInstructorNestedInput
@@ -27689,6 +27724,7 @@ export namespace Prisma {
     descripcion?: NullableStringFieldUpdateOperationsInput | string | null
     nivel?: StringFieldUpdateOperationsInput | string
     estado?: BoolFieldUpdateOperationsInput | boolean
+    visibilidad?: StringFieldUpdateOperationsInput | string
     instructorId?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -28340,6 +28376,7 @@ export namespace Prisma {
     descripcion?: string | null
     nivel?: string
     estado?: boolean
+    visibilidad?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     instructor: UserCreateNestedOneWithoutCursosComoInstructorInput
@@ -28353,6 +28390,7 @@ export namespace Prisma {
     descripcion?: string | null
     nivel?: string
     estado?: boolean
+    visibilidad?: string
     instructorId: number
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -28429,6 +28467,7 @@ export namespace Prisma {
     descripcion?: NullableStringFieldUpdateOperationsInput | string | null
     nivel?: StringFieldUpdateOperationsInput | string
     estado?: BoolFieldUpdateOperationsInput | boolean
+    visibilidad?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     instructor?: UserUpdateOneRequiredWithoutCursosComoInstructorNestedInput
@@ -28442,6 +28481,7 @@ export namespace Prisma {
     descripcion?: NullableStringFieldUpdateOperationsInput | string | null
     nivel?: StringFieldUpdateOperationsInput | string
     estado?: BoolFieldUpdateOperationsInput | boolean
+    visibilidad?: StringFieldUpdateOperationsInput | string
     instructorId?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -28818,6 +28858,7 @@ export namespace Prisma {
     descripcion?: string | null
     nivel?: string
     estado?: boolean
+    visibilidad?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     instructor: UserCreateNestedOneWithoutCursosComoInstructorInput
@@ -28831,6 +28872,7 @@ export namespace Prisma {
     descripcion?: string | null
     nivel?: string
     estado?: boolean
+    visibilidad?: string
     instructorId: number
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -28899,6 +28941,7 @@ export namespace Prisma {
     descripcion?: NullableStringFieldUpdateOperationsInput | string | null
     nivel?: StringFieldUpdateOperationsInput | string
     estado?: BoolFieldUpdateOperationsInput | boolean
+    visibilidad?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     instructor?: UserUpdateOneRequiredWithoutCursosComoInstructorNestedInput
@@ -28912,6 +28955,7 @@ export namespace Prisma {
     descripcion?: NullableStringFieldUpdateOperationsInput | string | null
     nivel?: StringFieldUpdateOperationsInput | string
     estado?: BoolFieldUpdateOperationsInput | boolean
+    visibilidad?: StringFieldUpdateOperationsInput | string
     instructorId?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -29343,6 +29387,7 @@ export namespace Prisma {
     descripcion?: string | null
     nivel?: string
     estado?: boolean
+    visibilidad?: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -29429,6 +29474,7 @@ export namespace Prisma {
     descripcion?: NullableStringFieldUpdateOperationsInput | string | null
     nivel?: StringFieldUpdateOperationsInput | string
     estado?: BoolFieldUpdateOperationsInput | boolean
+    visibilidad?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     modulos?: ModuloUpdateManyWithoutCursoNestedInput
@@ -29442,6 +29488,7 @@ export namespace Prisma {
     descripcion?: NullableStringFieldUpdateOperationsInput | string | null
     nivel?: StringFieldUpdateOperationsInput | string
     estado?: BoolFieldUpdateOperationsInput | boolean
+    visibilidad?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     modulos?: ModuloUncheckedUpdateManyWithoutCursoNestedInput
@@ -29455,6 +29502,7 @@ export namespace Prisma {
     descripcion?: NullableStringFieldUpdateOperationsInput | string | null
     nivel?: StringFieldUpdateOperationsInput | string
     estado?: BoolFieldUpdateOperationsInput | boolean
+    visibilidad?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }

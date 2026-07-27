@@ -38,6 +38,7 @@ model Curso {
   descripcion   String?
   nivel         String        @default("basico") // basico | intermedio | avanzado
   estado        Boolean       @default(true)
+  visibilidad   String        @default("privado") // privado | publico
   instructorId  Int
   instructor    User          @relation("InstructorCursos", fields: [instructorId], references: [id])
   modulos       Modulo[]

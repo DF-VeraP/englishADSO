@@ -278,7 +278,7 @@ exports.getFichasDeAprendiz = async (req, res) => {
     }
 };
 
-// GET /api/fichas/mis-fichas  → fichas propias del aprendiz autenticado (con programa)
+// GET /api/fichas/mis-fichas  → fichas propias del aprendiz autenticado (con cursos e instructores)
 exports.getMisFichasAprendiz = async (req, res) => {
     try {
         const aprendizId = req.user.id;
@@ -288,18 +288,53 @@ exports.getMisFichasAprendiz = async (req, res) => {
                 ficha: {
                     include: {
                         programa: { select: { nombre: true, codigo: true } },
+                        cursos: {
+                            include: {
+                                curso: {
+                                    select: {
+                                        id: true, titulo: true, descripcion: true,
+                                        nivel: true, estado: true,
+                                        instructor: { select: { id: true, nombre_usuario: true } },
+                                        _count: { select: { modulos: true } },
+                                    },
+                                },
+                            },
+                            orderBy: { asignadoAt: 'asc' },
+                        },
+                        instructores: {
+                            include: {
+                                instructor: { select: { id: true, nombre_usuario: true, correo_usuario: true } },
+                            },
+                        },
                     },
                 },
             },
             orderBy: { ficha: { numero: 'asc' } },
         });
         res.json(registros.map(r => ({
-            id:            r.ficha.id,
-            numero:        r.ficha.numero,
-            jornada:       r.ficha.jornada,
-            estado:        r.ficha.estado,
+            id:             r.ficha.id,
+            numero:         r.ficha.numero,
+            jornada:        r.ficha.jornada,
+            modalidad:      r.ficha.modalidad,
+            estado:         r.ficha.estado,
             estadoAprendiz: r.estado,
-            programa:      r.ficha.programa,
+            programa:       r.ficha.programa,
+            cursos: r.ficha.cursos
+                .filter(fc => fc.curso.estado)
+                .map(fc => ({
+                    cursoId:      fc.cursoId,
+                    titulo:       fc.curso.titulo,
+                    descripcion:  fc.curso.descripcion,
+                    nivel:        fc.curso.nivel,
+                    instructor:   fc.curso.instructor?.nombre_usuario || '—',
+                    totalModulos: fc.curso._count.modulos,
+                    fechaLimite:  fc.fechaLimite || null,
+                })),
+            instructores: r.ficha.instructores.map(fi => ({
+                id:     fi.instructor.id,
+                nombre: fi.instructor.nombre_usuario,
+                correo: fi.instructor.correo_usuario,
+            })),
         })));
     } catch (err) {
         res.status(500).json({ message: err.message });

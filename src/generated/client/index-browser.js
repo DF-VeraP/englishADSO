@@ -137,6 +137,7 @@ exports.Prisma.CursoScalarFieldEnum = {
   descripcion: 'descripcion',
   nivel: 'nivel',
   estado: 'estado',
+  visibilidad: 'visibilidad',
   instructorId: 'instructorId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'

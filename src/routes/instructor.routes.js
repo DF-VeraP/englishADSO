@@ -18,4 +18,8 @@ router.put('/fichas/:fichaId/cursos/:cursoId',       ctrl.actualizarFechaCurso);
 router.delete('/fichas/:fichaId/cursos/:cursoId',    ctrl.quitarCursoDeFicha);
 router.get('/fichas/:fichaId/progreso',              ctrl.getProgresoFicha);
 
+router.get('/catalogo',                              ctrl.getCatalogo);
+router.patch('/cursos/:id/visibilidad',              ctrl.toggleVisibilidad);
+router.post('/cursos/:id/duplicar',                  ctrl.duplicarCurso);
+
 module.exports = router;

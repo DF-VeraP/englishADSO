@@ -28,4 +28,7 @@ class InstructorService {
     static actualizarFechaCurso(fichaId, cursoId, fechaLimite) { return this._req('PUT', `/api/instructor/fichas/${fichaId}/cursos/${cursoId}`, { fechaLimite: fechaLimite || null }); }
     static quitarCursoDeFicha(fichaId, cursoId)    { return this._req('DELETE', `/api/instructor/fichas/${fichaId}/cursos/${cursoId}`); }
     static getProgresoFicha(fichaId)               { return this._req('GET',    `/api/instructor/fichas/${fichaId}/progreso`); }
+    static getCatalogo()                           { return this._req('GET',    '/api/instructor/catalogo'); }
+    static toggleVisibilidad(id, visibilidad)      { return this._req('PATCH',  `/api/instructor/cursos/${id}/visibilidad`, { visibilidad }); }
+    static duplicarCurso(id)                       { return this._req('POST',   `/api/instructor/cursos/${id}/duplicar`); }
 }

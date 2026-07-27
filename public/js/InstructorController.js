@@ -2,6 +2,7 @@ class InstructorController {
     constructor() {
         this.fichas          = [];
         this.cursos          = [];
+        this.catalogo        = [];
         this.progresoMap     = {};   // fichaId → avgProgreso
         this.activeFicha     = null;
         this.editingCursoId  = null;
@@ -90,18 +91,21 @@ class InstructorController {
     /* ── Load ────────────────────────────────────────────── */
     async _loadAll() {
         try {
-            const [fichas, cursos, resumen] = await Promise.all([
+            const [fichas, cursos, resumen, catalogo] = await Promise.all([
                 InstructorService.getMisFichas(),
                 InstructorService.getMisCursos(),
                 InstructorService.getProgresoResumen().catch(() => []),
+                InstructorService.getCatalogo().catch(() => []),
             ]);
-            this.fichas  = fichas;
-            this.cursos  = cursos;
+            this.fichas    = fichas;
+            this.cursos    = cursos;
+            this.catalogo  = catalogo;
             this.progresoMap = {};
             for (const r of resumen) this.progresoMap[r.fichaId] = r.avgProgreso;
             this._renderStats();
             this._renderFichas();
             this._renderCursos();
+            this._renderCatalogo();
         } catch (err) {
             this._toast(err.message, 'error');
         }
@@ -472,7 +476,7 @@ class InstructorController {
     _renderCursos() {
         const tbody = document.getElementById('cursos-tbody');
         if (!this.cursos.length) {
-            tbody.innerHTML = '<tr><td colspan="6" class="inst-loading-row" style="color:#94a3b8">Aún no has creado cursos</td></tr>';
+            tbody.innerHTML = '<tr><td colspan="7" class="inst-loading-row" style="color:#94a3b8">Aún no has creado cursos</td></tr>';
             return;
         }
         tbody.innerHTML = this.cursos.map(c => {
@@ -487,6 +491,14 @@ class InstructorController {
             const estadoDot = c.estado
                 ? '<span class="inst-estado-dot active">Activo</span>'
                 : '<span class="inst-estado-dot inactive">Inactivo</span>';
+
+            const isPublic = c.visibilidad === 'publico';
+            const visiBadge = isPublic
+                ? `<span class="inst-visi-badge publico"><i class="bi bi-globe" style="font-size:11px"></i> Público</span>`
+                : `<span class="inst-visi-badge privado"><i class="bi bi-lock-fill" style="font-size:11px"></i> Privado</span>`;
+            const visiToggleTitle = isPublic ? 'Hacer privado' : 'Hacer público';
+            const visiToggleIcon  = isPublic ? 'bi-lock-fill'  : 'bi-globe';
+
             return `
             <tr>
                 <td>
@@ -497,6 +509,14 @@ class InstructorController {
                 <td>${fichaCell}</td>
                 <td>${c._count?.inscripciones ?? 0}</td>
                 <td>${estadoDot}</td>
+                <td>
+                    <div style="display:flex;align-items:center;gap:.4rem">
+                        ${visiBadge}
+                        <button class="inst-btn-icon btn-toggle-visi" data-id="${c.id}" data-visi="${c.visibilidad}" title="${visiToggleTitle}" style="padding:.25rem .35rem">
+                            <i class="bi ${visiToggleIcon}" style="font-size:13px"></i>
+                        </button>
+                    </div>
+                </td>
                 <td>
                     <div style="display:flex;gap:.3rem;justify-content:flex-end">
                         <button class="inst-btn-icon btn-mod-curso" data-id="${c.id}" data-titulo="${this._esc(c.titulo)}" title="Gestionar módulos">
@@ -516,6 +536,9 @@ class InstructorController {
         tbody.querySelectorAll('.btn-ver-fichas').forEach(btn =>
             btn.addEventListener('click', () => this._openFichasCursoModal(Number(btn.dataset.id)))
         );
+        tbody.querySelectorAll('.btn-toggle-visi').forEach(btn =>
+            btn.addEventListener('click', () => this._toggleVisibilidad(Number(btn.dataset.id), btn.dataset.visi))
+        );
         tbody.querySelectorAll('.btn-mod-curso').forEach(btn =>
             btn.addEventListener('click', () => ModulesModal.open(Number(btn.dataset.id), btn.dataset.titulo))
         );
@@ -525,6 +548,74 @@ class InstructorController {
         tbody.querySelectorAll('.btn-del-curso').forEach(btn =>
             btn.addEventListener('click', () => this._openDelModal(Number(btn.dataset.id), btn.dataset.titulo))
         );
+    }
+
+    /* ── Visibilidad toggle ──────────────────────────────── */
+    async _toggleVisibilidad(cursoId, currentVisi) {
+        const nueva = currentVisi === 'publico' ? 'privado' : 'publico';
+        try {
+            await InstructorService.toggleVisibilidad(cursoId, nueva);
+            this._toast(`Curso ${nueva === 'publico' ? 'publicado' : 'marcado como privado'}`, 'success');
+            await this._loadAll();
+        } catch (err) {
+            this._toast(err.message, 'error');
+        }
+    }
+
+    /* ── Catálogo tab ────────────────────────────────────── */
+    _renderCatalogo() {
+        const tbody = document.getElementById('catalogo-tbody');
+        const empty = document.getElementById('catalogo-empty');
+        if (!tbody) return;
+
+        if (!this.catalogo.length) {
+            tbody.innerHTML = '';
+            if (empty) empty.style.display = '';
+            return;
+        }
+        if (empty) empty.style.display = 'none';
+
+        tbody.innerHTML = this.catalogo.map(c => {
+            const autor   = c.instructor?.nombre_usuario || '—';
+            const nMod    = c._count?.modulos     ?? 0;
+            const nInscr  = c._count?.inscripciones ?? 0;
+            return `
+            <tr>
+                <td>
+                    <div class="inst-curso-title">${this._esc(c.titulo)}</div>
+                    ${c.descripcion ? `<div class="inst-curso-desc">${this._esc(c.descripcion)}</div>` : ''}
+                </td>
+                <td><span class="inst-nivel-badge nivel-${c.nivel}">${this._nivelLabel(c.nivel)}</span></td>
+                <td><span style="font-size:.82rem;color:#475569">${this._esc(autor)}</span></td>
+                <td>${nMod}</td>
+                <td>${nInscr}</td>
+                <td>
+                    <div style="display:flex;justify-content:flex-end">
+                        <button class="inst-btn inst-btn-primary btn-duplicar-curso" data-id="${c.id}" style="font-size:.78rem;padding:.3rem .75rem;gap:.35rem">
+                            <i class="bi bi-files" style="font-size:13px"></i>
+                            Duplicar como plantilla
+                        </button>
+                    </div>
+                </td>
+            </tr>`;
+        }).join('');
+
+        tbody.querySelectorAll('.btn-duplicar-curso').forEach(btn =>
+            btn.addEventListener('click', () => this._duplicarCurso(Number(btn.dataset.id), btn))
+        );
+    }
+
+    async _duplicarCurso(cursoId, btn) {
+        if (btn) { btn.disabled = true; btn.textContent = 'Duplicando…'; }
+        try {
+            const res = await InstructorService.duplicarCurso(cursoId);
+            this._toast(`Curso "${res.curso.titulo}" creado en Mis Cursos`, 'success');
+            await this._loadAll();
+            this._switchTab('cursos');
+        } catch (err) {
+            this._toast(err.message, 'error');
+            if (btn) { btn.disabled = false; btn.innerHTML = '<i class="bi bi-files" style="font-size:13px"></i> Duplicar como plantilla'; }
+        }
     }
 
     /* ── Modal fichas de un curso ───────────────────────── */
@@ -809,6 +900,9 @@ class InstructorController {
             document.getElementById('progreso-resumen').style.display = '';
             document.getElementById('progreso-detalle').style.display = 'none';
             this._renderProgresoResumen();
+        }
+        if (tab === 'catalogo') {
+            this._renderCatalogo();
         }
     }
 

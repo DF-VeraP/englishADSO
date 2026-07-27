@@ -657,3 +657,206 @@ html[data-theme="light"] .progress-bar-bg   { background: #e2e8f0; }
 html[data-theme="light"] .course-name       { color: #0f172a; }
 html[data-theme="light"] .course-sub        { color: #64748b; }
 html[data-theme="light"] .pct-label         { color: #0f172a; }
+
+/* ════════════════════════════════════════════════════════
+   Aprendiz — Fichas con cursos
+════════════════════════════════════════════════════════ */
+.apr-ficha-section {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.apr-ficha-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    padding-bottom: .85rem;
+    border-bottom: 1px solid var(--border);
+}
+
+.apr-ficha-num {
+    font-weight: 800;
+    font-size: 1rem;
+    letter-spacing: -.01em;
+}
+
+.apr-ficha-prog {
+    font-size: .82rem;
+    color: var(--text-muted);
+    margin-top: .15rem;
+}
+
+.apr-ficha-inst {
+    font-size: .76rem;
+    color: #818cf8;
+    margin-top: .25rem;
+    display: flex;
+    align-items: center;
+    gap: .3rem;
+}
+
+.apr-ficha-estado {
+    font-size: .7rem;
+    font-weight: 700;
+    padding: .18rem .55rem;
+    border-radius: 20px;
+    text-transform: capitalize;
+}
+.apr-ficha-estado.activa   { background: rgba(16,185,129,.15); color: #34d399; border: 1px solid rgba(16,185,129,.25); }
+.apr-ficha-estado.inactiva { background: rgba(148,163,184,.1); color: #94a3b8; border: 1px solid rgba(148,163,184,.2); }
+.apr-ficha-jornada {
+    font-size: .7rem;
+    color: var(--text-muted);
+    background: rgba(255,255,255,.05);
+    padding: .18rem .5rem;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+}
+
+/* Buscador de cursos por ficha */
+.apr-ficha-search-wrap {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    background: rgba(255,255,255,.04);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: .45rem .75rem;
+    margin-bottom: .75rem;
+}
+.apr-ficha-search {
+    flex: 1;
+    background: none;
+    border: none;
+    outline: none;
+    font-size: .83rem;
+    color: var(--text);
+    font-family: inherit;
+}
+.apr-ficha-search::placeholder { color: var(--text-muted); }
+.apr-ficha-search-clear {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--text-muted);
+    padding: .1rem;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+}
+.apr-ficha-search-clear:hover { color: var(--text); }
+
+/* Lista de cursos */
+.apr-ficha-cursos {
+    display: flex;
+    flex-direction: column;
+    gap: .55rem;
+}
+
+.apr-ficha-curso-row {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background: rgba(255,255,255,.03);
+    border: 1px solid rgba(255,255,255,.06);
+    border-radius: 12px;
+    padding: .85rem 1rem;
+    text-decoration: none;
+    color: var(--text);
+    transition: all .18s ease;
+}
+.apr-ficha-curso-row:hover {
+    background: rgba(255,255,255,.06);
+    border-color: rgba(6,182,212,.35);
+    transform: translateX(3px);
+}
+
+.apr-curso-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    border: 1px solid;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.apr-curso-body {
+    flex: 1;
+    min-width: 0;
+}
+
+.apr-curso-titulo {
+    font-weight: 700;
+    font-size: .9rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: .15rem;
+}
+
+.apr-curso-meta {
+    font-size: .76rem;
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: .3rem;
+    margin-bottom: .3rem;
+}
+
+.apr-curso-disp {
+    font-size: .75rem;
+    font-weight: 600;
+    color: #a78bfa;
+}
+
+.apr-curso-progress-wrap {
+    height: 4px;
+    background: rgba(255,255,255,.08);
+    border-radius: 3px;
+    overflow: hidden;
+    margin-bottom: .25rem;
+}
+.apr-curso-progress-bar {
+    height: 100%;
+    border-radius: 3px;
+    transition: width .5s;
+}
+.apr-curso-pct {
+    font-size: .72rem;
+    color: var(--text-muted);
+}
+
+/* Sin resultados */
+.apr-no-results {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: .5rem;
+    padding: 1.5rem;
+    color: var(--text-muted);
+    font-size: .85rem;
+    text-align: center;
+}
+
+/* Light mode */
+html[data-theme="light"] .apr-ficha-section  { background: #fff; border-color: #e2e8f0; }
+html[data-theme="light"] .apr-ficha-header   { border-color: #e2e8f0; }
+html[data-theme="light"] .apr-ficha-num      { color: #0f172a; }
+html[data-theme="light"] .apr-ficha-prog     { color: #64748b; }
+html[data-theme="light"] .apr-ficha-inst     { color: #6366f1; }
+html[data-theme="light"] .apr-ficha-jornada  { background: #f1f5f9; border-color: #e2e8f0; color: #475569; }
+html[data-theme="light"] .apr-ficha-search-wrap { background: #f8fafc; border-color: #e2e8f0; }
+html[data-theme="light"] .apr-ficha-search   { color: #0f172a; }
+html[data-theme="light"] .apr-ficha-search::placeholder { color: #94a3b8; }
+html[data-theme="light"] .apr-ficha-curso-row { background: #f8fafc; border-color: #e2e8f0; }
+html[data-theme="light"] .apr-ficha-curso-row:hover { background: #f0f9ff; border-color: #0891b2; }
+html[data-theme="light"] .apr-curso-titulo   { color: #0f172a; }
+html[data-theme="light"] .apr-curso-meta     { color: #64748b; }
+html[data-theme="light"] .apr-curso-progress-wrap { background: #e2e8f0; }

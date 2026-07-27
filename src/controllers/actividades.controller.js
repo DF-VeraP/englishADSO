@@ -176,7 +176,10 @@ const MOMENTOS_DEFAULT = [
     { nombre: 'Cierre',      tipo: 'cierre',      orden: 3 },
 ];
 
-const TIPOS_INSTRUCTOR = ['lectura', 'video', 'quiz_multiple'];
+const TIPOS_INSTRUCTOR = [
+    'lectura', 'video', 'quiz_multiple',
+    'cloze', 'matching', 'word_search', 'sentence_builder', 'crossword',
+];
 
 /**
  * Verifica que el módulo pertenece al instructor autenticado.

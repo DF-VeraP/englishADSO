@@ -81,6 +81,131 @@ exports.crearCurso = async (req, res) => {
     }
 };
 
+// GET /api/instructor/catalogo  — cursos públicos de otros instructores
+exports.getCatalogo = async (req, res) => {
+    try {
+        const instructorId = req.user.id;
+        const cursos = await prisma.curso.findMany({
+            where: {
+                visibilidad:  'publico',
+                estado:       true,
+                instructorId: { not: instructorId },   // excluir los propios
+            },
+            include: {
+                instructor: { select: { id: true, nombre_usuario: true } },
+                _count: { select: { modulos: true, inscripciones: true } },
+            },
+            orderBy: { updatedAt: 'desc' },
+        });
+        res.json(cursos);
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+};
+
+// PATCH /api/instructor/cursos/:id/visibilidad  { visibilidad: 'publico'|'privado' }
+exports.toggleVisibilidad = async (req, res) => {
+    try {
+        const instructorId = req.user.id;
+        const cursoId      = parseInt(req.params.id);
+        const { visibilidad } = req.body;
+
+        if (!['publico', 'privado'].includes(visibilidad))
+            return res.status(400).json({ message: "visibilidad debe ser 'publico' o 'privado'" });
+
+        const curso = await prisma.curso.findFirst({ where: { id: cursoId, instructorId } });
+        if (!curso) return res.status(404).json({ message: 'Curso no encontrado o sin permiso' });
+
+        const updated = await prisma.curso.update({
+            where: { id: cursoId },
+            data:  { visibilidad },
+        });
+        res.json(updated);
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+};
+
+// POST /api/instructor/cursos/:id/duplicar  — clona un curso público como plantilla
+exports.duplicarCurso = async (req, res) => {
+    try {
+        const instructorId = req.user.id;
+        const cursoId      = parseInt(req.params.id);
+
+        // Solo se pueden clonar cursos públicos (propios o ajenos)
+        const original = await prisma.curso.findFirst({
+            where: { id: cursoId, visibilidad: 'publico' },
+            include: {
+                modulos: {
+                    include: {
+                        momentos: {
+                            include: { actividades: true },
+                            orderBy: { orden: 'asc' },
+                        },
+                    },
+                    orderBy: { orden: 'asc' },
+                },
+            },
+        });
+        if (!original) return res.status(404).json({ message: 'Curso no encontrado o no es público' });
+
+        // Deep clone dentro de una transacción
+        const clon = await prisma.$transaction(async (tx) => {
+            const nuevoCurso = await tx.curso.create({
+                data: {
+                    titulo:       `Copia de ${original.titulo}`,
+                    descripcion:  original.descripcion,
+                    nivel:        original.nivel,
+                    visibilidad:  'privado',
+                    instructorId,
+                },
+            });
+
+            for (const modulo of original.modulos) {
+                const nuevoModulo = await tx.modulo.create({
+                    data: {
+                        titulo:      modulo.titulo,
+                        descripcion: modulo.descripcion,
+                        contenido:   modulo.contenido,
+                        orden:       modulo.orden,
+                        cursoId:     nuevoCurso.id,
+                    },
+                });
+
+                for (const momento of modulo.momentos) {
+                    const nuevoMomento = await tx.momento.create({
+                        data: {
+                            nombre:   momento.nombre,
+                            tipo:     momento.tipo,
+                            orden:    momento.orden,
+                            moduloId: nuevoModulo.id,
+                        },
+                    });
+
+                    for (const act of momento.actividades) {
+                        await tx.actividad.create({
+                            data: {
+                                tipo:          act.tipo,
+                                titulo:        act.titulo,
+                                instrucciones: act.instrucciones,
+                                contenido:     act.contenido,
+                                orden:         act.orden,
+                                momentoId:     nuevoMomento.id,
+                            },
+                        });
+                    }
+                }
+            }
+
+            return nuevoCurso;
+        });
+
+        res.status(201).json({ message: 'Curso clonado exitosamente', curso: clon });
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+};
+
 // PUT /api/instructor/cursos/:id
 exports.actualizarCurso = async (req, res) => {
     try {

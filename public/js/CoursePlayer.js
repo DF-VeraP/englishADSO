@@ -161,6 +161,12 @@ function mountComponent(act, container) {
     const onComplete = (result) => saveProgress(act, result);
 
     switch (act.tipo) {
+        case 'lectura':
+            mountLectura(container, act.contenido, onComplete);
+            break;
+        case 'video':
+            mountVideo(container, act.contenido, onComplete);
+            break;
         case 'warm_up_drag':
             new WarmUpDrag(container, act.contenido, onComplete);
             break;
@@ -222,6 +228,66 @@ function mountComponent(act, container) {
             container.innerHTML = `<div style="color:var(--text-muted);font-size:.9rem">Tipo de actividad no reconocido: ${act.tipo}</div>`;
             onComplete({ completada: true });
     }
+}
+
+// ── Lectura ───────────────────────────────────────────────
+function mountLectura(container, contenido, onComplete) {
+    const cuerpo = contenido?.cuerpo || '';
+    container.innerHTML = `
+        <div class="player-lectura">
+            <div class="player-lectura-body">${cuerpo}</div>
+            <button class="btn-completar" id="btn-done-lectura">
+                <i class="bi bi-check2-circle" style="font-size:18px"></i>
+                Marcar como leído
+            </button>
+        </div>`;
+    document.getElementById('btn-done-lectura').addEventListener('click', function () {
+        this.disabled = true;
+        this.innerHTML = '<i class="bi bi-check2-circle" style="font-size:18px"></i> ¡Listo!';
+        onComplete({ completada: true });
+    });
+}
+
+// ── Video ─────────────────────────────────────────────────
+function mountVideo(container, contenido, onComplete) {
+    const url       = contenido?.url || '';
+    const plataforma = contenido?.plataforma || '';
+
+    let embedUrl = '';
+    if (plataforma === 'youtube' || url.includes('youtube') || url.includes('youtu.be')) {
+        const m = url.match(/(?:v=|youtu\.be\/|embed\/)([a-zA-Z0-9_-]{11})/);
+        if (m) embedUrl = `https://www.youtube.com/embed/${m[1]}?rel=0&modestbranding=1`;
+    } else if (plataforma === 'vimeo' || url.includes('vimeo')) {
+        const m = url.match(/vimeo\.com\/(?:video\/)?(\d+)/);
+        if (m) embedUrl = `https://player.vimeo.com/video/${m[1]}`;
+    }
+
+    if (!embedUrl) {
+        container.innerHTML = `
+            <div style="color:var(--text-muted);font-size:.9rem;text-align:center;padding:2rem">
+                <i class="bi bi-exclamation-circle" style="font-size:2rem;display:block;margin-bottom:.75rem"></i>
+                URL de video no válida o no reconocida.<br>
+                <small style="word-break:break-all">${url}</small>
+            </div>`;
+        onComplete({ completada: true });
+        return;
+    }
+
+    container.innerHTML = `
+        <div class="player-video-wrap">
+            <iframe class="player-video-frame" src="${embedUrl}"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen loading="lazy"></iframe>
+        </div>
+        <button class="btn-completar" id="btn-done-video" style="margin-top:1.25rem">
+            <i class="bi bi-check2-circle" style="font-size:18px"></i>
+            He visto el video
+        </button>`;
+    document.getElementById('btn-done-video').addEventListener('click', function () {
+        this.disabled = true;
+        this.innerHTML = '<i class="bi bi-check2-circle" style="font-size:18px"></i> ¡Listo!';
+        onComplete({ completada: true });
+    });
 }
 
 // ── PRE/POS TEST ──────────────────────────────────────────
