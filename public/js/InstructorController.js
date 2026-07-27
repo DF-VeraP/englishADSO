@@ -57,10 +57,25 @@ class InstructorController {
             this._saveCurso();
         });
 
+        // Modal fichas de un curso
+        document.getElementById('btn-close-fichas-curso').addEventListener('click', () =>
+            document.getElementById('modal-fichas-curso').classList.remove('open')
+        );
+        document.getElementById('modal-fichas-curso').addEventListener('click', e => {
+            if (e.target === document.getElementById('modal-fichas-curso'))
+                document.getElementById('modal-fichas-curso').classList.remove('open');
+        });
+
         // Progreso tab — volver
         document.getElementById('btn-volver-progreso').addEventListener('click', () => {
             document.getElementById('progreso-detalle').style.display = 'none';
             document.getElementById('progreso-resumen').style.display = '';
+            // Resetear buscador
+            const si = document.getElementById('prog-search');
+            if (si) si.value = '';
+            document.getElementById('prog-search-bar').style.display   = 'none';
+            document.getElementById('prog-search-clear').style.display = 'none';
+            document.getElementById('prog-no-results').style.display   = 'none';
         });
 
         // Delete modal
@@ -144,11 +159,11 @@ class InstructorController {
             <div class="inst-ficha-meta">${jornada} · ${f.modalidad}</div>
             <div class="inst-ficha-footer">
                 <span class="inst-ficha-chip">
-                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c0 1.1 2.686 2 6 2s6-.9 6-2v-5"/></svg>
+                    <i class="bi bi-mortarboard" style="font-size:13px"></i>
                     ${nApr} aprendices
                 </span>
                 <span class="inst-ficha-chip">
-                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>
+                    <i class="bi bi-book-fill" style="font-size:13px"></i>
                     ${nCur} cursos
                 </span>
             </div>
@@ -183,26 +198,131 @@ class InstructorController {
     _renderAprendices(ficha) {
         const list = document.getElementById('aprendices-list');
         const apr  = ficha.aprendices || [];
-        document.getElementById('pill-aprendices').textContent = apr.length;
+
+        // Limpiar búsqueda previa al abrir otra ficha
+        const searchInput = document.getElementById('apr-search');
+        if (searchInput) { searchInput.value = ''; }
+        document.getElementById('apr-search-clear').style.display = 'none';
+        document.getElementById('apr-no-results').style.display   = 'none';
+
+        this._updateAprCount(apr.length, apr.length);
 
         if (!apr.length) {
             list.innerHTML = '<p class="inst-empty-list">Sin aprendices inscritos</p>';
+            document.getElementById('apr-count-badge').style.display = 'none';
             return;
         }
+
         list.innerHTML = apr.map(a => {
-            const u      = a.aprendiz;
-            const initials = (u.nombre_usuario || u.correo_usuario).slice(0, 2).toUpperCase();
-            const isOn   = u.estado_usuario;
+            const u        = a.aprendiz;
+            const initials = (u.nombre_usuario || u.correo_usuario || '?').slice(0, 2).toUpperCase();
+            const isOn     = u.estado_usuario;
+            const searchKey = `${u.nombre_usuario || ''} ${u.correo_usuario || ''}`.toLowerCase();
             return `
-            <div class="inst-member-row">
+            <div class="inst-member-row apr-row" data-search="${this._esc(searchKey)}">
                 <div class="inst-avatar" style="background:#e0f2fe;color:#0369a1">${initials}</div>
                 <div class="inst-member-info">
-                    <div class="inst-member-name">${u.nombre_usuario || '—'}</div>
-                    <div class="inst-member-email">${u.correo_usuario}</div>
+                    <div class="inst-member-name">${this._esc(u.nombre_usuario || '—')}</div>
+                    <div class="inst-member-email">${this._esc(u.correo_usuario)}</div>
                 </div>
                 <span class="inst-status-dot ${isOn ? 'on' : 'off'}">${isOn ? 'Activo' : 'Inactivo'}</span>
             </div>`;
         }).join('');
+
+        // Bind filtro (se rebindea cada vez que se abre la ficha)
+        this._bindAprSearch(apr.length);
+    }
+
+    _bindAprSearch(total) {
+        const input    = document.getElementById('apr-search');
+        const clearBtn = document.getElementById('apr-search-clear');
+        const noResult = document.getElementById('apr-no-results');
+        const term     = document.getElementById('apr-no-results-term');
+
+        // Remover listeners previos clonando el nodo
+        const newInput = input.cloneNode(true);
+        input.parentNode.replaceChild(newInput, input);
+
+        newInput.addEventListener('input', () => {
+            const q     = newInput.value.trim().toLowerCase();
+            clearBtn.style.display = q ? '' : 'none';
+
+            const rows  = document.querySelectorAll('#aprendices-list .apr-row');
+            let visible = 0;
+            rows.forEach(row => {
+                const match = !q || row.dataset.search.includes(q);
+                row.style.display = match ? '' : 'none';
+                if (match) visible++;
+            });
+
+            noResult.style.display = (q && visible === 0) ? '' : 'none';
+            if (term) term.textContent = newInput.value.trim();
+            this._updateAprCount(visible, total);
+        });
+
+        clearBtn.addEventListener('click', () => {
+            newInput.value = '';
+            clearBtn.style.display = 'none';
+            document.querySelectorAll('#aprendices-list .apr-row').forEach(r => r.style.display = '');
+            noResult.style.display = 'none';
+            this._updateAprCount(total, total);
+            newInput.focus();
+        });
+    }
+
+    _bindProgresoSearch(total) {
+        const input    = document.getElementById('prog-search');
+        const clearBtn = document.getElementById('prog-search-clear');
+        const noResult = document.getElementById('prog-no-results');
+        const termEl   = document.getElementById('prog-no-results-term');
+        const badge    = document.getElementById('prog-count-badge');
+
+        // Inicializar badge
+        if (badge) { badge.textContent = total; badge.classList.remove('apr-count-filtered'); }
+
+        // Remover listeners previos clonando el nodo
+        const newInput = input.cloneNode(true);
+        input.parentNode.replaceChild(newInput, input);
+
+        newInput.addEventListener('input', () => {
+            const q = newInput.value.trim().toLowerCase();
+            clearBtn.style.display = q ? '' : 'none';
+
+            const rows = document.querySelectorAll('#prog-detalle-body .prog-apr-row');
+            let visible = 0;
+            rows.forEach(row => {
+                const match = !q || row.dataset.search.includes(q);
+                row.style.display = match ? '' : 'none';
+                if (match) visible++;
+            });
+
+            noResult.style.display = (q && visible === 0) ? '' : 'none';
+            if (termEl) termEl.textContent = newInput.value.trim();
+            if (badge) {
+                badge.textContent = visible < total ? `${visible} de ${total}` : `${total}`;
+                badge.classList.toggle('apr-count-filtered', visible < total);
+            }
+        });
+
+        clearBtn.addEventListener('click', () => {
+            newInput.value = '';
+            clearBtn.style.display = 'none';
+            document.querySelectorAll('#prog-detalle-body .prog-apr-row').forEach(r => r.style.display = '');
+            noResult.style.display = 'none';
+            if (badge) { badge.textContent = total; badge.classList.remove('apr-count-filtered'); }
+            newInput.focus();
+        });
+    }
+
+    _updateAprCount(visible, total) {
+        const pill  = document.getElementById('pill-aprendices');
+        const badge = document.getElementById('apr-count-badge');
+        if (pill)  pill.textContent  = visible;
+        if (badge) {
+            badge.textContent    = visible < total ? `${visible} de ${total}` : `${total}`;
+            badge.style.display  = total ? '' : 'none';
+            badge.classList.toggle('apr-count-filtered', visible < total);
+        }
     }
 
     _renderFichaCursos(ficha) {
@@ -223,9 +343,7 @@ class InstructorController {
             return `
             <div class="inst-curso-row" data-curso-id="${c.id}">
                 <div class="inst-curso-icon">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/>
-                    </svg>
+                    <i class="bi bi-book-fill" style="font-size:16px"></i>
                 </div>
                 <div class="inst-member-info">
                     <div class="inst-member-name">${this._esc(c.titulo)}</div>
@@ -235,16 +353,13 @@ class InstructorController {
                     <div class="fc-deadline-display">
                         ${fechaLabel
                             ? `<span class="fc-deadline-date${vencido ? ' fc-deadline-vencido' : ''}">
-                                   <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                                   <i class="bi bi-calendar3" style="font-size:11px"></i>
                                    ${fechaLabel}${vencido ? ' · Vencido' : ''}
                                </span>`
                             : `<span class="fc-deadline-none">Sin plazo</span>`
                         }
                         <button class="fc-edit-btn" data-curso-id="${c.id}" title="Editar fecha límite">
-                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/>
-                                <path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/>
-                            </svg>
+                            <i class="bi bi-pencil" style="font-size:12px"></i>
                         </button>
                     </div>
                     <div class="fc-deadline-form" style="display:none">
@@ -254,9 +369,7 @@ class InstructorController {
                     </div>
                 </div>
                 <button class="inst-btn-icon unlink" data-curso-id="${c.id}" title="Quitar de la ficha">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                        <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
-                    </svg>
+                    <i class="bi bi-x-lg" style="font-size:14px"></i>
                 </button>
             </div>`;
         }).join('');
@@ -363,50 +476,46 @@ class InstructorController {
             return;
         }
         tbody.innerHTML = this.cursos.map(c => {
-            const fichasChips = (c.fichas || []).map(fc =>
-                `<span class="inst-ficha-tag">${fc.ficha.numero}</span>`
-            ).join('');
+            const nFichas   = (c.fichas || []).length;
+            const fichaCell = nFichas > 0
+                ? `<button class="btn-ver-fichas" data-id="${c.id}">
+                       <i class="bi bi-calendar3" style="font-size:12px"></i>
+                       ${nFichas} ${nFichas === 1 ? 'ficha' : 'fichas'}
+                   </button>`
+                : `<span class="fichas-sin-asignar">Sin asignar</span>`;
+
             const estadoDot = c.estado
                 ? '<span class="inst-estado-dot active">Activo</span>'
                 : '<span class="inst-estado-dot inactive">Inactivo</span>';
             return `
             <tr>
                 <td>
-                    <div class="inst-curso-title">${c.titulo}</div>
-                    ${c.descripcion ? `<div class="inst-curso-desc">${c.descripcion}</div>` : ''}
+                    <div class="inst-curso-title">${this._esc(c.titulo)}</div>
+                    ${c.descripcion ? `<div class="inst-curso-desc">${this._esc(c.descripcion)}</div>` : ''}
                 </td>
                 <td><span class="inst-nivel-badge nivel-${c.nivel}">${this._nivelLabel(c.nivel)}</span></td>
-                <td>
-                    <div class="inst-fichas-chips">
-                        ${fichasChips || '<span style="color:#94a3b8;font-size:.78rem">Sin asignar</span>'}
-                    </div>
-                </td>
+                <td>${fichaCell}</td>
                 <td>${c._count?.inscripciones ?? 0}</td>
                 <td>${estadoDot}</td>
                 <td>
                     <div style="display:flex;gap:.3rem;justify-content:flex-end">
-                        <button class="inst-btn-icon btn-mod-curso" data-id="${c.id}" data-titulo="${c.titulo}" title="Gestionar módulos">
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/>
-                            </svg>
+                        <button class="inst-btn-icon btn-mod-curso" data-id="${c.id}" data-titulo="${this._esc(c.titulo)}" title="Gestionar módulos">
+                            <i class="bi bi-book-fill" style="font-size:14px"></i>
                         </button>
                         <button class="inst-btn-icon edit btn-edit-curso" data-id="${c.id}" title="Editar">
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/>
-                                <path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/>
-                            </svg>
+                            <i class="bi bi-pencil" style="font-size:14px"></i>
                         </button>
-                        <button class="inst-btn-icon delete btn-del-curso" data-id="${c.id}" data-titulo="${c.titulo}" title="Eliminar">
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"/>
-                                <path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4a1 1 0 011-1h4a1 1 0 011 1v2"/>
-                            </svg>
+                        <button class="inst-btn-icon delete btn-del-curso" data-id="${c.id}" data-titulo="${this._esc(c.titulo)}" title="Eliminar">
+                            <i class="bi bi-trash" style="font-size:14px"></i>
                         </button>
                     </div>
                 </td>
             </tr>`;
         }).join('');
 
+        tbody.querySelectorAll('.btn-ver-fichas').forEach(btn =>
+            btn.addEventListener('click', () => this._openFichasCursoModal(Number(btn.dataset.id)))
+        );
         tbody.querySelectorAll('.btn-mod-curso').forEach(btn =>
             btn.addEventListener('click', () => ModulesModal.open(Number(btn.dataset.id), btn.dataset.titulo))
         );
@@ -416,6 +525,55 @@ class InstructorController {
         tbody.querySelectorAll('.btn-del-curso').forEach(btn =>
             btn.addEventListener('click', () => this._openDelModal(Number(btn.dataset.id), btn.dataset.titulo))
         );
+    }
+
+    /* ── Modal fichas de un curso ───────────────────────── */
+    _openFichasCursoModal(cursoId) {
+        const curso = this.cursos.find(c => c.id === cursoId);
+        if (!curso) return;
+
+        document.getElementById('fichas-curso-modal-title').textContent = curso.titulo;
+
+        const body = document.getElementById('fichas-curso-modal-body');
+
+        if (!(curso.fichas || []).length) {
+            body.innerHTML = '<p class="inst-empty-list">Este curso no está asignado a ninguna ficha.</p>';
+        } else {
+            body.innerHTML = curso.fichas.map(fc => {
+                // Enriquecer con datos completos de this.fichas
+                const full = this.fichas.find(f => f.id === fc.ficha.id) || {};
+                const num      = fc.ficha.numero;
+                const prog     = fc.ficha.programa?.nombre || full.programa?.nombre || '—';
+                const jornada  = full.jornada  ? this._jornadaLabel(full.jornada) : null;
+                const modalidad = full.modalidad || null;
+                const estado   = full.estado   || 'activo';
+                const nApr     = full._count?.aprendices ?? full.aprendices?.length ?? '—';
+                const nCur     = full.cursos?.length ?? '—';
+                const meta     = [jornada, modalidad].filter(Boolean).join(' · ');
+
+                return `
+                <div class="fc-modal-card">
+                    <div class="fc-modal-card-top">
+                        <span class="fc-modal-num">Ficha ${num}</span>
+                        <span class="inst-ficha-estado est-${estado}">${estado}</span>
+                    </div>
+                    <div class="fc-modal-prog">${this._esc(prog)}</div>
+                    ${meta ? `<div class="fc-modal-meta">${this._esc(meta)}</div>` : ''}
+                    <div class="fc-modal-stats">
+                        <span class="fc-modal-stat">
+                            <i class="bi bi-mortarboard" style="font-size:11px"></i>
+                            ${nApr} aprendices
+                        </span>
+                        <span class="fc-modal-stat">
+                            <i class="bi bi-book-fill" style="font-size:11px"></i>
+                            ${nCur} cursos asignados
+                        </span>
+                    </div>
+                </div>`;
+            }).join('');
+        }
+
+        document.getElementById('modal-fichas-curso').classList.add('open');
     }
 
     /* ── Curso modal (create/edit) ───────────────────────── */
@@ -544,15 +702,23 @@ class InstructorController {
 
     async _openProgresoDetalle(fichaId) {
         document.getElementById('progreso-resumen').style.display = 'none';
-        const detalleEl = document.getElementById('progreso-detalle');
-        detalleEl.style.display = '';
-        document.getElementById('prog-detalle-body').innerHTML = '<div class="prog-loading"><div class="spinner"></div><span>Cargando progreso…</span></div>';
+        document.getElementById('progreso-detalle').style.display = '';
+        document.getElementById('prog-search-bar').style.display  = 'none';
+        document.getElementById('prog-no-results').style.display  = 'none';
+        document.getElementById('prog-detalle-body').innerHTML =
+            '<div class="prog-loading"><div class="spinner"></div><span>Cargando progreso…</span></div>';
 
         try {
             const data = await InstructorService.getProgresoFicha(fichaId);
             document.getElementById('prog-ficha-title').textContent = `Ficha ${data.ficha.numero}`;
-            document.getElementById('prog-ficha-sub').textContent   = `${data.ficha.programa} · ${data.aprendices.length} aprendices · Promedio general: ${data.avgProgreso}%`;
+            document.getElementById('prog-ficha-sub').textContent   =
+                `${data.ficha.programa} · ${data.aprendices.length} aprendices · Promedio general: ${data.avgProgreso}%`;
             document.getElementById('prog-detalle-body').innerHTML  = this._buildProgresoTable(data);
+
+            if (data.aprendices.length > 1) {
+                document.getElementById('prog-search-bar').style.display = '';
+                this._bindProgresoSearch(data.aprendices.length);
+            }
         } catch (err) {
             document.getElementById('prog-detalle-body').innerHTML = `<p class="prog-error">${err.message}</p>`;
         }
@@ -586,7 +752,8 @@ class InstructorController {
             const gp   = apr.progresoGeneral;
             const gcls = gp >= 80 ? 'high' : gp >= 40 ? 'mid' : 'low';
 
-            return `<tr>
+            const searchKey = `${apr.nombre || ''} ${apr.correo || ''}`.toLowerCase();
+            return `<tr class="prog-apr-row" data-search="${this._esc(searchKey)}">
                 <td class="prog-td-apr-cell">
                     <div class="prog-td-apr">
                         <div class="inst-avatar" style="background:#ede9fe;color:#5b21b6;width:30px;height:30px;font-size:.7rem;flex-shrink:0">${initials}</div>

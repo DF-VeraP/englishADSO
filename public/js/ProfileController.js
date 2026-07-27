@@ -36,19 +36,38 @@ async function loadProfile(auth) {
     try {
         const res  = await auth.apiFetch('/api/users/me');
         const data = await res.json();
+        if (!res.ok) throw new Error(data.message || 'Error del servidor');
 
-        document.getElementById('nombre_usuario').value  = data.nombre_usuario || '';
-        document.getElementById('correo_usuario').value  = data.correo_usuario  || '';
-        document.getElementById('rol_usuario').value     = data.rol_usuario     || '';
+        // rol obtenido del storage (AuthGuard) o del propio response
+        const userRol = (AuthGuard.getUser() || {}).rol || data.rol_usuario || '';
+
+        const nombreInput = document.getElementById('nombre_usuario');
+        nombreInput.value = data.nombre_usuario || '';
+        nombreInput.removeAttribute('readonly');
+        // Quitar lock previo si se recarga
+        const lbl = nombreInput.closest('.pform-group')?.querySelector('.pform-label');
+        lbl?.querySelector('.nombre-lock')?.remove();
+
+        if (userRol !== 'admin') {
+            nombreInput.setAttribute('readonly', true);
+            nombreInput.setAttribute('autocomplete', 'off');
+            nombreInput.title = 'Solo un administrador puede modificar el nombre';
+            if (lbl) {
+                lbl.insertAdjacentHTML('beforeend', ' <span class="nombre-lock" style="font-size:.7rem;color:#94a3b8;font-weight:400">&#128274; Solo admin</span>');
+            }
+        }
+
+        document.getElementById('correo_usuario').value = data.correo_usuario || '';
+        document.getElementById('rol_usuario').value    = data.rol_usuario    || '';
 
         // Tarjeta lateral
         const initials = (data.nombre_usuario || data.correo_usuario || '?').slice(0, 2).toUpperCase();
-        document.getElementById('avatar-big').textContent         = initials;
-        document.getElementById('profile-display-name').textContent = data.nombre_usuario || data.correo_usuario;
-        document.getElementById('profile-email').textContent      = data.correo_usuario;
+        document.getElementById('avatar-big').textContent          = initials;
+        document.getElementById('profile-display-name').textContent = data.nombre_usuario || data.correo_usuario || '—';
+        document.getElementById('profile-email').textContent       = data.correo_usuario || '—';
 
         const rolBadge = document.getElementById('profile-role-badge');
-        rolBadge.textContent = data.rol_usuario;
+        if (rolBadge) rolBadge.textContent = data.rol_usuario || '—';
 
         document.getElementById('pstat-cursos').textContent    = data._count?.inscripciones ?? '—';
         document.getElementById('pstat-insignias').textContent = data._count?.insignias     ?? '—';
@@ -56,11 +75,18 @@ async function loadProfile(auth) {
             ? new Date(data.createdAt).toLocaleDateString('es-CO', { month: 'short', year: 'numeric' })
             : '—';
 
-        // Limpiar campos de contraseña
+        // Limpiar contraseña
         document.getElementById('passw_actual').value = '';
         document.getElementById('passw_nueva').value  = '';
+
+        // Actualizar avatar del header con datos reales
+        const headerAvatar = document.getElementById('user-avatar');
+        const headerName   = document.getElementById('user-name');
+        if (headerAvatar) headerAvatar.textContent = initials;
+        if (headerName)   headerName.textContent   = data.nombre_usuario || data.correo_usuario || '';
+
     } catch (err) {
-        showAlert('No se pudo cargar el perfil.', 'error');
+        showAlert(err.message || 'No se pudo cargar el perfil.', 'error');
     }
 }
 
@@ -70,10 +96,14 @@ async function handleSave(e, auth) {
     btn.classList.add('is-loading');
     btn.disabled = true;
 
+    const userRol = (AuthGuard.getUser() || {}).rol || '';
+
     const body = {
-        nombre_usuario: document.getElementById('nombre_usuario').value.trim(),
         correo_usuario: document.getElementById('correo_usuario').value.trim(),
     };
+    if (userRol === 'admin') {
+        body.nombre_usuario = document.getElementById('nombre_usuario').value.trim();
+    }
 
     const passwActual = document.getElementById('passw_actual').value;
     const passwNueva  = document.getElementById('passw_nueva').value;
@@ -98,13 +128,11 @@ async function handleSave(e, auth) {
         showAlert('Perfil actualizado correctamente.', 'success');
         await loadProfile(auth);
 
-        // Actualizar nombre en header y storage
+        // Sincronizar storage con nombre nuevo
         const stored = AuthGuard.getUser() || {};
         stored.nombre = data.usuario.nombre_usuario;
         const storage = localStorage.getItem('user') ? localStorage : sessionStorage;
         storage.setItem('user', JSON.stringify(stored));
-        document.getElementById('user-name').textContent   = data.usuario.nombre_usuario;
-        document.getElementById('user-avatar').textContent = (data.usuario.nombre_usuario || '').slice(0, 2).toUpperCase();
 
     } catch {
         showAlert('Error de conexión.', 'error');
@@ -119,5 +147,5 @@ function showAlert(msg, type) {
     el.textContent = msg;
     el.className   = `form-alert ${type}`;
     el.style.display = 'block';
-    setTimeout(() => { el.style.display = 'none'; }, 4000);
+    setTimeout(() => { el.style.display = 'none'; }, 4500);
 }

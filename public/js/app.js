@@ -215,7 +215,7 @@ async function renderAprendizDashboard(auth, container) {
                                 <div style="font-weight:700;font-size:.9rem;margin-bottom:.15rem">${inst.nombre || '—'}</div>
                                 ${inst.correo
                                     ? `<a href="mailto:${inst.correo}" style="font-size:.78rem;color:#818cf8;text-decoration:none;display:inline-flex;align-items:center;gap:.3rem" onmouseover="this.style.color='#a5b4fc'" onmouseout="this.style.color='#818cf8'">
-                                           <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                                           <i class="bi bi-envelope" style="font-size:11px"></i>
                                            ${inst.correo}
                                        </a>`
                                     : `<span style="font-size:.78rem;color:var(--text-muted)">Sin correo registrado</span>`
@@ -238,7 +238,7 @@ async function renderAprendizDashboard(auth, container) {
             nextWrap.innerHTML = `
                 <div style="background:linear-gradient(135deg,rgba(26,86,219,.15),rgba(8,145,178,.1));border:1px solid rgba(26,86,219,.25);border-radius:16px;padding:1.25rem 1.5rem;display:flex;align-items:center;gap:1.25rem;margin-bottom:1.25rem">
                     <div style="width:48px;height:48px;border-radius:14px;background:rgba(26,86,219,.25);display:flex;align-items:center;justify-content:center;flex-shrink:0">
-                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#60a5fa" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                        <i class="bi bi-play-fill" style="font-size:22px;color:#60a5fa"></i>
                     </div>
                     <div style="flex:1;min-width:0">
                         <div style="font-size:.72rem;font-weight:600;color:#60a5fa;text-transform:uppercase;letter-spacing:.06em;margin-bottom:.2rem">Continuar aprendiendo</div>
@@ -292,7 +292,7 @@ async function renderAprendizDashboard(auth, container) {
                             onmouseover="this.style.borderColor='${accentColor}';this.style.transform='translateY(-2px)'"
                             onmouseout="this.style.borderColor='';this.style.transform=''">
                             <div style="width:52px;height:52px;border-radius:14px;background:rgba(${disponible?'139,92,246':'6,182,212'},.15);border:1px solid rgba(${disponible?'139,92,246':'6,182,212'},.2);display:flex;align-items:center;justify-content:center;flex-shrink:0">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="${accentColor}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+                                <i class="bi bi-mortarboard-fill" style="font-size:24px;color:${accentColor}"></i>
                             </div>
                             <div style="flex:1;min-width:0">
                                 <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.1rem">
@@ -310,7 +310,7 @@ async function renderAprendizDashboard(auth, container) {
                                 </div>` : ''}
                             </div>
                             <div style="display:flex;flex-direction:column;align-items:flex-end;gap:.5rem;flex-shrink:0">
-                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                                <i class="bi bi-arrow-right" style="font-size:18px;color:var(--text-muted)"></i>
                                 ${c.progreso >= 80 && !disponible ? `<a href="/api/certificates/${c.cursoId}?token=${AuthGuard.getToken()}" onclick="event.stopPropagation()" style="font-size:.72rem;font-weight:700;padding:.3rem .7rem;border-radius:8px;background:rgba(16,185,129,.2);color:#34d399;border:1px solid rgba(16,185,129,.3);text-decoration:none;white-space:nowrap" title="Descargar certificado">🎓 Certificado</a>` : ''}
                             </div>
                         </a>`;
@@ -359,15 +359,12 @@ async function renderAprendizDashboard(auth, container) {
 }
 
 /* ── Iconos ── */
-const svg = (d, w = 22) =>
-    `<svg width="${w}" height="${w}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${d}</svg>`;
-
-const usersIcon    = () => svg('<path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/>');
-const activeIcon   = () => svg('<polyline points="20 6 9 17 4 12"/>');
-const instrIcon    = () => svg('<rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>');
-const studIcon     = () => svg('<path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/>');
-const classIcon    = () => svg('<rect x="2" y="3" width="20" height="14" rx="2"/>');
-const bookIcon     = () => svg('<path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/>');
-const progressIcon = () => svg('<line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/>');
-const starIcon     = () => svg('<polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>');
+const usersIcon    = () => `<i class="bi bi-people-fill" style="font-size:22px"></i>`;
+const activeIcon   = () => `<i class="bi bi-check2" style="font-size:22px"></i>`;
+const instrIcon    = () => `<i class="bi bi-person-workspace" style="font-size:22px"></i>`;
+const studIcon     = () => `<i class="bi bi-mortarboard-fill" style="font-size:22px"></i>`;
+const classIcon    = () => `<i class="bi bi-calendar3" style="font-size:22px"></i>`;
+const bookIcon     = () => `<i class="bi bi-book-fill" style="font-size:22px"></i>`;
+const progressIcon = () => `<i class="bi bi-bar-chart-line-fill" style="font-size:22px"></i>`;
+const starIcon     = () => `<i class="bi bi-star-fill" style="font-size:22px"></i>`;
 const checkIcon    = () => svg('<path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>');

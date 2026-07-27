@@ -1470,3 +1470,283 @@ html[data-theme="dark"] .prog-pct-bold       { color: #e2e8f0; }
 html[data-theme="dark"] .prog-bar-wrap       { background: #334155; }
 html[data-theme="dark"] .prog-na             { color: #334155; }
 html[data-theme="dark"] .prog-loading        { color: #475569; }
+
+/* ── Buscador de aprendices ──────────────────────────────── */
+.apr-search-bar {
+    display: flex;
+    align-items: center;
+    gap: .75rem;
+    margin-bottom: 1rem;
+    padding-bottom: .875rem;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.apr-search-wrap {
+    position: relative;
+    flex: 1;
+    display: flex;
+    align-items: center;
+}
+
+.apr-search-icon {
+    position: absolute;
+    left: .75rem;
+    color: #94a3b8;
+    pointer-events: none;
+    flex-shrink: 0;
+}
+
+.apr-search-input {
+    width: 100%;
+    padding: .55rem .75rem .55rem 2.25rem;
+    border: 1.5px solid #e2e8f0;
+    border-radius: 8px;
+    background: #f8fafc;
+    color: #1e293b;
+    font-family: inherit;
+    font-size: .875rem;
+    outline: none;
+    transition: border-color .18s, box-shadow .18s;
+}
+
+.apr-search-input:focus {
+    border-color: var(--primary);
+    background: #fff;
+    box-shadow: 0 0 0 3px rgba(79,70,229,.1);
+}
+
+.apr-search-input::placeholder { color: #94a3b8; }
+
+.apr-search-clear {
+    position: absolute;
+    right: .5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    border: none;
+    background: #e2e8f0;
+    color: #64748b;
+    cursor: pointer;
+    transition: background .15s, color .15s;
+}
+
+.apr-search-clear:hover { background: #cbd5e1; color: #1e293b; }
+
+.apr-count-badge {
+    white-space: nowrap;
+    font-size: .75rem;
+    font-weight: 600;
+    color: #64748b;
+    background: #f1f5f9;
+    padding: .25rem .65rem;
+    border-radius: 20px;
+    border: 1px solid #e2e8f0;
+    transition: all .18s;
+}
+
+.apr-count-badge.apr-count-filtered {
+    background: rgba(79,70,229,.1);
+    color: var(--primary);
+    border-color: rgba(79,70,229,.25);
+}
+
+.apr-no-results {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: .5rem;
+    padding: 2rem 1rem;
+    color: #94a3b8;
+    text-align: center;
+}
+
+.apr-no-results p { font-size: .875rem; }
+.apr-no-results svg { opacity: .4; }
+
+/* ── Dark mode buscador ──────────────────────────────────── */
+html[data-theme="dark"] .apr-search-bar {
+    border-bottom-color: #334155;
+}
+
+html[data-theme="dark"] .apr-search-input {
+    background: #1e293b;
+    border-color: #334155;
+    color: #e2e8f0;
+}
+
+html[data-theme="dark"] .apr-search-input:focus {
+    background: #243044;
+    border-color: #6366f1;
+    box-shadow: 0 0 0 3px rgba(99,102,241,.15);
+}
+
+html[data-theme="dark"] .apr-search-input::placeholder { color: #475569; }
+
+html[data-theme="dark"] .apr-search-icon { color: #475569; }
+
+html[data-theme="dark"] .apr-search-clear {
+    background: #334155;
+    color: #94a3b8;
+}
+html[data-theme="dark"] .apr-search-clear:hover { background: #475569; color: #e2e8f0; }
+
+html[data-theme="dark"] .apr-count-badge {
+    background: #1e293b;
+    border-color: #334155;
+    color: #64748b;
+}
+
+html[data-theme="dark"] .apr-count-badge.apr-count-filtered {
+    background: rgba(99,102,241,.15);
+    color: #a5b4fc;
+    border-color: rgba(99,102,241,.3);
+}
+
+html[data-theme="dark"] .apr-no-results { color: #475569; }
+
+/* ── Botón "Ver N fichas" en tabla cursos ────────────────── */
+.btn-ver-fichas {
+    display: inline-flex;
+    align-items: center;
+    gap: .35rem;
+    padding: .3rem .65rem;
+    border: 1.5px solid rgba(79,70,229,.3);
+    border-radius: 6px;
+    background: rgba(79,70,229,.07);
+    color: var(--primary);
+    font-size: .78rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all .17s;
+    white-space: nowrap;
+}
+.btn-ver-fichas:hover {
+    background: rgba(79,70,229,.14);
+    border-color: rgba(79,70,229,.5);
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(79,70,229,.15);
+}
+
+.fichas-sin-asignar {
+    font-size: .78rem;
+    color: #94a3b8;
+}
+
+/* ── Modal suptitle (subtítulo de categoría) ─────────────── */
+.inst-modal-suptitle {
+    font-size: .72rem;
+    font-weight: 600;
+    color: #94a3b8;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+    margin-bottom: .15rem;
+}
+
+/* ── Tamaño de modal medio ───────────────────────────────── */
+.inst-modal--md { max-width: 560px; }
+
+/* ── Tarjetas de ficha en el modal de fichas del curso ───── */
+.inst-modal-body#fichas-curso-modal-body {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: .85rem;
+    padding-top: .25rem;
+}
+
+.fc-modal-card {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    padding: 1rem 1.1rem;
+    display: flex;
+    flex-direction: column;
+    gap: .35rem;
+    transition: border-color .15s, box-shadow .15s;
+}
+.fc-modal-card:hover {
+    border-color: rgba(79,70,229,.35);
+    box-shadow: 0 2px 10px rgba(79,70,229,.1);
+}
+
+.fc-modal-card-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: .1rem;
+}
+
+.fc-modal-num {
+    font-size: .9rem;
+    font-weight: 800;
+    color: var(--primary);
+}
+
+.fc-modal-prog {
+    font-size: .82rem;
+    font-weight: 600;
+    color: #1e293b;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.fc-modal-meta {
+    font-size: .75rem;
+    color: #64748b;
+}
+
+.fc-modal-stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .5rem;
+    margin-top: .35rem;
+    padding-top: .5rem;
+    border-top: 1px solid #f1f5f9;
+}
+
+.fc-modal-stat {
+    display: inline-flex;
+    align-items: center;
+    gap: .3rem;
+    font-size: .72rem;
+    color: #64748b;
+}
+
+/* ── Dark mode modal fichas curso ────────────────────────── */
+html[data-theme="dark"] .btn-ver-fichas {
+    background: rgba(99,102,241,.12);
+    border-color: rgba(99,102,241,.3);
+    color: #a5b4fc;
+}
+html[data-theme="dark"] .btn-ver-fichas:hover {
+    background: rgba(99,102,241,.22);
+    border-color: rgba(99,102,241,.55);
+    box-shadow: 0 2px 8px rgba(99,102,241,.2);
+}
+
+html[data-theme="dark"] .fichas-sin-asignar { color: #475569; }
+
+html[data-theme="dark"] .inst-modal-suptitle { color: #475569; }
+
+html[data-theme="dark"] .fc-modal-card {
+    background: #1e293b;
+    border-color: #334155;
+}
+html[data-theme="dark"] .fc-modal-card:hover {
+    border-color: rgba(99,102,241,.45);
+    box-shadow: 0 2px 12px rgba(99,102,241,.15);
+}
+html[data-theme="dark"] .fc-modal-num  { color: #a5b4fc; }
+html[data-theme="dark"] .fc-modal-prog { color: #e2e8f0; }
+html[data-theme="dark"] .fc-modal-meta { color: #475569; }
+html[data-theme="dark"] .fc-modal-stats { border-top-color: #334155; }
+html[data-theme="dark"] .fc-modal-stat  { color: #475569; }
+
+/* ── Buscador en vista de progreso ───────────────────────── */
+.prog-search-bar {
+    margin-top: 1rem;
+    margin-bottom: .25rem;
+}

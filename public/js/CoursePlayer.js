@@ -140,12 +140,12 @@ function renderActivityCard(act, idx) {
             ${isDone ? '<p style="color:var(--success);font-size:.85rem;margin-top:1rem">✅ Ya completaste esta actividad.</p>' : ''}
             <div class="activity-nav">
                 <button class="btn-nav btn-nav-prev" id="btn-prev" ${idx === 0 ? 'disabled' : ''}>
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+                    <i class="bi bi-chevron-left" style="font-size:16px"></i>
                     Anterior
                 </button>
                 <button class="btn-nav btn-nav-next" id="btn-next" ${idx === allActividades.length - 1 ? 'disabled' : ''}>
                     Siguiente
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+                    <i class="bi bi-chevron-right" style="font-size:16px"></i>
                 </button>
             </div>
         </div>`;
@@ -185,6 +185,21 @@ function mountComponent(act, container) {
         case 'desafio_audio':
             new DesafioAudio(container, act.contenido, onComplete);
             break;
+        case 'cloze':
+            new ClozeText(container, act.contenido, onComplete);
+            break;
+        case 'matching':
+            new MatchingPairs(container, act.contenido, onComplete);
+            break;
+        case 'word_search':
+            new WordSearch(container, act.contenido, onComplete);
+            break;
+        case 'sentence_builder':
+            new SentenceBuilder(container, act.contenido, onComplete);
+            break;
+        case 'crossword':
+            new CrosswordPuzzle(container, act.contenido, onComplete);
+            break;
         case 'quiz_multiple':
             new QuizMultiple(container, act.contenido, async (result) => {
                 await saveProgress(act, result);
@@ -211,7 +226,7 @@ function mountComponent(act, container) {
 
 // ── PRE/POS TEST ──────────────────────────────────────────
 function mountTest(container, act, onComplete) {
-    const { preguntas, tipo } = act.contenido;
+    const { preguntas } = act.contenido;
     const pretestResult = progreso.tests?.find(t => t.tipo === 'pretest');
     const isPost = act.tipo === 'postest';
 
@@ -307,6 +322,11 @@ function tipoLabel(tipo) {
         practica_dropdown:  { icon: '📋', name: 'Práctica Guiada' },
         desafio_audio:      { icon: '🎤', name: 'Desafío — Evidencia' },
         quiz_multiple:      { icon: '🧠', name: 'Quiz' },
+        cloze:              { icon: '✏️', name: 'Completar texto' },
+        matching:           { icon: '🔀', name: 'Emparejar' },
+        word_search:        { icon: '🔍', name: 'Sopa de letras' },
+        sentence_builder:   { icon: '🧩', name: 'Ordenar oración' },
+        crossword:          { icon: '⊞',  name: 'Crucigrama' },
         pretest:            { icon: '📝', name: 'Diagnóstico Inicial' },
         postest:            { icon: '🏁', name: 'Evaluación Final' },
     };

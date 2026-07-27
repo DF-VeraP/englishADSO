@@ -23,4 +23,15 @@ router.post('/:cursoId/modules',       requireRole('admin', 'instructor'), modCt
 router.put('/:cursoId/modules/:id',    requireRole('admin', 'instructor'), modCtrl.update);
 router.delete('/:cursoId/modules/:id', requireRole('admin', 'instructor'), modCtrl.remove);
 
+// Instructor: gestión de actividades en módulos propios
+const actCtrl = require('../controllers/actividades.controller');
+router.get('/:cursoId/modules/:moduloId/momentos',
+    requireRole('instructor', 'admin'), actCtrl.getMomentos);
+router.post('/:cursoId/modules/:moduloId/momentos/:momentoId/actividades',
+    requireRole('instructor', 'admin'), actCtrl.crearActividad);
+router.put('/:cursoId/modules/:moduloId/momentos/:momentoId/actividades/:id',
+    requireRole('instructor', 'admin'), actCtrl.actualizarActividad);
+router.delete('/:cursoId/modules/:moduloId/momentos/:momentoId/actividades/:id',
+    requireRole('instructor', 'admin'), actCtrl.eliminarActividad);
+
 module.exports = router;

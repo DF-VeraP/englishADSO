@@ -141,25 +141,25 @@ class FichasController {
                 <td><span class="estado-badge estado-${f.estado}">${f.estado.charAt(0).toUpperCase() + f.estado.slice(1)}</span></td>
                 <td>
                     <span class="count-chip instructores-chip">
-                        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="2" y="3" width="20" height="14" rx="2"/></svg>
+                        <i class="bi bi-person-workspace" style="font-size:11px"></i>
                         ${f._count.instructores} instructor${f._count.instructores !== 1 ? 'es' : ''}
                     </span><br style="margin:.2rem 0">
                     <span class="count-chip aprendices-chip">
-                        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+                        <i class="bi bi-mortarboard" style="font-size:11px"></i>
                         ${f._count.aprendices} aprendiz/ces
                     </span>
                 </td>
                 <td class="actions-cell" style="gap:.5rem">
                     <button class="btn btn-members-row" onclick="app._openDetail(${f.id})">
-                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+                        <i class="bi bi-people-fill" style="font-size:13px"></i>
                         <span style="font-size:.75rem;font-weight:700;color:var(--gray-400)">${f._count.instructores + f._count.aprendices}</span>
                         Miembros
                     </button>
                     <button class="btn-action btn-edit" title="Editar ficha" onclick="app._openFichaModal(${f.id})">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                        <i class="bi bi-pencil" style="font-size:14px"></i>
                     </button>
                     <button class="btn-action btn-delete" title="Eliminar ficha" onclick="app._deleteFicha(${f.id})">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6M14 11v6"/><path d="M9 6V4h6v2"/></svg>
+                        <i class="bi bi-trash" style="font-size:14px"></i>
                     </button>
                 </td>
             </tr>`).join('');
@@ -191,16 +191,16 @@ class FichasController {
                 <td>${p.duracion ? p.duracion + ' meses' : '—'}</td>
                 <td>
                     <span class="count-chip aprendices-chip">
-                        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="2" y="3" width="20" height="14" rx="2"/></svg>
+                        <i class="bi bi-calendar3" style="font-size:11px"></i>
                         ${p._count?.fichas ?? 0} ficha(s)
                     </span>
                 </td>
                 <td class="actions-cell">
                     <button class="btn-action btn-edit" title="Editar" onclick="app._openProgramaModal(${p.id})">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                        <i class="bi bi-pencil" style="font-size:14px"></i>
                     </button>
                     <button class="btn-action btn-delete" title="Eliminar" onclick="app._deletePrograma(${p.id})">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6M14 11v6"/><path d="M9 6V4h6v2"/></svg>
+                        <i class="bi bi-trash" style="font-size:14px"></i>
                     </button>
                 </td>
             </tr>`)
@@ -397,7 +397,7 @@ class FichasController {
                         <div class="member-email">${this._highlight(fi.instructor.correo_usuario, q)}</div>
                     </div>
                     <button class="btn-action btn-delete" title="Quitar" onclick="app._quitarInstructor(${fi.instructor.id})">
-                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                        <i class="bi bi-x-lg" style="font-size:13px"></i>
                     </button>
                 </div>`).join('');
         }
@@ -421,7 +421,7 @@ class FichasController {
                         <option value="certificado" ${fa.estado==='certificado' ?'selected':''}>Certificado</option>
                     </select>
                     <button class="btn-action btn-delete" title="Retirar" onclick="app._retirarAprendiz(${fa.aprendiz.id})">
-                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                        <i class="bi bi-x-lg" style="font-size:13px"></i>
                     </button>
                 </div>`).join('');
         }

@@ -15,9 +15,7 @@ class PracticaAudioForm {
             ${audio_url ? `
             <div class="audio-player-card">
                 <button class="audio-play-btn" id="paf-play">
-                    <svg id="paf-icon" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                        <polygon points="5 3 19 12 5 21 5 3"/>
-                    </svg>
+                    <i class="bi bi-play-fill" id="paf-icon" style="font-size:20px"></i>
                 </button>
                 <div class="audio-info">
                     <div class="audio-title">Escuchar el audio</div>

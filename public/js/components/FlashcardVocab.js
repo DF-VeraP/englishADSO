@@ -24,10 +24,7 @@ class FlashcardVocab {
                                 <div class="flashcard-back-trans">${c.reverso}</div>
                                 ${c.audio ? `
                                     <button class="flashcard-audio-btn" data-audio="${c.audio}" title="Escuchar pronunciación">
-                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                                            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
-                                            <path d="M15.54 8.46a5 5 0 010 7.07"/><path d="M19.07 4.93a10 10 0 010 14.14"/>
-                                        </svg>
+                                        <i class="bi bi-volume-up-fill" style="font-size:14px"></i>
                                     </button>` : ''}
                             </div>
                         </div>

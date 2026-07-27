@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Panel Instructor — SPEAKSOFT</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="/css/instructor.css">
+    <link rel="stylesheet" href="/css/activities.css">
 </head>
 <body data-theme-default="light">
 
@@ -19,11 +21,7 @@
             <span class="inst-user-name" id="user-name"></span>
         </a>
         <button class="inst-btn-logout" id="btn-logout">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/>
-                <polyline points="16 17 21 12 16 7"/>
-                <line x1="21" y1="12" x2="9" y2="12"/>
-            </svg>
+            <i class="bi bi-box-arrow-right" style="font-size:15px"></i>
             Salir
         </button>
     </div>
@@ -37,9 +35,7 @@
             <p class="inst-page-sub">Gestiona tus fichas y cursos</p>
         </div>
         <button class="inst-btn inst-btn-primary" id="btn-nuevo-curso">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
-            </svg>
+            <i class="bi bi-plus-lg" style="font-size:15px"></i>
             Nuevo Curso
         </button>
     </div>
@@ -48,9 +44,7 @@
     <div class="inst-stats">
         <div class="inst-stat-card">
             <div class="inst-stat-icon inst-stat-icon--blue">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
-                </svg>
+                <i class="bi bi-calendar3" style="font-size:20px"></i>
             </div>
             <div>
                 <div class="inst-stat-num" id="stat-fichas">—</div>
@@ -59,9 +53,7 @@
         </div>
         <div class="inst-stat-card">
             <div class="inst-stat-icon inst-stat-icon--green">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c0 1.1 2.686 2 6 2s6-.9 6-2v-5"/>
-                </svg>
+                <i class="bi bi-mortarboard-fill" style="font-size:20px"></i>
             </div>
             <div>
                 <div class="inst-stat-num" id="stat-aprendices">—</div>
@@ -70,9 +62,7 @@
         </div>
         <div class="inst-stat-card">
             <div class="inst-stat-icon inst-stat-icon--purple">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/>
-                </svg>
+                <i class="bi bi-book-fill" style="font-size:20px"></i>
             </div>
             <div>
                 <div class="inst-stat-num" id="stat-cursos">—</div>
@@ -84,21 +74,15 @@
     <!-- Tabs -->
     <div class="inst-tabs">
         <button class="inst-tab-btn active" data-tab="fichas">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;margin-right:.3rem">
-                <rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
-            </svg>
+            <i class="bi bi-calendar3" style="font-size:13px;vertical-align:middle;margin-right:.3rem"></i>
             Mis Fichas
         </button>
         <button class="inst-tab-btn" data-tab="cursos">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;margin-right:.3rem">
-                <path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/>
-            </svg>
+            <i class="bi bi-book-fill" style="font-size:13px;vertical-align:middle;margin-right:.3rem"></i>
             Mis Cursos
         </button>
         <button class="inst-tab-btn" data-tab="progreso">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;margin-right:.3rem">
-                <line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/>
-            </svg>
+            <i class="bi bi-bar-chart-line-fill" style="font-size:13px;vertical-align:middle;margin-right:.3rem"></i>
             Progreso
         </button>
     </div>
@@ -107,9 +91,7 @@
     <div class="inst-tab-pane active" id="pane-fichas">
         <div id="fichas-grid" class="inst-fichas-grid"></div>
         <div id="fichas-empty" class="inst-empty" style="display:none">
-            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
-                <rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
-            </svg>
+            <i class="bi bi-calendar3" style="font-size:48px"></i>
             <p>No tienes fichas asignadas aún</p>
         </div>
     </div>
@@ -142,9 +124,7 @@
             <p class="prog-hint">Selecciona una ficha para ver el progreso individual de cada aprendiz.</p>
             <div id="prog-fichas-grid" class="prog-fichas-grid"></div>
             <div id="prog-empty" class="inst-empty" style="display:none">
-                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
-                    <line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/>
-                </svg>
+                <i class="bi bi-bar-chart-line-fill" style="font-size:48px"></i>
                 <p>No tienes fichas con cursos asignados aún</p>
             </div>
         </div>
@@ -152,7 +132,7 @@
         <div id="progreso-detalle" style="display:none">
             <div class="prog-detalle-header">
                 <button class="prog-btn-volver" id="btn-volver-progreso">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+                    <i class="bi bi-chevron-left" style="font-size:14px"></i>
                     Volver al resumen
                 </button>
                 <div>
@@ -160,6 +140,23 @@
                     <p class="prog-detalle-sub" id="prog-ficha-sub"></p>
                 </div>
             </div>
+
+            <!-- Buscador de aprendices en progreso -->
+            <div id="prog-search-bar" class="apr-search-bar prog-search-bar" style="display:none">
+                <div class="apr-search-wrap">
+                    <i class="bi bi-search apr-search-icon" style="font-size:15px"></i>
+                    <input type="text" id="prog-search" class="apr-search-input" placeholder="Filtrar aprendiz por nombre o correo…" autocomplete="off">
+                    <button type="button" id="prog-search-clear" class="apr-search-clear" style="display:none" title="Limpiar">
+                        <i class="bi bi-x-lg" style="font-size:13px"></i>
+                    </button>
+                </div>
+                <span id="prog-count-badge" class="apr-count-badge"></span>
+            </div>
+            <div id="prog-no-results" class="apr-no-results" style="display:none">
+                <i class="bi bi-search" style="font-size:32px"></i>
+                <p>Sin resultados para "<span id="prog-no-results-term"></span>"</p>
+            </div>
+
             <div id="prog-detalle-body"></div>
         </div>
     </div>
@@ -187,7 +184,21 @@
         <div class="inst-modal-body">
             <!-- Aprendices pane -->
             <div id="inner-aprendices" class="inst-inner-pane active">
+                <div class="apr-search-bar">
+                    <div class="apr-search-wrap">
+                        <i class="bi bi-search apr-search-icon" style="font-size:15px"></i>
+                        <input type="text" id="apr-search" class="apr-search-input" placeholder="Buscar por nombre o correo…" autocomplete="off">
+                        <button type="button" id="apr-search-clear" class="apr-search-clear" style="display:none" title="Limpiar">
+                            <i class="bi bi-x-lg" style="font-size:13px"></i>
+                        </button>
+                    </div>
+                    <span id="apr-count-badge" class="apr-count-badge"></span>
+                </div>
                 <div id="aprendices-list"></div>
+                <div id="apr-no-results" class="apr-no-results" style="display:none">
+                    <i class="bi bi-search" style="font-size:32px"></i>
+                    <p>Sin resultados para "<span id="apr-no-results-term"></span>"</p>
+                </div>
             </div>
             <!-- Cursos pane -->
             <div id="inner-ficha-cursos" class="inst-inner-pane" style="display:none">
@@ -250,6 +261,20 @@
     </div>
 </div>
 
+<!-- ── Modal: Fichas de un curso ──────────────────────── -->
+<div class="inst-modal-overlay" id="modal-fichas-curso">
+    <div class="inst-modal inst-modal--md">
+        <div class="inst-modal-header">
+            <div>
+                <p class="inst-modal-suptitle">Fichas asignadas a</p>
+                <h2 class="inst-modal-title" id="fichas-curso-modal-title">—</h2>
+            </div>
+            <button class="inst-modal-close" id="btn-close-fichas-curso">&#x2715;</button>
+        </div>
+        <div class="inst-modal-body" id="fichas-curso-modal-body"></div>
+    </div>
+</div>
+
 <!-- ── Modal: Confirmar eliminar curso ───────────────── -->
 <div class="inst-modal-overlay" id="modal-del-curso">
     <div class="inst-modal inst-modal--sm">
@@ -262,6 +287,38 @@
             <div style="display:flex;gap:.75rem;justify-content:flex-end">
                 <button class="inst-btn inst-btn-ghost" id="btn-cancel-del-2">Cancelar</button>
                 <button class="inst-btn inst-btn-danger" id="btn-confirm-del">Eliminar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ── Modal: Gestión de Actividades ──────────────────── -->
+<div class="act-modal-overlay" id="modal-actividades">
+    <div class="act-modal">
+        <!-- Nav header (fijo) -->
+        <div class="act-modal-nav">
+            <button class="act-nav-back" id="btn-back-actividades">
+                <i class="bi bi-chevron-left" style="font-size:14px"></i>
+                Volver a módulos
+            </button>
+            <span class="act-nav-title" id="act-nav-titulo"></span>
+            <button class="act-nav-close" id="btn-close-actividades" title="Cerrar">✕</button>
+        </div>
+        <!-- Hero banner del módulo -->
+        <div class="act-module-hero">
+            <div class="act-module-hero-icon"><i class="bi bi-box-fill" style="font-size:2rem"></i></div>
+            <div>
+                <h2 class="act-module-title" id="act-module-title">—</h2>
+                <p class="act-module-subtitle">Estructura el contenido de aprendizaje en los 4 momentos pedagógicos</p>
+            </div>
+        </div>
+        <!-- Área scrolleable con los momentos -->
+        <div class="act-modal-scroll">
+            <div id="act-momentos-container" class="act-momentos-container">
+                <div class="act-loading">
+                    <div class="spinner"></div>
+                    <span>Cargando actividades…</span>
+                </div>
             </div>
         </div>
     </div>
@@ -283,9 +340,7 @@
 
             <!-- Botón inline — se oculta cuando el form está abierto -->
             <button type="button" class="inst-btn inst-btn-primary modulos-add-inline" id="btn-add-modulo">
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                    <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
-                </svg>
+                <i class="bi bi-plus-lg" style="font-size:13px"></i>
                 Nuevo módulo
             </button>
 
@@ -307,9 +362,7 @@
                     <div class="modulos-form-btns">
                         <button type="button" class="inst-btn inst-btn-ghost" id="btn-cancel-modulo">Cancelar</button>
                         <button type="submit" class="inst-btn inst-btn-primary" id="btn-save-modulo">
-                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0">
-                                <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
-                            </svg>
+                            <i class="bi bi-plus-lg" style="font-size:13px;flex-shrink:0"></i>
                             Guardar módulo
                         </button>
                     </div>
@@ -327,6 +380,7 @@
 <script src="/js/AuthGuard.js"></script>
 <script src="/js/CoursesService.js"></script>
 <script src="/js/ModulesModal.js"></script>
+<script src="/js/ActivitiesModal.js"></script>
 <script src="/js/InstructorService.js"></script>
 <script src="/js/InstructorController.js"></script>
 </body>

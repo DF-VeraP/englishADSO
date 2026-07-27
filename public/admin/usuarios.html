@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestión de Usuarios — SPEAKSOFT</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="/css/admin.css">
 </head>
 <body data-theme-default="light">
@@ -23,9 +24,7 @@
         <div class="header-user">
             <span class="header-user-name" id="user-email"></span>
             <button class="btn-logout" id="btn-logout">
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/>
-                </svg>
+                <i class="bi bi-box-arrow-right" style="font-size:15px"></i>
                 Cerrar sesión
             </button>
         </div>
@@ -41,9 +40,7 @@
                 <p class="page-subtitle">Administra los instructores, aprendices y administradores del sistema</p>
             </div>
             <button class="btn btn-primary" id="btn-new-user">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                    <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
-                </svg>
+                <i class="bi bi-plus-lg" style="font-size:16px"></i>
                 Nuevo Usuario
             </button>
         </div>
@@ -52,9 +49,7 @@
         <div class="role-stats-bar">
             <div class="role-stat-card role-stat--inst">
                 <div class="role-stat-icon">
-                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>
-                    </svg>
+                    <i class="bi bi-person-workspace" style="font-size:22px"></i>
                 </div>
                 <div class="role-stat-body">
                     <span class="role-stat-count" id="stat-instructores">—</span>
@@ -63,9 +58,7 @@
             </div>
             <div class="role-stat-card role-stat--apr">
                 <div class="role-stat-icon">
-                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c0 1.1 2.686 2 6 2s6-.9 6-2v-5"/>
-                    </svg>
+                    <i class="bi bi-mortarboard-fill" style="font-size:22px"></i>
                 </div>
                 <div class="role-stat-body">
                     <span class="role-stat-count" id="stat-aprendices">—</span>
@@ -74,9 +67,7 @@
             </div>
             <div class="role-stat-card role-stat--adm">
                 <div class="role-stat-icon">
-                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-                    </svg>
+                    <i class="bi bi-shield-fill-check" style="font-size:22px"></i>
                 </div>
                 <div class="role-stat-body">
                     <span class="role-stat-count" id="stat-admins">—</span>
@@ -85,9 +76,7 @@
             </div>
             <div class="role-stat-card role-stat--total">
                 <div class="role-stat-icon">
-                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/>
-                    </svg>
+                    <i class="bi bi-people-fill" style="font-size:22px"></i>
                 </div>
                 <div class="role-stat-body">
                     <span class="role-stat-count" id="stat-total">—</span>
@@ -152,11 +141,7 @@
                     <option value="false">Inactivos</option>
                 </select>
                 <button class="btn btn-import" id="btn-open-import">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/>
-                        <polyline points="17 8 12 3 7 8"/>
-                        <line x1="12" y1="3" x2="12" y2="15"/>
-                    </svg>
+                    <i class="bi bi-upload" style="font-size:14px"></i>
                     Importar xlsx
                 </button>
             </div>
@@ -215,17 +200,13 @@
     <!-- ── Barra de acciones masivas ──────────────────────── -->
     <div id="bulk-action-bar" class="bulk-action-bar">
         <div class="bulk-info">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>
-            </svg>
+            <i class="bi bi-check2" style="font-size:16px"></i>
             <span id="bulk-count">0 seleccionados</span>
         </div>
         <div class="bulk-actions">
             <button class="btn-bulk-cancel" id="btn-deselect-all">Cancelar selección</button>
             <button class="btn-bulk-delete" id="btn-bulk-delete">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                    <polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4a1 1 0 011-1h4a1 1 0 011 1v2"/>
-                </svg>
+                <i class="bi bi-trash" style="font-size:14px"></i>
                 Eliminar seleccionados
             </button>
         </div>
@@ -262,9 +243,7 @@
                         <div class="input-wrap">
                             <input type="password" id="input-password" class="form-input" placeholder="••••••••" style="padding-right:2.8rem" autocomplete="new-password">
                             <button type="button" class="toggle-pass" id="btn-toggle-pass">
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>
-                                </svg>
+                                <i class="bi bi-eye" style="font-size:16px"></i>
                             </button>
                         </div>
                         <span class="form-error" id="error-password"></span>
@@ -277,27 +256,21 @@
                             <label class="role-radio">
                                 <input type="radio" name="rol" value="aprendiz">
                                 <span class="role-label">
-                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                        <path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c0 1.1 2.686 2 6 2s6-.9 6-2v-5"/>
-                                    </svg>
+                                    <i class="bi bi-mortarboard" style="font-size:14px"></i>
                                     Aprendiz
                                 </span>
                             </label>
                             <label class="role-radio">
                                 <input type="radio" name="rol" value="instructor">
                                 <span class="role-label">
-                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                        <rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>
-                                    </svg>
+                                    <i class="bi bi-person-workspace" style="font-size:14px"></i>
                                     Instructor
                                 </span>
                             </label>
                             <label class="role-radio">
                                 <input type="radio" name="rol" value="admin">
                                 <span class="role-label">
-                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-                                    </svg>
+                                    <i class="bi bi-gear" style="font-size:14px"></i>
                                     Admin
                                 </span>
                             </label>
@@ -361,10 +334,7 @@
             </div>
             <div class="modal-confirm-body">
                 <div class="warn-delete-icon">
-                    <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/>
-                        <line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>
-                    </svg>
+                    <i class="bi bi-exclamation-triangle-fill" style="font-size:36px"></i>
                 </div>
                 <p><strong id="warn-user-name"></strong> es un aprendiz activo con datos asociados:</p>
                 <div class="warn-delete-counts">
@@ -429,11 +399,7 @@
                 <!-- STEP 1: Upload -->
                 <div id="import-step-1">
                     <div class="import-drop-area" id="import-drop">
-                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" style="color:var(--gray-300)">
-                            <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/>
-                            <polyline points="17 8 12 3 7 8"/>
-                            <line x1="12" y1="3" x2="12" y2="15"/>
-                        </svg>
+                        <i class="bi bi-upload" style="font-size:40px;color:var(--gray-300)"></i>
                         <p class="import-drop-title">Arrastra tu archivo .xlsx aquí</p>
                         <p class="import-drop-sub">o haz clic para seleccionar</p>
                         <input type="file" id="import-file" accept=".xlsx" style="display:none">
@@ -441,11 +407,7 @@
                     <div class="import-template-row">
                         <span style="font-size:.82rem;color:var(--gray-400)">¿No tienes el formato? </span>
                         <button class="btn btn-ghost btn-sm" id="btn-download-template">
-                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/>
-                                <polyline points="7 10 12 15 17 10"/>
-                                <line x1="12" y1="15" x2="12" y2="3"/>
-                            </svg>
+                            <i class="bi bi-download" style="font-size:13px"></i>
                             Descargar plantilla
                         </button>
                     </div>
@@ -472,11 +434,7 @@
                     <div class="import-footer">
                         <button class="btn btn-ghost" id="btn-import-back">Volver</button>
                         <button class="btn btn-primary" id="btn-do-import">
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/>
-                                <polyline points="17 8 12 3 7 8"/>
-                                <line x1="12" y1="3" x2="12" y2="15"/>
-                            </svg>
+                            <i class="bi bi-upload" style="font-size:14px"></i>
                             Importar <span id="import-count">0</span> aprendices
                         </button>
                     </div>

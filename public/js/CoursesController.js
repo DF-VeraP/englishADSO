@@ -52,7 +52,7 @@ function render(list) {
             <td>
                 ${(c.fichas && c.fichas.length)
                     ? `<button class="btn-fichas-count" data-curso-id="${c.id}">
-                           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                           <i class="bi bi-calendar3" style="font-size:12px"></i>
                            ${c.fichas.length} ficha${c.fichas.length !== 1 ? 's' : ''}
                        </button>`
                     : '<span class="no-fichas-label">Sin asignar</span>'
@@ -67,14 +67,14 @@ function render(list) {
             </td>
             <td class="actions-cell">
                 <button class="btn-action btn-modules" data-id="${c.id}" data-titulo="${esc(c.titulo)}" title="Gestionar módulos">
-                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>
+                    <i class="bi bi-book-fill" style="font-size:15px"></i>
                 </button>
                 <button class="btn-action btn-edit" data-id="${c.id}" title="Editar">
-                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                    <i class="bi bi-pencil" style="font-size:15px"></i>
                 </button>
                 ${isAdmin ? `
                 <button class="btn-action btn-delete" data-id="${c.id}" data-name="${esc(c.titulo)}" title="Eliminar">
-                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4a1 1 0 011-1h4a1 1 0 011 1v2"/></svg>
+                    <i class="bi bi-trash" style="font-size:15px"></i>
                 </button>` : ''}
             </td>
         </tr>`).join('');

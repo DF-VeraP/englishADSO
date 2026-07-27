@@ -242,10 +242,7 @@ class UsersController {
             tbody.innerHTML = '';
             state.style.display = 'block';
             state.innerHTML = `
-                <svg width="40" height="40" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
-                    <path stroke-linecap="round" stroke-linejoin="round"
-                        d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/>
-                </svg>
+                <i class="bi bi-people-fill" style="font-size:40px;opacity:.4"></i>
                 <p>No se encontraron resultados</p>`;
             this._syncCheckAll(role, []);
             return;
@@ -335,10 +332,7 @@ class UsersController {
         this.tbodyEls[role].innerHTML = '';
         this.stateEls[role].style.display = 'block';
         this.stateEls[role].innerHTML = `
-            <svg width="40" height="40" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
-                <path stroke-linecap="round" stroke-linejoin="round"
-                    d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/>
-            </svg>
+            <i class="bi bi-people-fill" style="font-size:40px;opacity:.4"></i>
             <p>${msg}</p>`;
     }
 
@@ -376,7 +370,7 @@ class UsersController {
 
         const btn = document.getElementById('btn-bulk-delete');
         btn.disabled = true;
-        btn.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="animation:spin 1s linear infinite"><line x1="12" y1="2" x2="12" y2="6"/><line x1="12" y1="18" x2="12" y2="22"/><line x1="4.93" y1="4.93" x2="7.76" y2="7.76"/><line x1="16.24" y1="16.24" x2="19.07" y2="19.07"/><line x1="2" y1="12" x2="6" y2="12"/><line x1="18" y1="12" x2="22" y2="12"/><line x1="4.93" y1="19.07" x2="7.76" y2="16.24"/><line x1="16.24" y1="7.76" x2="19.07" y2="4.93"/></svg> Eliminando...`;
+        btn.innerHTML = `<i class="bi bi-arrow-repeat" style="font-size:14px;animation:spin 1s linear infinite"></i> Eliminando...`;
 
         const ids = [...this.selectedIds];
         const results = await Promise.allSettled(ids.map(id => this.service.remove(id)));
@@ -393,7 +387,7 @@ class UsersController {
         }
 
         btn.disabled = false;
-        btn.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4a1 1 0 011-1h4a1 1 0 011 1v2"/></svg> Eliminar seleccionados`;
+        btn.innerHTML = `<i class="bi bi-trash" style="font-size:14px"></i> Eliminar seleccionados`;
 
         await this.loadUsers();
     }
@@ -703,9 +697,7 @@ class UsersController {
                 </div>
                 <span class="estado-badge estado-${f.estado}">${f.estado}</span>
                 <button class="btn btn-icon btn-delete" data-ficha-id="${f.id}" title="Quitar ficha" style="margin-left:.5rem">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                        <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
-                    </svg>
+                    <i class="bi bi-x-lg" style="font-size:14px"></i>
                 </button>
             </div>`).join('');
 
@@ -856,7 +848,7 @@ class UsersController {
         if (!this.importRows?.length) return;
         const btn = document.getElementById('btn-do-import');
         btn.disabled = true;
-        btn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="animation:spin 1s linear infinite"><line x1="12" y1="2" x2="12" y2="6"/><line x1="12" y1="18" x2="12" y2="22"/><line x1="4.93" y1="4.93" x2="7.76" y2="7.76"/><line x1="16.24" y1="16.24" x2="19.07" y2="19.07"/><line x1="2" y1="12" x2="6" y2="12"/><line x1="18" y1="12" x2="22" y2="12"/><line x1="4.93" y1="19.07" x2="7.76" y2="16.24"/><line x1="16.24" y1="7.76" x2="19.07" y2="4.93"/></svg> Importando...';
+        btn.innerHTML = '<i class="bi bi-arrow-repeat" style="font-size:14px;animation:spin 1s linear infinite"></i> Importando...';
 
         try {
             const token = this.service.getToken();
@@ -933,26 +925,11 @@ class UsersController {
     }
 
     /* ── Icons ───────────────────────────────────────────── */
-    editIcon() {
-        return `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>`;
-    }
-    deleteIcon() {
-        return `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4a1 1 0 011-1h4a1 1 0 011 1v2"/></svg>`;
-    }
-    fichasIcon() {
-        return `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>`;
-    }
-    eyeIcon() {
-        return `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>`;
-    }
-    eyeOffIcon() {
-        return `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M17.94 17.94A10.07 10.07 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94M9.9 4.24A9.12 9.12 0 0112 4c7 0 11 8 11 8a18.5 18.5 0 01-2.16 3.19"/><line x1="1" y1="1" x2="23" y2="23"/></svg>`;
-    }
+    editIcon()    { return `<i class="bi bi-pencil" style="font-size:15px"></i>`; }
+    deleteIcon()  { return `<i class="bi bi-trash" style="font-size:15px"></i>`; }
+    fichasIcon()  { return `<i class="bi bi-calendar3" style="font-size:15px"></i>`; }
+    eyeIcon()     { return `<i class="bi bi-eye" style="font-size:16px"></i>`; }
+    eyeOffIcon()  { return `<i class="bi bi-eye-slash" style="font-size:16px"></i>`; }
 }
 
 document.addEventListener('DOMContentLoaded', () => new UsersController());

@@ -54,6 +54,32 @@ class CoursesService {
         return this._req(`${this.base}/${cursoId}/modules/${id}`, { method: 'DELETE' });
     }
 
+    // Actividades (instructor)
+    getMomentos(cursoId, moduloId) {
+        return this._req(`${this.base}/${cursoId}/modules/${moduloId}/momentos`);
+    }
+
+    crearActividad(cursoId, moduloId, momentoId, data) {
+        return this._req(
+            `${this.base}/${cursoId}/modules/${moduloId}/momentos/${momentoId}/actividades`,
+            { method: 'POST', body: JSON.stringify(data) }
+        );
+    }
+
+    actualizarActividad(cursoId, moduloId, momentoId, id, data) {
+        return this._req(
+            `${this.base}/${cursoId}/modules/${moduloId}/momentos/${momentoId}/actividades/${id}`,
+            { method: 'PUT', body: JSON.stringify(data) }
+        );
+    }
+
+    eliminarActividad(cursoId, moduloId, momentoId, id) {
+        return this._req(
+            `${this.base}/${cursoId}/modules/${moduloId}/momentos/${momentoId}/actividades/${id}`,
+            { method: 'DELETE' }
+        );
+    }
+
     // Inscripciones
     listInscripciones(params = {}) {
         const qs = new URLSearchParams(params).toString();

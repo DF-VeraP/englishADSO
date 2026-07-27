@@ -68,11 +68,12 @@ class _ModulesModal {
             const id     = Number(btn.dataset.id);
             const action = btn.dataset.action;
             btn.addEventListener('click', () => {
-                if      (action === 'edit')   this._openForm(this._modulos.find(x => x.id === id));
-                else if (action === 'delete') this._delete(id);
-                else if (action === 'up')     this._move(id, -1);
-                else if (action === 'down')   this._move(id,  1);
-                else if (action === 'toggle') this._toggleEstado(id);
+                if      (action === 'edit')       this._openForm(this._modulos.find(x => x.id === id));
+                else if (action === 'delete')     this._delete(id);
+                else if (action === 'up')         this._move(id, -1);
+                else if (action === 'down')       this._move(id,  1);
+                else if (action === 'toggle')     this._toggleEstado(id);
+                else if (action === 'activities') ActivitiesModal.open(this._cursoId, id, this._modulos.find(x => x.id === id)?.titulo || '');
             });
         });
     }
@@ -95,19 +96,14 @@ class _ModulesModal {
                 <button class="modulo-status-pill ${m.estado ? 'active' : ''}" data-action="toggle" data-id="${m.id}">
                     ${m.estado ? 'Activo' : 'Inactivo'}
                 </button>
+                <button class="modulo-btn-icon activities" data-action="activities" data-id="${m.id}" title="Gestionar actividades">
+                    <i class="bi bi-grid-3x3-gap-fill" style="font-size:14px"></i>
+                </button>
                 <button class="modulo-btn-icon edit"   data-action="edit"   data-id="${m.id}" title="Editar">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/>
-                        <path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/>
-                    </svg>
+                    <i class="bi bi-pencil" style="font-size:14px"></i>
                 </button>
                 <button class="modulo-btn-icon delete" data-action="delete" data-id="${m.id}" title="Eliminar">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <polyline points="3 6 5 6 21 6"/>
-                        <path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"/>
-                        <path d="M10 11v6"/><path d="M14 11v6"/>
-                        <path d="M9 6V4a1 1 0 011-1h4a1 1 0 011 1v2"/>
-                    </svg>
+                    <i class="bi bi-trash" style="font-size:14px"></i>
                 </button>
             </div>
         </div>`;

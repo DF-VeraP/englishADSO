@@ -42,7 +42,8 @@ const updateMe = async (req, res) => {
 
         const data = {};
 
-        if (nombre_usuario !== undefined) {
+        // Solo admin puede cambiar el nombre
+        if (nombre_usuario !== undefined && req.user.rol === 'admin') {
             data.nombre_usuario = nombre_usuario.trim() || null;
         }
 

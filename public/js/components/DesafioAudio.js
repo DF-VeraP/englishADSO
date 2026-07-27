@@ -27,12 +27,7 @@ class DesafioAudio {
 
             <div class="recorder-area">
                 <button class="btn-record" id="da-btn-rec" title="${titulo || 'Grabar audio'}">
-                    <svg width="28" height="28" viewBox="0 0 24 24" fill="white" stroke="none">
-                        <path d="M12 1a3 3 0 00-3 3v8a3 3 0 006 0V4a3 3 0 00-3-3z"/>
-                        <path d="M19 10v2a7 7 0 01-14 0v-2" stroke="white" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-                        <line x1="12" y1="19" x2="12" y2="23" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
-                        <line x1="8" y1="23" x2="16" y2="23" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
-                    </svg>
+                    <i class="bi bi-mic-fill" style="font-size:28px;color:white"></i>
                 </button>
                 <div class="recorder-status" id="da-status">Pulsa para grabar tu respuesta</div>
                 <div class="recorder-timer" id="da-timer" style="display:none">0:00 / ${this._fmt(max_seconds)}</div>

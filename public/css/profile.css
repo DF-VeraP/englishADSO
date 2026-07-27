@@ -412,3 +412,18 @@ html[data-theme="light"] .profile-stats { border-top-color: #e2e8f0; }
         padding: 1.5rem;
     }
 }
+
+/* Campo nombre bloqueado para no-admin */
+.pform-input[readonly],
+.inst-form-input[readonly] {
+    background: rgba(148,163,184,.07);
+    color: #64748b;
+    cursor: not-allowed;
+    border-style: dashed;
+}
+html[data-theme="dark"] .pform-input[readonly],
+html[data-theme="dark"] .inst-form-input[readonly] {
+    background: rgba(51,65,85,.3);
+    color: #475569;
+    border-color: #334155;
+}
