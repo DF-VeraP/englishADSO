@@ -53,7 +53,7 @@ html[data-theme="light"] .nav-toggle {
     .app-header .header-left { gap: .5rem; min-width: 0; }
     .app-header .header-right { gap: .5rem; }
 
-    /* ── Cerrar sesión en móvil: sólo icono y a la izquierda ──
+    /* ── Cerrar sesión en móvil: sólo icono y a la derecha ──
        Aplica a los 3 headers (dashboard, admin, instructor).      */
     .app-header .header-right,
     .admin-header .header-user,
@@ -62,8 +62,7 @@ html[data-theme="light"] .nav-toggle {
     .app-header .btn-logout,
     .admin-header .btn-logout,
     .inst-header .inst-btn-logout {
-        order: -1;               /* primero en la fila → queda a la izquierda */
-        margin-right: auto;      /* empuja usuario/tema a la derecha */
+        margin-left: auto;       /* empuja el botón al extremo derecho */
         padding: .45rem;         /* botón cuadrado */
         gap: 0;
         font-size: 0;            /* oculta el texto (esté o no dentro de <span>) */
