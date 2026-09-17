@@ -51,14 +51,26 @@ html[data-theme="light"] .nav-toggle {
         padding: 0 1rem;
     }
     .app-header .header-left { gap: .5rem; min-width: 0; }
-    .app-header .header-right { gap: .5rem; width: 100%; }
+    .app-header .header-right { gap: .5rem; }
 
-    /* Cerrar sesión en móvil: sólo icono y pegado a la izquierda */
-    .app-header .btn-logout {
-        order: -1;               /* primero dentro de header-right */
-        margin-right: auto;      /* empuja el resto a la derecha */
-        padding: .45rem;         /* botón cuadrado (sólo icono) */
+    /* ── Cerrar sesión en móvil: sólo icono y a la izquierda ──
+       Aplica a los 3 headers (dashboard, admin, instructor).      */
+    .app-header .header-right,
+    .admin-header .header-user,
+    .inst-header .inst-header-user { width: 100%; }
+
+    .app-header .btn-logout,
+    .admin-header .btn-logout,
+    .inst-header .inst-btn-logout {
+        order: -1;               /* primero en la fila → queda a la izquierda */
+        margin-right: auto;      /* empuja usuario/tema a la derecha */
+        padding: .45rem;         /* botón cuadrado */
+        gap: 0;
+        font-size: 0;            /* oculta el texto (esté o no dentro de <span>) */
     }
+    .app-header .btn-logout .bi,
+    .admin-header .btn-logout .bi,
+    .inst-header .inst-btn-logout .bi { font-size: 15px; }
     .app-header .btn-logout span { display: none; }
 
     /* header-nav (dashboard) como menú desplegable */
