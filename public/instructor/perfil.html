@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <!-- Guardia de sesion: redirige al login ANTES de pintar la pagina si no hay sesion valida -->
+    <!-- Guardia de sesion: oculta la pagina y redirige al login ANTES de pintar si no hay sesion valida -->
+    <style>html{visibility:hidden}</style>
     <script>
     (function () {
+      function reveal() { document.documentElement.style.visibility = 'visible'; }
       try {
         var t = localStorage.getItem('token') || sessionStorage.getItem('token');
         var ok = false;
@@ -16,6 +18,8 @@
             localStorage.removeItem(k); sessionStorage.removeItem(k);
           });
           window.location.replace('/login.html');
+        } else {
+          reveal();
         }
       } catch (e) {
         window.location.replace('/login.html');
