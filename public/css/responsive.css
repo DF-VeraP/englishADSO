@@ -51,7 +51,15 @@ html[data-theme="light"] .nav-toggle {
         padding: 0 1rem;
     }
     .app-header .header-left { gap: .5rem; min-width: 0; }
-    .app-header .header-right { gap: .5rem; }
+    .app-header .header-right { gap: .5rem; width: 100%; }
+
+    /* Cerrar sesión en móvil: sólo icono y pegado a la izquierda */
+    .app-header .btn-logout {
+        order: -1;               /* primero dentro de header-right */
+        margin-right: auto;      /* empuja el resto a la derecha */
+        padding: .45rem;         /* botón cuadrado (sólo icono) */
+    }
+    .app-header .btn-logout span { display: none; }
 
     /* header-nav (dashboard) como menú desplegable */
     .app-header .header-nav {
