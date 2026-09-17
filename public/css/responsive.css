@@ -205,6 +205,7 @@ html[data-theme="light"] .nav-toggle {
     .stats-row,
     .dash-stats,
     .role-group,
+    .role-stats-bar,
     .inst-cards-grid { grid-template-columns: 1fr !important; }
 
     /* Títulos grandes: reducir para que no desborden */
@@ -215,4 +216,104 @@ html[data-theme="light"] .nav-toggle {
     .app-main,
     .admin-main,
     .inst-main { padding-left: 1rem; padding-right: 1rem; }
+}
+
+/* ════════════════════════════════════════════════════════════
+   REESTRUCTURACIÓN MÓVIL INTEGRAL  ≤ 768px
+   Objetivo: layout adaptativo e intuitivo (pensado para el pulgar)
+   ════════════════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+
+    /* Aire lateral e inferior cómodo en todas las vistas */
+    .app-main, .admin-main, .inst-main, .profile-main {
+        padding-left: 1rem;
+        padding-right: 1rem;
+        padding-bottom: 3rem;
+    }
+
+    /* ── Cabecera de página: título arriba, acción a lo ancho ── */
+    .page-header, .inst-page-header {
+        flex-direction: column;
+        align-items: stretch;
+        gap: .9rem;
+    }
+    .page-header .btn,
+    .page-header .btn-primary,
+    .inst-page-header .btn,
+    .inst-page-header .inst-btn {
+        width: 100%;
+        justify-content: center;
+        min-height: 44px;          /* área táctil cómoda */
+    }
+    .page-title, .inst-page-title { font-size: 1.4rem; line-height: 1.2; }
+    .page-subtitle, .inst-page-sub { font-size: .9rem; }
+
+    /* ── Filtros / buscadores: apilados y a lo ancho ── */
+    .filters-bar, .pane-toolbar, .filter-bar,
+    .members-search-bar, .apr-search-bar {
+        flex-direction: column;
+        align-items: stretch;
+        gap: .6rem;
+    }
+    .filters-bar > *, .pane-toolbar > *, .filter-bar > *,
+    .members-search-bar > *,
+    .search-input, .select-filter,
+    .members-search-input, .apr-search-wrap, .apr-search-input {
+        width: 100%;
+        min-width: 0;
+        flex: 1 1 auto;
+    }
+    .search-input, .select-filter,
+    .members-search-input, .apr-search-input { min-height: 44px; }
+
+    /* ── Tabs: scroll horizontal, nunca cortadas ── */
+    .page-tabs, .tabs, .inst-tabs {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        overflow-y: hidden;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+    }
+    .page-tabs::-webkit-scrollbar,
+    .tabs::-webkit-scrollbar,
+    .inst-tabs::-webkit-scrollbar { display: none; }
+    .page-tab-btn, .tab-btn, .inst-tab-btn {
+        flex: 0 0 auto;
+        white-space: nowrap;
+    }
+
+    /* ── Grid de estadísticas por rol: 2 columnas ── */
+    .role-stats-bar { grid-template-columns: repeat(2, 1fr); gap: .75rem; }
+
+    /* ── Barra de acción masiva: cabe en pantalla y se apila ── */
+    .bulk-action-bar {
+        min-width: 0;
+        width: calc(100vw - 1.5rem);
+        max-width: 460px;
+        flex-direction: column;
+        align-items: stretch;
+        gap: .75rem;
+        white-space: normal;
+    }
+    .bulk-actions { display: flex; gap: .5rem; }
+    .bulk-actions > * { flex: 1; }
+
+    /* ── Perfil: una sola columna ── */
+    .profile-grid { grid-template-columns: 1fr; gap: 1.25rem; }
+    .pform-actions, .perfil-actions {
+        flex-direction: column-reverse;   /* acción principal abajo (pulgar) */
+        align-items: stretch;
+        gap: .6rem;
+    }
+    .pform-actions > *, .perfil-actions > * {
+        width: 100%;
+        justify-content: center;
+        min-height: 44px;
+    }
+
+    /* ── Tablas anchas: scroll horizontal suave con inercia ── */
+    .table-card, .table-container, .import-preview-wrap {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
 }
