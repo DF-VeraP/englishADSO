@@ -1,0 +1,190 @@
+/* ============================================================
+   SpeakSoft — Capa responsive / móvil (compartida)
+   Se carga DESPUÉS de las demás hojas para ganar en cascada.
+   Cubre: overflow horizontal, headers, navegación móvil
+   (hamburguesa), tablas, modales, grids y el player de curso.
+   ============================================================ */
+
+/* ── Anti-overflow horizontal global ───────────────────────── */
+img, video, canvas, svg { max-width: 100%; }
+table { max-width: 100%; }
+
+/* ── Botón hamburguesa (lo inyecta mobile-menu.js) ─────────── */
+.nav-toggle {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, .10);
+    border: 1px solid rgba(255, 255, 255, .18);
+    color: #fff;
+    cursor: pointer;
+    font-size: 1.35rem;
+    line-height: 1;
+    flex: 0 0 auto;
+    transition: background .15s ease;
+}
+.nav-toggle:hover { background: rgba(255, 255, 255, .18); }
+.nav-toggle .bi { pointer-events: none; }
+html[data-theme="light"] .nav-toggle {
+    background: rgba(0, 0, 0, .05);
+    border-color: rgba(0, 0, 0, .12);
+    color: #0f172a;
+}
+
+/* ════════════════════════════════════════════════════════════
+   ≤ 768px  — teléfonos y tablets en vertical
+   ════════════════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+    html, body { overflow-x: hidden; }
+
+    /* Mostrar la hamburguesa sólo cuando hay un nav que togglear */
+    .nav-toggle.has-nav { display: inline-flex; }
+
+    /* ── Header del dashboard (app-header) ─────────────────── */
+    .app-header {
+        position: relative;
+        flex-wrap: wrap;
+        row-gap: .5rem;
+        padding: 0 1rem;
+    }
+    .app-header .header-left { gap: .5rem; min-width: 0; }
+    .app-header .header-right { gap: .5rem; }
+
+    /* header-nav (dashboard) como menú desplegable */
+    .app-header .header-nav {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        flex-direction: column;
+        align-items: stretch;
+        gap: .15rem;
+        padding: .5rem;
+        background: #0f172a;
+        border-top: 1px solid rgba(255, 255, 255, .08);
+        box-shadow: 0 14px 32px rgba(0, 0, 0, .45);
+        z-index: 300;
+    }
+    .app-header.nav-open .header-nav { display: flex; }
+    .app-header .header-nav .nav-item { width: 100%; border-radius: 8px; }
+
+    /* ── Header admin ─────────────────────────────────────── */
+    .admin-header {
+        position: relative;
+        flex-wrap: wrap;
+        row-gap: .5rem;
+    }
+    .admin-header .header-brand { gap: .5rem; min-width: 0; flex-wrap: wrap; }
+    /* el <nav> inline de admin → menú desplegable */
+    .admin-header .header-brand nav {
+        display: none !important;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        flex-direction: column;
+        align-items: stretch;
+        gap: .15rem;
+        margin: 0 !important;
+        padding: .5rem;
+        background: #0f172a;
+        border-top: 1px solid rgba(255, 255, 255, .08);
+        box-shadow: 0 14px 32px rgba(0, 0, 0, .45);
+        z-index: 300;
+    }
+    .admin-header.nav-open .header-brand nav { display: flex !important; }
+    .admin-header .header-brand nav .header-nav-link {
+        display: block;
+        width: 100%;
+        padding: .6rem .75rem;
+        border-radius: 8px;
+        color: rgba(255, 255, 255, .85);
+    }
+    .admin-header .header-brand nav .header-nav-link.active,
+    .admin-header .header-brand nav .header-nav-link:hover {
+        background: rgba(255, 255, 255, .10);
+        color: #fff;
+    }
+
+    /* ── Header instructor ────────────────────────────────── */
+    .inst-header { flex-wrap: wrap; row-gap: .5rem; }
+    .inst-header .inst-header-brand,
+    .inst-header .inst-header-user { min-width: 0; }
+
+    /* ── Tablas: permitir scroll horizontal en vez de aplastar ─ */
+    .table-card,
+    .table-container,
+    .import-preview-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    .data-table,
+    .users-table { min-width: 560px; }
+
+    /* ── Modales: caber en pantalla y hacer scroll ────────── */
+    .modal,
+    .modal-dialog,
+    .modal-detail-inner,
+    .inst-modal {
+        width: 95vw !important;
+        max-width: 95vw !important;
+        max-height: 90vh;
+        display: flex;
+        flex-direction: column;
+    }
+    .modal-body,
+    .modal-detail-body,
+    .inst-modal-body { overflow-y: auto; }
+    .modal-footer,
+    .modal-actions,
+    .modal-confirm-actions,
+    .inst-modal-footer { flex-wrap: wrap; }
+
+    /* ── Player de curso: sidebar como drawer deslizable ──── */
+    .player-sidebar {
+        display: block !important;
+        position: fixed;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        width: 82vw;
+        max-width: 320px;
+        z-index: 400;
+        transform: translateX(-100%);
+        transition: transform .28s ease;
+        overflow-y: auto;
+        box-shadow: 0 0 40px rgba(0, 0, 0, .5);
+    }
+    .player-layout.sidebar-open .player-sidebar { transform: translateX(0); }
+    /* backdrop */
+    .player-sidebar-backdrop {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, .5);
+        z-index: 390;
+    }
+    .player-layout.sidebar-open .player-sidebar-backdrop { display: block; }
+}
+
+/* ════════════════════════════════════════════════════════════
+   ≤ 480px  — teléfonos pequeños
+   ════════════════════════════════════════════════════════════ */
+@media (max-width: 480px) {
+    /* Grids a una sola columna (refuerzo por si alguna hoja no lo hace) */
+    .cards-grid,
+    .stats-row,
+    .dash-stats,
+    .role-group,
+    .inst-cards-grid { grid-template-columns: 1fr !important; }
+
+    /* Títulos grandes: reducir para que no desborden */
+    .welcome-text h1,
+    .page-title { font-size: 1.4rem; }
+
+    /* Padding lateral cómodo y consistente */
+    .app-main,
+    .admin-main,
+    .inst-main { padding-left: 1rem; padding-right: 1rem; }
+}
