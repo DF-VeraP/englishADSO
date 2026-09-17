@@ -608,7 +608,7 @@ html, body {
         width: 100%;
         min-height: auto;
         background: linear-gradient(155deg, #0e2a50 0%, #0f172a 100%);
-        padding: 2rem 1.5rem 1rem;
+        padding: 2rem 1.5rem 0;
     }
 
     .form-container {
@@ -624,17 +624,21 @@ html, body {
         display: block;
     }
 
-    /* El muñeco vuelve a mostrarse: abajo y alineado a la izquierda */
+    /* El muñeco vuelve a mostrarse: subido y metido hacia el formulario */
     .login-panel--left {
         display: flex;
         order: 2;
         flex: none;
         width: 100%;
         min-height: auto;
-        padding: 0.5rem 1.5rem 2rem;
+        padding: 0 1.5rem 1.5rem;
+        margin-top: -3.75rem;         /* lo sube, metiendolo dentro del form */
+        position: relative;
+        z-index: 3;                   /* que se vea por encima ("dentro" del form) */
+        background: transparent;      /* sin bloque oscuro que tape la card */
+        pointer-events: none;         /* decorativo: no bloquea el link del footer */
         align-items: flex-start;
         justify-content: flex-start;
-        background: linear-gradient(155deg, #0f172a 0%, #0c1a38 100%);
     }
 
     .login-panel--left .illustration-wrap {
