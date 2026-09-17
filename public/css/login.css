@@ -632,7 +632,7 @@ html, body {
         width: 100%;
         min-height: auto;
         padding: 0 1.5rem 1.5rem;
-        margin-top: -3.75rem;         /* lo sube, metiendolo dentro del form */
+        margin-top: -6rem;            /* lo sube, metiendolo dentro del form */
         position: relative;
         z-index: 3;                   /* que se vea por encima ("dentro" del form) */
         background: transparent;      /* sin bloque oscuro que tape la card */
