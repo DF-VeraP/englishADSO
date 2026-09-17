@@ -66,12 +66,19 @@ html[data-theme="light"] .nav-toggle {
         padding: .45rem;         /* botón cuadrado */
         gap: 0;
         font-size: 0;            /* oculta el texto (esté o no dentro de <span>) */
-        position: relative;
-        top: -6px;               /* sube un poco el icono */
+        align-self: center;      /* centrado vertical, a la misma altura que el tema */
     }
     .app-header .btn-logout .bi,
     .admin-header .btn-logout .bi,
-    .inst-header .inst-btn-logout .bi { font-size: 15px; }
+    .inst-header .inst-btn-logout .bi {
+        font-size: 15px;
+        line-height: 1;
+        display: block;          /* icono centrado dentro del botón */
+    }
+    /* El botón de tema alineado igual que el logout */
+    .app-header #theme-toggle-btn,
+    .admin-header #theme-toggle-btn,
+    .inst-header #theme-toggle-btn { align-self: center; }
     .app-header .btn-logout span { display: none; }
 
     /* header-nav (dashboard) como menú desplegable */
