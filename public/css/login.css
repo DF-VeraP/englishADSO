@@ -595,16 +595,20 @@ html, body {
 
 /* ── Responsive ─────────────────────────────────────────── */
 
-/* Ocultar el panel izquierdo en tablets pequeñas y móviles */
+/* En tablets pequeñas y móviles: apilar formulario arriba y muñeco abajo-izquierda */
 @media (max-width: 900px) {
-    .login-panel--left {
-        display: none;
+    .login-wrapper {
+        flex-direction: column;
     }
 
+    /* El formulario queda arriba */
     .login-panel--right {
-        flex: 1;
+        order: 1;
+        flex: none;
+        width: 100%;
+        min-height: auto;
         background: linear-gradient(155deg, #0e2a50 0%, #0f172a 100%);
-        padding: 2rem 1.5rem;
+        padding: 2rem 1.5rem 1rem;
     }
 
     .form-container {
@@ -613,11 +617,58 @@ html, body {
         padding: 2.5rem 2rem;
         box-shadow: var(--shadow-lg);
         max-width: 460px;
-        margin: auto;
+        margin: 0 auto;
     }
 
     .mobile-logo {
         display: block;
+    }
+
+    /* El muñeco vuelve a mostrarse: abajo y alineado a la izquierda */
+    .login-panel--left {
+        display: flex;
+        order: 2;
+        flex: none;
+        width: 100%;
+        min-height: auto;
+        padding: 0.5rem 1.5rem 2rem;
+        align-items: flex-start;
+        justify-content: flex-start;
+        background: linear-gradient(155deg, #0f172a 0%, #0c1a38 100%);
+    }
+
+    .login-panel--left .illustration-wrap {
+        align-items: flex-start;
+        text-align: left;
+        gap: .75rem;
+        width: 100%;
+    }
+
+    .login-panel--left .nurse-svg {
+        width: min(160px, 45%);
+        animation: none;
+    }
+
+    .login-panel--left .brand-tagline {
+        width: 100%;
+    }
+
+    .login-panel--left .brand-tagline > div {
+        text-align: left !important;
+    }
+
+    .login-panel--left .brand-tagline > div span {
+        font-size: 2rem !important;
+    }
+
+    .login-panel--left .brand-sub {
+        text-align: left;
+    }
+
+    /* Adornos que estorban en móvil */
+    .login-panel--left .float-card,
+    .login-panel--left .stats-row {
+        display: none;
     }
 }
 
