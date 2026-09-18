@@ -203,9 +203,7 @@ html[data-theme="light"] .nav-toggle {
     /* Grids a una sola columna (refuerzo por si alguna hoja no lo hace) */
     .cards-grid,
     .stats-row,
-    .dash-stats,
     .role-group,
-    .role-stats-bar,
     .inst-cards-grid { grid-template-columns: 1fr !important; }
 
     /* Títulos grandes: reducir para que no desborden */
@@ -282,8 +280,15 @@ html[data-theme="light"] .nav-toggle {
         white-space: nowrap;
     }
 
-    /* ── Grid de estadísticas por rol: 2 columnas ── */
-    .role-stats-bar { grid-template-columns: repeat(2, 1fr); gap: .75rem; }
+    /* ── Grids de stats/KPIs (usuarios, reportes): 2 columnas como el dashboard ── */
+    .role-stats-bar,
+    .reports-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        gap: .75rem;
+    }
+    .role-stat-card, .report-kpi { min-width: 0; }
+    .role-stat-card .role-stat-body,
+    .role-stat-card > div:last-child { min-width: 0; }
 
     /* ── Barra de acción masiva: cabe en pantalla y se apila ── */
     .bulk-action-bar {
@@ -346,6 +351,24 @@ html[data-theme="light"] .nav-toggle {
         white-space: nowrap;
     }
 
+    /* ── Header de Reportes (usa .app-header): mismo trato que admin ── */
+    .app-header {
+        flex-wrap: nowrap !important;   /* una sola fila */
+        height: 66px;
+        align-items: center;
+    }
+    .app-header .header-left { min-width: 0; }
+    .app-header .header-right {
+        width: auto;          /* anula el width:100% general → no colapsa el logo */
+        flex-shrink: 0;
+        align-items: center;
+        gap: .4rem;
+    }
+    .app-header .btn-logout { margin-left: 0; }
+    /* pill compacto en móvil: sólo el avatar (el nombre está en el saludo) */
+    .app-header .user-pill { padding: .25rem; }
+    .app-header .user-pill .user-info { display: none; }
+
     /* ── Cuerpo del dashboard admin ── */
     .dash-welcome {
         flex-direction: column;
@@ -368,12 +391,27 @@ html[data-theme="light"] .nav-toggle {
     .dash-stat-card .dash-stat-lbl { overflow-wrap: break-word; }
 }
 
-/* Pantallas angostas: compactar las tarjetas de stats para que quepan 2 col */
+/* Pantallas angostas: compactar tarjetas de stats/KPIs para que quepan 2 col */
 @media (max-width: 480px) {
-    .dash-stats { gap: .6rem; }
+    .dash-stats, .role-stats-bar, .reports-grid { gap: .6rem; }
+
+    /* Dashboard */
     .dash-stat-card { padding: .8rem; gap: .55rem; }
     .dash-stat-icon { width: 38px !important; height: 38px !important; flex-shrink: 0; }
     .dash-stat-icon i { font-size: 18px !important; }
     .dash-stat-num { font-size: 1.35rem; }
     .dash-stat-lbl { font-size: .62rem; letter-spacing: .01em; }
+
+    /* Usuarios (role-stats-bar) */
+    .role-stat-card { padding: .8rem; gap: .55rem; }
+    .role-stat-icon { width: 38px !important; height: 38px !important; flex-shrink: 0; }
+    .role-stat-icon i { font-size: 18px !important; }
+    .role-stat-card .role-stat-lbl,
+    .role-stat-card [class*="lbl"],
+    .role-stat-card [class*="label"] { font-size: .62rem; letter-spacing: .01em; overflow-wrap: break-word; }
+
+    /* Reportes (KPIs) */
+    .report-kpi { padding: 1rem; }
+    .report-kpi .kpi-val { font-size: 1.5rem; }
+    .report-kpi .kpi-label { font-size: .62rem; overflow-wrap: break-word; }
 }
