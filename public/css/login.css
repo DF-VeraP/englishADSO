@@ -595,66 +595,92 @@ html, body {
 
 /* ── Responsive ─────────────────────────────────────────── */
 
-/* Ocultar el panel izquierdo en tablets pequeñas y móviles */
+/* ── Móvil / tablet: marca (hero) arriba + formulario abajo ── */
 @media (max-width: 900px) {
+    /* Permitir que el documento crezca y haga scroll natural */
+    html, body { height: auto; min-height: 100%; }
+
+    .login-wrapper {
+        flex-direction: column;
+        min-height: 100vh;
+    }
+
+    /* ═══ HERO de marca (arriba) ═══ */
     .login-panel--left {
-        display: none;
+        display: flex;
+        order: 0;
+        flex: none;
+        width: 100%;
+        min-height: auto;
+        padding: 2.5rem 1.25rem 1.9rem;
+        border-radius: 0 0 30px 30px;
     }
+    .login-panel--left .illustration-wrap {
+        gap: 1rem;
+        width: 100%;
+    }
+    .login-panel--left .nurse-svg {
+        width: 132px;
+        animation: none;
+    }
+    .login-panel--left .brand-tagline { margin-top: .2rem; }
+    .login-panel--left .brand-tagline > div span { font-size: 2.2rem !important; }
+    .login-panel--left .brand-sub { font-size: .85rem; }
+    .login-panel--left .stats-row {
+        gap: 1.1rem;
+        padding: .7rem 1.3rem;
+    }
+    .login-panel--left .stat-num { font-size: 1rem; }
+    .login-panel--left .stat-label { font-size: .6rem; }
 
+    /* pills flotantes: esquinas del hero + progreso fijo abajo */
+    .float-card { font-size: .68rem; padding: .45rem .8rem; }
+    .float-card--1 { top: 1rem;  left: 1rem; }
+    .float-card--2 { top: 1rem;  right: 1rem; }
+    /* El pill de progreso se diseñó para fondo oscuro; en móvil estorba sobre el form */
+    .float-card--3 { display: none; }
+
+    /* ═══ FORMULARIO (abajo, fondo blanco) ═══ */
     .login-panel--right {
-        flex: 1;
-        background: linear-gradient(155deg, #0e2a50 0%, #0f172a 100%);
-        padding: 2rem 1.5rem;
-    }
-
-    .form-container {
+        order: 1;
+        flex: none;
+        width: 100%;
+        min-height: auto;
+        overflow: visible;        /* que scrollee la página, no el panel */
         background: var(--white);
-        border-radius: 24px;
-        padding: 2.5rem 2rem;
-        box-shadow: var(--shadow-lg);
+        padding: 1.9rem 1.25rem 3.75rem;
+    }
+    .form-container {
         max-width: 460px;
-        margin: auto;
+        margin: 0 auto;
+        padding: .5rem 0;
     }
 
-    .mobile-logo {
-        display: block;
-    }
+    /* La marca ya está en el hero */
+    .mobile-logo { display: none; }
 }
 
 @media (max-width: 480px) {
-    .login-panel--right {
-        padding: 1rem;
-        align-items: flex-start;
-        padding-top: 2rem;
-    }
+    .login-panel--left { padding: 2.25rem 1rem 1.7rem; }
+    .login-panel--left .nurse-svg { width: 112px; }
+    .login-panel--left .brand-tagline > div span { font-size: 1.9rem !important; }
+    .login-panel--left .stats-row { gap: .7rem; padding: .6rem .9rem; }
+    .login-panel--left .stat-num { font-size: .95rem; }
 
-    .form-container {
-        padding: 2rem 1.4rem;
-        border-radius: 20px;
-    }
+    .float-card { font-size: .6rem; padding: .38rem .6rem; }
+    .float-card i { font-size: 15px !important; }
 
-    .form-title {
-        font-size: 1.4rem;
-    }
-
+    .login-panel--right { padding: 1.5rem 1rem 3.75rem; }
+    .form-title { font-size: 1.4rem; }
     .role-btn {
         font-size: .75rem;
         gap: .25rem;
         padding: .5rem .2rem;
     }
-
-    .role-btn svg { display: none; }
-
     .form-options {
         flex-direction: column;
         align-items: flex-start;
         gap: .75rem;
-    }
-
-    .float-card--1,
-    .float-card--2,
-    .float-card--3 {
-        display: none;
     }
 }
 
