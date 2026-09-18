@@ -324,6 +324,28 @@ html[data-theme="light"] .nav-toggle {
    ════════════════════════════════════════════════════════════ */
 @media (max-width: 768px) {
 
+    /* ── Header admin: todo en una fila (acciones arriba, sin caerse) ── */
+    .admin-header {
+        flex-wrap: nowrap !important;   /* evita que las acciones bajen de fila */
+        height: 64px;
+        align-items: center;
+        row-gap: 0;
+    }
+    .admin-header .header-brand { flex-wrap: nowrap; min-width: 0; }
+    .admin-header .header-user {
+        width: auto;          /* anula el width:100% general → no colapsa el brand */
+        flex-shrink: 0;
+        align-items: center;
+        gap: .4rem;
+    }
+    .admin-header .btn-logout { margin-left: 0; }   /* ya no hace falta empujar */
+    /* nombre/correo del usuario: que no empuje las acciones fuera */
+    .admin-header .header-user-name {
+        max-width: 0;
+        overflow: hidden;
+        white-space: nowrap;
+    }
+
     /* ── Cuerpo del dashboard admin ── */
     .dash-welcome {
         flex-direction: column;
