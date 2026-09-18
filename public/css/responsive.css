@@ -317,3 +317,77 @@ html[data-theme="light"] .nav-toggle {
         -webkit-overflow-scrolling: touch;
     }
 }
+
+/* ════════════════════════════════════════════════════════════
+   DASHBOARD ADMIN móvil  ≤ 768px
+   Header con nav en barra horizontal + stats en 2 columnas
+   ════════════════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+
+    /* ── Header admin: 2 filas (marca+acciones / nav) ── */
+    .admin-header {
+        position: relative;
+        flex-wrap: wrap;
+        row-gap: .5rem;
+        align-items: flex-start;
+    }
+    .admin-header .header-brand {
+        width: 100%;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: .5rem;
+        padding-right: 96px;   /* deja hueco para las acciones */
+    }
+    /* Acciones (tema + salir) ancladas arriba a la derecha */
+    .admin-header .header-user {
+        position: absolute;
+        top: .85rem;
+        right: 1rem;
+        width: auto;
+        margin: 0;
+    }
+
+    /* Nav SIEMPRE visible como barra horizontal scrollable */
+    .admin-header .header-brand nav {
+        display: flex !important;
+        position: static !important;
+        order: 5;
+        width: 100%;
+        margin: .1rem 0 0 0 !important;
+        padding: 0 !important;
+        background: transparent !important;
+        border: none !important;
+        box-shadow: none !important;
+        flex-direction: row !important;
+        flex-wrap: nowrap !important;
+        overflow-x: auto;
+        gap: .4rem;
+        scrollbar-width: none;
+    }
+    .admin-header .header-brand nav::-webkit-scrollbar { display: none; }
+    .admin-header .header-brand nav .header-nav-link {
+        display: inline-flex !important;
+        align-items: center;
+        width: auto !important;
+        flex: 0 0 auto;
+        white-space: nowrap;
+    }
+    /* La nav ya está visible → sin hamburguesa en admin */
+    .admin-header .nav-toggle { display: none !important; }
+
+    /* ── Cuerpo del dashboard admin ── */
+    .dash-welcome {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: .3rem;
+        margin-bottom: 1.5rem;
+    }
+    .dash-date { padding-top: 0; order: -1; }   /* fecha arriba, como en el diseño */
+
+    /* Stats en 2 columnas */
+    .dash-stats {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: .75rem;
+    }
+    .dash-stat-card { padding: 1rem; }
+}
