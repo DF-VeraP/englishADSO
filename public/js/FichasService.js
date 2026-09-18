@@ -8,10 +8,11 @@ class FichasService {
     }
 
     static async _req(method, url, body) {
-        const opts = { method, headers: this._headers };
+        const opts = { method };
         if (body) opts.body = JSON.stringify(body);
-        const res = await fetch(url, opts);
-        const data = await res.json();
+        // AuthGuard.apiFetch refresca el token automáticamente si expiró (401)
+        const res = await AuthGuard.apiFetch(url, opts);
+        const data = await res.json().catch(() => ({}));
         if (!res.ok) throw new Error(data.message || 'Error en la solicitud');
         return data;
     }

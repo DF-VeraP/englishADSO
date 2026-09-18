@@ -4,15 +4,12 @@ class InstructorService {
     }
 
     static _req(method, url, body) {
-        return fetch(url, {
+        // AuthGuard.apiFetch refresca el token automáticamente si expiró (401)
+        return AuthGuard.apiFetch(url, {
             method,
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${this.getToken()}`,
-            },
             body: body ? JSON.stringify(body) : undefined,
         }).then(async r => {
-            const data = await r.json();
+            const data = await r.json().catch(() => ({}));
             if (!r.ok) throw new Error(data.message || 'Error en la solicitud');
             return data;
         });

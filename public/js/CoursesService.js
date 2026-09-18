@@ -11,8 +11,9 @@ class CoursesService {
         return { 'Content-Type': 'application/json', 'Authorization': `Bearer ${this._token()}` };
     }
 
+    // Usa AuthGuard.apiFetch: refresca el token automáticamente si expiró (401)
     async _req(url, opts = {}) {
-        const res = await fetch(url, { headers: this._headers(), ...opts });
+        const res = await AuthGuard.apiFetch(url, opts);
         const data = await res.json().catch(() => ({}));
         if (!res.ok) throw new Error(data.message || `Error ${res.status}`);
         return data;
@@ -100,7 +101,6 @@ class CoursesService {
 
     // Aprendices disponibles para inscribir
     listAprendices() {
-        return fetch('/api/users?rol=aprendiz', { headers: this._headers() })
-            .then(r => r.json());
+        return AuthGuard.apiFetch('/api/users?rol=aprendiz').then(r => r.json());
     }
 }

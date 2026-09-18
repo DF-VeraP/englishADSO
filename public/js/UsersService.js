@@ -15,11 +15,9 @@ class UsersService {
     }
 
     async request(path, options = {}) {
-        const res = await fetch(this.baseUrl + path, {
-            ...options,
-            headers: this.getHeaders(),
-        });
-        const data = await res.json();
+        // AuthGuard.apiFetch refresca el token automáticamente si expiró (401)
+        const res = await AuthGuard.apiFetch(this.baseUrl + path, options);
+        const data = await res.json().catch(() => ({}));
         if (!res.ok) throw new Error(data.message || 'Error en la solicitud');
         return data;
     }

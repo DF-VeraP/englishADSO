@@ -41,7 +41,7 @@ class AuthGuard {
     }
 
     static clear() {
-        ['token', 'user'].forEach(k => {
+        ['token', 'user', 'refreshToken'].forEach(k => {
             localStorage.removeItem(k);
             sessionStorage.removeItem(k);
         });
@@ -50,5 +50,52 @@ class AuthGuard {
     static logout() {
         this.clear();
         window.location.replace('/login.html');
+    }
+
+    // ── Renovación de token ─────────────────────────────────
+    static _refreshTokenValue() {
+        return localStorage.getItem('refreshToken') || sessionStorage.getItem('refreshToken');
+    }
+
+    // Renueva el access token usando el refresh token. Devuelve true si lo logró.
+    static async refresh() {
+        const refreshToken = this._refreshTokenValue();
+        if (!refreshToken) return false;
+        try {
+            const r = await fetch('/api/auth/refresh', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ refreshToken }),
+            });
+            if (!r.ok) return false;
+            const d = await r.json();
+            const storage = localStorage.getItem('token') ? localStorage : sessionStorage;
+            storage.setItem('token', d.token);
+            if (d.refreshToken) storage.setItem('refreshToken', d.refreshToken);
+            return true;
+        } catch { return false; }
+    }
+
+    // fetch autenticado: si el token expiró (401), lo refresca y reintenta 1 vez.
+    static async apiFetch(url, opts = {}) {
+        const build = () => ({
+            ...opts,
+            headers: {
+                'Content-Type': 'application/json',
+                ...(opts.headers || {}),
+                Authorization: `Bearer ${this.getToken()}`,
+            },
+        });
+
+        let res = await fetch(url, build());
+        if (res.status === 401) {
+            if (await this.refresh()) {
+                res = await fetch(url, build());
+            } else {
+                this.logout();
+                throw new Error('Tu sesión expiró. Vuelve a iniciar sesión.');
+            }
+        }
+        return res;
     }
 }
